@@ -1,10 +1,12 @@
-module github.com/tamararankovic/microservices_demo/catalogue_service
+module github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/post_service
 
 go 1.17
 
-replace github.com/tamararankovic/microservices_demo/common => ../common
-
+replace  github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/common => ../common
 require (
+github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/common v0.0.0-00010101000000-000000000000
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
+	
 	go.mongodb.org/mongo-driver v1.8.4
 	google.golang.org/grpc v1.45.0
 )

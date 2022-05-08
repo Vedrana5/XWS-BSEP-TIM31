@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/tamararankovic/microservices_demo/catalogue_service/startup"
-	cfg "github.com/tamararankovic/microservices_demo/catalogue_service/startup/config"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/post_service/startup"
+	cfg "github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/post_service/startup/config"
 )
 
 func main() {

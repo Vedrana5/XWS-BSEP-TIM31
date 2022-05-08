@@ -1,7 +1,7 @@
 package application
 
 import (
-	"github.com/tamararankovic/microservices_demo/catalogue_service/domain"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/post_service/domain"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
