@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -75,7 +76,7 @@ func SetupDatabase() *gorm.DB {
 		fmt.Printf("Successfully connected to database")
 	}
 
-	//db.AutoMigrate(&data.User{})
+	db.AutoMigrate(&model.User{})
 
 	return db
 }
