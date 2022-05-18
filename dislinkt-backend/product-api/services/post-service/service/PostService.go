@@ -18,15 +18,7 @@ func (service *PostService) CreatePost(post *model.Post) error {
 	return nil
 }
 
-func (service *PostService) FindAllUsers() []model.Post {
-	users := service.Repo.FindAllUsers()
-	if users != nil {
-		return users
-	}
-	return nil
-}
-
 func (service *PostService) FindByID(ID uuid.UUID) *model.Post {
-	user := service.Repo.FindByID(ID)
-	return user
+	post := service.Repo.FindByID(ID)
+	return post
 }
