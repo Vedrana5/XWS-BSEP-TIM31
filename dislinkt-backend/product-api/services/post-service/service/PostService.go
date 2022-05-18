@@ -1,24 +1,24 @@
 package service
 
 import (
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/repository"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/post-service/model"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/post-service/repository"
 	"github.com/google/uuid"
 )
 
-type UserService struct {
-	Repo *repository.UserRepo
+type PostService struct {
+	Repo *repository.PostRepositoty
 }
 
-func (service *UserService) CreateUser(user *model.User) error {
-	err := service.Repo.CreateUser(user)
+func (service *PostService) CreatePost(post *model.Post) error {
+	err := service.Repo.CreatePost(post)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (service *UserService) FindAllUsers() []model.User {
+func (service *PostService) FindAllUsers() []model.Post {
 	users := service.Repo.FindAllUsers()
 	if users != nil {
 		return users
@@ -26,17 +26,7 @@ func (service *UserService) FindAllUsers() []model.User {
 	return nil
 }
 
-func (service *UserService) FindByUserName(userName string) *model.User {
-	user := service.Repo.FindByUserName(userName)
-	return user
-}
-
-func (service *UserService) FindByEmail(email string) *model.User {
-	user := service.Repo.FindByEmail(email)
-	return user
-}
-
-func (service *UserService) FindByID(ID uuid.UUID) *model.User {
+func (service *PostService) FindByID(ID uuid.UUID) *model.Post {
 	user := service.Repo.FindByID(ID)
 	return user
 }
