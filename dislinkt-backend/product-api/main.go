@@ -1,22 +1,52 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"os/signal"
 	"time"
 
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/handler"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/repository"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
+
+	"github.com/sirupsen/logrus"
+
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func main() {
+func initPasswordUtil() *util.PasswordUtil {
+	return &util.PasswordUtil{}
+}
 
+func initUserHandler(passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *handler.RegisterHandler {
+	return &handler.RegisterHandler{
+		passwordUtil,
+		userService,
+		LogInfo,
+		LogError,
+	}
+
+}
+
+func initUserRepo(database *gorm.DB) *repository.UserRepo {
+	return &repository.UserRepo{Database: database}
+}
+
+func initUserService(repo *repository.UserRepo) *service.UserService {
+	return &service.UserService{Repo: repo}
+}
+
+func Pocetn(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "AAAAA")
+}
+
+func Handle(registerHandler *handler.RegisterHandler) {
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
 	router := mux.NewRouter()
 
@@ -28,32 +58,31 @@ func main() {
 		WriteTimeout: 10 * time.Second,  // max time to write response to the client
 		IdleTimeout:  120 * time.Second, // max time for connections using TCP Keep-Alive
 	}
+	/*
+		// start the server
+		go func() {
+			l.Println("Starting server on port 8082")
 
-	// start the server
-	go func() {
-		l.Println("Starting server on port 8082")
+			err := s.ListenAndServe()
+			if err != nil {
+				l.Printf("Error starting server: %s\n", err)
+				os.Exit(1)
+			}
+		}()*/
+	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
+	s.ListenAndServe()
+}
 
-		err := s.ListenAndServe()
-		if err != nil {
-			l.Printf("Error starting server: %s\n", err)
-			os.Exit(1)
-		}
-	}()
+func main() {
+	db = SetupDatabase()
+	passwordUtil := initPasswordUtil()
+	logInfo := logrus.New()
+	logError := logrus.New()
+	userRepo := initUserRepo(db)
+	userService := initUserService(userRepo)
 
-	SetupDatabase()
-
-	// trap sigterm or interupt and gracefully shutdown the server
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	signal.Notify(c, os.Kill)
-
-	// Block until a signal is received.
-	sig := <-c
-	log.Println("Got signal:", sig)
-
-	// gracefully shutdown the server, waiting max 30 seconds for current operations to complete
-	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	s.Shutdown(ctx)
+	userHandler := initUserHandler(passwordUtil, logInfo, logError, userService)
+	Handle(userHandler)
 }
 
 var db *gorm.DB
