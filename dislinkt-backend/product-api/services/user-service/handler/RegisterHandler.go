@@ -24,6 +24,7 @@ type RegisterHandler struct {
 func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var registeredUserDTO dto.RegisteredUserDTO
+
 	if err := json.NewDecoder(r.Body).Decode(&registeredUserDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",

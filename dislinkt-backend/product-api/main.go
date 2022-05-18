@@ -34,6 +34,15 @@ func initUserHandler(passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, Lo
 
 }
 
+func initLoginHandler(userService *service.UserService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.LogInHandler {
+	return &handler.LogInHandler{
+		userService,
+		passwordUtil,
+		LogInfo,
+		LogError,
+	}
+}
+
 func initUserRepo(database *gorm.DB) *repository.UserRepo {
 	return &repository.UserRepo{Database: database}
 }
@@ -46,7 +55,7 @@ func Pocetn(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "AAAAA")
 }
 
-func Handle(registerHandler *handler.RegisterHandler) {
+func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogInHandler) {
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
 	router := mux.NewRouter()
 
@@ -70,6 +79,7 @@ func Handle(registerHandler *handler.RegisterHandler) {
 			}
 		}()*/
 	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
+	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
 	s.ListenAndServe()
 }
 
@@ -80,9 +90,9 @@ func main() {
 	logError := logrus.New()
 	userRepo := initUserRepo(db)
 	userService := initUserService(userRepo)
-
+	loginHandler := initLoginHandler(userService, passwordUtil, logInfo, logError)
 	userHandler := initUserHandler(passwordUtil, logInfo, logError, userService)
-	Handle(userHandler)
+	Handle(userHandler, loginHandler)
 }
 
 var db *gorm.DB
