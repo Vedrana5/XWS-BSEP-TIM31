@@ -58,18 +58,50 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	gender := model.OTHER
+	switch registeredUserDTO.Gender {
+	case "MALE":
+		gender = model.MALE
+	case "FEMALE":
+		gender = model.FEMALE
+	}
+
+	typeofUser := model.ADMIN
+	switch registeredUserDTO.TypeOfUser {
+	case "REGISTERED_USER":
+		typeofUser = model.REGISTERED_USER
+	case "UNREGISTERED_USER":
+		typeofUser = model.UNREGISTERED_USER
+	}
+
+	typeOfProfile := model.PRIVATE
+	switch registeredUserDTO.TypeOfProfile {
+	case "PUBLIC":
+		typeOfProfile = model.PUBLIC
+	case "PRIVATE":
+		typeOfProfile = model.PRIVATE
+	}
+
 	userId := uuid.New()
 	layout := "2006-01-02T15:04:05.000Z"
 	dateOfBirth, _ := time.Parse(layout, registeredUserDTO.DateOfBirth)
 	registeredUser := model.User{
-		ID:          userId,
-		Username:    registeredUserDTO.Username,
-		Password:    registeredUserDTO.Password,
-		Email:       registeredUserDTO.Email,
-		PhoneNumber: registeredUserDTO.PhoneNumber,
-		FirstName:   registeredUserDTO.FirstName,
-		LastName:    registeredUserDTO.LastName,
-		DateOfBirth: dateOfBirth,
+		ID:             userId,
+		Username:       registeredUserDTO.Username,
+		Password:       registeredUserDTO.Password,
+		Email:          registeredUserDTO.Email,
+		PhoneNumber:    registeredUserDTO.PhoneNumber,
+		FirstName:      registeredUserDTO.FirstName,
+		LastName:       registeredUserDTO.LastName,
+		DateOfBirth:    dateOfBirth,
+		TypeOfUser:     typeofUser,
+		TypeOfProfile:  typeOfProfile,
+		Gender:         gender,
+		Biography:      registeredUserDTO.Biography,
+		WorkExperience: registeredUserDTO.WorkExperience,
+		Education:      registeredUserDTO.Education,
+		Skills:         registeredUserDTO.Skills,
+		Interest:       registeredUserDTO.Interest,
 	}
 
 	if err := handler.UserService.CreateUser(&registeredUser); err != nil {
