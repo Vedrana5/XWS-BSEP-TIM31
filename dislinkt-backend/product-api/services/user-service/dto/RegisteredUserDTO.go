@@ -13,10 +13,10 @@ type RegisteredUserDTO struct {
 	DateOfBirth    string    `json:"dateOfBirth" validate:"required"`
 	TypeOfUser     string    `json:"user_type" gorm:"not null"`
 	TypeOfProfile  string    `json:"profile_type" gorm:"not null"`
-	Gender         string    `json:"gender" gorm:"unique;not null"`
-	Biography      string    `json:"biography" gorm:"unique;not null"`
-	WorkExperience string    `json:"workExperience" gorm:"unique;not null"`
-	Education      string    `json:"education" gorm:"unique;not null"`
-	Skills         string    `json:"skills" gorm:"unique;not null"`
-	Interest       string    `json:"interest" gorm:"unique;not null"`
+	Gender         string    `json:"gender" gorm:"not null"`
+	Biography      string    `json:"biography" gorm:"not null"`
+	WorkExperience string    `json:"workExperience" gorm:"not null"`
+	Education      string    `json:"education" gorm:"not null"`
+	Skills         string    `json:"skills" gorm:"not null"`
+	Interest       string    `json:"interest" gorm:"not null"`
 }

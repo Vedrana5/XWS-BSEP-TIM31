@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -40,7 +39,6 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 	}*/
 
 	var userDTO dto.RegisteredUserDTO
-	fmt.Fprintf(w, "userDTO JE:", userDTO.FirstName)
 	if err := json.NewDecoder(r.Body).Decode(&userDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",

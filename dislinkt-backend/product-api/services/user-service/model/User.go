@@ -18,10 +18,10 @@ type User struct {
 
 	TypeOfUser     TypeOfUser    `json:"user_type" gorm:"not null"`
 	TypeOfProfile  TypeOfProfile `json:"profile_type" gorm:"not null"`
-	Gender         Gender        `json:"gender" gorm:"unique;not null"`
-	Biography      string        `json:"biography" gorm:"unique;not null"`
-	WorkExperience string        `json:"workExperience" gorm:"unique;not null"`
-	Education      string        `json:"education" gorm:"unique;not null"`
-	Skills         string        `json:"skills" gorm:"unique;not null"`
-	Interest       string        `json:"interest" gorm:"unique;not null"`
+	Gender         Gender        `json:"gender" gorm:";not null"`
+	Biography      string        `json:"biography" gorm:"not null"`
+	WorkExperience string        `json:"workExperience" gorm:"not null"`
+	Education      string        `json:"education" gorm:"not null"`
+	Skills         string        `json:"skills" gorm:"not null"`
+	Interest       string        `json:"interest" gorm:"not null"`
 }
