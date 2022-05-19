@@ -7,7 +7,7 @@ import (
 )
 
 type PostService struct {
-	Repo *repository.PostRepositoty
+	Repo *repository.PostRepository
 }
 
 func (service *PostService) CreatePost(post *model.Post) error {

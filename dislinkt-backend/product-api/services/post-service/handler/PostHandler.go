@@ -7,6 +7,7 @@ import (
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/post-service/dto"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/post-service/model"
+
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/post-service/service"
 
 	"github.com/google/uuid"
@@ -23,11 +24,12 @@ type PostHandler struct {
 func (handler *PostHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var postDto dto.PostDto
+	err := json.NewDecoder(r.Body).Decode(&postDto)
 
 	if err := json.NewDecoder(r.Body).Decode(&postDto); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
+			"location":  "PostHandler",
 			"action":    "CRREGUS032",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to PostDto!")
