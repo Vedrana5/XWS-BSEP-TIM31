@@ -12,6 +12,8 @@ import (
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/repository"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
+	"github.com/go-playground/validator"
+	"github.com/mikespook/gorbac"
 
 	"github.com/sirupsen/logrus"
 
@@ -55,7 +57,7 @@ func Pocetn(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "AAAAA")
 }
 
-func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogInHandler) {
+func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogInHandler, updateProfilHandler *handler.UpdateProfileHandler) {
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
 	router := mux.NewRouter()
 
@@ -80,11 +82,26 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 		}()*/
 	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
 	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
+	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 	s.ListenAndServe()
+}
+
+func initUpdateProfileHandler(permissionFindUserByID *gorbac.Permission, LogInfo *logrus.Logger, LogError *logrus.Logger, UserService *service.UserService, rbac *gorbac.RBAC, permissionFindAllUsers *gorbac.Permission, permissionUpdateUserInfo *gorbac.Permission, validator *validator.Validate, passwordUtil *util.PasswordUtil) *handler.UpdateProfileHandler {
+	return &handler.UpdateProfileHandler{
+		UserService:              UserService,
+		Rbac:                     rbac,
+		PermissionFindAllUsers:   permissionFindAllUsers,
+		PermissionUpdateUserInfo: permissionUpdateUserInfo,
+		Validator:                validator,
+		PasswordUtil:             passwordUtil,
+		LogInfo:                  LogInfo,
+		LogError:                 LogError,
+	}
 }
 
 func main() {
 	db = SetupDatabase()
+	rbac := gorbac.New()
 	passwordUtil := initPasswordUtil()
 	logInfo := logrus.New()
 	logError := logrus.New()
@@ -92,7 +109,13 @@ func main() {
 	userService := initUserService(userRepo)
 	loginHandler := initLoginHandler(userService, passwordUtil, logInfo, logError)
 	userHandler := initUserHandler(passwordUtil, logInfo, logError, userService)
-	Handle(userHandler, loginHandler)
+	permissionFindUserByID := gorbac.NewStdPermission("permission-find-user-by-id")
+	permissionFindAllUsers := gorbac.NewStdPermission("permission-find-all-users")
+	permissionUpdateUserInfo := gorbac.NewStdPermission("permission-update-user-info")
+	validator := validator.New()
+
+	updateProfilHandler := initUpdateProfileHandler(&permissionFindUserByID, logInfo, logError, userService, rbac, &permissionFindAllUsers, &permissionUpdateUserInfo, validator, passwordUtil)
+	Handle(userHandler, loginHandler, updateProfilHandler)
 }
 
 var db *gorm.DB

@@ -3,6 +3,7 @@ package repository
 import (
 	"fmt"
 
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
 
 	"github.com/google/uuid"
@@ -49,4 +50,42 @@ func (repo *UserRepo) FindByID(ID uuid.UUID) *model.User {
 		return nil
 	}
 	return user
+}
+
+func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
+	gender := model.OTHER
+	switch user.Gender {
+	case "MALE":
+		gender = model.MALE
+	case "FEMALE":
+		gender = model.FEMALE
+	}
+
+	result := repo.Database.Model(&model.User{}).Where("id = ?", user.ID)
+	result.Update("username", user.Username)
+
+	fmt.Println(result.RowsAffected)
+	result.Update("phone_number", user.PhoneNumber)
+	fmt.Println(result.RowsAffected)
+	result.Update("first_name", user.FirstName)
+	fmt.Println(result.RowsAffected)
+	result.Update("last_name", user.LastName)
+	fmt.Println(result.RowsAffected)
+	result.Update("gender", gender)
+	fmt.Println(result.RowsAffected)
+	result.Update("date_of_birth", user.DateOfBirth)
+	fmt.Println(result.RowsAffected)
+	result.Update("biography", user.Biography)
+	fmt.Println(result.RowsAffected)
+	result.Update("email", user.Email)
+	fmt.Println(result.RowsAffected)
+	fmt.Println("updating profile info")
+	return nil
+}
+
+func (repo *UserRepo) UpdateUserPassword(userId uuid.UUID, salt string, password string) error {
+	result := repo.Database.Model(&model.User{}).Where("id = ?", userId).Update("password", password)
+	fmt.Println(result.RowsAffected)
+	fmt.Println("updating")
+	return nil
 }
