@@ -63,7 +63,6 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
 
 	result := repo.Database.Model(&model.User{}).Where("username = ?", user.Username)
 	result.Update("username", user.Username)
-
 	fmt.Println(result.RowsAffected)
 	result.Update("phone_number", user.PhoneNumber)
 	fmt.Println(result.RowsAffected)
@@ -79,6 +78,16 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
 	fmt.Println(result.RowsAffected)
 	result.Update("email", user.Email)
 	fmt.Println(result.RowsAffected)
+
+	result.Update("workExperience", user.WorkExperience)
+	fmt.Println(result.RowsAffected)
+	result.Update("education", user.Education)
+	fmt.Println(result.RowsAffected)
+	result.Update("skills", user.Skills)
+	fmt.Println(result.RowsAffected)
+	result.Update("interest", user.Interest)
+	fmt.Println(result.RowsAffected)
+
 	fmt.Println("updating profile info")
 	return nil
 }
