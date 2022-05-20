@@ -83,7 +83,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 	}
 
 	userId := uuid.New()
-	layout := "2006-01-02T15:04:05.000Z"
+	layout := "2006-01-02"
 	dateOfBirth, _ := time.Parse(layout, registeredUserDTO.DateOfBirth)
 	registeredUser := model.User{
 		ID:             userId,

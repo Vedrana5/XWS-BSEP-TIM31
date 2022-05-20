@@ -61,7 +61,7 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
 		gender = model.FEMALE
 	}
 
-	result := repo.Database.Model(&model.User{}).Where("id = ?", user.ID)
+	result := repo.Database.Model(&model.User{}).Where("username = ?", user.Username)
 	result.Update("username", user.Username)
 
 	fmt.Println(result.RowsAffected)
