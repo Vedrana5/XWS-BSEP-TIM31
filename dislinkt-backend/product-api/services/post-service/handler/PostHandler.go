@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+
 	"net/http"
 	"time"
 
@@ -26,18 +27,20 @@ func (handler *PostHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 	var postDto dto.PostDto
 	err := json.NewDecoder(r.Body).Decode(&postDto)
 
-	if err := json.NewDecoder(r.Body).Decode(&postDto); err != nil {
+	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "PostHandler",
-			"action":    "CRREGUS032",
+			"action":    "UPDUSPROFINF393",
 			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to PostDto!")
-		w.WriteHeader(http.StatusBadRequest) //400
+		}).Error("Wrong cast json to PostDTO!")
+		w.WriteHeader(http.StatusBadRequest)
 		return
+
 	}
+	postId := uuid.New()
 	post := model.Post{
-		ID:           uuid.UUID{},
+		ID:           postId,
 		Description:  postDto.Description,
 		CreationDate: time.Now(),
 		UserID:       postDto.UserID,
