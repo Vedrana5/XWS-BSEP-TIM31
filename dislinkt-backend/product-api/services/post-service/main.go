@@ -70,25 +70,27 @@ func Handle(postHandler *handler.PostHandler, commentHandler *handler.CommentHan
 	router := mux.NewRouter()
 
 	s := http.Server{
-		Addr:         ":8080",           // configure the bind address
+		Addr:         ":9090",           // configure the bind address
 		Handler:      router,            // set the default handler
 		ErrorLog:     l,                 // set the logger for the server
 		ReadTimeout:  5 * time.Second,   // max time to read request from the client
 		WriteTimeout: 10 * time.Second,  // max time to write response to the client
 		IdleTimeout:  120 * time.Second, // max time for connections using TCP Keep-Alive
 	}
+	/*
+		// start the server
+		go func() {
 
-	// start the server
-	go func() {
-		l.Println("Starting server on port 8080")
-		err := s.ListenAndServe()
-		if err != nil {
-			l.Printf("Error starting server: %s\n", err)
-			os.Exit(1)
-		}
-	}()
-	/*	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
-		router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
+			l.Println("Starting server on port 8083")
+			err := s.ListenAndServe()
+			if err != nil {
+				l.Printf("Error starting server: %s\n", err)
+				os.Exit(1)
+
+			}
+		}()*/
+	router.HandleFunc("/addPost", postHandler.CreatePost).Methods("POST")
+	/*	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
 		router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 		router.HandleFunc("/findPublicUser", userHandler.FindByUserName).Methods("GET")
 	*/
