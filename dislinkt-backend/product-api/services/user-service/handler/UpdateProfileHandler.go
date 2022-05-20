@@ -27,7 +27,7 @@ type UpdateProfileHandler struct {
 func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
-	/*	if err := TokenValid(r); err != nil {
+	if err := TokenValid(r); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
@@ -36,7 +36,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		}).Error("User is not logged in!")
 		w.WriteHeader(http.StatusUnauthorized) // 401
 		return
-	}*/
+	}
 
 	var userDTO dto.RegisteredUserDTO
 	if err := json.NewDecoder(r.Body).Decode(&userDTO); err != nil {
