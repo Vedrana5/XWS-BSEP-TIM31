@@ -50,7 +50,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		return
 	}
 
-	/*	if err := handler.Validator.Struct(&userDTO); err != nil {
+	if err := handler.Validator.Struct(&userDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
@@ -59,7 +59,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		}).Error("UserUpdateProfileInfoDTO fields aren't entered in valid format!")
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
-	}*/
+	}
 
 	//var loginUser = handler.UserService.FindByID(userDTO.ID)
 	/*	userRole := ""
