@@ -90,8 +90,8 @@ func Handle(postHandler *handler.PostHandler, commentHandler *handler.CommentHan
 			}
 		}()*/
 	router.HandleFunc("/addPost", postHandler.CreatePost).Methods("POST")
-	/*	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
-		router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
+	router.HandleFunc("/findPostbyId/", postHandler.FindPostById).Methods("GET")
+	/*	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 		router.HandleFunc("/findPublicUser", userHandler.FindByUserName).Methods("GET")
 	*/
 	s.ListenAndServe()

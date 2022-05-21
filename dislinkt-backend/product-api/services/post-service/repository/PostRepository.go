@@ -32,3 +32,9 @@ func (repo *PostRepository) FindByID(ID uuid.UUID) *model.Post {
 	}
 	return post
 }
+
+func (repo *PostRepository) FindAllPostsForUser(userId uuid.UUID) []model.Post {
+	var posts []model.Post
+	repo.Database.Select("*").Where("user_id = ? ", userId).Find(&posts)
+	return posts
+}

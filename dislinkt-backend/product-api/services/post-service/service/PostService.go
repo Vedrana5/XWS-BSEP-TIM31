@@ -22,3 +22,11 @@ func (service *PostService) FindByID(ID uuid.UUID) *model.Post {
 	post := service.Repo.FindByID(ID)
 	return post
 }
+
+func (service *PostService) FindAllPostsForUser(ID uuid.UUID) []model.Post {
+	posts := service.Repo.FindAllPostsForUser(ID)
+	if posts != nil {
+		return posts
+	}
+	return nil
+}

@@ -67,3 +67,31 @@ func (handler *PostHandler) CreatePost(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Content-Type", "application/json")
 }
+
+func (handler *PostHandler) FindPostById(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("X-XSS-Protection", "1; mode=block")
+	postId := r.URL.Query().Get("post_id")
+
+	post := handler.PostService.FindByID(uuid.MustParse(postId))
+	postJson, _ := json.Marshal(post)
+	if postJson != nil {
+		handler.LogInfo.WithFields(logrus.Fields{
+			"status":    "success",
+			"location":  "PostHandler",
+			"action":    "FindPostById",
+			"timestamp": time.Now().String(),
+		}).Info("Successfully found post by id!")
+		w.Write(postJson)
+		w.WriteHeader(http.StatusOK) // 200
+		w.Header().Set("Content-Type", "application/json")
+		return
+	}
+
+	handler.LogError.WithFields(logrus.Fields{
+		"status":    "failure",
+		"location":  "PostHandler",
+		"action":    "FindPostById",
+		"timestamp": time.Now().String(),
+	}).Error("No post were found by id!")
+	w.WriteHeader(http.StatusBadRequest) // 400
+}
