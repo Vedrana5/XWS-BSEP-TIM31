@@ -58,6 +58,32 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	salt := ""
+	password := ""
+
+	answer := ""
+	answerSalt := ""
+
+	validPassword := handler.PasswordUtil.IsValidPassword(registeredUserDTO.Password)
+
+	if validPassword {
+		//PASSWORD SALT
+		salt, password = handler.PasswordUtil.GeneratePasswordWithSalt(registeredUserDTO.Password)
+
+		//ANSWER SALT
+		answerSalt, answer = handler.PasswordUtil.GeneratePasswordWithSalt(registeredUserDTO.Answer)
+
+	} else {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisteredUserHandler",
+			"action":    "CRREGUS032",
+			"timestamp": time.Now().String(),
+		}).Error("Password doesn't in valid format!")
+		w.WriteHeader(http.StatusBadRequest) //400
+		return
+	}
+
 	gender := model.OTHER
 	switch registeredUserDTO.Gender {
 	case "MALE":
@@ -88,12 +114,13 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 	registeredUser := model.User{
 		ID:             userId,
 		Username:       registeredUserDTO.Username,
-		Password:       registeredUserDTO.Password,
+		Password:       password,
 		Email:          registeredUserDTO.Email,
 		PhoneNumber:    registeredUserDTO.PhoneNumber,
 		FirstName:      registeredUserDTO.FirstName,
 		LastName:       registeredUserDTO.LastName,
 		DateOfBirth:    dateOfBirth,
+		Salt:           salt,
 		TypeOfUser:     typeofUser,
 		TypeOfProfile:  typeOfProfile,
 		Gender:         gender,
@@ -102,6 +129,9 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		Education:      registeredUserDTO.Education,
 		Skills:         registeredUserDTO.Skills,
 		Interest:       registeredUserDTO.Interest,
+		Question:       registeredUserDTO.Question,
+		Answer:         answer,
+		AnswerSalt:     answerSalt,
 	}
 
 	if err := handler.UserService.CreateUser(&registeredUser); err != nil {

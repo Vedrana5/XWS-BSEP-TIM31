@@ -19,4 +19,6 @@ type RegisteredUserDTO struct {
 	Education      string    `json:"education" gorm:"not null"`
 	Skills         string    `json:"skills" gorm:"not null"`
 	Interest       string    `json:"interest" gorm:"not null"`
+	Question       string    `json:"question"`
+	Answer         string    `json:"answer"`
 }
