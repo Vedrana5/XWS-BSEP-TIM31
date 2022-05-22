@@ -40,6 +40,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	var user = handler.UserService.FindByUserName(logInUserDTO.Username)
 	fmt.Fprintf(w, logInUserDTO.Password)
 	validPassword := handler.PasswordUtil.IsValidPassword(logInUserDTO.Password)
+	plainPassword := ""
 
 	if !validPassword {
 		handler.LogError.WithFields(logrus.Fields{
@@ -49,6 +50,52 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 			"timestamp": time.Now().String(),
 		}).Error("Password isn't in valid format!")
 		w.WriteHeader(http.StatusBadRequest)
+		return
+	} else {
+		var sb strings.Builder
+		salt := user.Salt
+		sb.WriteString(logInUserDTO.Password)
+		sb.WriteString(salt)
+		plainPassword = sb.String()
+	}
+
+	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, user.Password) {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "LOG85310",
+			"timestamp": time.Now().String(),
+		}).Error("Failed sign up!")
+		w.WriteHeader(http.StatusConflict)
+		return
+	}
+
+	if logInUserDTO.Question != user.Question {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "LOG85310",
+			"timestamp": time.Now().String(),
+		}).Error("Wrong question for user!")
+		w.WriteHeader(http.StatusConflict)
+		return
+	}
+
+	plainAnswer := ""
+	var ab strings.Builder
+	answerSalt := user.AnswerSalt
+	ab.WriteString(logInUserDTO.Answer)
+	ab.WriteString(answerSalt)
+	plainAnswer = ab.String()
+
+	if !handler.PasswordUtil.CheckPasswordHash(plainAnswer, user.Answer) {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "LOG85310",
+			"timestamp": time.Now().String(),
+		}).Error("Wrong answer to user question!")
+		w.WriteHeader(http.StatusConflict)
 		return
 	}
 
