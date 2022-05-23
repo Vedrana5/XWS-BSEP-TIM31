@@ -88,19 +88,6 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	s.ListenAndServe()
 }
 
-func initUpdateProfileHandler(permissionFindUserByID *gorbac.Permission, LogInfo *logrus.Logger, LogError *logrus.Logger, UserService *service.UserService, rbac *gorbac.RBAC, permissionFindAllUsers *gorbac.Permission, permissionUpdateUserInfo *gorbac.Permission, validator *validator.Validate, passwordUtil *util.PasswordUtil) *handler.UpdateProfileHandler {
-	return &handler.UpdateProfileHandler{
-		UserService:              UserService,
-		Rbac:                     rbac,
-		PermissionFindAllUsers:   permissionFindAllUsers,
-		PermissionUpdateUserInfo: permissionUpdateUserInfo,
-		Validator:                validator,
-		PasswordUtil:             passwordUtil,
-		LogInfo:                  LogInfo,
-		LogError:                 LogError,
-	}
-}
-
 func initUserHandler(userService *service.UserService, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.UserHandler {
 	return &handler.UserHandler{
 		UserService: userService,
@@ -109,9 +96,32 @@ func initUserHandler(userService *service.UserService, LogInfo *logrus.Logger, L
 	}
 }
 
+func initUpdateProfileHandler(rbac *gorbac.RBAC, permissionFindAllUsers *gorbac.Permission, UserService *service.UserService, permissionUpdateUserInfo *gorbac.Permission, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, validator *validator.Validate) *handler.UpdateProfileHandler {
+	return &handler.UpdateProfileHandler{
+		Rbac:                     rbac,
+		PermissionFindAllUsers:   permissionFindAllUsers,
+		UserService:              UserService,
+		PermissionUpdateUserInfo: permissionUpdateUserInfo,
+		PasswordUtil:             passwordUtil,
+		LogInfo:                  LogInfo,
+		LogError:                 LogError,
+		Validator:                validator,
+	}
+}
+
 func main() {
-	db = SetupDatabase()
+	permissionFindAllUsers := gorbac.NewStdPermission("permission-find-all-users")
+	permissionUpdateUserInfo := gorbac.NewStdPermission("permission-update-user-info")
+	roleRegisteredUser := gorbac.NewStdRole("role-registered-user")
+	//roleUnregisteredUser := gorbac.NewStdRole("role-unregistered-user")
+	roleAdmin := gorbac.NewStdRole("role-admin")
+	roleAdmin.Assign(permissionUpdateUserInfo)
+	roleRegisteredUser.Assign(permissionUpdateUserInfo)
 	rbac := gorbac.New()
+	rbac.Add(roleAdmin)
+	rbac.Add(roleRegisteredUser)
+
+	db = SetupDatabase()
 	passwordUtil := initPasswordUtil()
 	logInfo := logrus.New()
 	logError := logrus.New()
@@ -119,12 +129,10 @@ func main() {
 	userService := initUserService(userRepo)
 	loginHandler := initLoginHandler(userService, passwordUtil, logInfo, logError)
 	registerHandler := initRegisterHandler(passwordUtil, logInfo, logError, userService)
-	permissionFindUserByID := gorbac.NewStdPermission("permission-find-user-by-id")
-	permissionFindAllUsers := gorbac.NewStdPermission("permission-find-all-users")
-	permissionUpdateUserInfo := gorbac.NewStdPermission("permission-update-user-info")
+
 	validator := validator.New()
 	userHandler := initUserHandler(userService, logInfo, logError)
-	updateProfilHandler := initUpdateProfileHandler(&permissionFindUserByID, logInfo, logError, userService, rbac, &permissionFindAllUsers, &permissionUpdateUserInfo, validator, passwordUtil)
+	updateProfilHandler := initUpdateProfileHandler(rbac, &permissionFindAllUsers, userService, &permissionUpdateUserInfo, passwordUtil, logInfo, logError, validator)
 	Handle(registerHandler, loginHandler, updateProfilHandler, userHandler)
 }
 
