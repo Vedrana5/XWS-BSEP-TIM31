@@ -62,7 +62,7 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	router := mux.NewRouter()
 
 	s := http.Server{
-		Addr:         ":8082",           // configure the bind address
+		Addr:         ":8089",           // configure the bind address
 		Handler:      router,            // set the default handler
 		ErrorLog:     l,                 // set the logger for the server
 		ReadTimeout:  5 * time.Second,   // max time to read request from the client
