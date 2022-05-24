@@ -6,7 +6,7 @@ import (
 )
 
 type LogInResponseDTO struct {
-	ID         uuid.UUID        `json:"id"`
-	Token      string           `json:"token"`
-	TypeOfUser model.TypeOfUser `json:"typeOfUser"`
+	ID         uuid.UUID        `json:"ID"`
+	Token      string           `json:"Token"`
+	TypeOfUser model.TypeOfUser `json:"TypeOfUser"`
 }

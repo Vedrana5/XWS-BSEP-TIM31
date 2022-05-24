@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"time"
 
@@ -84,6 +85,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	log.Printf(registeredUserDTO.Gender)
 	gender := model.OTHER
 	switch registeredUserDTO.Gender {
 	case "MALE":
@@ -92,14 +94,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		gender = model.FEMALE
 	}
 
-	typeofUser := model.ADMIN
-	switch registeredUserDTO.TypeOfUser {
-	case "REGISTERED_USER":
-		typeofUser = model.REGISTERED_USER
-	case "UNREGISTERED_USER":
-		typeofUser = model.UNREGISTERED_USER
-	}
-
+	var typeofUser = model.REGISTERED_USER
+	log.Printf(registeredUserDTO.TypeOfProfile)
 	typeOfProfile := model.PRIVATE
 	switch registeredUserDTO.TypeOfProfile {
 	case "PUBLIC":

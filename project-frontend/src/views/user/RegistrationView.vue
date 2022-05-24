@@ -101,6 +101,7 @@ export default {
         Answer:"",
         TypeOfProfile:"",
         TypeOfUser:"",
+        errorMessage:"",
       newUser: {
         Username: "",
         Password:"",
@@ -110,8 +111,8 @@ export default {
         LastName:"",
         DateOfBirth:"",
         Gender:"",
-        TypeOfProfile:"",
-        TypeOfUser:"",
+        TypeOfProfile:"PUBLIC",
+        TypeOfUser:"REGISTERED_USER",
         Biography:"",
         WorkExperience:"",
         Education:"",
@@ -137,14 +138,10 @@ async Register() {
       ) {
       alert("Fill in the fields in the right way!");
       }else {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer my-token',
-      'My-Custom-Header': 'foobar'
-    },
-    body: JSON.stringify({  Username : this.newUser.Username, 
+        fetch("http://localhost:8089/register",{
+          method:"POST",
+          body: JSON.stringify({
+       Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,
        PhoneNumber : this.newUser.PhoneNumber,
@@ -160,16 +157,16 @@ async Register() {
        Skills : this.newUser.Skills,
        Interest : this.newUser.Interest,
        Question : this.newUser.Question,
-       Answer : this.newUser.Answer, })
-  };
-  fetch('http://localhost:8089/register', requestOptions)
-    .then(response => response.json());
-      alert("Dodali ste usera!")
-      this.$router.go(0);
+       Answer : this.newUser.Answer
+          }),
+        headers: {
+          'Content-type':'application/json; charset=UTF-8',
+        },
+        })
+        .then((response) => response.json())
+        .then((json) => console.log(json))
       }
-
-
-  },
+},
  validQuestion() {
       if (this.newUser.Question.length < 1) {
         alert("Your question should contain at least 1 character!");
@@ -237,7 +234,6 @@ async Register() {
       }
       return true;
     },
-  },
     validUsername() {
       if (this.newUser.Username.length < 1) {
         alert("Your username should contain at least 1 character!");
@@ -324,6 +320,8 @@ async Register() {
       }
       return true;
     },
+  },
+    
 };
 </script>
 

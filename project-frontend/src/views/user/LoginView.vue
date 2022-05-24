@@ -5,12 +5,18 @@
      <div>
          <form class="myForm" name="myForm">
              <div class="class1">
-                 <input  placeholder="Email" name="email" class="input-field" required>
+                 <input  placeholder="Username" name="username" class="input-field" v-model="Username" required>
              </div>
              <div class="class1">
-                <input type="password" placeholder="Password" name="password" class="input-field" required>
-               </div>
-            <div><button type="submit" >Login</button></div>
+                <input type="showPassword ? 'text' : 'password'" placeholder="Password" name="password" class="input-field" v-model="Password"           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+           required></div>
+                        <div class="class1">
+                 <input  placeholder="Question" name="question" class="input-field" v-model="Question" required>
+             </div>
+                          <div class="class1">
+                 <input  placeholder="Answer" name="answer" class="input-field" v-model="Answer" required>
+             </div>
+            <div><button type="submit" @click="Login()">Login</button></div>
          </form>
      </div>
   </div>
@@ -19,14 +25,42 @@
 <script>
 export default {
   name: "LoginView",
-  data() {
-    return {
-
-    };
+  data: () => ({
+    showPassword: true,
+    Username: "",
+    Password: "",
+    Question: "",
+    Answer: "",
+  }),
+  computed: {
+    user() {
+      return { Username: this.Username, Password: this.Password };
+    },
   },
 
   methods: {
+async Login() {
+        fetch("http://localhost:8089/login",{
+          method:"POST",
+          body: JSON.stringify({
+          Username: this.Username,
+          Password: this.Password,
+          Question: this.Question,
+          Answer: this.Answer,
+          }),
+        headers: {
+          'Content-type':'application/json; charset=UTF-8',
+        },
+        })
+        .then((response) => response.json())
+        .then((json) => console.log(json))
+        .catch(error => {
+      this.errorMessage = error;
+       alert("Login failed!");
+    });
+      
   }
+},
 };
 </script>
 
@@ -60,6 +94,17 @@ img{
     margin-bottom: 15px;
     
   }
+    .class2 {
+    
+    background-color:darkseagreen;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    
+  }
+
   .icon {
     padding: 10px;
     background: darkseagreen;
