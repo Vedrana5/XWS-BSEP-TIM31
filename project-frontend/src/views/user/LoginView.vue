@@ -8,8 +8,9 @@
                  <input  placeholder="Username" name="username" class="input-field" v-model="Username" required>
              </div>
              <div class="class1">
-                <input type="showPassword ? 'text' : 'password'" placeholder="Password" name="password" class="input-field" v-model="Password"           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-           required></div>
+           <input v-if="showPassword" type="text" class="input-field" v-model="Password" />
+           <input v-else type="password" class="input-field" v-model="Password">
+           <button class="class2" @click="Show()">Show</button></div>
                         <div class="class1">
                  <input  placeholder="Question" name="question" class="input-field" v-model="Question" required>
              </div>
@@ -23,43 +24,50 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "LoginView",
   data: () => ({
-    showPassword: true,
+    showPassword: false,
     Username: "",
     Password: "",
     Question: "",
     Answer: "",
   }),
-  computed: {
-    user() {
-      return { Username: this.Username, Password: this.Password };
-    },
-  },
 
   methods: {
-async Login() {
-        fetch("http://localhost:8089/login",{
-          method:"POST",
-          body: JSON.stringify({
-          Username: this.Username,
+async Login() {          
+      axios.post("http://localhost:8089/login",{           
+        Username: this.Username,
           Password: this.Password,
           Question: this.Question,
           Answer: this.Answer,
-          }),
-        headers: {
-          'Content-type':'application/json; charset=UTF-8',
-        },
-        })
-        .then((response) => response.json())
-        .then((json) => console.log(json))
-        .catch(error => {
-      this.errorMessage = error;
-       alert("Login failed!");
-    });
-      
+       })
+      .then (response => { 
+        console.log(response)
+          localStorage.setItem("username", this.Username);
+          localStorage.setItem("token", response.data.Token);
+          localStorage.setItem("userId", response.data.ID);
+          localStorage.setItem("userType", response.data.TypeOfUser);
+
+      })
+     /* .catch((err) => {
+        if(err != null) {
+          alert("Invalid username and/or password! Please, try again!");
+          console.log(err.response.data);}
+}); */
+            this.$router.push({ name: "StartPageUser" });
+            alert("Ulogovali ste se!")
+  },
+  async Show() {
+    if (this.showPassword== true) {
+      this.showPassword = false;
+    } else {
+      this.showPassword = true;
+    }
   }
+    
 },
 };
 </script>

@@ -1,67 +1,78 @@
 <template>
   <div>
-     <h1 id="heading1">Registration Here</h1>
+     <h1 id="heading1">Update info Here</h1>
        <img src="https://www.kindpng.com/picc/m/273-2738790_login-login-logo-hd-png-download.png" style="width:200px; height:150px;">
      <div>
- <form @submit.prevent="login">
+ <form class="myForm" name="myForm">
       <div>
         <label for="username">Username</label>
-        <input name="username" placeholder="username">
+        <input name="username" class="input-field" placeholder="username" v-model="newUser.Username" required>
       </div>
       <div>
         <label for="password">Password</label>
-        <input name="password" placeholder="password" type="password">
+        <input name="password" class="input-field" placeholder="password" type="password" v-model="newUser.Password" required>
+      </div>
+            <div>
+        <label for="password">Password again</label>
+        <input name="password" class="input-field" placeholder="password" type="password" v-model="this.passwordAgain" required>
       </div>
       <div>
         <label for="firstName">First name</label>
-        <input name="firstName" placeholder="first name">
+        <input name="firstName" class="input-field" placeholder="first name" v-model="newUser.FirstName" required>
       </div>
       <div>
         <label for="lastName">Last name</label>
-        <input name="lastName"  placeholder="last name">
+        <input name="lastName" class="input-field" placeholder="last name" v-model="newUser.LastName" required>
       </div>
       <div>
         <label for="email">Email</label>
-        <input name="email" placeholder="email">
+        <input name="email" class="input-field"  placeholder="email" v-model="newUser.Email" required>
       </div>
       <div>
         <label for="phoneNumber">Phone number</label>
-        <input name="phoneNumber" placeholder="phoneNumber">
+        <input name="phoneNumber" class="input-field" placeholder="phoneNumber"  v-model="newUser.PhoneNumber" required>
       </div>
        <div>
         <label for="date">Date of birth</label>
-        <input type="date" name="date" placeholder="date">
+        <input type="date" class="input-field" name="date" placeholder="date"  v-model="newUser.DateOfBirth" required>
       </div>
              <div>
         <label for="biography">Biography</label>
-        <input name="biography" placeholder="biography">
+        <input name="biography" class="input-field" placeholder="biography"  v-model="newUser.Biography" required>
       </div>
              <div>
         <label for="workExperience">Work experience</label>
-        <input name="workExperience" placeholder="workExperience">
+        <input name="workExperience" class="input-field" placeholder="workExperience"  v-model="newUser.WorkExperience" required>
       </div>
-
+      <div>
+        <label for="gender">Gender</label>
+        <select class="input-field" v-model="newUser.Gender" required>
+          <option>MALE</option>
+          <option>FEMALE</option>
+          <option>OTHER</option>
+        </select>
+      </div>
                    <div>
         <label for="education">Education</label>
-        <input name="education" placeholder="education">
+        <input class="input-field"  name="education" placeholder="education"  v-model="newUser.Education" required>
       </div>
                    <div>
         <label for="skills">Skills</label>
-        <input name="skills" placeholder="skills">
+        <input class="input-field" name="skills" placeholder="skills"  v-model="newUser.Skills" required>
       </div>
                    <div>
         <label for="interest">Interest</label>
-        <input name="interest" placeholder="interest">
+        <input class="input-field" name="interest" placeholder="interest"  v-model="newUser.Interest" required>
       </div>
                    <div>
         <label for="question">Question</label>
-        <input name="question" placeholder="question">
+        <input class="input-field" name="question" placeholder="question"  v-model="newUser.Question" required>
       </div>
                    <div>
         <label for="answer">Answer</label>
-        <input name="answer" placeholder="answer">
+        <input class="input-field" name="answer" placeholder="answer"  v-model="newUser.Answer" required>
       </div>
-      <input type="submit" value="Register">
+      <div><button type="submit" @click="Register()">Registration</button></div>
     </form>
      </div>
   </div>
@@ -70,14 +81,48 @@
 <script>
 export default {
   name: "UpdateInfoView",
-  data() {
+ data() {
     return {
-
-    };
-  },
-
-  methods: {
-  }
+        Username: "",
+        passwordAgain:"",
+        Password:"",
+        Email:"",
+        PhoneNumber:"",
+        FirstName:"",
+        LastName:"",
+        DateOfBirth:"",
+        Gender:"",
+        Biography:"",
+        WorkExperience:"",
+        Education:"",
+        Skills:"",
+        Interest:"",
+        Question:"",
+        Answer:"",
+        TypeOfProfile:"",
+        TypeOfUser:"",
+        errorMessage:"",
+      newUser: {
+        Username: "",
+        Password:"",
+        Email:"",
+        PhoneNumber:"",
+        FirstName:"",
+        LastName:"",
+        DateOfBirth:"",
+        Gender:"",
+        TypeOfProfile:"PUBLIC",
+        TypeOfUser:"REGISTERED_USER",
+        Biography:"",
+        WorkExperience:"",
+        Education:"",
+        Skills:"",
+        Interest:"",
+        Question:"",
+        Answer:"",
+      },
+    }
+    }
 };
 </script>
 
@@ -117,10 +162,6 @@ img{
     color:white;
     min-width: 50px;
     text-align: center;
-  }
-  .a {
-          width: 100%;
-    padding: 10px;
   }
   .input-field {
     width: 100%;
