@@ -40,24 +40,19 @@ export default {
   methods: {
 async Login() {          
       axios.post("http://localhost:8089/login",{           
-        Username: this.Username,
+          Username: this.Username,
           Password: this.Password,
           Question: this.Question,
           Answer: this.Answer,
        })
       .then (response => { 
-        console.log(response)
+        console.log(response.data.Token)
           localStorage.setItem("username", this.Username);
           localStorage.setItem("token", response.data.Token);
           localStorage.setItem("userId", response.data.ID);
           localStorage.setItem("userType", response.data.TypeOfUser);
       })
-      .catch((err) => {
-          alert("Invalid username and/or password! Please, try again!");
-          this.err = err;
-          console.log(err.response.data);
-}); 
-      console.log("eror je"+this.err)
+      this.$router.push({ name: "StartPageUser" });
   },
   async Show() {
     if (this.showPassword== true) {

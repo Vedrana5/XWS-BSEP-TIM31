@@ -20,6 +20,18 @@ func (repo *UserRepo) CreateUser(user *model.User) error {
 	return nil
 }
 
+func (repo *UserRepo) ChangePassword(salt string, password string, user *model.User) error {
+
+	result := repo.Database.Model(&model.User{}).Where("username = ?", user.Username)
+
+	result.Update("password", password)
+	fmt.Println(result.RowsAffected)
+	result.Update("salt", salt)
+	fmt.Println(result.RowsAffected)
+	fmt.Println("updating profile info")
+	return nil
+}
+
 func (repo *UserRepo) FindAllUsers() []model.User {
 	var users []model.User
 	repo.Database.Select("*").Find(&users)

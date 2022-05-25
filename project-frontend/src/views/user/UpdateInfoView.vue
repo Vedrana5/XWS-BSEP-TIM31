@@ -274,6 +274,7 @@ async created() {
             Accept: 'application/json',
           }
   console.log(this.Username);
+  console.log(this.token);
   axios.get("http://localhost:8089/findByUsername/"+this.Username, {
       headers}
     )

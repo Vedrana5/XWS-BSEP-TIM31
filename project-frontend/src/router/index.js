@@ -7,6 +7,7 @@ import FindPublicUser from "../views/user/FindPublicUser";
 import UpdateInfoView from "../views/user/UpdateInfoView"
 import StartPageUser from "../views/user/StartPageUser"
 import ConfirmRegistration from "../views/user/ConfirmRegistration"
+import ConfirmResetPassword from "../views/user/ConfirmResetPassword"
 const routes = [
   {
     path: "/",
@@ -43,6 +44,12 @@ const routes = [
         name: 'ConfirmRegistration',
         component: ConfirmRegistration
       },
+      
+      {
+        path: '/confirmResetPassword/:id',
+        name: 'ConfirmResetPassword',
+        component: ConfirmResetPassword        
+      }
 ];
 
 const router = createRouter({

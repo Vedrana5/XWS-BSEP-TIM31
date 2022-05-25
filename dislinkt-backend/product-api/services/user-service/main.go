@@ -17,6 +17,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -61,32 +62,28 @@ func Pocetn(w http.ResponseWriter, r *http.Request) {
 func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogInHandler, updateProfilHandler *handler.UpdateProfileHandler, userHandler *handler.UserHandler, confirmationTokenHandler *handler.ConfirmationTokenHandler) {
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
 	router := mux.NewRouter()
+	cors := handlers.CORS(
+		handlers.AllowedHeaders([]string{"Content-Type", "X-Requested-With", "Authorization", "Access-Control-Allow-Headers"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
+		handlers.AllowCredentials(),
+	)
 
 	s := http.Server{
 		Addr:         ":8089",           // configure the bind address
-		Handler:      router,            // set the default handler
+		Handler:      cors(router),      // set the default handler
 		ErrorLog:     l,                 // set the logger for the server
 		ReadTimeout:  5 * time.Second,   // max time to read request from the client
 		WriteTimeout: 10 * time.Second,  // max time to write response to the client
 		IdleTimeout:  120 * time.Second, // max time for connections using TCP Keep-Alive
 	}
-	/*
-		// start the server
-		go func() {
-			l.Println("Starting server on port 8082")
-
-			err := s.ListenAndServe()
-			if err != nil {
-				l.Printf("Error starting server: %s\n", err)
-				os.Exit(1)
-			}
-		}()*/
 	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
 	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
 	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 	router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
 	router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
+	router.HandleFunc("/resetPassword/{username}", userHandler.SendMailForResetPassword).Methods("POST")
 	router.HandleFunc("/confirmRegistration", confirmationTokenHandler.VerifyConfirmationToken).Methods("POST")
+	router.HandleFunc("/changePassword", userHandler.ChangePassword).Methods("POST")
 
 	s.ListenAndServe()
 }

@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "RegistrationView",
   data() {
@@ -138,9 +139,11 @@ async Register() {
       ) {
       alert("Fill in the fields in the right way!");
       }else {
-        fetch("http://localhost:8089/register",{
-          method:"POST",
-          body: JSON.stringify({
+    const headers ={
+            'Content-Type': 'application/json;charset=UTF-8',
+            Accept: 'application/json',
+          }
+  axios.post("https://localhost:8089/register",{          
        Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,
@@ -157,14 +160,19 @@ async Register() {
        Skills : this.newUser.Skills,
        Interest : this.newUser.Interest,
        Question : this.newUser.Question,
-       Answer : this.newUser.Answer
-          }),
-        headers: {
-          'Content-type':'application/json; charset=UTF-8',
-        },
+       Answer : this.newUser.Answer,}, {
+      headers}
+    ).then((res) => {
+          console.log(res);
+         alert("You have successfully verified your account! You can log in on system!")
+        this.$router.push({ name: "LoginView" });
+        this.$router.go(0);
         })
-        .then((response) => response.json())
-        .then((json) => console.log(json))
+        .catch((err) => {
+          console.log(err);
+          alert( "Your token is invalid or expiried! Please, contact system admin!")
+        });
+
       }
 },
  validQuestion() {

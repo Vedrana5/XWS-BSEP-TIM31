@@ -1,17 +1,30 @@
 <template>
   <div>
         <button @click="Update()">Update profile info</button>
+        <button @click="ResetPassword()">Reset Password</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "StartPageUser",
+   data: () => ({
+    err: "" ,
+    Username: "",
+  }),
   methods: {
       async Update() {
           this.$router.push({ name: "UpdateInfoView" });
-      }
+      },
+      async ResetPassword() {
+         this.Username = localStorage.getItem("username");
 
+          axios.post("http://localhost:8089/resetPassword/"+this.Username,{           
+       })
+
+      }
   }
 }
 </script>

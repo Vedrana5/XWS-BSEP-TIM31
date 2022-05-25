@@ -38,20 +38,8 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var user = handler.UserService.FindByUserName(logInUserDTO.Username)
-	fmt.Fprintf(w, logInUserDTO.Password)
 	validPassword := handler.PasswordUtil.IsValidPassword(logInUserDTO.Password)
 	plainPassword := ""
-
-	/*	if user == nil || !user.IsConfirmed {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
-			"timestamp": time.Now().String(),
-		}).Error("Admin is not confirmed!")
-		w.WriteHeader(http.StatusBadRequest) //400
-		return
-	}*/
 	if !validPassword {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
@@ -127,7 +115,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		Token:      token,
 		TypeOfUser: user.TypeOfUser,
 	}
-
+	fmt.Print("Response je ", logInResponse)
 	logInResponseJson, _ := json.Marshal(logInResponse)
 	w.Write(logInResponseJson)
 	handler.LogInfo.WithFields(logrus.Fields{
