@@ -18,6 +18,10 @@ type UserHandler struct {
 	LogError    *logrus.Logger
 }
 
+func UpdateUserConfirmed() {
+
+}
+
 func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)

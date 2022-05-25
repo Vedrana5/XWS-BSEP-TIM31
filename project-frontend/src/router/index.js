@@ -6,6 +6,7 @@ import RegistrationView from "../views/user/RegistrationView";
 import FindPublicUser from "../views/user/FindPublicUser";
 import UpdateInfoView from "../views/user/UpdateInfoView"
 import StartPageUser from "../views/user/StartPageUser"
+import ConfirmRegistration from "../views/user/ConfirmRegistration"
 const routes = [
   {
     path: "/",
@@ -36,6 +37,11 @@ const routes = [
         path: "/StartPageUser",
         name: "StartPageUser",
         component: StartPageUser,
+      },
+      {
+        path: '/confirmRegistration/:confirmationToken/:userId',
+        name: 'ConfirmRegistration',
+        component: ConfirmRegistration
       },
 ];
 

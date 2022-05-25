@@ -26,8 +26,9 @@ func initPasswordUtil() *util.PasswordUtil {
 	return &util.PasswordUtil{}
 }
 
-func initRegisterHandler(passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *handler.RegisterHandler {
+func initRegisterHandler(confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *handler.RegisterHandler {
 	return &handler.RegisterHandler{
+		confirmationTokenService,
 		passwordUtil,
 		userService,
 		LogInfo,
@@ -57,7 +58,7 @@ func Pocetn(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "AAAAA")
 }
 
-func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogInHandler, updateProfilHandler *handler.UpdateProfileHandler, userHandler *handler.UserHandler) {
+func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogInHandler, updateProfilHandler *handler.UpdateProfileHandler, userHandler *handler.UserHandler, confirmationTokenHandler *handler.ConfirmationTokenHandler) {
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
 	router := mux.NewRouter()
 
@@ -85,6 +86,7 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 	router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
 	router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
+	router.HandleFunc("/confirmRegistration", confirmationTokenHandler.VerifyConfirmationToken).Methods("POST")
 
 	s.ListenAndServe()
 }
@@ -110,6 +112,22 @@ func initUpdateProfileHandler(rbac *gorbac.RBAC, permissionFindAllUsers *gorbac.
 	}
 }
 
+func initConfirmationTokenService(repo *repository.ConfirmationTokenRepository) *service.ConfirmationTokenService {
+	return &service.ConfirmationTokenService{Repo: repo}
+}
+
+func initConfirmationTokenRepo(database *gorm.DB) *repository.ConfirmationTokenRepository {
+	return &repository.ConfirmationTokenRepository{Database: database}
+}
+func initConfirmationTokenHandler(LogInfo *logrus.Logger, LogError *logrus.Logger, confirmationTokenService *service.ConfirmationTokenService, userService *service.UserService) *handler.ConfirmationTokenHandler {
+	return &handler.ConfirmationTokenHandler{
+		ConfirmationTokenService: confirmationTokenService,
+		UserService:              userService,
+		LogInfo:                  LogInfo,
+		LogError:                 LogError,
+	}
+}
+
 func main() {
 	permissionFindAllUsers := gorbac.NewStdPermission("permission-find-all-users")
 	permissionUpdateUserInfo := gorbac.NewStdPermission("permission-update-user-info")
@@ -128,13 +146,19 @@ func main() {
 	logError := logrus.New()
 	userRepo := initUserRepo(db)
 	userService := initUserService(userRepo)
+	confirmationTokenRepo := initConfirmationTokenRepo(db)
+	confirmationTokenService := initConfirmationTokenService(confirmationTokenRepo)
+
 	loginHandler := initLoginHandler(userService, passwordUtil, logInfo, logError)
-	registerHandler := initRegisterHandler(passwordUtil, logInfo, logError, userService)
+	registerHandler := initRegisterHandler(confirmationTokenService, passwordUtil, logInfo, logError, userService)
 
 	validator := validator.New()
 	userHandler := initUserHandler(userService, logInfo, logError)
 	updateProfilHandler := initUpdateProfileHandler(rbac, &permissionFindAllUsers, userService, &permissionUpdateUserInfo, passwordUtil, logInfo, logError, validator)
-	Handle(registerHandler, loginHandler, updateProfilHandler, userHandler)
+
+	confirmationTokenHandler := initConfirmationTokenHandler(logInfo, logError, confirmationTokenService, userService)
+
+	Handle(registerHandler, loginHandler, updateProfilHandler, userHandler, confirmationTokenHandler)
 }
 
 var db *gorm.DB
@@ -157,7 +181,7 @@ func SetupDatabase() *gorm.DB {
 		fmt.Printf("Successfully connected to database")
 	}
 
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.User{}, &model.ConfirmationToken{})
 
 	return db
 }

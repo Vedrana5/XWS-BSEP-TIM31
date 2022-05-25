@@ -117,9 +117,33 @@ export default {
         !this.validFirstName()
       ) {
       alert("Fill in the fields in the right way!");
-      }else {
-       
-   
+      } else {
+        fetch("http://localhost:8089/updateProfil",{
+          method:"POST",
+          body: JSON.stringify({
+       Username : this.newUser.Username, 
+       Password : this.newUser.Password,
+       Email : this.newUser.Email,
+       PhoneNumber : this.newUser.PhoneNumber,
+       FirstName : this.newUser.FirstName,
+       LastName : this.newUser.LastName,
+       Gender : this.newUser.Gender,
+       TypeOfUser: this.newUser.TypeOfUser,
+       TypeOfProfile : this.newUser.TypeOfProfile,
+       Biography : this.newUser.Biography,
+       WorkExperience : this.newUser.WorkExperience,
+       Education : this.newUser.Education,
+       Skills : this.newUser.Skills,
+       Interest : this.newUser.Interest,
+          }),
+          headers :{
+            Authorization: "Bearer " +this.token,
+            'Content-Type': 'application/json;charset=UTF-8',
+            Accept: 'application/json',
+          }
+        })
+        .then((response) => response.json())
+        .then((json) => console.log(json))
       }
       },
 
@@ -243,8 +267,9 @@ export default {
     },
 async created() {    
   this.Username = localStorage.getItem("username"); 
+  this.token = localStorage.getItem("token")
          const headers ={
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + this.token,
             'Content-Type': 'application/json;charset=UTF-8',
             Accept: 'application/json',
           }

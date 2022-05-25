@@ -100,3 +100,10 @@ func (repo *UserRepo) UpdateUserPassword(userId uuid.UUID, salt string, password
 	fmt.Println("updating")
 	return nil
 }
+
+func (repo *UserRepo) UpdateUserConfirmed(userId uuid.UUID, isConfirmed bool) error {
+	result := repo.Database.Model(&model.User{}).Where("id = ?", userId).Update("is_confirmed", isConfirmed)
+	fmt.Println(result.RowsAffected)
+	fmt.Println("updating")
+	return nil
+}

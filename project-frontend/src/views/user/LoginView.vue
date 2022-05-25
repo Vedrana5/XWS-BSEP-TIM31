@@ -29,6 +29,7 @@ import axios from 'axios'
 export default {
   name: "LoginView",
   data: () => ({
+    err: "" ,
     showPassword: false,
     Username: "",
     Password: "",
@@ -50,15 +51,13 @@ async Login() {
           localStorage.setItem("token", response.data.Token);
           localStorage.setItem("userId", response.data.ID);
           localStorage.setItem("userType", response.data.TypeOfUser);
-
       })
-     /* .catch((err) => {
-        if(err != null) {
+      .catch((err) => {
           alert("Invalid username and/or password! Please, try again!");
-          console.log(err.response.data);}
-}); */
-            this.$router.push({ name: "StartPageUser" });
-            alert("Ulogovali ste se!")
+          this.err = err;
+          console.log(err.response.data);
+}); 
+      console.log("eror je"+this.err)
   },
   async Show() {
     if (this.showPassword== true) {
@@ -66,7 +65,7 @@ async Login() {
     } else {
       this.showPassword = true;
     }
-  }
+  },
     
 },
 };

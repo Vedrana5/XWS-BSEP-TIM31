@@ -2,8 +2,10 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"net/smtp"
 	"time"
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
@@ -11,15 +13,15 @@ import (
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/google/uuid"
-
 	"github.com/sirupsen/logrus"
 )
 
 type RegisterHandler struct {
-	PasswordUtil *util.PasswordUtil
-	UserService  *service.UserService
-	LogInfo      *logrus.Logger
-	LogError     *logrus.Logger
+	ConfirmationTokenService *service.ConfirmationTokenService
+	PasswordUtil             *util.PasswordUtil
+	UserService              *service.UserService
+	LogInfo                  *logrus.Logger
+	LogError                 *logrus.Logger
 }
 
 func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
@@ -128,7 +130,29 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		Question:       registeredUserDTO.Question,
 		Answer:         answer,
 		AnswerSalt:     answerSalt,
+		IsConfirmed:    false,
 	}
+	confirmationToken := model.ConfirmationToken{
+		ID:                uuid.New(),
+		ConfirmationToken: uuid.New(),
+		UserId:            userId,
+		CreatedTime:       time.Now(),
+		ExpiredTime:       time.Now().Add(time.Minute * 120),
+		IsValid:           true,
+	}
+
+	if err := handler.ConfirmationTokenService.CreateConfirmationToken(&confirmationToken); err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisteredUserHandler",
+			"action":    "CRREGUS032",
+			"timestamp": time.Now().String(),
+		}).Error("Failed creating confirmation token for user!")
+		w.WriteHeader(http.StatusExpectationFailed)
+		return
+	}
+
+	handler.SendConfirmationMail(registeredUser, confirmationToken.ConfirmationToken)
 
 	if err := handler.UserService.CreateUser(&registeredUser); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
@@ -143,4 +167,41 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Content-Type", "application/json")
+}
+
+func (handler *RegisterHandler) SendConfirmationMail(user model.User, token uuid.UUID) {
+	// Sender data.
+	from := "pera08085@gmail.com"
+	password := "pericaProba"
+
+	// Receiver email address.
+	to := []string{
+		user.Email,
+	}
+
+	// smtp server configuration.
+	smtpHost := "smtp.gmail.com"
+	smtpPort := "587"
+
+	// Message.
+	message := []byte("Dear " + user.FirstName + ",\n\nPlease, click on link in below to confirm your registration on our social network!\n\nhttp://localhost:8082/confirmRegistration/" + token.String() + "/" + user.ID.String())
+
+	// Authentication.
+	auth := smtp.PlainAuth("", from, password, smtpHost)
+
+	// Sending email.
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("Email Sent Successfully!")
+
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "RegisteredUserHandler",
+		"action":    "SEDCONFMAIL227",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully sended email with confirmation token!")
+
 }
