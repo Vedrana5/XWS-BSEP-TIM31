@@ -9,14 +9,6 @@
         <input name="username" class="input-field" placeholder="username" v-model="newUser.Username" required>
       </div>
       <div>
-        <label for="password">Password</label>
-        <input name="password" class="input-field" placeholder="password" type="password" v-model="newUser.Password" required>
-      </div>
-            <div>
-        <label for="password">Password again</label>
-        <input name="password" class="input-field" placeholder="password" type="password" v-model="this.passwordAgain" required>
-      </div>
-      <div>
         <label for="firstName">First name</label>
         <input name="firstName" class="input-field" placeholder="first name" v-model="newUser.FirstName" required>
       </div>
@@ -64,21 +56,14 @@
         <label for="interest">Interest</label>
         <input class="input-field" name="interest" placeholder="interest"  v-model="newUser.Interest" required>
       </div>
-                   <div>
-        <label for="question">Question</label>
-        <input class="input-field" name="question" placeholder="question"  v-model="newUser.Question" required>
-      </div>
-                   <div>
-        <label for="answer">Answer</label>
-        <input class="input-field" name="answer" placeholder="answer"  v-model="newUser.Answer" required>
-      </div>
-      <div><button type="submit" @click="Register()">Registration</button></div>
+      <div><button type="submit" @click="Update()">Update</button></div>
     </form>
      </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "UpdateInfoView",
  data() {
@@ -102,6 +87,7 @@ export default {
         TypeOfProfile:"",
         TypeOfUser:"",
         errorMessage:"",
+        token:"",
       newUser: {
         Username: "",
         Password:"",
@@ -118,11 +104,181 @@ export default {
         Education:"",
         Skills:"",
         Interest:"",
-        Question:"",
-        Answer:"",
       },
     }
-    }
+    },
+    methods: {
+      async Update() {
+ if (
+        !this.validBiography() ||
+        !this.validPhoneNumber() ||
+        !this.validLastName() ||
+        !this.validUsername() ||
+        !this.validFirstName()
+      ) {
+      alert("Fill in the fields in the right way!");
+      }else {
+       
+   
+      }
+      },
+
+      validQuestion() {
+      if (this.newUser.Question.length < 1) {
+        alert("Your question should contain at least 1 character!");
+        return false;
+      } else if (this.newUser.Question.length > 70) {
+        alert("Your question shouldn't contain more than 70 characters!");
+        return false;
+      }
+      return true;
+    },
+    validAnswer() {
+      if (this.newUser.Answer.length < 1) {
+        alert("Your answer should contain at least 1 character!");
+        return false;
+      } else if (this.newUser.Answer.length > 70) {
+        alert("Your answer shouldn't contain more than 70 characters!");
+        return false;
+      }
+      return true;
+    },
+      validBiography() {
+      if (this.newUser.Biography.length < 1) {
+        alert("Your biography should contain at least 1 character!");
+        return false;
+      } else if (this.newUser.Biography.length > 100) {
+        alert("Your biography shouldn't contain more than 100 characters!");
+        return false;
+      }
+      return true;
+    },
+     validPhoneNumber() {
+      if (this.newUser.PhoneNumber.match(/[a-zA-Z]/g)) {
+        alert("Your phone number shouldn't contain letters.");
+        return false;
+      } else if (this.newUser.PhoneNumber.match(/[ ]/g)) {
+        alert("Your phone number shouldn't contain spaces!");
+        return false;
+      } else if (
+        !/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\\s./0-9]*$/.test(this.newUser.PhoneNumber)
+      ) {
+        alert("Your phone number is not in right form!");
+        return false;
+      }
+      return true;
+    },
+    validLastName() {
+      if (this.newUser.LastName.length < 2) {
+        alert("Your last name should contain at least 2 characters!");
+        return false;
+      } else if (this.newUser.LastName.length > 35) {
+        alert("Your last name shouldn't contain more than 35 characters!");
+        return false;
+      } else if (this.newUser.LastName.match(/[!@#$%^&*.,:'<>+-/\\"]/g)) {
+        alert("Your last name shouldn't contain special characters.");
+        return false;
+      } else if (this.newUser.LastName.match(/[ ]/g)) {
+        alert("Your last name shouldn't contain spaces!");
+        return false;
+      } else if (this.newUser.LastName.match(/\d/g)) {
+        alert("Your last name shouldn't contain numbers!");
+        return false;
+      } else if (!/^[A-Z][a-z]+$/.test(this.newUser.LastName)) {
+        alert("Your last name needs to have one upper letter at the start!");
+        return false;
+      }
+      return true;
+    },
+    validUsername() {
+      if (this.newUser.Username.length < 1) {
+        alert("Your username should contain at least 1 character!");
+        return false;
+      } else if (this.newUser.Username.length > 20) {
+        alert("Your username shouldn't contain more than 20 characters!");
+        return false;
+      } else if (this.newUser.Username.match(/[!@#$%^&*'<>+/\\"]/g)) {
+        alert("Your username shouldn't contain special characters.");
+        return false;
+      }
+      return true;
+    },
+     validEmail() {
+      if (
+        !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          this.newUser.Email
+        )
+      ) {
+        alert("You have entered an invalid email address!");
+        return false;
+      } else if (this.newUser.Email.length > 35) {
+        alert("Your email shouldn't contain more than 35 characters!");
+        return false;
+      }
+      return true;
+    },
+
+    validFirstName() {
+      if (this.newUser.FirstName.length < 2) {
+        alert("Your first name should contain at least 2 characters!");
+        return false;
+      } else if (this.newUser.FirstName.length > 20) {
+        alert("Your first name shouldn't contain more than 20 characters!");
+        return false;
+      } else if (this.newUser.FirstName.match(/[!@#$%^&*.,:'<>+-/\\"]/g)) {
+        alert("Your first name shouldn't contain special characters.");
+        return false;
+      } else if (this.newUser.FirstName.match(/[ ]/g)) {
+        alert("Your first name shouldn't contain spaces!");
+        return false;
+      } else if (this.newUser.FirstName.match(/\d/g)) {
+        alert("Your first name shouldn't contain numbers!");
+        return false;
+      } else if (!/^[A-Z][a-z]+$/.test(this.newUser.FirstName)) {
+        alert("Your first name needs to have one upper letter at the start!");
+        return false;
+      }
+      return true;
+    },
+    },
+async created() {    
+  this.Username = localStorage.getItem("username"); 
+         const headers ={
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            'Content-Type': 'application/json;charset=UTF-8',
+            Accept: 'application/json',
+          }
+  console.log(this.Username);
+  axios.get("http://localhost:8089/findByUsername/"+this.Username, {
+      headers}
+    )
+    .then((response) => {
+
+      //console.log(this.response.FirstName)
+      console.log(response.data.gender)
+      this.newUser.Username = response.data.username
+      this.newUser.Email = response.data.email
+      this.newUser.PhoneNumber = response.data.phoneNumber
+      this.newUser.FirstName = response.data.firstName
+      this.newUser.LastName = response.data.lastName
+      if(response.data.gender == 1) {
+      this.newUser.Gender = "MALE"
+      }else if (response.data.gender == 2) {
+        this.newUser.Gender = "FEMALE"
+      }else {
+        this.newUser.Gender = "OTHER"
+      }
+      this.newUser.TypeOfProfile = response.data.typeOfProfile
+
+      this.newUser.TypeOfUser = response.data.typeOfUser
+      this.newUser.Biography = response.data.biography
+      this.newUser.WorkExperience = response.data.workExperience
+      this.newUser.Education = response.data.education
+      this.newUser.Skills = response.data.skills
+      this.newUser.Interest = response.data.interest
+      this.newUser.Question = response.data.question
+        })
+  },
 };
 </script>
 

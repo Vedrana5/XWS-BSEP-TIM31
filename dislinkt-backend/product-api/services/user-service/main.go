@@ -84,6 +84,7 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
 	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 	router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
+	router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
 
 	s.ListenAndServe()
 }
