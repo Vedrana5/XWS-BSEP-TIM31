@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "user-agent")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -27,12 +27,20 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
+    private boolean isConfirmed;
 
     @Column(unique = true, nullable = false)
     private String password;
 
     @Column(nullable = false)
     private Date dateOfBirth;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String recoveryEmail;
 
     @Column(nullable = false)
     private UserRole role;
