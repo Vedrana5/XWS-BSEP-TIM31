@@ -70,7 +70,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterDto userRequest, UriComponentsBuilder ucBuilder) throws UnknownHostException, ParseException {
-        User user = this.userService.findByUsername(userRequest.getUsername());
         User savedUser = userService.addUser(userRequest);
         if (savedUser != null) {
             return new ResponseEntity<>("SUCCESS!", HttpStatus.CREATED);
