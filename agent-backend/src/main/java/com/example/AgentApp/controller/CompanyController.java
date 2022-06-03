@@ -37,7 +37,7 @@ public class CompanyController {
         return new ResponseEntity<>("Failed to approve company!", HttpStatus.CONFLICT);*/
 
         if (company != null) {
-            return new ResponseEntity<>("SUCCESS!", HttpStatus.CREATED);
+            return new ResponseEntity<>("SUCCESS!", HttpStatus.OK);
         }
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
 
