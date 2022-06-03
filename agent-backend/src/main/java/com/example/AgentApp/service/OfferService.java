@@ -9,4 +9,6 @@ public interface OfferService {
     Offer addOffer(NewOfferDto newOfferDto);
 
     List<Offer> getAllOffers();
+
+    List<Offer> getAllByCompany(Long companyId);
 }

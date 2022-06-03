@@ -43,4 +43,10 @@ public class OfferServiceImpl  implements OfferService {
         List<Offer> offers = offerRepository.findAll();
         return offers;
     }
+
+    @Override
+    public List<Offer> getAllByCompany(Long companyId) {
+     List<Offer> offers=offerRepository.getAllByCompanyId(companyId);
+     return offers;
+    }
 }

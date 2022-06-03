@@ -25,4 +25,10 @@ public class OfferController {
         return offers;
 
     }
+
+    @GetMapping(value = "/getAllByCompany/{companyId}")
+    public List<Offer> allOffersForCompany(@PathVariable Long companyId){
+        List<Offer> offers = offerService.getAllByCompany(companyId);
+       return offers;
+    }
 }
