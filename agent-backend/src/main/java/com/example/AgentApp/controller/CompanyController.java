@@ -2,6 +2,7 @@ package com.example.AgentApp.controller;
 
 import com.example.AgentApp.dto.CreateCompanyDto;
 import com.example.AgentApp.model.Company;
+import com.example.AgentApp.model.CompanyStatus;
 import com.example.AgentApp.model.User;
 import com.example.AgentApp.service.CompanyService;
 import com.example.AgentApp.service.impl.CompanyServiceImpl;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/companies")
@@ -18,7 +21,7 @@ public class CompanyController {
     private CompanyService companyService;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/createNew")
+    @PostMapping(value = "/createNew")
     public ResponseEntity<String> createCompany(@RequestBody CreateCompanyDto companyDto) {
         Company company = companyService.createCompany(companyDto);
         if (company != null) {
@@ -28,7 +31,7 @@ public class CompanyController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("approve/{id}")
+    @GetMapping(value = "approve/{id}")
     public Company approveCompany(@PathVariable Long id) {
         Company company = companyService.approveCompany(id);
         return company;
@@ -36,7 +39,7 @@ public class CompanyController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("reject/{id}")
+    @GetMapping(value = "reject/{id}")
     public Company rejectCompany(@PathVariable Long id) {
         Company company = companyService.rejectCompany(id);
         return company;
@@ -50,4 +53,19 @@ public class CompanyController {
         return company;
 
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping(value = "/pendingCompanies")
+    public List<Company> getAllPendingCompanies(){
+        List<Company> companies = companyService.getAllStatusCompanies(CompanyStatus.PENDING);
+        return companies;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping(value = "/approvedCompanies")
+    public List<Company> getAllApprovedCompanies(){
+        List<Company> companies = companyService.getAllStatusCompanies(CompanyStatus.APPROVED);
+        return companies;
+    }
+
 }

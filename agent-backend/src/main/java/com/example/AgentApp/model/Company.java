@@ -45,10 +45,10 @@ public class Company {
     private User owner;
 
    @Column
-    private StatusofCompany status;
+    private CompanyStatus companyStatus;
 
 
-  
+
     @OneToMany
     @JoinColumn(name = "company_id")
     private List<Offer> offers;

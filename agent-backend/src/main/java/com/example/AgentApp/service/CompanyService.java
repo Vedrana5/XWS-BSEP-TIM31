@@ -2,6 +2,10 @@ package com.example.AgentApp.service;
 
 import com.example.AgentApp.dto.CreateCompanyDto;
 import com.example.AgentApp.model.Company;
+import com.example.AgentApp.model.CompanyStatus;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 public interface CompanyService {
     Company createCompany(CreateCompanyDto companyDto);
@@ -12,4 +16,7 @@ public interface CompanyService {
     Company rejectCompany(Long id);
 
     Company editCompany(CreateCompanyDto companyDto);
+
+
+    List<Company> getAllStatusCompanies(CompanyStatus status);
 }

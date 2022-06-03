@@ -2,6 +2,7 @@ package com.example.AgentApp.service.impl;
 
 import com.example.AgentApp.dto.CreateCompanyDto;
 import com.example.AgentApp.model.Company;
+import com.example.AgentApp.model.CompanyStatus;
 import com.example.AgentApp.model.User;
 import com.example.AgentApp.model.UserRole;
 import com.example.AgentApp.repository.CompanyRepository;
@@ -11,6 +12,7 @@ import com.example.AgentApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
        company.setCountryOfOrigin(companyDto.getCountryOfOrigin());
        company.setFounder(companyDto.getFounder());
        company.setNumberOfEmpl(companyDto.getNumberOfEmpl());
-       company.setStatus(Company.StatusofCompany.PENDING);
+       company.setCompanyStatus(CompanyStatus.PENDING);
 
        User owner=userService.findByUsername(companyDto.getOwnerUsername());
        company.setOwner(owner);
@@ -52,7 +54,7 @@ public class CompanyServiceImpl implements CompanyService {
     public Company approveCompany(Long id)
     {
        Optional<Company> company=companyRepository.findById(id);
-       company.get().setStatus(Company.StatusofCompany.APPROVED);
+       company.get().setCompanyStatus(CompanyStatus.APPROVED);
        User owner=company.get().getOwner();
        owner.setRole(UserRole.OWNER);
        userRepository.save(owner);
@@ -64,7 +66,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Company rejectCompany(Long id) {
         Optional<Company> company=companyRepository.findById(id);
-        company.get().setStatus(Company.StatusofCompany.DECLINED);
+        company.get().setCompanyStatus(CompanyStatus.DECLINED);
 
         companyRepository.save(company.get());
         return company.get();
@@ -84,6 +86,16 @@ public class CompanyServiceImpl implements CompanyService {
         return company.get();
 
     }
+
+
+
+    @Override
+    public List<Company> getAllStatusCompanies(CompanyStatus status) {
+        List<Company> companies = companyRepository.findAllByCompanyStatus(status);
+        return companies;
+    }
+
+
 
 
 }
