@@ -5,4 +5,6 @@ import com.example.AgentApp.model.Company;
 
 public interface CompanyService {
     Company createCompany(CreateCompanyDto companyDto);
+
+    Company approveCompany(Long id);
 }

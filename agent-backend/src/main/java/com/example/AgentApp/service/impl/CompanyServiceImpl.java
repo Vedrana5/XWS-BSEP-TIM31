@@ -3,11 +3,17 @@ package com.example.AgentApp.service.impl;
 import com.example.AgentApp.dto.CreateCompanyDto;
 import com.example.AgentApp.model.Company;
 import com.example.AgentApp.model.User;
+import com.example.AgentApp.model.UserRole;
 import com.example.AgentApp.repository.CompanyRepository;
+import com.example.AgentApp.repository.UserRepository;
 import com.example.AgentApp.service.CompanyService;
 import com.example.AgentApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+@Service
 public class CompanyServiceImpl implements CompanyService {
 
 
@@ -17,12 +23,15 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Override
     public Company createCompany(CreateCompanyDto companyDto) {
 
        Company company=new Company();
-       
+
        company.setName(companyDto.getName());
        company.setWebsite(companyDto.getWebsite());
        company.setEmail(companyDto.getEmail());
@@ -38,4 +47,19 @@ public class CompanyServiceImpl implements CompanyService {
        companyRepository.save(company);
        return company;
     }
+
+    @Override
+    public Company approveCompany(Long id)
+    {
+       Optional<Company> company=companyRepository.findById(id);
+       company.get().setStatus(Company.StatusofCompany.APPROVED);
+       User owner=company.get().getOwner();
+       owner.setRole(UserRole.OWNER);
+       userRepository.save(owner);
+       companyRepository.save(company.get());
+
+        return company.get();
+    }
+
+
 }
