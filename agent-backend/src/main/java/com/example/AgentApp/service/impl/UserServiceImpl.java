@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setRecoveryEmail(userRequest.getRecoveryEmail());
         user.setConfirmed(false);
         user.setRole(UserRole.REGISTERED_USER);
-        User registerUser = userRepository.save(user);
-        return registerUser;
+        User registeredUser = userRepository.save(user);
+        return registeredUser;
     }
 }
