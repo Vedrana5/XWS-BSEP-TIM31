@@ -3,6 +3,7 @@ package com.example.AgentApp.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -43,11 +44,14 @@ public class Company {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-
+   @Column
     private StatusofCompany status;
 
-    //ponude za posao
 
+  
+    @OneToMany
+    @JoinColumn(name = "company_id")
+    private List<Offer> offers;
 
 
 }

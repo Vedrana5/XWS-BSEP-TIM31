@@ -17,7 +17,7 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/createNew")
     public ResponseEntity<String> createCompany(@RequestBody CreateCompanyDto companyDto) {
         Company company = companyService.createCompany(companyDto);
@@ -27,6 +27,7 @@ public class CompanyController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("approve/{id}")
     public Company approveCompany(@PathVariable Long id) {
         Company company = companyService.approveCompany(id);
@@ -34,9 +35,19 @@ public class CompanyController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("reject/{id}")
     public Company rejectCompany(@PathVariable Long id) {
         Company company = companyService.rejectCompany(id);
         return company;
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping(value = "/editCompany")
+    public Company editCottage(@RequestBody CreateCompanyDto companyDto) {
+        Company company = companyService.editCompany(companyDto);
+        return company;
+
     }
 }

@@ -70,5 +70,20 @@ public class CompanyServiceImpl implements CompanyService {
         return company.get();
     }
 
+    @Override
+    public Company editCompany(CreateCompanyDto companyDto) {
+        Optional<Company> company=companyRepository.findById(companyDto.getCompanyId());
+        company.get().setName(companyDto.getName());
+        company.get().setWebsite(companyDto.getWebsite());
+        company.get().setEmail(companyDto.getEmail());
+        company.get().setPhoneNumber(companyDto.getPhoneNumber());
+        company.get().setCountryOfOrigin(companyDto.getCountryOfOrigin());
+        company.get().setFounder(companyDto.getFounder());
+        company.get().setNumberOfEmpl(companyDto.getNumberOfEmpl());
+
+        return company.get();
+
+    }
+
 
 }

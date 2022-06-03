@@ -10,4 +10,6 @@ public interface CompanyService {
 
 
     Company rejectCompany(Long id);
+
+    Company editCompany(CreateCompanyDto companyDto);
 }
