@@ -61,5 +61,14 @@ public class CompanyServiceImpl implements CompanyService {
         return company.get();
     }
 
+    @Override
+    public Company rejectCompany(Long id) {
+        Optional<Company> company=companyRepository.findById(id);
+        company.get().setStatus(Company.StatusofCompany.DECLINED);
+
+        companyRepository.save(company.get());
+        return company.get();
+    }
+
 
 }

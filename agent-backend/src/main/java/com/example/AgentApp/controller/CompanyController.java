@@ -19,7 +19,7 @@ public class CompanyController {
 
 
     @PostMapping("/createNew")
-    public ResponseEntity<String> createCompany(@RequestBody CreateCompanyDto companyDto){
+    public ResponseEntity<String> createCompany(@RequestBody CreateCompanyDto companyDto) {
         Company company = companyService.createCompany(companyDto);
         if (company != null) {
             return new ResponseEntity<>("SUCCESS!", HttpStatus.CREATED);
@@ -28,18 +28,15 @@ public class CompanyController {
     }
 
     @GetMapping("approve/{id}")
-    public ResponseEntity<?> approveCompany(@PathVariable Long id) {
+    public Company approveCompany(@PathVariable Long id) {
         Company company = companyService.approveCompany(id);
-      /*  List<Company> companies = companyService.getAllCompaniesWithStatus(CompanyStatus.PENDING);
-        if (company != null){
-            return new ResponseEntity<List<CompanyResponseDto>>(companyMapper.mapToDtos( companies), HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Failed to approve company!", HttpStatus.CONFLICT);*/
+        return company;
 
-        if (company != null) {
-            return new ResponseEntity<>("SUCCESS!", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
+    @GetMapping("reject/{id}")
+    public Company rejectCompany(@PathVariable Long id) {
+        Company company = companyService.rejectCompany(id);
+        return company;
     }
 }

@@ -7,4 +7,7 @@ public interface CompanyService {
     Company createCompany(CreateCompanyDto companyDto);
 
     Company approveCompany(Long id);
+
+
+    Company rejectCompany(Long id);
 }
