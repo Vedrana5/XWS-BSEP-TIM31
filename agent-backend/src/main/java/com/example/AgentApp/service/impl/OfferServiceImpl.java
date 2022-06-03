@@ -12,6 +12,7 @@ import com.example.AgentApp.service.OfferService;
 import com.example.AgentApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 public class OfferServiceImpl  implements OfferService {
@@ -35,5 +36,11 @@ public class OfferServiceImpl  implements OfferService {
         offer.setCompany(company);
         offerRepository.save(offer);
         return offer;
+    }
+
+    @Override
+    public List<Offer> getAllOffers() {
+        List<Offer> offers = offerRepository.findAll();
+        return offers;
     }
 }
