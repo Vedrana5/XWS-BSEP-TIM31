@@ -1,10 +1,7 @@
 package com.example.AgentApp.service.impl;
 
 import com.example.AgentApp.dto.CreateCompanyDto;
-import com.example.AgentApp.model.Company;
-import com.example.AgentApp.model.CompanyStatus;
-import com.example.AgentApp.model.User;
-import com.example.AgentApp.model.UserRole;
+import com.example.AgentApp.model.*;
 import com.example.AgentApp.repository.CompanyRepository;
 import com.example.AgentApp.repository.UserRepository;
 import com.example.AgentApp.service.CompanyService;
@@ -95,7 +92,10 @@ public class CompanyServiceImpl implements CompanyService {
         return companies;
     }
 
-
+    @Override
+    public List<Company> getAll() {
+        return companyRepository.findAll();
+    }
 
 
 }

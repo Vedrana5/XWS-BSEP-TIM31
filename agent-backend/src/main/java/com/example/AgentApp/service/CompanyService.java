@@ -3,6 +3,7 @@ package com.example.AgentApp.service;
 import com.example.AgentApp.dto.CreateCompanyDto;
 import com.example.AgentApp.model.Company;
 import com.example.AgentApp.model.CompanyStatus;
+import com.example.AgentApp.model.Offer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface CompanyService {
 
 
     List<Company> getAllStatusCompanies(CompanyStatus status);
+
+    List<Company> getAll();
 }

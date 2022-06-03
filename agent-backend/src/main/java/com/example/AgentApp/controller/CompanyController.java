@@ -3,6 +3,7 @@ package com.example.AgentApp.controller;
 import com.example.AgentApp.dto.CreateCompanyDto;
 import com.example.AgentApp.model.Company;
 import com.example.AgentApp.model.CompanyStatus;
+import com.example.AgentApp.model.Offer;
 import com.example.AgentApp.model.User;
 import com.example.AgentApp.service.CompanyService;
 import com.example.AgentApp.service.impl.CompanyServiceImpl;
@@ -66,6 +67,12 @@ public class CompanyController {
     public List<Company> getAllApprovedCompanies(){
         List<Company> companies = companyService.getAllStatusCompanies(CompanyStatus.APPROVED);
         return companies;
+    }
+
+
+    @GetMapping(value = "/all")
+    public List<Company> getAll(){
+        return companyService.getAll();
     }
 
 }
