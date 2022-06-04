@@ -1,11 +1,12 @@
 <div class="container">
     <mat-card>
-        <mat-card-title>Registration</mat-card-title>
+        <mat-card-title>Registration of new user</mat-card-title>
         <br /><br />
         <mat-card-content>
             <div class="container" [formGroup]="createForm">
                 <br />
-                <div class="separateMe">
+                <div>
+
                     <div style="width: 100%; display: flex">
                         <mat-form-field appearance="fill">
                             <mat-label>First name</mat-label>
@@ -30,6 +31,39 @@
                         <mat-error>Invalid input</mat-error>
                     </mat-form-field>
                 </div>
+                <div style="width: 100%; display: flex">
+                    <mat-form-field appearance="fill">
+                        <mat-label>User name</mat-label>
+                        <input matInput formControlName="userName" />
+                        <mat-error *ngIf="
+              createForm?.get('userName')?.valid &&
+              createForm?.get('userName')?.touched &&
+              createForm?.get('userName')?.errors?.['required']
+            ">First name is required.</mat-error>
+                        <mat-error>Invalid input</mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 100%; display: flex">
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>Date of birth</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div style="width: 100%; display: flex">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Phone number</mat-label>
+                        <input matInput formControlName="phoneNumber" />
+                        <mat-error *ngIf="
+                          !createForm?.get('phoneNumber')?.valid &&
+                          createForm?.get('phoneNumber')?.touched &&
+                          createForm?.get('phoneNumber')?.errors?.['required']
+                        ">Phone number is required</mat-error>
+                    </mat-form-field>
+                </div>
+
 
                 <div style="width: 100%; display: flex">
                     <mat-form-field appearance="fill">
@@ -47,6 +81,8 @@
                 ">Invalid email!</mat-error>
                     </mat-form-field>
                 </div>
+
+
                 <div style="width: 100%; display: flex">
                     <mat-form-field appearance="fill">
                         <mat-label>Recovery email address</mat-label>

@@ -33,4 +33,7 @@ public class RegisterDto {
 
     private String dateOfBirth;
 
+    private String phoneNumber;
+
+
 }

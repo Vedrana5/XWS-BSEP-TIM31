@@ -37,6 +37,14 @@ export class RegistrationComponent implements OnInit {
         Validators.pattern('^[A-ZŠĐŽČĆ][a-zšđćčžA-ZŠĐŽČĆ ]*$'),
       ]),
 
+      userName: new FormControl(null, [
+        Validators.required,
+      ]),
+      dateOfBirth: new FormControl(null, [Validators.required]),
+      phoneNumber: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('^[0]{1}[0-9]{8}$'),
+      ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       recoveryMail: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [
