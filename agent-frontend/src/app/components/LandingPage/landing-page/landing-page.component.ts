@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -14,7 +14,7 @@ export class LandingPageComponent implements OnInit {
   constructor(
     private authService: UserService,
     private _router: Router,
-    private _snackBar: MatSnackBar
+
   ) { }
   emaill!: string;
 
@@ -29,7 +29,7 @@ export class LandingPageComponent implements OnInit {
   onSubmit(f: NgForm) {
     const loginObserver = {
       next: (x: any) => {
-        this._snackBar.open('     Welcome', 'Dismiss');
+        //  this._snackBar.open('     Welcome', 'Dismiss');
         if (localStorage.getItem('role') == 'ADMIN') {
           this._router.navigate(['/ahome']);
         } else {
@@ -37,10 +37,10 @@ export class LandingPageComponent implements OnInit {
         }
       },
       error: (err: any) => {
-        this._snackBar.open(
-          'Email or password are incorrect.Try again,please.',
-          'Dismiss'
-        );
+        /*   this._snackBar.open(
+             'Email or password are incorrect.Try again,please.',
+             'Dismiss'
+           );*/
       },
     };
 
