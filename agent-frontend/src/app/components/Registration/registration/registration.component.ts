@@ -99,8 +99,11 @@ export class RegistrationComponent implements OnInit {
     this.newSubject.firstName = this.createForm.value.firstName;
     this.newSubject.lastName = this.createForm.value.lastName;
     this.newSubject.email = this.createForm.value.email;
-    this.newSubject.recoveryMail = this.createForm.value.recoveryMail;
+    this.newSubject.recoveryEmail = this.createForm.value.recoveryMail;
     this.newSubject.password = this.createForm.value.password;
     const date = this.datePipe.transform(this.createForm.value.dateOfBirth, 'MM/dd/yyyy');
+    this.newSubject.dateOfBirth = date;
+    this.newSubject.phoneNumber = this.createForm.value.phoneNumber;
+    this.newSubject.username = this.createForm.value.userName;
   }
 }

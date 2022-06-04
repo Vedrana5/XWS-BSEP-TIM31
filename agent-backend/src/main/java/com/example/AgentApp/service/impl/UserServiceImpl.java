@@ -34,6 +34,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(RegisterDto userRequest) throws ParseException {
         User user = new User();
+        System.out.print(userRequest.getRecoveryEmail());
+        System.out.print(userRequest.getUsername());
         user.setUsername(userRequest.getUsername());
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
@@ -41,6 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         user.setEmail(userRequest.getEmail());
         user.setRecoveryEmail(userRequest.getRecoveryEmail());
+        user.setPhoneNumber(userRequest.getPhoneNumber());
         user.setConfirmed(false);
         user.setRole(UserRole.REGISTERED_USER);
         userRepository.save(user);

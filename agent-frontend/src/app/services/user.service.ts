@@ -26,8 +26,9 @@ export class UserService {
   }
 
   createSubject(newSubject: SubjectData): Observable<any> {
+    console.log(newSubject.username)
     return this._http.post<any>(
-      'http://localhost:8081/api/user/register',
+      'http://localhost:8082/auth/register',
       newSubject
     );
   }

@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 public class RegisterDto {
 
-    private String username;
+
 
     @Pattern(regexp = "[a-zA-Z]+")
     private String firstName;
@@ -22,14 +22,18 @@ public class RegisterDto {
     @Pattern(regexp = "[a-zA-Z]+")
     private String lastName;
 
-    @Pattern(regexp= "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!\"#$@%&()*<>+_|~]).*$", message =  "Password format not valid")
-    private String password;
-
     @Email
     private String email;
 
+    @Pattern(regexp= "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!\"#$@%&()*<>+_|~]).*$", message =  "Password format not valid")
+    private String password;
+
+
+
     @Email
     private String recoveryEmail;
+
+    private String username;
 
     private String dateOfBirth;
 

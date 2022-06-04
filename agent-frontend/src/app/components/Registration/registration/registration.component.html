@@ -3,7 +3,7 @@
         <mat-card-title>Registration of new user</mat-card-title>
         <br /><br />
         <mat-card-content>
-            <div class="container" [formGroup]="createForm">
+            <div class="container1" [formGroup]="createForm">
                 <br />
                 <div>
 
@@ -31,7 +31,7 @@
                         <mat-error>Invalid input</mat-error>
                     </mat-form-field>
                 </div>
-                <div style="width: 100%; display: flex">
+                <div style="width: 80%; display: flex">
                     <mat-form-field appearance="fill">
                         <mat-label>User name</mat-label>
                         <input matInput formControlName="userName" />
@@ -43,7 +43,7 @@
                         <mat-error>Invalid input</mat-error>
                     </mat-form-field>
                 </div>
-                <div style="width: 100%; display: flex">
+                <div style="width: 80%; display: flex">
                     <mat-form-field appearance="fill">
 
                         <mat-label>Date of birth</mat-label>
@@ -52,7 +52,7 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </div>
-                <div style="width: 100%; display: flex">
+                <div style="width: 80%; display: flex">
                     <mat-form-field appearance="fill">
                         <mat-label>Phone number</mat-label>
                         <input matInput formControlName="phoneNumber" />
@@ -65,7 +65,7 @@
                 </div>
 
 
-                <div style="width: 100%; display: flex">
+                <div style="width: 80%; display: flex">
                     <mat-form-field appearance="fill">
                         <mat-label>Email</mat-label>
                         <input matInput formControlName="email" />
@@ -83,7 +83,7 @@
                 </div>
 
 
-                <div style="width: 100%; display: flex">
+                <div style="width: 80%; display: flex">
                     <mat-form-field appearance="fill">
                         <mat-label>Recovery email address</mat-label>
                         <input matInput formControlName="recoveryMail" />
@@ -99,7 +99,7 @@
                     ">Invalid email!</mat-error>
                     </mat-form-field>
                 </div>
-                <div style="width: 100%; display: flex">
+                <div style="width: 80%; display: flex">
                     <mat-form-field appearance="fill">
                         <mat-label>Password</mat-label>
                         <input matInput type="password" formControlName="password" (input)="onPasswordInput()" />
@@ -120,7 +120,7 @@
                 ">10 characters please!</mat-error>
                     </mat-form-field>
                 </div>
-                <div style="width: 100%; display: flex">
+                <div style="width: 80%; display: flex">
                     <mat-form-field appearance="fill">
                         <mat-label>Confirm Password</mat-label>
                         <input type="password" matInput formControlName="passConfirmed" (input)="onPasswordInput()" />

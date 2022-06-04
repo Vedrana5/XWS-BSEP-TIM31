@@ -4,8 +4,8 @@ export interface SubjectData {
     lastName: String;
     email: String;
     password: String;
-    recoveryMail: String;
-    userName: String;
-    dateOfBirth: string | null;
+    recoveryEmail: String;
+    username: String;
+    dateOfBirth: String | null;
     phoneNumber: string;
 }
