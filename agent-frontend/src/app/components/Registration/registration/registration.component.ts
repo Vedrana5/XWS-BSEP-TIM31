@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SubjectData } from 'src/app/interfaces/subject-data';
 import { UserService } from 'src/app/services/user.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-registration',
@@ -22,7 +23,8 @@ export class RegistrationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private authService: UserService) {
+    private authService: UserService,
+    private datePipe: DatePipe) {
     this.newSubject = {} as SubjectData;
   }
 
@@ -99,5 +101,6 @@ export class RegistrationComponent implements OnInit {
     this.newSubject.email = this.createForm.value.email;
     this.newSubject.recoveryMail = this.createForm.value.recoveryMail;
     this.newSubject.password = this.createForm.value.password;
+    const date = this.datePipe.transform(this.createForm.value.dateOfBirth, 'MM/dd/yyyy');
   }
 }
