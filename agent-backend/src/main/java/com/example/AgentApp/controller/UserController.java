@@ -1,7 +1,8 @@
 package com.example.AgentApp.controller;
 
 import com.example.AgentApp.model.User;
-import com.example.AgentApp.security.TokenUtils;
+
+import com.example.AgentApp.security.TokenUtilss;
 import com.example.AgentApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +18,7 @@ public class UserController {
 
 
     @Autowired
-    private TokenUtils tokenUtils;
+    private TokenUtilss tokenUtils;
 
     @Autowired
     private UserService userService;
@@ -26,7 +27,7 @@ public class UserController {
     @GetMapping(value = "/getBasicInf")
     public User getUserInformation(HttpServletRequest request) {
         String token = tokenUtils.getToken(request);
-        String username=tokenUtils.getUsernameFromToken(token);
+        String username=tokenUtils.getEmailFromToken(token);
         User user = userService.findByUsername(username);
         return user;
     }

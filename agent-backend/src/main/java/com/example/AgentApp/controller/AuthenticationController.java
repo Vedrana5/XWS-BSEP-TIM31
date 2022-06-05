@@ -9,7 +9,8 @@ import com.example.AgentApp.model.User;
 import com.example.AgentApp.model.UserDetails;
 import com.example.AgentApp.model.UserRole;
 import com.example.AgentApp.repository.UserRepository;
-import com.example.AgentApp.security.TokenUtils;
+
+import com.example.AgentApp.security.TokenUtilss;
 import com.example.AgentApp.service.UserService;
 import com.example.AgentApp.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import java.time.LocalDateTime;
 public class AuthenticationController {
 
     @Autowired
-    private TokenUtils tokenUtils;
+    private TokenUtilss tokenUtils;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -57,7 +58,7 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserRole role = userService.findByEmail(authenticationRequest.getEmail()).getRole();
         UserDetails user = (UserDetails) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUser().getUsername());
+        String jwt = tokenUtils.generateToken(user.getUser().getEmail());
         int expiresIn = tokenUtils.getExpiredIn();
         LogUserDto loggedUserDto = new LogUserDto(authenticationRequest.getEmail(), role.toString(), new UserTokenState(jwt, expiresIn));
         return ResponseEntity.ok(loggedUserDto);

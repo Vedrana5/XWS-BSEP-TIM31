@@ -2,7 +2,8 @@ package com.example.AgentApp.config;
 
 import com.example.AgentApp.security.RestAuthenticationEntryPoint;
 import com.example.AgentApp.security.TokenAuthenticationFilter;
-import com.example.AgentApp.security.TokenUtils;
+
+import com.example.AgentApp.security.TokenUtilss;
 import com.example.AgentApp.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private TokenUtils tokenUtils;
+    private TokenUtilss tokenUtils;
 
     @Bean
     @Override

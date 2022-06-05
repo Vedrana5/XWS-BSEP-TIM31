@@ -7,11 +7,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+
 @NoArgsConstructor
 public class LogUserDto {
-    private String username;
+    private String email;
     private String role;
     private UserTokenState token;
+
+    public LogUserDto(String email, String role, UserTokenState token) {
+        this.email = email;
+        this.role = role;
+        this.token = token;
+    }
 
 }

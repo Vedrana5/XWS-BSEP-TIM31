@@ -1,17 +1,21 @@
 package com.example.AgentApp.security;
 
+
+import com.example.AgentApp.model.User;
 import com.example.AgentApp.model.UserDetails;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Component
-public class TokenUtils {
+public class TokenUtilss {
     @Value("spring-security-example")
     private String APP_NAME;
 
@@ -119,19 +123,19 @@ public class TokenUtils {
      * @param token JWT token.
      * @return Korisničko ime iz tokena ili null ukoliko ne postoji.
      */
-    public String getUsernameFromToken(String token) {
-        String username;
+    public String getEmailFromToken(String token) {
+        String email;
 
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
-            username = claims.getSubject();
+            email = claims.getSubject();
         } catch (ExpiredJwtException ex) {
             throw ex;
         } catch (Exception e) {
-            username = null;
+            email = null;
         }
 
-        return username;
+        return email;
     }
 
     /**
@@ -227,9 +231,14 @@ public class TokenUtils {
      * @return Informacija da li je token validan ili ne.
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getUsernameFromToken(token);
-        return (username != null
-                && username.equals(userDetails.getUser().getUsername()));
+        User user = userDetails.getUser();
+        final String email = getEmailFromToken(token);
+        final Date created = getIssuedAtDateFromToken(token);
+
+        // Token je validan kada:
+        return (email != null // korisnicko ime nije null
+                && email.equals(userDetails.getUser().getEmail())); // korisnicko ime iz tokena se podudara sa korisnickom imenom koje pise u bazi
+        //&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
     }
 
     /**

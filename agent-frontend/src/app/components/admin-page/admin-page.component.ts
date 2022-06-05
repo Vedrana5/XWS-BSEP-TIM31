@@ -24,6 +24,8 @@ export class AdminPageComponent implements OnInit {
   id!: number
   ngOnInit(): void {
     this.getPersonalData();
+
+
   }
 
   detailsForm = new FormGroup({
@@ -40,6 +42,7 @@ export class AdminPageComponent implements OnInit {
   getPersonalData() {
     this.sub = this.userService.getPersonalData().subscribe({
       next: (data: SubjectData) => {
+
         this.userDetails = data
         this.initialDetails = JSON.parse(JSON.stringify(data));
         this.detailsForm.controls['firstName'].setValue(data.firstName)
@@ -49,6 +52,7 @@ export class AdminPageComponent implements OnInit {
         this.detailsForm.controls['recoveryEmail'].setValue(data.recoveryEmail)
         this.detailsForm.controls['userName'].setValue(data.username)
         this.detailsForm.controls['dateOfBirth'].setValue(data.dateOfBirth)
+        console.log(data.firstName)
 
       },
     });
