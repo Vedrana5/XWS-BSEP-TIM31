@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { LogedUser } from 'src/app/interfaces/loged-user';
-
 import { SubjectData } from 'src/app/interfaces/subject-data';
 import { map } from 'rxjs/operators';
 
@@ -24,15 +23,11 @@ export class UserService {
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
-
-  createSubject(newSubject: SubjectData): Observable<any> {
-    console.log(newSubject.username)
-    return this._http.post<any>(
-      'http://localhost:8082/auth/register',
-      newSubject
-    );
+  createSubject(newUser: SubjectData) {
+    return this._http.post(`http://localhost:8082/auth/register`, newUser, {
+      responseType: 'text',
+    });
   }
-
   changePassword(data: any) {
     console.log(data)
     return this._http.put(`http://localhost:8081/api/user/changePassword`, data);

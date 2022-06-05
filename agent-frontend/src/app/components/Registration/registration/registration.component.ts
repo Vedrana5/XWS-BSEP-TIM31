@@ -73,23 +73,26 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
+
     this.createUser();
     this.authService.createSubject(this.newSubject).subscribe(
       (res) => {
         console.log(res);
-        if (res.isPawned) alert("The choosen password is weak and already pawned. Please, go change it.");
         this.router.navigate(['/']);
         this._snackBar.open(
-          'Your registration request has been sumbitted. Please check your email and confirm your email address to activate your account.',
-          'Dismiss'
-        );
+          'Your registration request has been sumbitted. Please check your email and confirm your email adress to activate your account.',
+          'Dismiss', {
+          duration: 3000
+        });
 
       },
       (err) => {
         let parts = err.error.split(':');
         let mess = parts[parts.length - 1];
         let description = mess.substring(1, mess.length - 4);
-        this._snackBar.open(description, 'Dismiss');
+        this._snackBar.open(description, 'Dismiss', {
+          duration: 3000
+        });
       }
     );
   }
