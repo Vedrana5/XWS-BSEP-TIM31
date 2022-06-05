@@ -51,6 +51,12 @@ export class UserService {
     return this.currentUserSubject.value;
   }
 
+  getPersonalData(): Observable<SubjectData> {
+    return this._http.get<SubjectData>(
+      `http://localhost:8082/users/getBasicInf`
+    );
+  }
+
   checkCode(verCode: string): Observable<any> {
     return this._http.post<any>('http://localhost:8081/api/user/checkCode', {
       email: localStorage.getItem('emailForReset'),
