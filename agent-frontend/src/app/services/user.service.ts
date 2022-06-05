@@ -46,6 +46,10 @@ export class UserService {
       })
     );
   }
+  public getValue(): LogedUser {
+    console.log("Token" + this.currentUserSubject.value.token.accessToken);
+    return this.currentUserSubject.value;
+  }
 
   checkCode(verCode: string): Observable<any> {
     return this._http.post<any>('http://localhost:8081/api/user/checkCode', {

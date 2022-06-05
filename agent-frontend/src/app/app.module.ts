@@ -13,6 +13,12 @@ import { LandingPageComponent } from './components/LandingPage/landing-page/land
 import { MaterialModule } from 'src/material.module';
 import { JwtInterceptor } from './JwtInterceptor/jwt-interceptor';
 import { RegistrationComponent } from './components/Registration/registration/registration.component';
+import { UserPageComponent } from './components/user-page/user-page.component';
+import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { UserNavbarComponent } from './components/user-navbar/user-navbar.component';
+import { AdminNavbarComponent } from './components/admin-navbar/admin-navbar.component';
+import { OwnerPageComponent } from './components/owner-page/owner-page.component';
+import { OwnerNavbarComponent } from './components/owner-navbar/owner-navbar.component';
 
 
 @NgModule({
@@ -20,6 +26,12 @@ import { RegistrationComponent } from './components/Registration/registration/re
     AppComponent,
     LandingPageComponent,
     RegistrationComponent,
+    UserPageComponent,
+    AdminPageComponent,
+    UserNavbarComponent,
+    AdminNavbarComponent,
+    OwnerPageComponent,
+    OwnerNavbarComponent,
 
   ],
   imports: [

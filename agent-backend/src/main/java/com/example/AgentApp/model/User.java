@@ -33,7 +33,7 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(unique = true, nullable = false)
+    @Column( nullable = false)
     private String password;
 
     @Column(nullable = false)

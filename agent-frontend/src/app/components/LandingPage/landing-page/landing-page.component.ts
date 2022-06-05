@@ -32,7 +32,17 @@ export class LandingPageComponent implements OnInit {
     const loginObserver = {
       next: (x: any) => {
         this._snackBar.open('     Welcome', 'Dismiss');
-        this._router.navigate(['/user/landing']);
+        if (localStorage.getItem('role') == 'ADMIN') {
+          this._router.navigate(['/adminHome']);
+        } else if (localStorage.getItem('role') == 'REGISTERED_USER') {
+          this._router.navigate(['/userHome']);
+        }
+        else {
+          this._router.navigate(['/ownerHome']);
+
+        }
+
+
       },
       error: (err: any) => {
         this._snackBar.open(
