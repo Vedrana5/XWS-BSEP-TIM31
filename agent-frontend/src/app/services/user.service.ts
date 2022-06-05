@@ -33,7 +33,7 @@ export class UserService {
     return this._http.put(`http://localhost:8081/api/user/changePassword`, data);
   }
   login(model: any): Observable<LogedUser> {
-    return this._http.post(`http://localhost:8081/api/user/login`, model).pipe(
+    return this._http.post(`http://localhost:8082/auth/login`, model).pipe(
       map((response: any) => {
         if (response && response.token) {
           localStorage.setItem('token', response.token.accessToken);

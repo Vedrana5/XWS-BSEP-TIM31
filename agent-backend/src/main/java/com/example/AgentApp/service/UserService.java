@@ -10,4 +10,8 @@ public interface UserService {
     User findByUsername(String username);
 
     User addUser(RegisterDto userRequest) throws ParseException;
+
+    User activateAccount(User user);
+
+    User findByEmail(String email);
 }

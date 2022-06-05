@@ -4,9 +4,8 @@ import com.example.AgentApp.dto.RegisterDto;
 import com.example.AgentApp.model.User;
 import com.example.AgentApp.model.UserRole;
 import com.example.AgentApp.repository.UserRepository;
-import com.example.AgentApp.service.CustomTokenService;
 import com.example.AgentApp.service.UserService;
-import net.bytebuddy.utility.nullability.AlwaysNull;
+import com.example.AgentApp.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,13 @@ public class UserServiceImpl implements UserService {
    @Autowired
    private UserRepository userRepository;
 
-   @Autowired
-   private CustomTokenService customTokenService;
+
 
    @Autowired
    private PasswordEncoder passwordEncoder;
+
+   @Autowired
+   private VerificationTokenService verificationTokenService;
 
     @Override
     public User findByUsername(String username) {
@@ -47,6 +48,19 @@ public class UserServiceImpl implements UserService {
         user.setConfirmed(false);
         user.setRole(UserRole.REGISTERED_USER);
         userRepository.save(user);
+        verificationTokenService.sendVerificationToken(user);
         return user;
+    }
+
+    @Override
+    public User activateAccount(User user) {
+        User userDb = findByEmail(user.getEmail());
+        userDb.setConfirmed(true);
+        User saved = userRepository.save(userDb);
+        return saved;
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

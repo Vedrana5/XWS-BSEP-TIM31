@@ -4,13 +4,14 @@ import com.example.AgentApp.dto.JwtAuthenticationRequestDto;
 import com.example.AgentApp.dto.LogUserDto;
 import com.example.AgentApp.dto.RegisterDto;
 import com.example.AgentApp.dto.UserTokenState;
+import com.example.AgentApp.model.CustomToken;
 import com.example.AgentApp.model.User;
 import com.example.AgentApp.model.UserDetails;
 import com.example.AgentApp.model.UserRole;
 import com.example.AgentApp.repository.UserRepository;
 import com.example.AgentApp.security.TokenUtils;
-import com.example.AgentApp.service.CustomTokenService;
 import com.example.AgentApp.service.UserService;
+import com.example.AgentApp.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.UnknownHostException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -40,7 +42,7 @@ public class AuthenticationController {
     private UserRepository userRepository;
 
     @Autowired
-    private CustomTokenService customTokenService;
+    private VerificationTokenService customTokenService;
 
     @Autowired
     private UserService userService;
@@ -51,13 +53,13 @@ public class AuthenticationController {
             @RequestBody JwtAuthenticationRequestDto authenticationRequest, HttpServletResponse response) {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserRole role = userService.findByUsername(authenticationRequest.getUsername()).getRole();
+        UserRole role = userService.findByEmail(authenticationRequest.getEmail()).getRole();
         UserDetails user = (UserDetails) authentication.getPrincipal();
         String jwt = tokenUtils.generateToken(user.getUser().getUsername());
         int expiresIn = tokenUtils.getExpiredIn();
-        LogUserDto loggedUserDto = new LogUserDto(authenticationRequest.getUsername(), role.toString(), new UserTokenState(jwt, expiresIn));
+        LogUserDto loggedUserDto = new LogUserDto(authenticationRequest.getEmail(), role.toString(), new UserTokenState(jwt, expiresIn));
         return ResponseEntity.ok(loggedUserDto);
     }
 
@@ -74,4 +76,25 @@ public class AuthenticationController {
         }
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+    @GetMapping("/confirmAccount/{token}")
+    public ResponseEntity<String> confirmAccount(@PathVariable String token) {
+        CustomToken verificationToken = customTokenService.findByToken(token);
+        User user = verificationToken.getUser();
+        if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+            customTokenService.deleteById(verificationToken.getId());
+            customTokenService.sendVerificationToken(user);
+            return new ResponseEntity<>("Confirmation link is expired,we sent you new one.Please check you mail box.", HttpStatus.BAD_REQUEST);
+        }
+        User activated = userService.activateAccount(user);
+        customTokenService.deleteById(verificationToken.getId());
+        if (activated.isConfirmed()) {
+            return new ResponseEntity<>("Account is activated.You can login.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Error happened!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
