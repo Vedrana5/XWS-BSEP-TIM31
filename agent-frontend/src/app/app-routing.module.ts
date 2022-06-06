@@ -5,6 +5,9 @@ import { RegistrationComponent } from './components/Registration/registration/re
 import { AuthGuard } from './AuthGuard/AuthGuard';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
+import { CompaniesListComponent } from './components/companies-list/companies-list.component';
+import { OwnerNavbarComponent } from './components/owner-navbar/owner-navbar.component';
+import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 
 
 const routes: Routes = [
@@ -18,6 +21,14 @@ const routes: Routes = [
   {
     path: 'adminHome',
     component: AdminPageComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'companies', canActivate: [AuthGuard],
+    component: CompaniesListComponent
+  },
+  {
+    path: 'ownerHome', canActivate: [AuthGuard],
+    component: OwnerPageComponent
   },
 
 ];

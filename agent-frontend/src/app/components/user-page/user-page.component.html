@@ -1,43 +1,45 @@
-<app-user-navbar></app-user-navbar>
-<router-outlet></router-outlet>
-<div class="container">
-    <form class="form-container" [formGroup]="detailsForm">
-        <mat-form-field appearance="standard">
-            <mat-label>First Name</mat-label>
-            <input matInput placeholder="First Name" formControlName="firstName" />
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Last name</mat-label>
-            <input matInput placeholder="Last Name" formControlName="lastName" readonly />
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Email</mat-label>
-            <input matInput placeholder="Email" formControlName="email" readonly />
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Recovery email</mat-label>
-            <input matInput placeholder="Recovery email" formControlName="recoveryEmail" readonly />
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Phone number</mat-label>
-            <input matInput placeholder="Phone Number" formControlName="phoneNumber" readonly />
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>User name</mat-label>
-            <input matInput placeholder="User name" formControlName="userName" readonly />
-        </mat-form-field>
+<<app-user-navbar>
+    </app-user-navbar>
+    <router-outlet></router-outlet>
 
-        <mat-form-field appearance="standard">
-            <mat-label>Date of birth</mat-label>
-            <input matInput placeholder="Date of birth" formControlName="dateOfBirth">
-        </mat-form-field>
-        <div class="button-container">
+    <div class="container">
+        <form class="form-container" [formGroup]="detailsForm">
+            <mat-form-field appearance="standard">
+                <mat-label>First Name</mat-label>
+                <input matInput placeholder="First Name" formControlName="firstName" />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Last name</mat-label>
+                <input matInput placeholder="Last Name" formControlName="lastName" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" formControlName="email" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Recovery email</mat-label>
+                <input matInput placeholder="Recovery email" formControlName="recoveryEmail" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Phone number</mat-label>
+                <input matInput placeholder="Phone Number" formControlName="phoneNumber" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>User name</mat-label>
+                <input matInput placeholder="User name" formControlName="userName" readonly />
+            </mat-form-field>
 
-            <div class="menu-container">
-                <button class="button" mat-flat-button color="primary">Change
-                    Password</button>
+            <mat-form-field appearance="standard">
+                <mat-label>Date of birth</mat-label>
+                <input matInput placeholder="Date of birth" formControlName="dateOfBirth">
+            </mat-form-field>
+            <div class="button-container">
+
+                <div class="menu-container">
+                    <button class="button" mat-flat-button color="primary">Change
+                        Password</button>
+                </div>
             </div>
-        </div>
 
-    </form>
-</div>
+        </form>
+    </div>

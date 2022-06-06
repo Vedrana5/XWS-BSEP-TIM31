@@ -1,17 +1,17 @@
 package com.example.AgentApp.controller;
 
 import com.example.AgentApp.dto.CreateCompanyDto;
-import com.example.AgentApp.model.Company;
-import com.example.AgentApp.model.CompanyStatus;
-import com.example.AgentApp.model.Offer;
-import com.example.AgentApp.model.User;
+import com.example.AgentApp.model.*;
+import com.example.AgentApp.security.TokenUtilss;
 import com.example.AgentApp.service.CompanyService;
+import com.example.AgentApp.service.UserService;
 import com.example.AgentApp.service.impl.CompanyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -20,6 +20,12 @@ public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TokenUtilss tokenUtils;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/createNew")
@@ -44,6 +50,23 @@ public class CompanyController {
     public Company rejectCompany(@PathVariable Long id) {
         Company company = companyService.rejectCompany(id);
         return company;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getAllforUser")
+    public List<Company> getAllForUser(HttpServletRequest request){
+        String username = tokenUtils.getEmailFromToken(tokenUtils.getToken(request));
+        User user = userService.findByEmail(username);
+
+
+        List<Company> companies;
+
+            companies = null;
+       
+            companies = companyService.getAllStatusCompanies(CompanyStatus.APPROVED);
+
+
+      return companies;
     }
 
 

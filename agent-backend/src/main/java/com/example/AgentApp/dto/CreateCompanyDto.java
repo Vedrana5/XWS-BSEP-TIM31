@@ -1,5 +1,6 @@
 package com.example.AgentApp.dto;
 
+import com.example.AgentApp.model.Company;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,18 @@ public class CreateCompanyDto {
     private String founder;
     private String numberOfEmpl;
     public String ownerUsername;
+
+    public CreateCompanyDto(Company c) {
+      this.companyId=c.getId();
+      this.name=c.getName();
+      this.website=c.getWebsite();
+      this.email=c.getEmail();
+      this.phoneNumber=c.getPhoneNumber();
+      this.countryOfOrigin=c.getCountryOfOrigin();
+      this.founder=c.getFounder();
+      this.numberOfEmpl=c.getNumberOfEmpl();
+      this.ownerUsername=Long.toString(c.getOwner().getId());
+
+    }
 
 }

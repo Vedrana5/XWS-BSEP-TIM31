@@ -47,11 +47,11 @@ public class Company {
    @Column
     private CompanyStatus companyStatus;
 
-
+/*
 
     @OneToMany
     @JoinColumn(name = "company_id")
     private List<Offer> offers;
-
+*/
 
 }
