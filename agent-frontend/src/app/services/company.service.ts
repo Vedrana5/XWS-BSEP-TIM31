@@ -31,4 +31,8 @@ export class CompanyService {
     return this.http.get<CompanyDto>(
       `http://localhost:8082/companies/reject/${id}`);
   }
+
+  getAllUsersCompanies(email: string): Observable<CompanyDto[]> {
+    return this.http.get<CompanyDto[]>(`http://localhost:8082/companies/getAllByUser/${email}`);
+  }
 }

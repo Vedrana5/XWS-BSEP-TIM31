@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     List<Company> findAllByCompanyStatus(CompanyStatus status);
+
+
 }

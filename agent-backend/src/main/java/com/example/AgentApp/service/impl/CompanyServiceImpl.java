@@ -9,6 +9,7 @@ import com.example.AgentApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +98,20 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<Company> getAll() {
         return companyRepository.findAll();
+    }
+
+    @Override
+    public List<Company> getAllByUser(Long id) {
+        List<Company> myCompanies=new ArrayList<>();
+        List<Company> companies=companyRepository.findAll();
+        for(Company company: companies) {
+            if(company.getOwner().getId()==id && company.getCompanyStatus()==CompanyStatus.APPROVED) {
+                System.out.print(company);
+                myCompanies.add(company);
+                return myCompanies;
+            }
+        }
+        return myCompanies;
     }
 
 

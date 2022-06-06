@@ -22,4 +22,6 @@ public interface CompanyService {
     List<Company> getAllStatusCompanies(CompanyStatus status);
 
     List<Company> getAll();
+
+    List<Company> getAllByUser(Long id);
 }

@@ -69,6 +69,16 @@ public class CompanyController {
       return companies;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getAllByUser/{email}")
+    public List<Company> getUsersCompany(@PathVariable String email){
+        User user = userService.findByEmail(email);
+        List<Company>companies=null;
+        companies=companyService.getAllByUser(user.getId());
+
+         return companies;
+    }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(value = "/editCompany")
