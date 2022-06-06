@@ -8,6 +8,7 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
 import { CompaniesListComponent } from './components/companies-list/companies-list.component';
 import { OwnerNavbarComponent } from './components/owner-navbar/owner-navbar.component';
 import { OwnerPageComponent } from './components/owner-page/owner-page.component';
+import { CompanyRequestsComponent } from './components/company-requests/company-requests.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'companies', canActivate: [AuthGuard],
     component: CompaniesListComponent
+  },
+  {
+    path: 'companyRequests', canActivate: [AuthGuard],
+    component: CompanyRequestsComponent
   },
   {
     path: 'ownerHome', canActivate: [AuthGuard],

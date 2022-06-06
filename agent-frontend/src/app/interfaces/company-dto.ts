@@ -1,5 +1,5 @@
 export interface CompanyDto {
-    companyId: number;
+    id: number;
     name: string;
     website: string;
     email: string;

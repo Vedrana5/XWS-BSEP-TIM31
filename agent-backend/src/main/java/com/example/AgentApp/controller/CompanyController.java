@@ -62,7 +62,7 @@ public class CompanyController {
         List<Company> companies;
 
             companies = null;
-       
+
             companies = companyService.getAllStatusCompanies(CompanyStatus.APPROVED);
 
 

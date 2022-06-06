@@ -14,3 +14,7 @@ INSERT INTO public.users(
 INSERT INTO public.companies(
 	name, website, email, phone_number, country_of_origin, founder, number_of_empl, owner_id,company_status)
 	VALUES ('Glupost', 'Glupost jos veca','veca@gmail.com', '065756845','Srbija', 'Milan Ilic', '10', 1,0);
+
+INSERT INTO public.companies(
+	name, website, email, phone_number, country_of_origin, founder, number_of_empl, owner_id,company_status)
+	VALUES ('Zahtjev', 'Zahtjev2','veca@gmail.com', '065756845','Srbija', 'Milan Ilic', '10', 2,2);

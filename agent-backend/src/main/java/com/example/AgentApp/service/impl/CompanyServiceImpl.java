@@ -52,10 +52,11 @@ public class CompanyServiceImpl implements CompanyService {
     {
        Optional<Company> company=companyRepository.findById(id);
        company.get().setCompanyStatus(CompanyStatus.APPROVED);
+       companyRepository.save(company.get());
        User owner=company.get().getOwner();
        owner.setRole(UserRole.OWNER);
        userRepository.save(owner);
-       companyRepository.save(company.get());
+
 
         return company.get();
     }
@@ -67,6 +68,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         companyRepository.save(company.get());
         return company.get();
+
     }
 
     @Override

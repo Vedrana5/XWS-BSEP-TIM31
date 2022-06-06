@@ -20,6 +20,7 @@ import { AdminNavbarComponent } from './components/admin-navbar/admin-navbar.com
 import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 import { OwnerNavbarComponent } from './components/owner-navbar/owner-navbar.component';
 import { CompaniesListComponent } from './components/companies-list/companies-list.component';
+import { CompanyRequestsComponent } from './components/company-requests/company-requests.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { CompaniesListComponent } from './components/companies-list/companies-li
     OwnerPageComponent,
     OwnerNavbarComponent,
     CompaniesListComponent,
+    CompanyRequestsComponent,
 
   ],
   imports: [

@@ -18,4 +18,17 @@ export class CompanyService {
     return this.http.get<CompanyDto[]>(`http://localhost:8082/companies/getAllforUser`);
 
   }
+  getAllPendingCompanies(): Observable<CompanyDto[]> {
+    return this.http.get<CompanyDto[]>(`http://localhost:8082/companies/pendingCompanies`);
+  }
+
+  approveRequest(id: any) {
+    return this.http.get<CompanyDto>(
+      `http://localhost:8082/companies/approve/${id}`);
+  }
+
+  rejectRequest(id: any) {
+    return this.http.get<CompanyDto>(
+      `http://localhost:8082/companies/reject/${id}`);
+  }
 }
