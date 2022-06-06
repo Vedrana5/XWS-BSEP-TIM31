@@ -106,7 +106,7 @@ public class CompanyServiceImpl implements CompanyService {
         List<Company> companies=companyRepository.findAll();
         for(Company company: companies) {
             if(company.getOwner().getId()==id && company.getCompanyStatus()==CompanyStatus.APPROVED) {
-                System.out.print(company);
+
                 myCompanies.add(company);
                 return myCompanies;
             }

@@ -10,6 +10,7 @@ import { OwnerNavbarComponent } from './components/owner-navbar/owner-navbar.com
 import { OwnerPageComponent } from './components/owner-page/owner-page.component';
 import { CompanyRequestsComponent } from './components/company-requests/company-requests.component';
 import { MyCompaniesComponent } from './components/my-companies/my-companies.component';
+import { NewRequestComponent } from './components/new-request/new-request.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'adminHome',
     component: AdminPageComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'newRequest',
+    component: NewRequestComponent, canActivate: [AuthGuard]
   },
   {
     path: 'companies', canActivate: [AuthGuard],
