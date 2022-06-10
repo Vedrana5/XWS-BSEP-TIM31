@@ -42,11 +42,11 @@ export class CompanyProfileComponent implements OnInit {
     this.companyService.editCompany(this.company).subscribe((data) => {
 
       console.log(this.company)
-      this.route.navigate(['/companies']);
+      this.route.navigate(['/myCompanies']);
     });
   }
   cancel() {
-    this.route.navigate(['/companies']);
+    this.route.navigate(['/myCompanies']);
   }
 
 
