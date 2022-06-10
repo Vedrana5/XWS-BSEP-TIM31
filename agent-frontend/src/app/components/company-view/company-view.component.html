@@ -1,30 +1,50 @@
-<app-owner-navbar></app-owner-navbar>
+<div *ngIf="role=='ADMIN'">
+    <app-admin-navbar></app-admin-navbar>
+</div>
+
+
+<div *ngIf="role=='REGISTERED_USER'">
+
+    <app-user-navbar></app-user-navbar>
+
+</div>
+<div *ngIf="role=='OWNER'">
+
+    <app-owner-navbar></app-owner-navbar>
+
+</div>
+
+
+
 <router-outlet></router-outlet>
+
+
 
 <h2 color="blue" style="margin-top: 70px;margin-left:110px;color: rgb(106, 106, 251);">Information of company
     {{this.company.name}}</h2>
+
 <hr />
 <div class="columns">
     <form>
         <div class="container" style="margin-bottom: 20px;">
             <label>Name:</label>
             <input type="text" class="form-control" placeholder="Enter  name" [(ngModel)]="this.company.name"
-                name="name" />
+                name="name" readonly />
         </div>
         <div class="container" style="margin-bottom: 20px;">
             <label>Website:</label>
             <input type="text" class="form-control" placeholder="Enter website" [(ngModel)]="this.company.website"
-                name="website" />
+                name="website" readonly />
         </div>
         <div class="container" style="margin-bottom: 10px;">
             <label>Email:</label>
             <input type="text" class="form-control" placeholder="Enter email" [(ngModel)]="this.company.email"
-                name="price" />
+                name="price" readonly />
         </div>
         <div class="container" style="margin-bottom: 20px;">
             <label>Phone number:</label>
             <input type="number" class="form-control" placeholder="Enter  phone number"
-                [(ngModel)]="this.company.phoneNumber" name="phoneNumber" />
+                [(ngModel)]="this.company.phoneNumber" name="phoneNumber" readonly />
         </div>
 
 
@@ -33,7 +53,7 @@
         <div class="container" style="margin-bottom: 20px;">
             <label>Founder:</label>
             <input type="text" class="form-control" placeholder="Enter founder" [(ngModel)]="this.company.founder "
-                name="founder" />
+                name="founder" readonly />
         </div>
     </form>
 
@@ -42,14 +62,14 @@
         <div class="container" style="margin-bottom: 20px;">
             <label>Country of origin:</label>
             <input type="text" class="form-control" placeholder="Enter countryOfOrigin"
-                [(ngModel)]="this.company.countryOfOrigin" name="countryOfOrigin" />
+                [(ngModel)]="this.company.countryOfOrigin" name="countryOfOrigin" readonly />
         </div>
 
 
         <div class="container" style="margin-bottom: 20px;">
             <label>Number of employees</label>
             <input type="text" class="form-control" placeholder="Enter number of empl"
-                [(ngModel)]="this.company.numberOfEmpl" name="numberOfEmpl" />
+                [(ngModel)]="this.company.numberOfEmpl" name="numberOfEmpl" readonly />
         </div>
 
 
@@ -57,20 +77,7 @@
         <hr />
 
 
-        <div>
-            <button type="submit" style="margin-left: 500px;" class="btn" (click)="submit()">Submit</button>
-            <button type="submit" style="margin-left: 20px;" class="btn" (click)="cancel()">Cancel</button>
 
-        </div>
-
-        <hr />
-        <div>
-            <button type="button" class="btn btn-primary mybtn" style="margin-left:50px" (click)="openModal()">Create
-                job offer</button>
-
-
-
-        </div>
 
 
     </form>

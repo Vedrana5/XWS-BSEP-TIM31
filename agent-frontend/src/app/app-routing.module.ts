@@ -12,6 +12,7 @@ import { CompanyRequestsComponent } from './components/company-requests/company-
 import { MyCompaniesComponent } from './components/my-companies/my-companies.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
+import { CompanyViewComponent } from './components/company-view/company-view.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,11 @@ const routes: Routes = [
     path: "company/:id", canActivate: [AuthGuard],
     component: CompanyProfileComponent
   },
+  {
+    path: "companyView/:id", canActivate: [AuthGuard],
+    component: CompanyViewComponent
+  },
+
 
 ];
 

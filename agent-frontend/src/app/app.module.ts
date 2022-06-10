@@ -26,6 +26,7 @@ import { NewRequestComponent } from './components/new-request/new-request.compon
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { JobOfferComponent } from './components/job-offer/job-offer.component';
 import { JobOfferListComponent } from './components/job-offer-list/job-offer-list.component';
+import { CompanyViewComponent } from './components/company-view/company-view.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { JobOfferListComponent } from './components/job-offer-list/job-offer-lis
     CompanyProfileComponent,
     JobOfferComponent,
     JobOfferListComponent,
+    CompanyViewComponent,
 
   ],
   imports: [
