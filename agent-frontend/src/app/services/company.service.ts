@@ -56,5 +56,10 @@ export class CompanyService {
     return this.http.post<JobOffer>(`http://localhost:8082/offers/newOffer`, offer);
 
   }
+  getOfferbyCompany(id: any) {
+
+    return this.http.get<JobOffer[]>(`http://localhost:8082/offers/getAllByCompany/${id}`);
+
+  }
 }
 

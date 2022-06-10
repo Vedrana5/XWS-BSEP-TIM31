@@ -22,7 +22,7 @@ export class CompanyProfileComponent implements OnInit {
   initialDetails: any
   editMode = false
   id!: any
-  jobOffers!: JobOffer[]
+  jobOffers: JobOffer[] = []
 
 
 
@@ -40,6 +40,10 @@ export class CompanyProfileComponent implements OnInit {
     this.companyService.getCompanyById(this.id).subscribe((data) => {
       this.company = data;
       console.log(this.company.id)
+    });
+    this.companyService.getOfferbyCompany(this.id).subscribe((data) => {
+      this.jobOffers = data;
+      console.log(this.jobOffers)
     });
   }
 
@@ -65,6 +69,7 @@ export class CompanyProfileComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.jobOffers = res.data;
+        window.location.reload()
       }
     })
   }

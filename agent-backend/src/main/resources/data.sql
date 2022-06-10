@@ -18,3 +18,6 @@ INSERT INTO public.companies(
 INSERT INTO public.companies(
 	name, website, email, phone_number, country_of_origin, founder, number_of_empl, owner_id,company_status)
 	VALUES ('Zahtjev', 'Zahtjev2','veca@gmail.com', '065756845','Srbija', 'Milan Ilic', '10', 2,2);
+
+	INSERT INTO public.offers(position, description, date_created,due_date, company_id)
+    	VALUES ('fdsfsdf', 'Glupost jos veca','2022-06-12 00:00:00', '2022-07-12 00:00:00',1);

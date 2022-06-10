@@ -85,12 +85,12 @@
             <div *ngFor="let offer of jobOffers">
                 <mat-card class="example-card m-3">
                     <mat-label>
-                        <h1>{{ offer.position }}</h1>
+                        <h1 style="color:rgb(98, 70, 255)">{{ offer.position }}</h1>
                     </mat-label>
 
                     <div>
                         <mat-label>
-                            <h4>Due: {{ offer.dueDate | date: "mediumDate" }} </h4>
+                            <h4>Valid until: {{ offer.dueDate | date: "mediumDate" }} </h4>
                         </mat-label>
                         <span> {{ offer.description }} </span>
                     </div>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/offers")
 public class OfferController {
@@ -20,10 +21,11 @@ public class OfferController {
     public Offer createNewOffer(@RequestBody NewOfferDto newOfferDto){
 
         Offer offer = offerService.addOffer(newOfferDto);
-       
+
         return offer;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/getAllOffers")
     public List<Offer> allJobOffers(){
         List<Offer> offers = offerService.getAllOffers();
@@ -31,6 +33,7 @@ public class OfferController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/getAllByCompany/{companyId}")
     public List<Offer> allOffersForCompany(@PathVariable Long companyId){
         List<Offer> offers = offerService.getAllByCompany(companyId);
