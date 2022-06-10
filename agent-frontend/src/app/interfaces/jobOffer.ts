@@ -3,7 +3,7 @@ export interface JobOffer {
     position: string,
     description: string,
     dateCreated: string,
-    dueDate: string,
+    dueDate: string | null,
     companyName: string,
     companyId: number
 }

@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -33,7 +35,9 @@ public class OfferServiceImpl  implements OfferService {
         offer.setDescription(newOfferDto.getDescription());
         offer.setPosition(newOfferDto.getPosition());
         offer.setDateCreated(LocalDate.now());
-       // offer.setDueDate(LocalDate.parse(newOfferDto.dueDate));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate date = LocalDate.parse(newOfferDto.dueDate, formatter);
+        offer.setDueDate(date);
         Optional<Company> company=companyRepository.findById(newOfferDto.getCompanyId());
         offer.setCompany(company.get());
         System.out.print("sdfesdfesdfeesdf"+ offer);

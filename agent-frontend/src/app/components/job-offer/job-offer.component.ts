@@ -91,7 +91,8 @@ export class JobOfferComponent implements OnInit {
     this.jobOfferRequest.description = this.createForm.value.Description;
     this.jobOfferRequest.companyId = parseInt(this.cid);
     const dateParsed = this.datePipe.transform(this.createForm.value.DueDate, 'MM/dd/yyyy');
-    // this.jobOfferRequest.dueDate = dateParsed;
+    this.jobOfferRequest.dueDate = dateParsed;
+    console.log(this.jobOfferRequest.dueDate)
 
   }
 
