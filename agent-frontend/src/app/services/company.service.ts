@@ -35,4 +35,10 @@ export class CompanyService {
   getAllUsersCompanies(email: string): Observable<CompanyDto[]> {
     return this.http.get<CompanyDto[]>(`http://localhost:8082/companies/getAllByUser/${email}`);
   }
+
+  createCompany(newCompany: CompanyDto) {
+    return this.http.post(`http://localhost:8082/companies/createNew`, newCompany, {
+      responseType: 'text',
+    });
+  }
 }
