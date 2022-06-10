@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { CompanyDto } from '../interfaces/company-dto';
+import { JobOffer } from '../interfaces/jobOffer';
 
 
 @Injectable({
@@ -50,5 +51,10 @@ export class CompanyService {
     return this.http.put<CompanyDto>(`http://localhost:8082/companies/editCompany`, company);
   }
 
+  createOffer(offer: JobOffer) {
+    console.log(offer)
+    return this.http.post<JobOffer>(`http://localhost:8082/offers/newOffer`, offer);
+
+  }
 }
 

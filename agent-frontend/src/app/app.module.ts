@@ -24,6 +24,8 @@ import { CompanyRequestsComponent } from './components/company-requests/company-
 import { MyCompaniesComponent } from './components/my-companies/my-companies.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
+import { JobOfferComponent } from './components/job-offer/job-offer.component';
+import { JobOfferListComponent } from './components/job-offer-list/job-offer-list.component';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { CompanyProfileComponent } from './components/company-profile/company-pr
     MyCompaniesComponent,
     NewRequestComponent,
     CompanyProfileComponent,
+    JobOfferComponent,
+    JobOfferListComponent,
 
   ],
   imports: [

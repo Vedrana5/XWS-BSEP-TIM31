@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Getter
@@ -17,8 +18,6 @@ public class Offer {
     private Long id;
 
 
-    @Column
-    private String name;
 
     @Column
     private String description;
@@ -26,9 +25,17 @@ public class Offer {
     @Column
     private String position;
 
+    @Column
+    private LocalDate dateCreated;
+
+    @Column
+    private LocalDate dueDate;
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
+
+
 
 
 

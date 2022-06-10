@@ -1,7 +1,8 @@
 <app-owner-navbar></app-owner-navbar>
 <router-outlet></router-outlet>
 
-<h2 color="blue" style="margin-top: 70px;color: rgb(106, 106, 251);">Information of company {{this.company.name}}</h2>
+<h2 color="blue" style="margin-top: 70px;margin-left:110px;color: rgb(106, 106, 251);">Information of company
+    {{this.company.name}}</h2>
 <hr />
 <div class="columns">
     <form>
@@ -59,6 +60,16 @@
         <div>
             <button type="submit" style="margin-left: 500px;" class="btn" (click)="submit()">Submit</button>
             <button type="submit" style="margin-left: 20px;" class="btn" (click)="cancel()">Cancel</button>
+
+        </div>
+
+        <hr />
+        <div>
+            <button type="button" class="btn btn-primary mybtn" style="margin-left:50px" (click)="openModal()">Create
+                job offer</button>
+
+
+
         </div>
 
 
@@ -66,3 +77,32 @@
 
 
 </div>
+
+<mat-card class="example-card m-3">
+    <mat-tab-group>
+
+        <mat-tab label="Job Offers">
+            <div *ngFor="let offer of jobOffers">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h1>{{ offer.position }}</h1>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h4>Due: {{ offer.dueDate | date: "mediumDate" }} </h4>
+                        </mat-label>
+                        <span> {{ offer.description }} </span>
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+    </mat-tab-group>
+</mat-card>

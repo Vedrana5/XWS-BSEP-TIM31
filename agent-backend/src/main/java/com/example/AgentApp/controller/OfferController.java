@@ -3,6 +3,7 @@ package com.example.AgentApp.controller;
 import com.example.AgentApp.dto.NewOfferDto;
 import com.example.AgentApp.model.Offer;
 import com.example.AgentApp.service.OfferService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,11 +12,15 @@ import java.util.List;
 @RequestMapping(value = "/offers")
 public class OfferController {
 
+    @Autowired
     private OfferService offerService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/newOffer")
     public Offer createNewOffer(@RequestBody NewOfferDto newOfferDto){
+
         Offer offer = offerService.addOffer(newOfferDto);
+        System.out.print("fdfsdfsdfdsfdsfdsf"+offer);
         return offer;
     }
 

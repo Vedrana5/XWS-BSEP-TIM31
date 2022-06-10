@@ -11,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NewOfferDto {
     public Long companyId;
-    public String name;
     public String position;
     public String description;
+    public String dateCreated;
+    public String dueDate;
 }
