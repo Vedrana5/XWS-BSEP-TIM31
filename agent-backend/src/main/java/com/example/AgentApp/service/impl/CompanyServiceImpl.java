@@ -31,7 +31,6 @@ public class CompanyServiceImpl implements CompanyService {
     public Company createCompany(CreateCompanyDto companyDto) {
 
        Company company=new Company();
-
        company.setName(companyDto.getName());
        company.setWebsite(companyDto.getWebsite());
        company.setEmail(companyDto.getEmail());
@@ -41,7 +40,8 @@ public class CompanyServiceImpl implements CompanyService {
        company.setNumberOfEmpl(companyDto.getNumberOfEmpl());
        company.setCompanyStatus(CompanyStatus.PENDING);
 
-       User owner=userService.findByUsername(companyDto.getOwnerUsername());
+       User owner=userService.findByEmail(companyDto.getOwnerUsername());
+
        company.setOwner(owner);
 
        companyRepository.save(company);

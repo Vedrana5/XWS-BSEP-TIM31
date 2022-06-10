@@ -7,7 +7,7 @@ export interface CompanyDto {
     countryOfOrigin: string;
     founder: string;
     numberOfEmpl: string;
-    ownerId: string;
+    ownerUsername: string;
 
 
 

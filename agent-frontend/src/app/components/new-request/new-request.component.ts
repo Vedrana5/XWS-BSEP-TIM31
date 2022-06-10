@@ -100,7 +100,7 @@ export class NewRequestComponent implements OnInit {
     this.newCompany.countryOfOrigin = this.createForm.value.countryOfOrigin;
     this.newCompany.founder = this.createForm.value.founder;
     this.newCompany.numberOfEmpl = this.createForm.value.numberOfEmpl;
-    this.newCompany.ownerId = this.email;
+    this.newCompany.ownerUsername = this.email;
 
   }
 }
