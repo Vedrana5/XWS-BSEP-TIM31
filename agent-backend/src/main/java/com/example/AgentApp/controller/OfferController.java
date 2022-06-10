@@ -20,7 +20,7 @@ public class OfferController {
     public Offer createNewOffer(@RequestBody NewOfferDto newOfferDto){
 
         Offer offer = offerService.addOffer(newOfferDto);
-        System.out.print("fdfsdfsdfdsfdsfdsf"+offer);
+       
         return offer;
     }
 
