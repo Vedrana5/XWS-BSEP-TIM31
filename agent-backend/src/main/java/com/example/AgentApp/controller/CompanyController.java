@@ -45,6 +45,8 @@ public class CompanyController {
 
     }
 
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "reject/{id}")
     public Company rejectCompany(@PathVariable Long id) {
@@ -106,6 +108,14 @@ public class CompanyController {
     @GetMapping(value = "/all")
     public List<Company> getAll(){
         return companyService.getAll();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping(value = "findCompany/{id}")
+    public Company findCompanybyId(@PathVariable Long id) {
+        Company company = companyService.findById(id);
+        return company;
+
     }
 
 }

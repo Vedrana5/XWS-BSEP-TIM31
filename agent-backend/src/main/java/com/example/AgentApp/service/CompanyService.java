@@ -24,4 +24,6 @@ public interface CompanyService {
     List<Company> getAll();
 
     List<Company> getAllByUser(Long id);
+
+    Company findById(Long id);
 }

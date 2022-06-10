@@ -19,11 +19,8 @@
                 <li style="height: 60px;" class="list-group-item">Number of empployes: {{item.numberOfEmpl}}</li>
                 <li style="height: 60px;" class="list-group-item">Phone number: {{item.phoneNumber}}</li>
                 <li style="height: 60px;" class="list-group-item">Country of origin: {{item.countryOfOrigin}}</li>
-
                 <li class="list-group-item">
-                    <button type="button" class="btn btn-primary mybtn">Edit company</button>
-
-
+                    <button type="button" class="btn btn-primary mybtn" (click)="edit(item.id)">Edit company</button>
                 </li>
             </ul>
 

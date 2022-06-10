@@ -23,6 +23,7 @@ import { CompaniesListComponent } from './components/companies-list/companies-li
 import { CompanyRequestsComponent } from './components/company-requests/company-requests.component';
 import { MyCompaniesComponent } from './components/my-companies/my-companies.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
+import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { NewRequestComponent } from './components/new-request/new-request.compon
     CompanyRequestsComponent,
     MyCompaniesComponent,
     NewRequestComponent,
+    CompanyProfileComponent,
 
   ],
   imports: [

@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCompanyDto {
-    private Long companyId;
+    private Long id;
     private String name;
     private String website;
     private String email;
@@ -22,7 +22,7 @@ public class CreateCompanyDto {
     public String ownerUsername;
 
     public CreateCompanyDto(Company c) {
-      this.companyId=c.getId();
+      this.id=c.getId();
       this.name=c.getName();
       this.website=c.getWebsite();
       this.email=c.getEmail();

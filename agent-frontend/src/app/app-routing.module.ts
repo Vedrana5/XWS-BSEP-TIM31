@@ -11,6 +11,7 @@ import { OwnerPageComponent } from './components/owner-page/owner-page.component
 import { CompanyRequestsComponent } from './components/company-requests/company-requests.component';
 import { MyCompaniesComponent } from './components/my-companies/my-companies.component';
 import { NewRequestComponent } from './components/new-request/new-request.component';
+import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
     path: 'userHome',
     component: UserPageComponent, canActivate: [AuthGuard]
   },
+
   {
     path: 'adminHome',
     component: AdminPageComponent, canActivate: [AuthGuard]
@@ -44,6 +46,10 @@ const routes: Routes = [
   {
     path: 'ownerHome', canActivate: [AuthGuard],
     component: OwnerPageComponent
+  },
+  {
+    path: "company/:id", canActivate: [AuthGuard],
+    component: CompanyProfileComponent
   },
 
 ];

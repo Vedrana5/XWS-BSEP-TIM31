@@ -39,9 +39,7 @@ public class CompanyServiceImpl implements CompanyService {
        company.setFounder(companyDto.getFounder());
        company.setNumberOfEmpl(companyDto.getNumberOfEmpl());
        company.setCompanyStatus(CompanyStatus.PENDING);
-
        User owner=userService.findByEmail(companyDto.getOwnerUsername());
-
        company.setOwner(owner);
 
        companyRepository.save(company);
@@ -74,7 +72,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company editCompany(CreateCompanyDto companyDto) {
-        Optional<Company> company=companyRepository.findById(companyDto.getCompanyId());
+
+        Optional<Company> company=companyRepository.findById(companyDto.getId());
         company.get().setName(companyDto.getName());
         company.get().setWebsite(companyDto.getWebsite());
         company.get().setEmail(companyDto.getEmail());
@@ -82,6 +81,8 @@ public class CompanyServiceImpl implements CompanyService {
         company.get().setCountryOfOrigin(companyDto.getCountryOfOrigin());
         company.get().setFounder(companyDto.getFounder());
         company.get().setNumberOfEmpl(companyDto.getNumberOfEmpl());
+        companyRepository.save(company.get());
+
 
         return company.get();
 
@@ -112,6 +113,12 @@ public class CompanyServiceImpl implements CompanyService {
             }
         }
         return myCompanies;
+    }
+
+    @Override
+    public Company findById(Long id) {
+        Optional<Company> company=companyRepository.findById(id);
+        return company.get();
     }
 
 

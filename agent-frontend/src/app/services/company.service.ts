@@ -41,4 +41,14 @@ export class CompanyService {
       responseType: 'text',
     });
   }
+  getCompanyById(id: any) {
+
+    return this.http.get<CompanyDto>(`http://localhost:8082/companies/findCompany/${id}`);
+  }
+  editCompany(company: CompanyDto) {
+
+    return this.http.put<CompanyDto>(`http://localhost:8082/companies/editCompany`, company);
+  }
+
 }
+
