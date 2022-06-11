@@ -3,9 +3,9 @@ package com.example.AgentApp.controller;
 
 import com.example.AgentApp.dto.CommentDto;
 import com.example.AgentApp.dto.CreateCompanyDto;
-import com.example.AgentApp.model.Comment;
-import com.example.AgentApp.model.Company;
-import com.example.AgentApp.model.User;
+import com.example.AgentApp.dto.InterviewDto;
+import com.example.AgentApp.dto.SalaryDto;
+import com.example.AgentApp.model.*;
 import com.example.AgentApp.service.CommentService;
 import com.example.AgentApp.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,28 @@ public class CommentController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/createSalary")
+    public ResponseEntity<String> createSalary(@RequestBody SalaryDto salaryDto) {
+        Salary salary = commentService.createSalary(salaryDto);
+        if (salary != null) {
+            return new ResponseEntity<>("SUCCESS!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/createInterview")
+    public ResponseEntity<String> createInterview(@RequestBody InterviewDto interviewDto) {
+        Interview interview = commentService.createInterview(interviewDto);
+        if (interview != null) {
+            return new ResponseEntity<>("SUCCESS!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getAllByCompany/{id}")
@@ -45,6 +67,25 @@ public class CommentController {
         List<Comment> comments =commentService.getAllByCompany(company.getId());
 
         return comments;
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getAllSalaryByCompany/{id}")
+    public List<Salary> getCompanySalary(@PathVariable Long id){
+        Company company = companyService.findById(id);
+        List<Salary> salaries =commentService.getAllSalaryByCompany(company.getId());
+
+        return salaries;
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getAllInterviewByCompany/{id}")
+    public List<Interview> getCompanyInterview(@PathVariable Long id){
+        Company company = companyService.findById(id);
+        List<Interview> interviews =commentService.getAllInterviewByCompany(company.getId());
+
+        return interviews;
     }
 
 }

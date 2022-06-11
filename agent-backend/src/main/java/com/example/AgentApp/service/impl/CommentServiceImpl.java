@@ -1,13 +1,10 @@
 package com.example.AgentApp.service.impl;
 
 import com.example.AgentApp.dto.CommentDto;
-import com.example.AgentApp.model.Comment;
-import com.example.AgentApp.model.Company;
-import com.example.AgentApp.model.CompanyStatus;
-import com.example.AgentApp.model.User;
-import com.example.AgentApp.repository.CommentRepository;
-import com.example.AgentApp.repository.CompanyRepository;
-import com.example.AgentApp.repository.UserRepository;
+import com.example.AgentApp.dto.InterviewDto;
+import com.example.AgentApp.dto.SalaryDto;
+import com.example.AgentApp.model.*;
+import com.example.AgentApp.repository.*;
 import com.example.AgentApp.service.CommentService;
 import com.example.AgentApp.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,12 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private SalaryRepository salaryRepository;
+
+    @Autowired
+    private InterviewRepository interviewRepository;
+
 
     @Override
     public Comment createComment(CommentDto commentDto) {
@@ -49,6 +52,7 @@ public class CommentServiceImpl implements CommentService {
         return comment;
     }
 
+
     @Override
     public List<Comment> getAllByCompany(Long id) {
         List<Comment> myComments = new ArrayList<>();
@@ -62,4 +66,62 @@ public class CommentServiceImpl implements CommentService {
         return myComments;
     }
 
+    @Override
+    public Salary createSalary(SalaryDto salaryDto) {
+
+        Salary salary = new Salary();
+        User u = userRepository.findByUsername(salaryDto.getUserName());
+        Optional<Company> company = companyRepository.findById(salaryDto.companyId);
+        salary.setCompany(company.get());
+        salary.setUser(u);
+        salary.setSalary(salaryDto.getSalary());
+        salary.setPosition(salaryDto.getPosition());
+        salaryRepository.save(salary);
+
+
+        return salary;
+
+    }
+
+    @Override
+    public List<Salary> getAllSalaryByCompany(Long id) {
+        List<Salary> mySalary = new ArrayList<>();
+        List<Salary> salaries = salaryRepository.findAll();
+        for (Salary salary : salaries) {
+            if (salary.getCompany().getId() == id) {
+                mySalary.add(salary);
+                return mySalary;
+            }
+        }
+        return mySalary;
+    }
+
+    @Override
+    public List<Interview> getAllInterviewByCompany(Long id) {
+        List<Interview> myInterview = new ArrayList<>();
+        List<Interview> interviews = interviewRepository.findAll();
+        for (Interview interview : interviews) {
+            if (interview.getCompany().getId() == id) {
+                myInterview.add(interview);
+                return myInterview;
+            }
+        }
+        return myInterview;
+    }
+
+    @Override
+    public Interview createInterview(InterviewDto interviewDto) {
+        Interview interview = new Interview();
+        User u = userRepository.findByUsername(interviewDto.getUserName());
+        Optional<Company> company = companyRepository.findById(interviewDto.companyId);
+        interview.setCompany(company.get());
+        interview.setUser(u);
+        interview.setComment(interviewDto.getComment());
+        interview.setRating(interviewDto.getRating());
+        if (interviewDto.difficulty.equals("HARD")) interview.setDifficulty(Interview.Difficulty.EASY.HARD);
+        else if (interviewDto.difficulty.equals("INTERMEDIATE")) interview.setDifficulty(Interview.Difficulty.INTERMEDIATE);
+        else interview.setDifficulty(Interview.Difficulty.INTERMEDIATE.EASY);
+        interviewRepository.save(interview);
+        return interview;
+    }
 }
