@@ -47,6 +47,10 @@ public class Company {
    @Column
     private CompanyStatus companyStatus;
 
+    @Column(nullable = false)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
 /*
 
     @OneToMany
