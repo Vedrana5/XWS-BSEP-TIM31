@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment createComment(CommentDto commentDto) {
 
         Comment comment = new Comment();
-        User u = userRepository.findByUsername(commentDto.getUserName());
+        User u = userRepository.findByEmail(commentDto.getEmail());
         Optional<Company> company = companyRepository.findById(commentDto.companyId);
         comment.setCompany(company.get());
         comment.setUser(u);

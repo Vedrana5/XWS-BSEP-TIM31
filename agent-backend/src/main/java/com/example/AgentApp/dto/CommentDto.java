@@ -11,8 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CommentDto {
 
+    public Long id;
     public String comment;
     public Long companyId;
-    public String userName;
+    public String email;
 
 }

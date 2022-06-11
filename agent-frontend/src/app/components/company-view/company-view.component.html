@@ -85,6 +85,22 @@
 
 </div>
 
+
+<button type="button" class="btn btn-primary ml-3 mybtn" (click)="createComment()">
+    Add comment
+</button>
+
+<button type="button" class="btn btn-primary ml-3 mybtn" (click)="createSallary()">
+    Add sallary comment
+</button>
+
+<button type="button" class="btn btn-primary ml-3 mybtn" (click)="createInterview()">
+    Add interview comment
+</button>
+
+
+
+
 <mat-card>
     <mat-tab-group>
 
@@ -110,6 +126,89 @@
                 </mat-card>
             </div>
         </mat-tab>
+
+        <mat-tab label="Comments">
+            <div *ngFor="let c of comments">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h2 style="color:rgb(98, 70, 255)"> {{c.comment}}</h2>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h5>User: </h5>
+                        </mat-label>
+
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+
+        <mat-tab label="Salary">
+            <div *ngFor="let s of salary">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h2 style="color:rgb(98, 70, 255)">{{ s.position }}</h2>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h5>Salary: {{ s.salary }} </h5>
+                        </mat-label>
+                        <span> </span>
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+
+        <mat-tab label="Interview">
+            <div *ngFor="let i of interview">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h2 style="color:rgb(98, 70, 255)">{{ i.comment }}</h2>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h5>Salary: {{ i.rating }} </h5>
+                        </mat-label>
+                        <span> </span>
+                        <span> {{ i.difficulty }} </span>
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+
+
+
+
+
+
+
+
+
+
 
     </mat-tab-group>
 </mat-card>

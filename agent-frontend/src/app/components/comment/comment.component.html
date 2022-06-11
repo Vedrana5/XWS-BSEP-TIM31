@@ -1,0 +1,26 @@
+<div class="container" style="  position: relative;top: 20px;">
+
+    <div class="col-12 text-center">
+        <h3 style="color: rgb(79, 79, 252);"> Add comment </h3>
+        <hr />
+    </div>
+    <div class="col-12">
+        <div [formGroup]="createForm" class="content">
+            <div>
+                <mat-form-field appearance="fill" style="width: 100%">
+                    <mat-label>Comment</mat-label>
+                    <input id="text" matInput required formControlName="comment">
+                </mat-form-field>
+
+            </div>
+
+            <div class="buttons">
+                <button id="submitRequest" style="margin-left:140px ;" (click)="add()"
+                    class="btn btn-primary text-center">
+                    Add comment
+                </button>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
