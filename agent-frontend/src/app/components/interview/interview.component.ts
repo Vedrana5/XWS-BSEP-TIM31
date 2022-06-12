@@ -51,6 +51,7 @@ export class InterviewComponent implements OnInit {
           'Dismiss', {
           duration: 3000
         });
+        window.location.reload();
       },
       error: (err: HttpErrorResponse) => {
 

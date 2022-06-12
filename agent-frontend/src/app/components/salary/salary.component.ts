@@ -51,6 +51,7 @@ export class SalaryComponent implements OnInit {
           'Dismiss', {
           duration: 3000
         });
+        window.location.reload();
       },
       error: (err: HttpErrorResponse) => {
 
