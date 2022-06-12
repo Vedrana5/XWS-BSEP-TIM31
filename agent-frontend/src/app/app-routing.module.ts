@@ -13,6 +13,7 @@ import { MyCompaniesComponent } from './components/my-companies/my-companies.com
 import { NewRequestComponent } from './components/new-request/new-request.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { CompanyViewComponent } from './components/company-view/company-view.component';
+import { ResetPasswordComponent } from './components/comment/reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,8 @@ const routes: Routes = [
     path: 'userHome',
     component: UserPageComponent, canActivate: [AuthGuard]
   },
+  { path: 'resetPassword', component: ResetPasswordComponent },
+
 
   {
     path: 'adminHome',

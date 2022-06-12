@@ -30,6 +30,7 @@ import { CompanyViewComponent } from './components/company-view/company-view.com
 import { CommentComponent } from './components/comment/comment.component';
 import { SalaryComponent } from './components/salary/salary.component';
 import { InterviewComponent } from './components/interview/interview.component';
+import { ResetPasswordComponent } from './components/comment/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { InterviewComponent } from './components/interview/interview.component';
     CommentComponent,
     SalaryComponent,
     InterviewComponent,
+    ResetPasswordComponent,
 
   ],
   imports: [

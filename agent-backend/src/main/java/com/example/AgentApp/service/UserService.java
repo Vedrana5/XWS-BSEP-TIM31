@@ -14,4 +14,7 @@ public interface UserService {
     User activateAccount(User user);
 
     User findByEmail(String email);
+
+
+    void resetPassword(String email, String newPassword);
 }

@@ -1,9 +1,6 @@
 package com.example.AgentApp.controller;
 
-import com.example.AgentApp.dto.JwtAuthenticationRequestDto;
-import com.example.AgentApp.dto.LogUserDto;
-import com.example.AgentApp.dto.RegisterDto;
-import com.example.AgentApp.dto.UserTokenState;
+import com.example.AgentApp.dto.*;
 import com.example.AgentApp.model.CustomToken;
 import com.example.AgentApp.model.User;
 import com.example.AgentApp.model.UserDetails;
@@ -99,5 +96,34 @@ public class AuthenticationController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/sendCode")
+    public ResponseEntity<?> sendCode(@RequestBody String email) {
+        User user = userService.findByEmail(email);
+        System.out.print(user.getRecoveryEmail());
+        customTokenService.sendRecoveryMail(user);
+
+        return ResponseEntity.accepted().build();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/checkCode")
+    public ResponseEntity<String> checkCode(@RequestBody CheckCodeDto checkCodeDto) {
+        User user = userService.findByEmail(checkCodeDto.getEmail());
+        CustomToken token = customTokenService.findByUser(user);
+        if (customTokenService.checkResetPasswordCode(checkCodeDto.getCode(), token.getToken())) {
+            return new ResponseEntity<>("Success!", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Entered code is not valid!", HttpStatus.BAD_REQUEST);
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/resetPassword")
+    public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordDto resetPasswordDto) {
+        userService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getNewPassword());
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
 
 }

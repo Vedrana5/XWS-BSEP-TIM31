@@ -9,4 +9,10 @@ public interface VerificationTokenService {
     CustomToken findByToken(String token);
 
     void deleteById(Long id);
+
+    void sendRecoveryMail(User user);
+
+    CustomToken findByUser(User user);
+
+    boolean checkResetPasswordCode(String code, String token);
 }

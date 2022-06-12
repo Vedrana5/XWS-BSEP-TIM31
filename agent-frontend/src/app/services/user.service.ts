@@ -65,14 +65,14 @@ export class UserService {
   }
 
   resetPassword(newPassword: string): Observable<any> {
-    return this._http.post<any>('http://localhost:8081/api/user/resetPassword', {
+    return this._http.post<any>('http://localhost:8082/auth/resetPassword', {
       email: localStorage.getItem('emailForReset'),
       newPassword: newPassword,
     });
   }
 
   sendCode(email: string): Observable<any> {
-    return this._http.post<any>('http://localhost:8081/api/user/sendCode', email);
+    return this._http.post<any>('http://localhost:8082/auth/sendCode', email);
   }
 
   public get currentUserValue(): LogedUser {
