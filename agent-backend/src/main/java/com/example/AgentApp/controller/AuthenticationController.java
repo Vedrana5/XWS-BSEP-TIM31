@@ -92,8 +92,7 @@ public class AuthenticationController {
         User activated = userService.activateAccount(user);
         customTokenService.deleteById(verificationToken.getId());
         if (activated.isConfirmed()) {
-            return ResponseEntity.status(HttpStatus.FOUND)
-                    .location(URI.create("http://localhost:4200")).build();
+            return new ResponseEntity<>("Account is activated.You can login.", HttpStatus.OK);
 
         } else {
             return new ResponseEntity<>("Error happened!", HttpStatus.INTERNAL_SERVER_ERROR);
