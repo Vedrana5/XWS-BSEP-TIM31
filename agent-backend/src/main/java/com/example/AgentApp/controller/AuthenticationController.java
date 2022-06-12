@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.net.URI;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -78,7 +79,7 @@ public class AuthenticationController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/confirmAccount/{token}")
     public ResponseEntity<String> confirmAccount(@PathVariable String token) {
         CustomToken verificationToken = customTokenService.findByToken(token);
@@ -91,7 +92,9 @@ public class AuthenticationController {
         User activated = userService.activateAccount(user);
         customTokenService.deleteById(verificationToken.getId());
         if (activated.isConfirmed()) {
-            return new ResponseEntity<>("Account is activated.You can login.", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .location(URI.create("http://localhost:4200")).build();
+
         } else {
             return new ResponseEntity<>("Error happened!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
