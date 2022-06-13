@@ -143,7 +143,7 @@ async Register() {
             'Content-Type': 'application/json;charset=UTF-8',
             Accept: 'application/json',
           }
-  axios.post("https://localhost:8089/register",{          
+  axios.post("http://localhost:8089/register",{          
        Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,
@@ -165,15 +165,15 @@ async Register() {
     ).then((res) => {
           console.log(res);
          alert("You have successfully verified your account! You can log in on system!")
-        this.$router.push({ name: "LoginView" });
-        this.$router.go(0);
+        //this.$router.push({ name: "LoginView" });
+       // this.$router.go(0);
         })
         .catch((err) => {
           console.log(err);
           alert( "Your token is invalid or expiried! Please, contact system admin!")
         });
 
-      }
+       }
 },
  validQuestion() {
       if (this.newUser.Question.length < 1) {

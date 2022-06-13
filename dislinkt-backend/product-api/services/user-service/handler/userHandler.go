@@ -180,8 +180,8 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
-	from := "pera08085@gmail.com"
-	password := "pericaProba"
+	from := "sammilica99@gmail.com"
+	password := "setmkiwpicaxhmti"
 
 	// Receiver email address.
 	to := []string{

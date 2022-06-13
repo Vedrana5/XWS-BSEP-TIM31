@@ -171,8 +171,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 
 func (handler *RegisterHandler) SendConfirmationMail(user model.User, token uuid.UUID) {
 	// Sender data.
-	from := "pera08085@gmail.com"
-	password := "pericaProba"
+	from := "sammilica99@gmail.com"
+	password := "setmkiwpicaxhmti"
 
 	// Receiver email address.
 	to := []string{
@@ -184,7 +184,7 @@ func (handler *RegisterHandler) SendConfirmationMail(user model.User, token uuid
 	smtpPort := "587"
 
 	// Message.
-	message := []byte("Dear " + user.FirstName + ",\n\nPlease, click on link in below to confirm your registration on our social network!\n\nhttp://localhost:8082/confirmRegistration/" + token.String() + "/" + user.ID.String())
+	message := []byte("Dear " + user.FirstName + ",\n\nPlease, click on link in below to confirm your registration on our social network!\n\nhttps://localhost:8082/confirmRegistration/" + token.String() + "/" + user.ID.String())
 
 	// Authentication.
 	auth := smtp.PlainAuth("", from, password, smtpHost)
