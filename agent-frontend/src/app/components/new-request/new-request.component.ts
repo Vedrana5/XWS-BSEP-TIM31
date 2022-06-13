@@ -32,38 +32,43 @@ export class NewRequestComponent implements OnInit {
     this.createForm = this.formBuilder.group({
       name: new FormControl('', [
         Validators.required,
+        Validators.pattern('^[A-ZŠĐŽČĆ][a-zšđćčžA-ZŠĐŽČĆ0-9 ]*$'),
       ]),
       website: new FormControl('', [
         Validators.required,
+        Validators.pattern('^[A-ZŠĐŽČĆ][a-zšđćčžA-ZŠĐŽČĆ0-9 ]*$'),
       ]),
       email: new FormControl(null, [
         Validators.required,
+        Validators.email,
+
       ]),
       phoneNumber: new FormControl(null, [
         Validators.required,
+        Validators.pattern('^[0]{1}[0-9]{8}$'),
       ]),
 
       countryOfOrigin: new FormControl(null, [
         Validators.required,
+        Validators.pattern('^[A-ZŠĐŽČĆ][a-zšđćčžA-ZŠĐŽČĆ0-9 ]*$'),
       ]),
       founder: new FormControl(null, [
         Validators.required,
+        Validators.pattern('^[A-ZŠĐŽČĆ][a-zšđćčžA-ZŠĐŽČĆ0-9 ]*$'),
       ]),
       numberOfEmpl: new FormControl(null, [
         Validators.required,
-      ]),
-      numberOfPeople: new FormControl(null, [
-        Validators.required,
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/)
       ]),
 
 
-
-      type: new FormControl(null, [Validators.required])
     })
 
   }
 
   onSubmit(): void {
+
+    if (this.createForm.invalid) return;
     this.createCompany();
 
     this.companyService.createCompany(this.newCompany).subscribe({

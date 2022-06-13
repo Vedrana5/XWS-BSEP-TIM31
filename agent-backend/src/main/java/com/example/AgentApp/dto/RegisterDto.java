@@ -35,6 +35,7 @@ public class RegisterDto {
 
     private String username;
 
+
     private String dateOfBirth;
 
     private String phoneNumber;
