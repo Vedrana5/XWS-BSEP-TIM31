@@ -40,8 +40,8 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		return
 	}
 
-	var userDTO dto.RegisteredUserDTO
-	if err := json.NewDecoder(r.Body).Decode(&userDTO); err != nil {
+	var EditProfileDTO dto.EditProfileDTO
+	if err := json.NewDecoder(r.Body).Decode(&EditProfileDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
@@ -52,18 +52,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		return
 	}
 
-	if err := handler.Validator.Struct(&userDTO); err != nil {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
-			"timestamp": time.Now().String(),
-		}).Error("UserUpdateProfileInfoDTO fields aren't entered in valid format!")
-		w.WriteHeader(http.StatusBadRequest) // 400
-		return
-	}
-
-	var loginUser = handler.UserService.FindByID(userDTO.ID)
+	var loginUser = handler.UserService.FindByID(EditProfileDTO.ID)
 	userRole := ""
 	if loginUser.TypeOfUser == model.ADMIN {
 		userRole = "role-admin"
@@ -84,7 +73,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		return
 	}
 
-	err := handler.UserService.UpdateUserProfileInfo(&userDTO)
+	err := handler.UserService.UpdateUserProfileInfo(&EditProfileDTO)
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",

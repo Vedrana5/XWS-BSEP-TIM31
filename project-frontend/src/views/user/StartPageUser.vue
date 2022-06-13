@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+//import axios from 'axios'
 
 export default {
   name: "StartPageUser",
@@ -19,11 +19,11 @@ export default {
           this.$router.push({ name: "UpdateInfoView" });
       },
       async ResetPassword() {
-         this.Username = localStorage.getItem("username");
+      //    this.Username = localStorage.getItem("username");
 
-          axios.post("http://localhost:8089/resetPassword/"+this.Username,{           
-       })
-
+      //     axios.post("http://localhost:8089/resetPassword/"+this.Username,{           
+      //  })
+        this.$router.push({name: "ChangePassword"});
       }
   }
 }

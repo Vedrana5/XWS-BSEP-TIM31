@@ -64,7 +64,7 @@ func (repo *UserRepo) FindByID(ID uuid.UUID) *model.User {
 	return user
 }
 
-func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
+func (repo *UserRepo) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 	gender := model.OTHER
 	switch user.Gender {
 	case "MALE":
@@ -73,7 +73,7 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
 		gender = model.FEMALE
 	}
 
-	result := repo.Database.Model(&model.User{}).Where("username = ?", user.Username)
+	result := repo.Database.Model(&model.User{}).Where("username = ?", user.OldUsername)
 	result.Update("username", user.Username)
 	fmt.Println(result.RowsAffected)
 	result.Update("phone_number", user.PhoneNumber)
@@ -87,7 +87,7 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
 	//layout := "2006-01-02"
 	//dateOfBirth, _ := time.Parse(layout, user.DateOfBirth)
 	//result.Update("date_of_birth", dateOfBirth)
-	fmt.Println(result.RowsAffected)
+	// fmt.Println(result.RowsAffected)
 	result.Update("biography", user.Biography)
 	fmt.Println(result.RowsAffected)
 	result.Update("email", user.Email)

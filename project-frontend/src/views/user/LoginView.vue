@@ -51,8 +51,14 @@ async Login() {
           localStorage.setItem("token", response.data.Token);
           localStorage.setItem("userId", response.data.ID);
           localStorage.setItem("userType", response.data.TypeOfUser);
+        
       })
-      this.$router.push({ name: "StartPageUser" });
+      .catch((err) => {
+          console.log(err);
+          alert("HIHI")
+        });
+           this.$router.push({ name: "StartPageUser" });
+     
   },
   async Show() {
     if (this.showPassword== true) {

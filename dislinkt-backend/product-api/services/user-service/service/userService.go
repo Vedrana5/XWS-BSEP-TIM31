@@ -58,7 +58,7 @@ func (service *UserService) FindByID(ID uuid.UUID) *model.User {
 	return user
 }
 
-func (service *UserService) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
+func (service *UserService) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 	err := service.Repo.UpdateUserProfileInfo(user)
 	if err != nil {
 		return err

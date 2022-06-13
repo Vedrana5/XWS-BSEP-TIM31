@@ -68,6 +68,8 @@ export default {
   name: "UpdateInfoView",
  data() {
     return {
+      id:"",
+      oldUsername:"",
         Username: "",
         passwordAgain:"",
         Password:"",
@@ -118,9 +120,14 @@ export default {
       ) {
       alert("Fill in the fields in the right way!");
       } else {
+        this.id = localStorage.getItem("userId");
+        this.oldUsername = localStorage.getItem("username");
+        localStorage.setItem("username", this.newUser.Username);
         fetch("http://localhost:8089/updateProfil",{
           method:"POST",
           body: JSON.stringify({
+            ID: this.id,
+       OldUsername: this.oldUsername,     
        Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,
