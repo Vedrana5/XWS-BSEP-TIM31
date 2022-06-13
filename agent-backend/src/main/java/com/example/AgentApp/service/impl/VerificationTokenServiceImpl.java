@@ -62,6 +62,17 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
         return passwordEncoder.matches(code,token);
     }
 
+    @Override
+    public void sendResetPasswordToken(User user) {
+        CustomToken customToken = createResetPasswordToken(user);
+        String passwordCode = customToken.getToken();
+        saveToken(customToken);
+        emailSenderService.sendEmail(user.getRecoveryEmail(),"Reset password", "Following code is your new temporary " +
+                "password \nCode : " + passwordCode);
+
+    }
+
+
     private void saveToken(CustomToken customToken) {
         String valueOfToken = customToken.getToken();
         customToken.setToken(passwordEncoder.encode(valueOfToken));

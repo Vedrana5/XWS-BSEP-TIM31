@@ -31,6 +31,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { SalaryComponent } from './components/salary/salary.component';
 import { InterviewComponent } from './components/interview/interview.component';
 import { ResetPasswordComponent } from './components/comment/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { ResetPasswordComponent } from './components/comment/reset-password/rese
     SalaryComponent,
     InterviewComponent,
     ResetPasswordComponent,
+    ChangePasswordComponent,
 
   ],
   imports: [

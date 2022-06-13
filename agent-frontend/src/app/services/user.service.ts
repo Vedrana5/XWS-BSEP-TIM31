@@ -30,7 +30,7 @@ export class UserService {
   }
   changePassword(data: any) {
     console.log(data)
-    return this._http.put(`http://localhost:8081/api/user/changePassword`, data);
+    return this._http.put(`http://localhost:8082/auth/changePassword`, data);
   }
   login(model: any): Observable<LogedUser> {
     return this._http.post(`http://localhost:8082/auth/login`, model).pipe(

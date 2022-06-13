@@ -15,4 +15,6 @@ public interface VerificationTokenService {
     CustomToken findByUser(User user);
 
     boolean checkResetPasswordCode(String code, String token);
+
+    void sendResetPasswordToken(User user);
 }

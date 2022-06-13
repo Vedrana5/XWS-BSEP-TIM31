@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.URI;
@@ -101,19 +102,27 @@ public class AuthenticationController {
     @PostMapping(value = "/sendCode")
     public ResponseEntity<?> sendCode(@RequestBody String email) {
         User user = userService.findByEmail(email);
-        System.out.print(user.getRecoveryEmail());
-        customTokenService.sendRecoveryMail(user);
-
+        if (user == null)
+            return ResponseEntity.notFound().build();
+        customTokenService.sendResetPasswordToken(user);
         return ResponseEntity.accepted().build();
     }
+
+
+    @CrossOrigin(origins = "https://localhost:4200")
+    @PutMapping(value = "/changePassword")
+    public ResponseEntity<HttpStatus> changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto, HttpServletRequest request) {
+        String token = tokenUtils.getToken(request);
+        userService.changePassword(tokenUtils.getEmailFromToken(token), changePasswordDto);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/checkCode")
     public ResponseEntity<String> checkCode(@RequestBody CheckCodeDto checkCodeDto) {
         User user = userService.findByEmail(checkCodeDto.getEmail());
-        System.out.print(user);
         CustomToken token = customTokenService.findByUser(user);
-        System.out.print("sfsdfsdfdsfdfdsfdsfsdfed"+token);
 
         if (customTokenService.checkResetPasswordCode(checkCodeDto.getCode(), token.getToken())) {
             return new ResponseEntity<>("Success!", HttpStatus.OK);
@@ -122,7 +131,7 @@ public class AuthenticationController {
         return new ResponseEntity<>("Entered code is not valid!", HttpStatus.BAD_REQUEST);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/resetPassword")
     public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordDto resetPasswordDto) {
         userService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getNewPassword());

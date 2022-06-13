@@ -1,5 +1,6 @@
 package com.example.AgentApp.service.impl;
 
+import com.example.AgentApp.dto.ChangePasswordDto;
 import com.example.AgentApp.dto.RegisterDto;
 import com.example.AgentApp.model.User;
 import com.example.AgentApp.model.UserRole;
@@ -68,6 +69,16 @@ public class UserServiceImpl implements UserService {
     public void resetPassword(String email, String newPassword) {
         User user = findByEmail(email);
         user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void changePassword(String emailFromToken, ChangePasswordDto changePasswordDto) {
+        User user = findByEmail(emailFromToken);
+        if (passwordEncoder.matches(changePasswordDto.getCurrentPassword(),user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+        }
+
         userRepository.save(user);
     }
 }
