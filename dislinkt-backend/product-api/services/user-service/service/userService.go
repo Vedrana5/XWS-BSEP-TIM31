@@ -11,6 +11,22 @@ type UserService struct {
 	Repo *repository.UserRepo
 }
 
+func (service *UserService) ChangePassword(salt string, password string, user *model.User) error {
+	err := service.Repo.ChangePassword(salt, password, user)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (service *UserService) UpdateUserConfirmed(userId uuid.UUID, isConfirmed bool) error {
+	err := service.Repo.UpdateUserConfirmed(userId, isConfirmed)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (service *UserService) CreateUser(user *model.User) error {
 	err := service.Repo.CreateUser(user)
 	if err != nil {

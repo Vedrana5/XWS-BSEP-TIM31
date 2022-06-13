@@ -2,10 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"time"
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
+	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/go-playground/validator"
@@ -61,25 +63,26 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		return
 	}
 
-	//var loginUser = handler.UserService.FindByID(userDTO.ID)
-	/*	userRole := ""
-		if loginUser.TypeOfUser == model.ADMIN {
-			userRole = "role-admin"
-		} else if loginUser.TypeOfUser == model.REGISTERED_USER {
-			userRole = "role-registered-user"
-		} else {
-			userRole = "role-unregistered-user"
-		}
-		if !handler.Rbac.IsGranted(userRole, *handler.PermissionUpdateUserInfo, nil) {
-			handler.LogError.WithFields(logrus.Fields{
-				"status":    "failure",
-				"location":  "UserHandler",
-				"action":    "UPDUSPROFINF393",
-				"timestamp": time.Now().String(),
-			}).Error("User is not authorized to update user information!")
-			w.WriteHeader(http.StatusForbidden)
-			return
-		}*/
+	var loginUser = handler.UserService.FindByID(userDTO.ID)
+	userRole := ""
+	if loginUser.TypeOfUser == model.ADMIN {
+		userRole = "role-admin"
+	} else if loginUser.TypeOfUser == model.REGISTERED_USER {
+		userRole = "role-registered-user"
+	} else {
+		userRole = "role-unregistered-user"
+	}
+	log.Print("ROLA JE" + userRole)
+	if !handler.Rbac.IsGranted(userRole, *handler.PermissionUpdateUserInfo, nil) {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "UPDUSPROFINF393",
+			"timestamp": time.Now().String(),
+		}).Error("User is not authorized to update user information!")
+		w.WriteHeader(http.StatusForbidden)
+		return
+	}
 
 	err := handler.UserService.UpdateUserProfileInfo(&userDTO)
 	if err != nil {

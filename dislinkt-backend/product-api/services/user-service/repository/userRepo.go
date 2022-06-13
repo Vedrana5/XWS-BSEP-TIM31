@@ -20,6 +20,18 @@ func (repo *UserRepo) CreateUser(user *model.User) error {
 	return nil
 }
 
+func (repo *UserRepo) ChangePassword(salt string, password string, user *model.User) error {
+
+	result := repo.Database.Model(&model.User{}).Where("username = ?", user.Username)
+
+	result.Update("password", password)
+	fmt.Println(result.RowsAffected)
+	result.Update("salt", salt)
+	fmt.Println(result.RowsAffected)
+	fmt.Println("updating profile info")
+	return nil
+}
+
 func (repo *UserRepo) FindAllUsers() []model.User {
 	var users []model.User
 	repo.Database.Select("*").Find(&users)
@@ -72,7 +84,9 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
 	fmt.Println(result.RowsAffected)
 	result.Update("gender", gender)
 	fmt.Println(result.RowsAffected)
-	result.Update("date_of_birth", user.DateOfBirth)
+	//layout := "2006-01-02"
+	//dateOfBirth, _ := time.Parse(layout, user.DateOfBirth)
+	//result.Update("date_of_birth", dateOfBirth)
 	fmt.Println(result.RowsAffected)
 	result.Update("biography", user.Biography)
 	fmt.Println(result.RowsAffected)
@@ -94,6 +108,13 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.RegisteredUserDTO) error {
 
 func (repo *UserRepo) UpdateUserPassword(userId uuid.UUID, salt string, password string) error {
 	result := repo.Database.Model(&model.User{}).Where("id = ?", userId).Update("password", password)
+	fmt.Println(result.RowsAffected)
+	fmt.Println("updating")
+	return nil
+}
+
+func (repo *UserRepo) UpdateUserConfirmed(userId uuid.UUID, isConfirmed bool) error {
+	result := repo.Database.Model(&model.User{}).Where("id = ?", userId).Update("is_confirmed", isConfirmed)
 	fmt.Println(result.RowsAffected)
 	fmt.Println("updating")
 	return nil

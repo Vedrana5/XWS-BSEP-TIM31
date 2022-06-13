@@ -3,22 +3,22 @@ package dto
 import "github.com/google/uuid"
 
 type RegisteredUserDTO struct {
-	ID             uuid.UUID `json:"id" validate:"required"`
-	Username       string    `json:"username" validate:"required"`
-	Password       string    `json:"password" validate:"required"`
-	Email          string    `json:"email" validate:"required,email"`
-	PhoneNumber    string    `json:"phoneNumber" validate:"required"`
-	FirstName      string    `json:"firstName" validate:"required"`
-	LastName       string    `json:"lastName" validate:"required"`
-	DateOfBirth    string    `json:"dateOfBirth" validate:"required"`
-	TypeOfUser     string    `json:"user_type" gorm:"not null"`
-	TypeOfProfile  string    `json:"profile_type" gorm:"not null"`
-	Gender         string    `json:"gender" gorm:"not null"`
-	Biography      string    `json:"biography" gorm:"not null"`
-	WorkExperience string    `json:"workExperience" gorm:"not null"`
-	Education      string    `json:"education" gorm:"not null"`
-	Skills         string    `json:"skills" gorm:"not null"`
-	Interest       string    `json:"interest" gorm:"not null"`
-	Question       string    `json:"question"`
-	Answer         string    `json:"answer"`
+	ID             uuid.UUID `json:"ID" validate:"required"`
+	Username       string    `json:"Username" validate:"required"`
+	Password       string    `json:"Password" validate:"required"`
+	Email          string    `json:"Email" validate:"required,email"`
+	PhoneNumber    string    `json:"PhoneNumber" validate:"required"`
+	FirstName      string    `json:"FirstName" validate:"required"`
+	LastName       string    `json:"LastName" validate:"required"`
+	DateOfBirth    string    `json:"DateOfBirth" validate:"required"`
+	TypeOfUser     string    `json:"User_type" gorm:"not null"`
+	TypeOfProfile  string    `json:"Profile_type" gorm:"not null"`
+	Gender         string    `json:"Gender" gorm:"not null"`
+	Biography      string    `json:"Biography" gorm:"not null"`
+	WorkExperience string    `json:"WorkExperience" gorm:"not null"`
+	Education      string    `json:"Education" gorm:"not null"`
+	Skills         string    `json:"Skills" gorm:"not null"`
+	Interest       string    `json:"Interest" gorm:"not null"`
+	Question       string    `json:"Question"`
+	Answer         string    `json:"Answer"`
 }

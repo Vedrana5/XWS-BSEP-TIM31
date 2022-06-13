@@ -28,4 +28,5 @@ type User struct {
 	Question       string        `json:"question" gorm:"not null"`
 	Answer         string        `json:"answer" gorm:"not null"`
 	AnswerSalt     string        `json:"answer_salt" gorm:"not null"`
+	IsConfirmed    bool          `json:"is_confirmed" gorm:"not null"`
 }
