@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,23 +12,49 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LandingPageComponent implements OnInit {
   sub!: Subscription;
+  ngForm!: FormGroup
   constructor(
     private authService: UserService,
     private _router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private formBuilder: FormBuilder,
 
   ) { }
   emaill!: string;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.ngForm = this.formBuilder.group({
+      emaill: new FormControl('', [
+        Validators.required,
+
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(30),
+        Validators.pattern(
+          '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!"#$@%&()*<>+_|~]).*$'
+        )])
+    });
+  }
 
   forgotPass() {
     console.log(this.emaill);
-    this.authService.sendCode(this.emaill).subscribe();
-    localStorage.setItem('emailForReset', this.emaill);
-    this._router.navigate(['/resetPassword']);
+    this.authService.sendCode(this.emaill).subscribe(
+      res => {
+        localStorage.setItem('emailForReset', this.emaill);
+        this._router.navigate(['/resetPassword']);
+
+      },
+      err => {
+        this._snackBar.open("User with this email does not exist!", "", {
+          duration: 3000
+        });
+      }
+    );
   }
   onSubmit(f: NgForm) {
+
     const loginObserver = {
       next: (x: any) => {
         this._snackBar.open('     Welcome', 'Dismiss');

@@ -73,6 +73,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.createForm.invalid) {
+      return;
+    }
 
     this.createUser();
     this.authService.createSubject(this.newSubject).subscribe(
