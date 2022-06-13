@@ -6,19 +6,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCompanyDto {
+
     private Long id;
+
+    @Pattern(regexp = "[a-zA-Z]+")
     private String name;
+
+
     private String website;
+
+    @Email
     private String email;
+
     private String phoneNumber;
+
+    @Pattern(regexp = "[a-zA-Z]+")
     private String countryOfOrigin;
+
+    @Pattern(regexp = "[a-zA-Z]+")
     private String founder;
+
+
     private String numberOfEmpl;
+
     public String ownerUsername;
 
     public CreateCompanyDto(Company c) {

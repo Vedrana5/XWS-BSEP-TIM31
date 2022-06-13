@@ -58,7 +58,7 @@ export class UserService {
   }
 
   checkCode(verCode: string): Observable<any> {
-    return this._http.post<any>('http://localhost:8081/api/user/checkCode', {
+    return this._http.post<any>('http://localhost:8082/auth/checkCode', {
       email: localStorage.getItem('emailForReset'),
       code: verCode,
     });

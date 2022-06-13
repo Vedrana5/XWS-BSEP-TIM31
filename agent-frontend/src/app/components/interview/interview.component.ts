@@ -39,15 +39,16 @@ export class InterviewComponent implements OnInit {
 
   add() {
 
+    if (this.createForm.invalid) return;
     this.createInterview();
     console.log(this.createInterview);
 
     this.companyService.createInterview(this.interview).subscribe({
       next: (res) => {
 
-        this.dialogRef.close({ event: "Created Job offer", data: res });
+        this.dialogRef.close({ event: "Created Interview", data: res });
         this._snackBar.open(
-          'You have created a job offer.',
+          'You have created a interview comment.',
           'Dismiss', {
           duration: 3000
         });

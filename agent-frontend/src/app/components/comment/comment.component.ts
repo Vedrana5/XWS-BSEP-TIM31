@@ -35,6 +35,7 @@ export class CommentComponent implements OnInit {
   }
 
   add() {
+    if (this.createForm.invalid) return;
 
     this.createCommentRequest();
     console.log(this.createCommentRequest);
@@ -42,9 +43,9 @@ export class CommentComponent implements OnInit {
     this.companyService.createComment(this.comment).subscribe({
       next: (res) => {
 
-        this.dialogRef.close({ event: "Created Job offer", data: res });
+        this.dialogRef.close({ event: "Created Comment", data: res });
         this._snackBar.open(
-          'You have created a job offer.',
+          'You have created a comment.',
           'Dismiss', {
           duration: 3000
         });
