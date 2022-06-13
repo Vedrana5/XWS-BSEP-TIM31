@@ -27,7 +27,7 @@ public class CompanyController {
     @Autowired
     private TokenUtilss tokenUtils;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createNew")
     public ResponseEntity<String> createCompany(@RequestBody CreateCompanyDto companyDto) {
         Company company = companyService.createCompany(companyDto);
@@ -37,7 +37,7 @@ public class CompanyController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "approve/{id}")
     public Company approveCompany(@PathVariable Long id) {
         Company company = companyService.approveCompany(id);
@@ -47,14 +47,14 @@ public class CompanyController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "reject/{id}")
     public Company rejectCompany(@PathVariable Long id) {
         Company company = companyService.rejectCompany(id);
         return company;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/getAllforUser")
     public List<Company> getAllForUser(HttpServletRequest request){
         String username = tokenUtils.getEmailFromToken(tokenUtils.getToken(request));
@@ -71,7 +71,7 @@ public class CompanyController {
       return companies;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/getAllByUser/{email}")
     public List<Company> getUsersCompany(@PathVariable String email){
         User user = userService.findByEmail(email);
@@ -82,7 +82,7 @@ public class CompanyController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PutMapping(value = "/editCompany")
     public Company editCottage(@RequestBody CreateCompanyDto companyDto) {
         Company company = companyService.editCompany(companyDto);
@@ -90,14 +90,14 @@ public class CompanyController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "/pendingCompanies")
     public List<Company> getAllPendingCompanies(){
         List<Company> companies = companyService.getAllStatusCompanies(CompanyStatus.PENDING);
         return companies;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "/approvedCompanies")
     public List<Company> getAllApprovedCompanies(){
         List<Company> companies = companyService.getAllStatusCompanies(CompanyStatus.APPROVED);
@@ -110,7 +110,7 @@ public class CompanyController {
         return companyService.getAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "findCompany/{id}")
     public Company findCompanybyId(@PathVariable Long id) {
         Company company = companyService.findById(id);

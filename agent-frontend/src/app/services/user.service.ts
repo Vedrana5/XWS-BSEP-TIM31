@@ -58,10 +58,13 @@ export class UserService {
   }
 
   checkCode(verCode: string): Observable<any> {
+
+    console.log(verCode)
     return this._http.post<any>('http://localhost:8082/auth/checkCode', {
       email: localStorage.getItem('emailForReset'),
       code: verCode,
     });
+
   }
 
   resetPassword(newPassword: string): Observable<any> {

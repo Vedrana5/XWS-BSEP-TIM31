@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 @Component({
@@ -16,6 +17,7 @@ export class ResetPasswordComponent implements OnInit {
   kodic!: string;
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
+    private snackBar: MatSnackBar,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -39,9 +41,15 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
   verify() {
-    this.userService.checkCode(this.kodic).subscribe((res) => { });
-
-    this.divVisible = true;
+    this.userService.checkCode(this.kodic).subscribe(
+      (res) => {
+        this.divVisible = true;
+      },
+      err => {
+        this.snackBar.open(err.error, '', {
+          duration: 3000
+        })
+      });
   }
   onCodeInput(event: any): void { }
 

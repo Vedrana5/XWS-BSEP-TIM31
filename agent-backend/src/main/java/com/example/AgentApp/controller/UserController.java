@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "/getBasicInf")
     public User getUserInformation(HttpServletRequest request) {
         String token = tokenUtils.getToken(request);

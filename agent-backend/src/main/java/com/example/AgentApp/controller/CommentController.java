@@ -27,7 +27,7 @@ public class CommentController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createNewComment")
     public ResponseEntity<String> createCompany(@RequestBody CommentDto commentDto) {
         Comment comment = commentService.createComment(commentDto);
@@ -37,7 +37,7 @@ public class CommentController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createSalary")
     public ResponseEntity<String> createSalary(@RequestBody SalaryDto salaryDto) {
         Salary salary = commentService.createSalary(salaryDto);
@@ -47,7 +47,7 @@ public class CommentController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createInterview")
     public ResponseEntity<String> createInterview(@RequestBody InterviewDto interviewDto) {
         Interview interview = commentService.createInterview(interviewDto);
@@ -60,7 +60,7 @@ public class CommentController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/getAllByCompany/{id}")
     public List<Comment> getCompanyComment(@PathVariable Long id){
         Company company = companyService.findById(id);
@@ -69,7 +69,7 @@ public class CommentController {
         return comments;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/getAllSalaryByCompany/{id}")
     public List<Salary> getCompanySalary(@PathVariable Long id){
         Company company = companyService.findById(id);
@@ -79,7 +79,7 @@ public class CommentController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/getAllInterviewByCompany/{id}")
     public List<Interview> getCompanyInterview(@PathVariable Long id){
         Company company = companyService.findById(id);

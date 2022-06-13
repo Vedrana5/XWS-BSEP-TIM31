@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(value = "/auth")
+@CrossOrigin(origins = "https://localhost:4200")
 public class AuthenticationController {
 
     @Autowired
@@ -46,7 +47,7 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<LogUserDto> login(
             @RequestBody JwtAuthenticationRequestDto authenticationRequest, HttpServletResponse response) {
@@ -66,7 +67,7 @@ public class AuthenticationController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterDto userRequest, UriComponentsBuilder ucBuilder) throws UnknownHostException, ParseException {
         User savedUser = userService.addUser(userRequest);
@@ -76,7 +77,7 @@ public class AuthenticationController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/confirmAccount/{token}")
     public ResponseEntity<String> confirmAccount(@PathVariable String token) {
         CustomToken verificationToken = customTokenService.findByToken(token);
@@ -96,7 +97,7 @@ public class AuthenticationController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/sendCode")
     public ResponseEntity<?> sendCode(@RequestBody String email) {
         User user = userService.findByEmail(email);
@@ -106,18 +107,20 @@ public class AuthenticationController {
         return ResponseEntity.accepted().build();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/checkCode")
     public ResponseEntity<String> checkCode(@RequestBody CheckCodeDto checkCodeDto) {
         User user = userService.findByEmail(checkCodeDto.getEmail());
+        System.out.print(user);
         CustomToken token = customTokenService.findByUser(user);
+        System.out.print("sfsdfsdfdsfdfdsfdsfsdfed"+token);
+
         if (customTokenService.checkResetPasswordCode(checkCodeDto.getCode(), token.getToken())) {
             return new ResponseEntity<>("Success!", HttpStatus.OK);
         }
 
         return new ResponseEntity<>("Entered code is not valid!", HttpStatus.BAD_REQUEST);
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/resetPassword")
