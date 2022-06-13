@@ -21,3 +21,22 @@ INSERT INTO public.companies(
 
 	INSERT INTO public.offers(position, description, date_created,due_date, company_id)
     	VALUES ('fdsfsdf', 'Glupost jos veca','2022-06-12 00:00:00', '2022-07-12 00:00:00',1);
+
+
+
+ INSERT INTO permission(id, name,role)
+ VALUES (2, 'CREATE_COMPANY_PERMISSION',2);
+
+ INSERT INTO permission(id, name,role)
+ VALUES (3, 'UPDATE_COMPANY_PERMISSION',2);
+
+ INSERT INTO permission(id, name,role)
+ VALUES (4, 'ACTIVATE_COMPANY_PERMISSION',0);
+
+
+INSERT INTO permission(id, name,role)
+VALUES (11, 'CREATE_SALARY_PERMISSION',1);
+
+INSERT INTO permission(id, name,role)
+VALUES (7, 'CREATE_JOB_AD_PERMISSION',1);
+

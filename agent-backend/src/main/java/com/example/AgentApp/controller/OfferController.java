@@ -4,6 +4,7 @@ import com.example.AgentApp.dto.NewOfferDto;
 import com.example.AgentApp.model.Offer;
 import com.example.AgentApp.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class OfferController {
     @Autowired
     private OfferService offerService;
 
+    @PreAuthorize("hasAuthority('CREATE_OFFER_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/newOffer")
     public Offer createNewOffer(@RequestBody NewOfferDto newOfferDto){

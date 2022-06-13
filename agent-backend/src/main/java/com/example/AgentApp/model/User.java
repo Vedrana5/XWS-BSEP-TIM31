@@ -3,9 +3,13 @@ package com.example.AgentApp.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -47,6 +51,8 @@ public class User {
 
     @Column(nullable = false)
     private UserRole role;
+
+
 
 
 

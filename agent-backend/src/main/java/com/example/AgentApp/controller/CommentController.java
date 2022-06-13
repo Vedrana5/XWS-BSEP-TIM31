@@ -11,6 +11,7 @@ import com.example.AgentApp.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class CommentController {
 
 
 
+    @PreAuthorize("hasAuthority('CREATE_COMMENT_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createNewComment")
     public ResponseEntity<String> createCompany(@RequestBody CommentDto commentDto) {
@@ -37,6 +39,7 @@ public class CommentController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @PreAuthorize("hasAuthority('CREATE_SALARY_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createSalary")
     public ResponseEntity<String> createSalary(@RequestBody SalaryDto salaryDto) {
@@ -47,6 +50,7 @@ public class CommentController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @PreAuthorize("hasAuthority('CREATE_INTERVIEW_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createInterview")
     public ResponseEntity<String> createInterview(@RequestBody InterviewDto interviewDto) {

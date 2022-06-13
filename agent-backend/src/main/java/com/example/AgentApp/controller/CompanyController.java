@@ -9,6 +9,7 @@ import com.example.AgentApp.service.impl.CompanyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class CompanyController {
     @Autowired
     private TokenUtilss tokenUtils;
 
+    @PreAuthorize("hasAuthority('CREATE_COMPANY_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/createNew")
     public ResponseEntity<String> createCompany(@RequestBody CreateCompanyDto companyDto) {
@@ -37,6 +39,7 @@ public class CompanyController {
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @PreAuthorize("hasAuthority('ACTIVATE_COMPANY_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "approve/{id}")
     public Company approveCompany(@PathVariable Long id) {
@@ -46,7 +49,7 @@ public class CompanyController {
     }
 
 
-
+    @PreAuthorize("hasAuthority('ACTIVATE_COMPANY_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "reject/{id}")
     public Company rejectCompany(@PathVariable Long id) {
@@ -81,7 +84,7 @@ public class CompanyController {
          return companies;
     }
 
-
+    @PreAuthorize("hasAuthority('UPDATE_COMPANY_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @PutMapping(value = "/editCompany")
     public Company editCottage(@RequestBody CreateCompanyDto companyDto) {
@@ -97,7 +100,7 @@ public class CompanyController {
         return companies;
     }
 
-    @CrossOrigin(origins = "https://localhost:4200")
+   @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping(value = "/approvedCompanies")
     public List<Company> getAllApprovedCompanies(){
         List<Company> companies = companyService.getAllStatusCompanies(CompanyStatus.APPROVED);
