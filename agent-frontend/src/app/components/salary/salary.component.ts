@@ -39,6 +39,8 @@ export class SalaryComponent implements OnInit {
   }
 
   add() {
+
+    if (this.createForm.invalid) return;
     this.createSallary();
     console.log(this.createSallary);
 
@@ -47,7 +49,7 @@ export class SalaryComponent implements OnInit {
 
         this.dialogRef.close({ event: "Created Sallary comment", data: res });
         this._snackBar.open(
-          'You have created a job offer.',
+          'You have created a salary.',
           'Dismiss', {
           duration: 3000
         });
