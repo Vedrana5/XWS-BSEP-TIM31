@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { LogedUser } from 'src/app/interfaces/loged-user';
 import { SubjectData } from 'src/app/interfaces/subject-data';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,9 @@ export class UserService {
 
 
 
+  private loginStatus = new BehaviorSubject<boolean>(false);
 
-
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<LogedUser>(
       JSON.parse(localStorage.getItem('currentUser')!)
     );
@@ -80,5 +81,15 @@ export class UserService {
 
   public get currentUserValue(): LogedUser {
     return this.currentUserSubject.value;
+  }
+
+  logout() {
+    this.loginStatus.next(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('email');
+    this.router.navigate(['/']);
+
   }
 }

@@ -19,4 +19,7 @@ export class UserNavbarComponent implements OnInit {
     console.log(this.role)
   }
 
+  logout() {
+    this.userService.logout();
+  }
 }
