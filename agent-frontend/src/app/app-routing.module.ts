@@ -14,6 +14,9 @@ import { NewRequestComponent } from './components/new-request/new-request.compon
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { CompanyViewComponent } from './components/company-view/company-view.component';
 import { ResetPasswordComponent } from './components/comment/reset-password/reset-password.component';
+import { OwnerGuard } from './AuthGuard/OwnerGuard';
+import { AdminGuard } from './AuthGuard/AdminGuard';
+import { UserGuard } from './AuthGuard/UserGuard';
 
 
 const routes: Routes = [
@@ -22,33 +25,33 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   {
     path: 'userHome',
-    component: UserPageComponent, canActivate: [AuthGuard]
+    component: UserPageComponent, canActivate: [UserGuard]
   },
   { path: 'resetPassword', component: ResetPasswordComponent },
 
 
   {
     path: 'adminHome',
-    component: AdminPageComponent, canActivate: [AuthGuard]
+    component: AdminPageComponent, canActivate: [AdminGuard]
   },
   {
     path: 'newRequest',
-    component: NewRequestComponent, canActivate: [AuthGuard]
+    component: NewRequestComponent, canActivate: [UserGuard]
   },
   {
     path: 'companies', canActivate: [AuthGuard],
     component: CompaniesListComponent
   },
   {
-    path: 'myCompanies', canActivate: [AuthGuard],
+    path: 'myCompanies', canActivate: [OwnerGuard],
     component: MyCompaniesComponent
   },
   {
-    path: 'companyRequests', canActivate: [AuthGuard],
+    path: 'companyRequests', canActivate: [AdminGuard],
     component: CompanyRequestsComponent
   },
   {
-    path: 'ownerHome', canActivate: [AuthGuard],
+    path: 'ownerHome', canActivate: [OwnerGuard],
     component: OwnerPageComponent
   },
   {
