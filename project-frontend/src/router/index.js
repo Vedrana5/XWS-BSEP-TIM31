@@ -9,6 +9,7 @@ import StartPageUser from "../views/user/StartPageUser"
 import ConfirmRegistration from "../views/user/ConfirmRegistration"
 import ConfirmResetPassword from "../views/user/ConfirmResetPassword"
 import ChangePassword from "../views/user/ChangePassword"
+import ResetPassword from "../views/user/ResetPassword"
 const routes = [
   {
     path: "/",
@@ -20,6 +21,11 @@ const routes = [
   name: "LoginView",
   component: LoginView,
   },
+  {
+    path: "/ResetPassword",
+    name: "ResetPassword",
+    component: ResetPassword,
+    },
   {
     path: "/RegistrationView",
     name: "RegistrationView",
@@ -52,7 +58,7 @@ const routes = [
       },
       
       {
-        path: '/confirmResetPassword/:id',
+        path: '/confirmResetPassword/:id/:confirmationToken',
         name: 'ConfirmResetPassword',
         component: ConfirmResetPassword        
       }

@@ -68,35 +68,6 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if logInUserDTO.Question != user.Question {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
-			"timestamp": time.Now().String(),
-		}).Error("Wrong question for user!")
-		w.WriteHeader(http.StatusConflict)
-		return
-	}
-
-	plainAnswer := ""
-	var ab strings.Builder
-	answerSalt := user.AnswerSalt
-	ab.WriteString(logInUserDTO.Answer)
-	ab.WriteString(answerSalt)
-	plainAnswer = ab.String()
-
-	if !handler.PasswordUtil.CheckPasswordHash(plainAnswer, user.Answer) {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
-			"timestamp": time.Now().String(),
-		}).Error("Wrong answer to user question!")
-		w.WriteHeader(http.StatusConflict)
-		return
-	}
-
 	//token
 	token, err := CreateToken(user.Username)
 	if err != nil {

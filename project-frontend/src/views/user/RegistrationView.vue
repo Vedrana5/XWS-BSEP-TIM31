@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div> <button  @click="GoBack()">Go back</button></div>
      <h1 id="heading1">Registration Here</h1>
        <img src="https://www.kindpng.com/picc/m/273-2738790_login-login-logo-hd-png-download.png" style="width:200px; height:150px;">
      <div>
@@ -174,6 +175,9 @@ async Register() {
         });
 
        }
+},
+async GoBack() {
+  this.$router.push({ name: "StartPageView" });
 },
  validQuestion() {
       if (this.newUser.Question.length < 1) {

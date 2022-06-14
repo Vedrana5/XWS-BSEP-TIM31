@@ -10,14 +10,9 @@
              <div class="class1">
            <input v-if="showPassword" type="text" class="input-field" v-model="Password" />
            <input v-else type="password" class="input-field" v-model="Password">
-           <button class="class2" @click="Show()">Show</button></div>
-                        <div class="class1">
-                 <input  placeholder="Question" name="question" class="input-field" v-model="Question" required>
-             </div>
-                          <div class="class1">
-                 <input  placeholder="Answer" name="answer" class="input-field" v-model="Answer" required>
-             </div>
-            <div><button type="submit" @click="Login()">Login</button></div>
+           <button class="class2" @click.prevent="Show()">Show</button></div>
+            <div><button type="submit" @click="Login()">Login</button>
+            <button class="class2" @click.prevent="ForgotPassword()">Forgot password?</button></div>
          </form>
      </div>
   </div>
@@ -42,8 +37,6 @@ async Login() {
       axios.post("http://localhost:8089/login",{           
           Username: this.Username,
           Password: this.Password,
-          Question: this.Question,
-          Answer: this.Answer,
        })
       .then (response => { 
         console.log(response.data.Token)
@@ -55,10 +48,12 @@ async Login() {
       })
       .catch((err) => {
           console.log(err);
-          alert("HIHI")
         });
            this.$router.push({ name: "StartPageUser" });
      
+  },
+  async ForgotPassword() {
+       this.$router.push({ name: "ResetPassword" });
   },
   async Show() {
     if (this.showPassword== true) {
