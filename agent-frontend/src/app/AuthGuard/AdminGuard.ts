@@ -16,7 +16,8 @@ export class AdminGuard implements CanActivate {
         }
 
         alert('You do not have admin permissions.')
-        this.router.navigate(['/login']);
+        this.userService.logout();
+        this.router.navigate(['/']);
         return false;
     }
 }

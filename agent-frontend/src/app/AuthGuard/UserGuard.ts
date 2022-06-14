@@ -16,7 +16,8 @@ export class UserGuard implements CanActivate {
         }
 
         alert('You do not have user permissions.')
-        this.router.navigate(['/login']);
+        this.userService.logout();
+        this.router.navigate(['/']);
         return false;
     }
 }

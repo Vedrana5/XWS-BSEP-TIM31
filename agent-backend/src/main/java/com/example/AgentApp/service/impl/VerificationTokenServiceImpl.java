@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -81,6 +82,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 
     private CustomToken createResetPasswordToken(User user) {
         CustomToken token = new CustomToken(RandomString.make(8),user,TokenType.ResetPassword);
+        token.setExpiryDate(LocalDateTime.now().plusMinutes(10));
         return token;
     }
 

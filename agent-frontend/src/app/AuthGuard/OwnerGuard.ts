@@ -15,7 +15,8 @@ export class OwnerGuard implements CanActivate {
         }
 
         alert('You do not have owner permissions.')
-        this.router.navigate(['/login']);
+        this.userService.logout();
+        this.router.navigate(['/']);
         return false;
     }
 }
