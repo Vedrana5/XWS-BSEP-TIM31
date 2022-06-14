@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div v-if="this.type === '1'">
           <form class="myForm" name="myForm">
       <div>
         <label for="password">New password</label>
@@ -19,6 +19,7 @@ import axios from 'axios';
 export default {
   name: "ChangePassword",
   data: () => ({
+    type:"",
     confirmationToken:"",
     id: "",
     token:"",
@@ -97,6 +98,12 @@ export default {
       return true;
     },
   },
+  async created() {
+      this.Username = localStorage.getItem("username"); 
+  this.token = localStorage.getItem("token")
+  this.type = localStorage.getItem("userType")
+  console.log("type je"+ this.type);
+  }
 };
 </script>
 

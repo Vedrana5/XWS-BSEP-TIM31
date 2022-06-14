@@ -47,7 +47,7 @@ export default {
             'Content-Type': 'application/json;charset=UTF-8',
             Accept: 'application/json',
           }  
-  axios.post("http://localhost:8089/changePassword",{
+  axios.post("http://localhost:8089/resetPassword",{
                 ID: this.id,
                 Password: this.Password,
                 Token: this.token

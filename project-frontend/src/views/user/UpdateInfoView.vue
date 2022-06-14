@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="this.type === '1'">
      <h1 id="heading1">Update info Here</h1>
        <img src="https://www.kindpng.com/picc/m/273-2738790_login-login-logo-hd-png-download.png" style="width:200px; height:150px;">
      <div>
@@ -69,6 +69,7 @@ export default {
  data() {
     return {
       id:"",
+      type:"",
       oldUsername:"",
         Username: "",
         passwordAgain:"",
@@ -275,6 +276,8 @@ export default {
 async created() {    
   this.Username = localStorage.getItem("username"); 
   this.token = localStorage.getItem("token")
+  this.type = localStorage.getItem("userType")
+  console.log("type je"+ this.type);
          const headers ={
             Authorization: "Bearer " + this.token,
             'Content-Type': 'application/json;charset=UTF-8',
