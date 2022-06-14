@@ -50,4 +50,21 @@ public interface LoggerService {
     void updateCompanyFailed(String name, Long id);
 
     void updateCompanySuccessfully(String name, Long id);
+
+
+    void createOfferSuccess(String name, Long companyId);
+
+    void createOfferFailed(String name, Long companyId);
+
+    void createSalaryFailure(String name, Long companyId);
+
+    void createSalarySuccess(String name, Long companyId);
+
+    void createCommentFailure(String name, Long companyId);
+
+    void createCommentSuccess(String name, Long companyId);
+
+    void createInterviewSuccess(String name, Long companyId);
+
+    void createInterviewFailure(String name, Long companyId);
 }

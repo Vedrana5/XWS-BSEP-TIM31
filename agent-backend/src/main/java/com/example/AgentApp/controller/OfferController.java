@@ -2,9 +2,12 @@ package com.example.AgentApp.controller;
 
 import com.example.AgentApp.dto.NewOfferDto;
 import com.example.AgentApp.model.Offer;
+import com.example.AgentApp.service.LoggerService;
 import com.example.AgentApp.service.OfferService;
+import com.example.AgentApp.service.impl.LoggerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +20,26 @@ public class OfferController {
     @Autowired
     private OfferService offerService;
 
-    @PreAuthorize("hasAuthority('CREATE_OFFER_PERMISSION')")
+    private  final LoggerService loggerService;
+
+
+    public OfferController() {
+
+        this.loggerService = new LoggerServiceImpl(this.getClass());
+    }
+
+
+    //  @PreAuthorize("hasAuthority('CREATE_OFFER_PERMISSION')")
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/newOffer")
     public Offer createNewOffer(@RequestBody NewOfferDto newOfferDto){
-
         Offer offer = offerService.addOffer(newOfferDto);
+        if(offer==null) {
+            loggerService.createOfferFailed(SecurityContextHolder.getContext().getAuthentication().getName(),newOfferDto.getCompanyId());
+
+
+        }
+        loggerService.createOfferSuccess(SecurityContextHolder.getContext().getAuthentication().getName(),newOfferDto.getCompanyId());
 
         return offer;
     }

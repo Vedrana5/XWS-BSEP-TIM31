@@ -4,6 +4,7 @@ import com.example.AgentApp.service.LoggerService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class LoggerServiceImpl implements LoggerService {
     private final Logger logger;
@@ -135,6 +136,53 @@ public class LoggerServiceImpl implements LoggerService {
     @Override
     public void updateCompanySuccessfully(String name, Long id) {
         logger.info("Company {}  successfully update. Email: {}",id, name);
+
+    }
+
+    @Override
+    public void createOfferSuccess(String name, Long companyId) {
+        logger.info("Offer successfully created for company {}. Email: {}",companyId, name);
+
+    }
+
+    @Override
+    public void createOfferFailed(String name, Long companyId) {
+        logger.warn("Offer creation failed for company {}. Email: {}",companyId, name);
+    }
+
+    @Override
+    public void createSalaryFailure(String name, Long companyId) {
+        logger.warn("Sallary creation failed for company {}. Email: {}",companyId, name);
+
+    }
+
+    @Override
+    public void createSalarySuccess(String name, Long companyId) {
+        logger.info("Sallary  successfully create for company {}. Email: {}",companyId, name);
+
+    }
+
+    @Override
+    public void createCommentFailure(String name, Long companyId) {
+        logger.warn("Comment creation failed for company {}. Email: {}",companyId, name);
+
+    }
+
+    @Override
+    public void createCommentSuccess(String name, Long companyId) {
+        logger.info("Comment  successfully create for company {}. Email: {}",companyId, name);
+
+    }
+
+    @Override
+    public void createInterviewSuccess(String name, Long companyId) {
+        logger.info("Interview  successfully create for company {}. Email: {}",companyId, name);
+
+    }
+
+    @Override
+    public void createInterviewFailure(String name, Long companyId) {
+        logger.warn("Interview creation failed for company {}. Email: {}",companyId, name);
 
     }
 
