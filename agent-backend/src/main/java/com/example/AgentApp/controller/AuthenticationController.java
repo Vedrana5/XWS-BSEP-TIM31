@@ -8,8 +8,10 @@ import com.example.AgentApp.model.UserRole;
 import com.example.AgentApp.repository.UserRepository;
 
 import com.example.AgentApp.security.TokenUtilss;
+import com.example.AgentApp.service.LoggerService;
 import com.example.AgentApp.service.UserService;
 import com.example.AgentApp.service.VerificationTokenService;
+import com.example.AgentApp.service.impl.LoggerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +50,14 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
+
+    private  final LoggerService loggerService;
+
+    public AuthenticationController() {
+
+        this.loggerService = new LoggerServiceImpl(this.getClass());
+    }
+
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<LogUserDto> login(
@@ -61,6 +71,7 @@ public class AuthenticationController {
         String jwt = tokenUtils.generateToken(user.getUser().getEmail());
         int expiresIn = tokenUtils.getExpiredIn();
         LogUserDto loggedUserDto = new LogUserDto(authenticationRequest.getEmail(), role.toString(), new UserTokenState(jwt, expiresIn));
+        loggerService.loginSuccess(authenticationRequest.getEmail());
         return ResponseEntity.ok(loggedUserDto);
     }
 
