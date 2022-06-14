@@ -5,4 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LoggerService {
     void loginSuccess(String email);
+
+    void loginFailed(String email);
 }

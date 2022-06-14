@@ -15,6 +15,7 @@ public class LoggerServiceImpl implements LoggerService {
 
 
     public void loginFailed(String email) {
+
         logger.warn("Login failed. Email: " + email);
     }
 

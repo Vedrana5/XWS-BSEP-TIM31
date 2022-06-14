@@ -63,16 +63,23 @@ public class AuthenticationController {
     public ResponseEntity<LogUserDto> login(
             @RequestBody JwtAuthenticationRequestDto authenticationRequest, HttpServletResponse response) {
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserRole role = userService.findByEmail(authenticationRequest.getEmail()).getRole();
-        UserDetails user = (UserDetails) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUser().getEmail());
-        int expiresIn = tokenUtils.getExpiredIn();
-        LogUserDto loggedUserDto = new LogUserDto(authenticationRequest.getEmail(), role.toString(), new UserTokenState(jwt, expiresIn));
-        loggerService.loginSuccess(authenticationRequest.getEmail());
-        return ResponseEntity.ok(loggedUserDto);
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserRole role = userService.findByEmail(authenticationRequest.getEmail()).getRole();
+            UserDetails user = (UserDetails) authentication.getPrincipal();
+            String jwt = tokenUtils.generateToken(user.getUser().getEmail());
+            int expiresIn = tokenUtils.getExpiredIn();
+            LogUserDto loggedUserDto = new LogUserDto(authenticationRequest.getEmail(), role.toString(), new UserTokenState(jwt, expiresIn));
+            loggerService.loginSuccess(authenticationRequest.getEmail());
+            return ResponseEntity.ok(loggedUserDto);
+        }
+        catch (Exception ex) {
+            loggerService.loginFailed(authenticationRequest.getEmail());
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 
