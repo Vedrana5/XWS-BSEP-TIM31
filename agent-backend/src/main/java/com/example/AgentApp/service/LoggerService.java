@@ -34,4 +34,20 @@ public interface LoggerService {
 
 
     void checkCodeFailed(String email);
+
+    void approveCompanyFailed(String name, Long id);
+
+    void approveCompanySuccess(String name, Long id);
+
+    void rejectCompanyFailed(String name, Long id);
+
+    void rejectCompanySuccess(String name, Long id);
+
+    void createCompanySuccess(String name);
+
+    void createCompanyFailure(String name);
+
+    void updateCompanyFailed(String name, Long id);
+
+    void updateCompanySuccessfully(String name, Long id);
 }

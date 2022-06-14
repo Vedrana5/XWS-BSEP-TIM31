@@ -94,6 +94,50 @@ public class LoggerServiceImpl implements LoggerService {
 
     }
 
+    @Override
+    public void approveCompanyFailed(String name, Long id) {
+        logger.warn("Company {} unsuccessfully activated by {}", id, name);
+    }
+
+    @Override
+    public void approveCompanySuccess(String name, Long id) {
+        logger.info("Company {} successfully activated by {}", id, name);
+    }
+
+    @Override
+    public void rejectCompanyFailed(String name, Long id) {
+        logger.warn("Company {} unsuccessfully reject by {}", id, name);
+
+    }
+
+    @Override
+    public void rejectCompanySuccess(String name, Long id) {
+        logger.info("Company {} successfully activated by {}", id, name);
+
+    }
+
+    @Override
+    public void createCompanySuccess(String name) {
+        logger.info("Company request successfully created. Email: {}", name);
+    }
+
+    @Override
+    public void createCompanyFailure(String name) {
+        logger.warn("Company request creation failed. Email: {}", name);
+    }
+
+    @Override
+    public void updateCompanyFailed(String name, Long id) {
+        logger.info("Company {} update failed. Email: {}",id, name);
+
+    }
+
+    @Override
+    public void updateCompanySuccessfully(String name, Long id) {
+        logger.info("Company {}  successfully update. Email: {}",id, name);
+
+    }
+
 
     @Override
     public void loginSuccess(String email) {
