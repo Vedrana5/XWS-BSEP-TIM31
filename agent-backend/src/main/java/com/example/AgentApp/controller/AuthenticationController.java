@@ -91,8 +91,10 @@ public class AuthenticationController {
     public ResponseEntity<String> register(@Valid @RequestBody RegisterDto userRequest, UriComponentsBuilder ucBuilder) throws UnknownHostException, ParseException {
         User savedUser = userService.addUser(userRequest);
         if (savedUser != null) {
+            loggerService.userSignedUp(userRequest.getEmail());
             return new ResponseEntity<>("SUCCESS!", HttpStatus.CREATED);
         }
+        loggerService.userSigningUpFailed("Saving new user failed", userRequest.getEmail());
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -104,14 +106,18 @@ public class AuthenticationController {
         if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
             customTokenService.deleteById(verificationToken.getId());
             customTokenService.sendVerificationToken(user);
+            loggerService.expiredMail(user.getEmail());
             return new ResponseEntity<>("Confirmation link is expired,we sent you new one.Please check you mail box.", HttpStatus.BAD_REQUEST);
         }
         User activated = userService.activateAccount(user);
         customTokenService.deleteById(verificationToken.getId());
         if (activated.isConfirmed()) {
+            loggerService.accountConfirmed(user.getEmail());
             return new ResponseEntity<>("Account is activated.You can login.", HttpStatus.OK);
 
+
         } else {
+            loggerService.accountConfirmedFailed(token);
             return new ResponseEntity<>("Error happened!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -120,9 +126,11 @@ public class AuthenticationController {
     @PostMapping(value = "/sendCode")
     public ResponseEntity<?> sendCode(@RequestBody String email) {
         User user = userService.findByEmail(email);
-        if (user == null)
-            return ResponseEntity.notFound().build();
+        if (user == null){
+            loggerService.sendResetEmailFailed(user.getEmail());
+            return ResponseEntity.notFound().build();}
         customTokenService.sendResetPasswordToken(user);
+        loggerService.sendResetEmail(user.getEmail());
         return ResponseEntity.accepted().build();
     }
 
@@ -131,9 +139,19 @@ public class AuthenticationController {
     @PutMapping(value = "/changePassword")
     public ResponseEntity<HttpStatus> changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto, HttpServletRequest request) {
         String token = tokenUtils.getToken(request);
-        userService.changePassword(tokenUtils.getEmailFromToken(token), changePasswordDto);
-        return ResponseEntity.noContent().build();
+
+       try {
+           userService.changePassword(tokenUtils.getEmailFromToken(token), changePasswordDto);
+           loggerService.passwordChanged(SecurityContextHolder.getContext().getAuthentication().getName());
+
+           return ResponseEntity.noContent().build();
+       } catch(Exception e) {
+           loggerService.passwordChangingFailed(e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getName());
+           return ResponseEntity.badRequest().build();
+       }
     }
+
+
 
 
     @CrossOrigin(origins = "https://localhost:4200")
@@ -143,17 +161,27 @@ public class AuthenticationController {
         CustomToken token = customTokenService.findByUser(user);
 
         if (customTokenService.checkResetPasswordCode(checkCodeDto.getCode(), token.getToken())) {
+            loggerService.checkCodeSuccessfully(user.getEmail());
             return new ResponseEntity<>("Success!", HttpStatus.OK);
         }
-
+        loggerService.checkCodeFailed(user.getEmail());
         return new ResponseEntity<>("Entered code is not valid!", HttpStatus.BAD_REQUEST);
     }
 
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/resetPassword")
     public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordDto resetPasswordDto) {
-        userService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getNewPassword());
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+       try {
+           userService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getNewPassword());
+           loggerService.resetPasswordSuccessfully(resetPasswordDto.getEmail());
+           return new ResponseEntity<>("OK", HttpStatus.OK);
+       }
+       catch(Exception e) {
+           loggerService.resetPasswordFailed(resetPasswordDto.getEmail());
+           return new ResponseEntity<>("Not a reset password", HttpStatus.BAD_REQUEST);
+
+
+       }
     }
 
 }
