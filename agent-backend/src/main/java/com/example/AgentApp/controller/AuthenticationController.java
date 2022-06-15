@@ -61,7 +61,7 @@ public class AuthenticationController {
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/login")
     public ResponseEntity<LogUserDto> login(@Valid
-            @RequestBody JwtAuthenticationRequestDto authenticationRequest, HttpServletResponse response) {
+            @RequestBody JwtAuthenticationRequestDto authenticationRequest, HttpServletRequest request) {
 
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -76,7 +76,7 @@ public class AuthenticationController {
             return ResponseEntity.ok(loggedUserDto);
         }
         catch (Exception ex) {
-            loggerService.loginFailed(authenticationRequest.getEmail());
+            loggerService.loginFailed(authenticationRequest.getEmail(),request.getRemoteAddr());
             return ResponseEntity.badRequest().build();
         }
 
@@ -88,36 +88,36 @@ public class AuthenticationController {
 
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody RegisterDto userRequest, UriComponentsBuilder ucBuilder) throws UnknownHostException, ParseException {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterDto userRequest, UriComponentsBuilder ucBuilder,HttpServletRequest request) throws UnknownHostException, ParseException {
         User savedUser = userService.addUser(userRequest);
         if (savedUser != null) {
-            loggerService.userSignedUp(userRequest.getEmail());
+            loggerService.userSignedUp(userRequest.getEmail(),request.getRemoteAddr());
             return new ResponseEntity<>("SUCCESS!", HttpStatus.CREATED);
         }
-        loggerService.userSigningUpFailed("Saving new user failed", userRequest.getEmail());
+        loggerService.userSigningUpFailed("Saving new user failed", userRequest.getEmail(),request.getRemoteAddr());
         return new ResponseEntity<>("ERROR!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @CrossOrigin(origins = "https://localhost:4200")
     @GetMapping("/confirmAccount/{token}")
-    public ResponseEntity<String> confirmAccount(@PathVariable String token) {
+    public ResponseEntity<String> confirmAccount(@PathVariable String token,HttpServletRequest request) {
         CustomToken verificationToken = customTokenService.findByToken(token);
         User user = verificationToken.getUser();
         if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
             customTokenService.deleteById(verificationToken.getId());
             customTokenService.sendVerificationToken(user);
-            loggerService.expiredMail(user.getEmail());
+            loggerService.expiredMail(user.getEmail(),request.getRemoteAddr());
             return new ResponseEntity<>("Confirmation link is expired,we sent you new one.Please check you mail box.", HttpStatus.BAD_REQUEST);
         }
         User activated = userService.activateAccount(user);
         customTokenService.deleteById(verificationToken.getId());
         if (activated.isConfirmed()) {
-            loggerService.accountConfirmed(user.getEmail());
+            loggerService.accountConfirmed(user.getEmail(),request.getRemoteAddr());
             return new ResponseEntity<>("Account is activated.You can login.", HttpStatus.OK);
 
 
         } else {
-            loggerService.accountConfirmedFailed(token);
+            loggerService.accountConfirmedFailed(user.getEmail(),request.getRemoteAddr());
             return new ResponseEntity<>("Error happened!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -142,11 +142,11 @@ public class AuthenticationController {
 
        try {
            userService.changePassword(tokenUtils.getEmailFromToken(token), changePasswordDto);
-           loggerService.passwordChanged(SecurityContextHolder.getContext().getAuthentication().getName());
+           loggerService.passwordChanged(SecurityContextHolder.getContext().getAuthentication().getName(),request.getRemoteAddr());
 
            return ResponseEntity.noContent().build();
        } catch(Exception e) {
-           loggerService.passwordChangingFailed(e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getName());
+           loggerService.passwordChangingFailed(e.getMessage(), SecurityContextHolder.getContext().getAuthentication().getName(),request.getRemoteAddr());
            return ResponseEntity.badRequest().build();
        }
     }

@@ -4,7 +4,6 @@ import com.example.AgentApp.service.LoggerService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 public class LoggerServiceImpl implements LoggerService {
     private final Logger logger;
@@ -15,47 +14,47 @@ public class LoggerServiceImpl implements LoggerService {
 
 
 
-    public void loginFailed(String email) {
+    public void loginFailed(String email, String remoteAddr) {
 
-        logger.warn("Login failed. Email: " + email);
+        logger.warn("Login failed. Email: " + email,". Ip address: " + remoteAddr);
     }
 
     @Override
-    public void userSignedUp(String email) {
+    public void userSignedUp(String email, String remoteAddr) {
         logger.info("New user successfully signed up. Email: {}", email);
 
     }
 
     @Override
-    public void userSigningUpFailed(String saving_new_user_failed, String email) {
+    public void userSigningUpFailed(String saving_new_user_failed, String email, String remoteAddr) {
         logger.warn("New user signing up failed: {}. Email: {}", saving_new_user_failed, email);
 
     }
 
     @Override
-    public void passwordChanged(String name) {
+    public void passwordChanged(String name, String remoteAddr) {
         logger.info("Password successfully changed. Email: {}", name);
 
     }
 
     @Override
-    public void accountConfirmed(String email) {
+    public void accountConfirmed(String email, String remoteAddr) {
         logger.info("Account confirmed successfully. Email: {}", email);
     }
 
     @Override
-    public void accountConfirmedFailed(String token) {
+    public void accountConfirmedFailed(String token, String remoteAddr) {
         logger.warn("Failed to confirm account, token {} not found", token);
     }
 
     @Override
-    public void expiredMail(String email) {
+    public void expiredMail(String email, String remoteAddr) {
         logger.info("Email send successfully. Email: {}", email);
 
     }
 
     @Override
-    public void passwordChangingFailed(String message, String name) {
+    public void passwordChangingFailed(String message, String name, String remoteAddr) {
         logger.warn("Change password failed. Email: {}.", name);
     }
 

@@ -6,21 +6,21 @@ import org.springframework.stereotype.Service;
 public interface LoggerService {
     void loginSuccess(String email);
 
-    void loginFailed(String email);
+    void loginFailed(String email, String remoteAddr);
 
-    void userSignedUp(String email);
+    void userSignedUp(String email, String remoteAddr);
 
-    void userSigningUpFailed(String saving_new_user_failed, String email);
+    void userSigningUpFailed(String saving_new_user_failed, String email, String remoteAddr);
 
-    void passwordChanged(String name);
+    void passwordChanged(String name, String remoteAddr);
 
-    void accountConfirmed(String email);
+    void accountConfirmed(String email, String remoteAddr);
 
-    void accountConfirmedFailed(String token);
+    void accountConfirmedFailed(String token, String remoteAddr);
 
-    void expiredMail(String email);
+    void expiredMail(String email, String remoteAddr);
 
-    void passwordChangingFailed(String message, String name);
+    void passwordChangingFailed(String message, String name, String remoteAddr);
 
     void resetPasswordSuccessfully(String email);
 
