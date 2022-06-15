@@ -1,0 +1,48 @@
+2022-Jun-15 16:50:07.951|INFO|org.hibernate.validator.internal.util.Version|HV000001: Hibernate Validator 6.2.3.Final
+2022-Jun-15 16:50:08.087|INFO|com.Bsep.BsepApplication|Starting BsepApplication using Java 11.0.14 on DESKTOP-ODN8NCJ with PID 20384 (C:\Users\Korisnik\Desktop\BSEP-PKI-develop\BSEP-PKI-develop\Bsep\target\classes started by Korisnik in C:\Users\Korisnik\Documents\GitHub\XWS-BSEP-TIM31\agent-backend)
+2022-Jun-15 16:50:08.105|INFO|com.Bsep.BsepApplication|No active profile set, falling back to 1 default profile: "default"
+2022-Jun-15 16:50:08.318|INFO|org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor|Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-Jun-15 16:50:08.320|INFO|org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor|For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-Jun-15 16:50:12.524|INFO|org.springframework.data.repository.config.RepositoryConfigurationDelegate|Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-Jun-15 16:50:13.914|INFO|org.springframework.data.repository.config.RepositoryConfigurationDelegate|Finished Spring Data repository scanning in 1267 ms. Found 3 JPA repository interfaces.
+2022-Jun-15 16:50:17.342|INFO|org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker|Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@7cd3c2c4' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-Jun-15 16:50:17.362|INFO|org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker|Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-Jun-15 16:50:21.251|INFO|org.springframework.boot.web.embedded.tomcat.TomcatWebServer|Tomcat initialized with port(s): 8080 (https)
+2022-Jun-15 16:50:21.592|INFO|org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext|Root WebApplicationContext: initialization completed in 13248 ms
+2022-Jun-15 16:50:22.853|INFO|org.hibernate.Version|HHH000412: Hibernate ORM core version 5.4.33
+2022-Jun-15 16:50:23.634|INFO|org.hibernate.annotations.common.Version|HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-Jun-15 16:52:30.257|INFO|org.hibernate.validator.internal.util.Version|HV000001: Hibernate Validator 6.2.3.Final
+2022-Jun-15 16:52:30.298|INFO|com.example.AgentApp.AgentApplication|Starting AgentApplication using Java 11.0.14 on DESKTOP-ODN8NCJ with PID 21404 (C:\Users\Korisnik\Documents\GitHub\XWS-BSEP-TIM31\agent-backend\target\classes started by Korisnik in C:\Users\Korisnik\Documents\GitHub\XWS-BSEP-TIM31\agent-backend)
+2022-Jun-15 16:52:30.312|INFO|com.example.AgentApp.AgentApplication|No active profile set, falling back to 1 default profile: "default"
+2022-Jun-15 16:52:33.065|INFO|org.springframework.data.repository.config.RepositoryConfigurationDelegate|Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-Jun-15 16:52:33.355|INFO|org.springframework.data.repository.config.RepositoryConfigurationDelegate|Finished Spring Data repository scanning in 255 ms. Found 7 JPA repository interfaces.
+2022-Jun-15 16:52:35.996|INFO|org.springframework.boot.web.embedded.tomcat.TomcatWebServer|Tomcat initialized with port(s): 8082 (http)
+2022-Jun-15 16:52:36.047|INFO|org.apache.coyote.http11.Http11NioProtocol|Initializing ProtocolHandler ["http-nio-8082"]
+2022-Jun-15 16:52:36.049|INFO|org.apache.catalina.core.StandardService|Starting service [Tomcat]
+2022-Jun-15 16:52:36.049|INFO|org.apache.catalina.core.StandardEngine|Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-Jun-15 16:52:36.523|INFO|org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]|Initializing Spring embedded WebApplicationContext
+2022-Jun-15 16:52:36.524|INFO|org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext|Root WebApplicationContext: initialization completed in 6089 ms
+2022-Jun-15 16:52:37.197|INFO|org.hibernate.Version|HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-Jun-15 16:52:37.860|INFO|org.hibernate.annotations.common.Version|HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-Jun-15 16:52:38.351|INFO|com.zaxxer.hikari.HikariDataSource|HikariPool-1 - Starting...
+2022-Jun-15 16:52:39.038|INFO|com.zaxxer.hikari.HikariDataSource|HikariPool-1 - Start completed.
+2022-Jun-15 16:52:39.096|INFO|org.hibernate.dialect.Dialect|HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2022-Jun-15 16:52:41.967|INFO|org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator|HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-Jun-15 16:52:42.004|INFO|org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean|Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-Jun-15 16:52:46.499|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/auth/login', POST]
+2022-Jun-15 16:52:46.502|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/auth/register', POST]
+2022-Jun-15 16:52:46.502|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/', GET]
+2022-Jun-15 16:52:46.504|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/webjars/**', GET]
+2022-Jun-15 16:52:46.505|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/*.html', GET]
+2022-Jun-15 16:52:46.505|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='favicon.ico', GET]
+2022-Jun-15 16:52:46.505|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/**/*.html', GET]
+2022-Jun-15 16:52:46.506|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/**/*.css', GET]
+2022-Jun-15 16:52:46.506|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will not secure Ant [pattern='/**/*.js', GET]
+2022-Jun-15 16:52:46.813|INFO|org.springframework.security.web.DefaultSecurityFilterChain|Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5605a59b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4e8b36af, org.springframework.security.web.context.SecurityContextPersistenceFilter@344acc03, org.springframework.security.web.header.HeaderWriterFilter@4f93a8f6, org.springframework.web.filter.CorsFilter@d164938, org.springframework.security.web.authentication.logout.LogoutFilter@141c66db, com.example.AgentApp.security.TokenAuthenticationFilter@4cd079fe, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4bba2704, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@49994a4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@37823482, org.springframework.security.web.session.SessionManagementFilter@c7d173f, org.springframework.security.web.access.ExceptionTranslationFilter@6f53295e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@71f042b1]
+2022-Jun-15 16:52:47.265|INFO|org.apache.coyote.http11.Http11NioProtocol|Starting ProtocolHandler ["http-nio-8082"]
+2022-Jun-15 16:52:47.327|INFO|org.springframework.boot.web.embedded.tomcat.TomcatWebServer|Tomcat started on port(s): 8082 (http) with context path ''
+2022-Jun-15 16:52:47.378|INFO|com.example.AgentApp.AgentApplication|Started AgentApplication in 18.15 seconds (JVM running for 22.049)
+2022-Jun-15 16:54:11.512|INFO|org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]|Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-Jun-15 16:54:11.512|INFO|org.springframework.web.servlet.DispatcherServlet|Initializing Servlet 'dispatcherServlet'
+2022-Jun-15 16:54:11.519|INFO|org.springframework.web.servlet.DispatcherServlet|Completed initialization in 7 ms
+2022-Jun-15 16:54:12.847|INFO|com.example.AgentApp.controller.AuthenticationController|Login successful. Email: admin123@gmail.com
