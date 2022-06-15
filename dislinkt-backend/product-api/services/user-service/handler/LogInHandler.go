@@ -31,10 +31,9 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&logInUserDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to LogInUserDTO!")
+		}).Error(time.Now().String() + "Wrong cast json to LogInUserDTO!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -45,10 +44,9 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	if !validPassword {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Password isn't in valid format!")
+		}).Error(time.Now().String() + "Password isn't in valid format!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	} else {
@@ -62,10 +60,9 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, user.Password) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed sign up!")
+		}).Error(time.Now().String() + "Failed sign up!")
 		w.WriteHeader(http.StatusConflict)
 		return
 	}
@@ -75,10 +72,9 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed creating AWT token!")
+		}).Error(time.Now().String() + "Failed creating AWT token!")
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -93,10 +89,9 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	w.Write(logInResponseJson)
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "LOG85310",
+		"location":  "LogInHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully sign up user! User: " + user.Username)
+	}).Info(time.Now().String() + "Successfully sign in user")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 
@@ -108,10 +103,9 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 	if err := json.NewDecoder(r.Body).Decode(&logInUserPasswordlessDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to LogInUserDTO!")
+		}).Error(time.Now().String() + "Wrong cast json to LogInUserDTO!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -123,10 +117,9 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed creating AWT token!")
+		}).Error(time.Now().String() + "Failed creating AWT token!")
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -141,19 +134,17 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 	w.Write(logInResponseJson)
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "LOG85310",
+		"location":  "LogInHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully sign up user! User: " + user.Username)
+	}).Info(time.Now().String() + "Successfully sign in user!")
 
 	var validation_code = handler.ValidationCodeService.FindByCode(uuid.MustParse(logInUserPasswordlessDTO.Code))
 	if validation_code == nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Validation_code is null!")
+		}).Error(time.Now().String() + "Validation_code is null!")
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -161,10 +152,9 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 	if err := handler.ValidationCodeService.UpdateValidationCodeUsing(validation_code.Code); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed changing password!")
+		}).Error(time.Now().String() + "Failed changing password!")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -231,10 +221,9 @@ func (handler *LogInHandler) GetUserIDFromJWTToken(w http.ResponseWriter, r *htt
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "GetUserIDFromJWTToken",
+			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed verified token!")
+		}).Error(time.Now().String() + "Failed verified token!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -249,10 +238,10 @@ func (handler *LogInHandler) GetUserIDFromJWTToken(w http.ResponseWriter, r *htt
 	}
 	handler.LogError.WithFields(logrus.Fields{
 		"status":    "failure",
-		"location":  "UserHandler",
+		"location":  "LogInHandler",
 		"action":    "GetUserIDFromJWTToken",
 		"timestamp": time.Now().String(),
-	}).Error("Token doesn't valid!")
+	}).Error(time.Now().String() + "Token doesn't valid!")
 	w.WriteHeader(http.StatusBadRequest)
 }
 

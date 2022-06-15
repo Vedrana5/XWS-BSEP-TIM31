@@ -39,9 +39,8 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "FIDBYUSNAM9482",
 			"timestamp": time.Now().String(),
-		}).Error("User not found!")
+		}).Error(time.Now().String() + "User not found!")
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -49,10 +48,9 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 	w.Write(userJson)
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "FIDBYUSNAM9482",
+		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully founded user by username!")
+	}).Info(time.Now().String() + "Successfully founded user by username!")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }
@@ -67,19 +65,17 @@ func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "FIDBYUSNAM9482",
 			"timestamp": time.Now().String(),
-		}).Error("User not found!")
+		}).Error(time.Now().String() + "User not found!")
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 	userJson, _ := json.Marshal(user)
 	w.Write(userJson)
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "FIDBYUSNAM9482",
+		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully founded user by username!")
+	}).Info(time.Now().String() + "Successfully founded user by username!")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }
@@ -94,9 +90,8 @@ func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Reque
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "FIDBYUSNAM9482",
 			"timestamp": time.Now().String(),
-		}).Error("ValidationToken not found!")
+		}).Error(time.Now().String() + "Validation token not found!")
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -104,10 +99,9 @@ func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Reque
 	w.Write(userJson)
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "FIDBYUSNAM9482",
+		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully founded validation_token by code!")
+	}).Info(time.Now().String() + "Successfully founded validation token by code!")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }
@@ -120,9 +114,8 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
 			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to UserUpdateProfileInfoDTO!")
+		}).Error(time.Now().String() + "Wrong cast json to string !")
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
@@ -133,9 +126,8 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "FIDBYUSNAM9482",
 			"timestamp": time.Now().String(),
-		}).Error("Profile is private")
+		}).Error(time.Now().String() + "Profile is private")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -143,19 +135,17 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "FIDBYUSNAM9482",
 			"timestamp": time.Now().String(),
-		}).Error("User not found!")
+		}).Error(time.Now().String() + "User not found!")
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 	userJson, _ := json.Marshal(user)
 	w.Write(userJson)
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "FIDBYUSNAM9482",
+		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully founded user by username!")
+	}).Info(time.Now().String() + "Successfully founded user by username!")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 
@@ -169,9 +159,8 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
 			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to RequestDTO!")
+		}).Error(time.Now().String() + "Wrong cast json to RequestDTO!")
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
@@ -181,10 +170,9 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 	if user == nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("User is null!")
+		}).Error("User is not found!")
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -199,10 +187,9 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 	} else {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Password doesn't in valid format!")
+		}).Error(time.Now().String() + "Password doesn't in valid format!")
 		w.WriteHeader(http.StatusBadRequest) //400
 		return
 	}
@@ -210,10 +197,9 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 	if err := handler.UserService.ChangePassword(salt, password, user); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed changing password!")
+		}).Error(time.Now().String() + "Failed changing password!")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -231,9 +217,8 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
 			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to RequestDTO!")
+		}).Error(time.Now().String() + "Wrong cast json to RequestDTO!")
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
@@ -243,10 +228,9 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 	if user == nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("User is null!")
+		}).Error(time.Now().String() + "User is not found!")
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -261,10 +245,9 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 	} else {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Password doesn't in valid format!")
+		}).Error(time.Now().String() + "Password doesn't in valid format!")
 		w.WriteHeader(http.StatusBadRequest) //400
 		return
 	}
@@ -272,10 +255,9 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 	if err := handler.UserService.ChangePassword(salt, password, user); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed changing password!")
+		}).Error(time.Now().String() + "Failed changing password!")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -284,10 +266,9 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 	if validation_code == nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Validation_code is null!")
+		}).Error(time.Now().String() + "Validation_code is not found!")
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -295,10 +276,9 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 	if err := handler.ValidationCodeService.UpdateValidationCodeUsing(validation_code.Code); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed changing password!")
+		}).Error(time.Now().String() + "Failed changing password!")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -317,9 +297,8 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "FIDBYUSNAM9482",
 			"timestamp": time.Now().String(),
-		}).Error("User not found!")
+		}).Error(time.Now().String() + "User not found!")
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -336,10 +315,9 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 	if err := handler.ValidationCodeService.CreateConfirmationToken(&confirmationToken); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed creating confirmation token for user!")
+		}).Error(time.Now().String() + "Failed creating confirmation token for user!")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -372,10 +350,9 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "SEDCONFMAIL227",
+		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully sended email!")
+	}).Info(time.Now().String() + "Successfully sended email!")
 
 }
 
@@ -390,9 +367,8 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
-			"action":    "FIDBYUSNAM9482",
 			"timestamp": time.Now().String(),
-		}).Error("User not found!")
+		}).Error(time.Now().String() + "User is not found!")
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -409,10 +385,9 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 	if err := handler.ValidationCodeService.CreateConfirmationToken(&confirmationToken); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "RegisteredUserHandler",
-			"action":    "CRREGUS032",
+			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
-		}).Error("Failed creating confirmation token for user!")
+		}).Error(time.Now().String() + "Failed creating confirmation token for user!")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -445,9 +420,8 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "SEDCONFMAIL227",
+		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully sended email!")
+	}).Info(time.Now().String() + "Successfully sended email!")
 
 }

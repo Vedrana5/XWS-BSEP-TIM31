@@ -141,6 +141,9 @@ func initConfirmationTokenHandler(LogInfo *logrus.Logger, LogError *logrus.Logge
 	}
 }
 
+const LOG_INFO_FILE = "logrusInfo.log"
+const LOG_ERROR_FILE = "logrusError.log"
+
 func main() {
 	permissionFindAllUsers := gorbac.NewStdPermission("permission-find-all-users")
 	permissionUpdateUserInfo := gorbac.NewStdPermission("permission-update-user-info")
@@ -155,8 +158,27 @@ func main() {
 
 	db = SetupDatabase()
 	passwordUtil := initPasswordUtil()
+
 	logInfo := logrus.New()
+	logInfo.Formatter = &logrus.JSONFormatter{}
+	logInfo.SetOutput(os.Stdout)
+	file, err := os.OpenFile(LOG_INFO_FILE, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
+	if err != nil {
+		logInfo.Fatal(err)
+	}
+	defer file.Close()
+	logInfo.SetOutput(file)
+
 	logError := logrus.New()
+	logError.Formatter = &logrus.JSONFormatter{}
+	logError.SetOutput(os.Stdout)
+	file1, err1 := os.OpenFile(LOG_ERROR_FILE, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
+	if err1 != nil {
+		logError.Fatal(err1)
+	}
+	defer file.Close()
+	logError.SetOutput(file1)
+
 	userRepo := initUserRepo(db)
 	userService := initUserService(userRepo)
 	confirmationTokenRepo := initConfirmationTokenRepo(db)
