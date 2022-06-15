@@ -60,7 +60,7 @@ public class AuthenticationController {
 
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/login")
-    public ResponseEntity<LogUserDto> login(
+    public ResponseEntity<LogUserDto> login(@Valid
             @RequestBody JwtAuthenticationRequestDto authenticationRequest, HttpServletResponse response) {
 
         try {
@@ -156,7 +156,7 @@ public class AuthenticationController {
 
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping(value = "/checkCode")
-    public ResponseEntity<String> checkCode(@RequestBody CheckCodeDto checkCodeDto) {
+    public ResponseEntity<String> checkCode(@Valid @RequestBody CheckCodeDto checkCodeDto) {
         User user = userService.findByEmail(checkCodeDto.getEmail());
         CustomToken token = customTokenService.findByUser(user);
 
