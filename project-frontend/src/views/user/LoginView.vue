@@ -12,7 +12,8 @@
            <input v-else type="password" class="input-field" v-model="Password">
            <button class="class2" @click.prevent="Show()">Show</button></div>
             <div><button type="submit" @click="Login()">Login</button>
-            <button class="class2" @click.prevent="ForgotPassword()">Forgot password?</button></div>
+            <button class="class2" @click.prevent="ForgotPassword()">Forgot password?</button>
+             <button class="class2" @click.prevent="PasswordlessLogin()">Passwordless login</button></div>
          </form>
      </div>
   </div>
@@ -54,6 +55,9 @@ async Login() {
   },
   async ForgotPassword() {
        this.$router.push({ name: "ResetPassword" });
+  },
+  async PasswordlessLogin() {
+      this.$router.push({ name: "PasswordlessLogin" });
   },
   async Show() {
     if (this.showPassword== true) {

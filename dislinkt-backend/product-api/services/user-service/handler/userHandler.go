@@ -378,3 +378,76 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 	}).Info("Successfully sended email!")
 
 }
+
+func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, r *http.Request) {
+
+	// Sender data.
+	vars := mux.Vars(r)
+	email := vars["email"]
+
+	var user = handler.UserService.FindByEmail(email)
+	if user == nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "FIDBYUSNAM9482",
+			"timestamp": time.Now().String(),
+		}).Error("User not found!")
+		w.WriteHeader(http.StatusExpectationFailed)
+	}
+
+	confirmationToken := model.ValidationCode{
+		ID:          uuid.New(),
+		Code:        uuid.New(),
+		UserId:      user.ID,
+		CreatedTime: time.Now(),
+		ExpiredTime: time.Now().Add(time.Minute * 20),
+		IsValid:     true,
+		IsUsed:      false,
+	}
+
+	if err := handler.ValidationCodeService.CreateConfirmationToken(&confirmationToken); err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisteredUserHandler",
+			"action":    "CRREGUS032",
+			"timestamp": time.Now().String(),
+		}).Error("Failed creating confirmation token for user!")
+		w.WriteHeader(http.StatusExpectationFailed)
+		return
+	}
+
+	from := "sammilica99@gmail.com"
+	password := "setmkiwpicaxhmti"
+
+	// Receiver email address.
+	to := []string{
+		user.Email,
+	}
+
+	// smtp server configuration.
+	smtpHost := "smtp.gmail.com"
+	smtpPort := "587"
+	id := user.ID
+	// Message.
+	message := []byte("Dear " + user.FirstName + ",\n\nPlease, click on link in below to change your password on our social network!\n\nhttps://localhost:8082/confirmPasswordlessLogin/" + id.String() + "/" + confirmationToken.Code.String())
+
+	// Authentication.
+	auth := smtp.PlainAuth("", from, password, smtpHost)
+
+	// Sending email.
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("Email Sent Successfully!")
+
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "RegisteredUserHandler",
+		"action":    "SEDCONFMAIL227",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully sended email!")
+
+}

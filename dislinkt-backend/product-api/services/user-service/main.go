@@ -38,8 +38,9 @@ func initRegisterHandler(confirmationTokenService *service.ConfirmationTokenServ
 
 }
 
-func initLoginHandler(userService *service.UserService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.LogInHandler {
+func initLoginHandler(validationCodeService *service.ValidationCodeService, userService *service.UserService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.LogInHandler {
 	return &handler.LogInHandler{
+		validationCodeService,
 		userService,
 		passwordUtil,
 		LogInfo,
@@ -78,6 +79,7 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	}
 	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
 	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
+	router.HandleFunc("/loginPasswordless", logInHandler.LogInPasswordless).Methods("POST")
 	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 	router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
 	router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
@@ -87,6 +89,7 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	router.HandleFunc("/confirmRegistration", confirmationTokenHandler.VerifyConfirmationToken).Methods("POST")
 	router.HandleFunc("/changePassword", userHandler.ChangePassword).Methods("POST")
 	router.HandleFunc("/findTokenByCode/{confirmationToken}", userHandler.FindTokenByCode).Methods("GET")
+	router.HandleFunc("/linkForPasswordless/{email}", userHandler.SendMailForPasswordlessLogin).Methods("POST")
 
 	s.ListenAndServe()
 }
@@ -162,7 +165,7 @@ func main() {
 	validationCodeRepo := initValidationCodeRepo(db)
 	validationCodeService := itValidationCodeService(validationCodeRepo)
 
-	loginHandler := initLoginHandler(userService, passwordUtil, logInfo, logError)
+	loginHandler := initLoginHandler(validationCodeService, userService, passwordUtil, logInfo, logError)
 	registerHandler := initRegisterHandler(confirmationTokenService, passwordUtil, logInfo, logError, userService)
 
 	validator := validator.New()

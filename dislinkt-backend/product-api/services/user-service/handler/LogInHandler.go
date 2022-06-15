@@ -10,6 +10,7 @@ import (
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
+	"github.com/google/uuid"
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/form3tech-oss/jwt-go"
@@ -17,10 +18,11 @@ import (
 )
 
 type LogInHandler struct {
-	UserService  *service.UserService
-	PasswordUtil *util.PasswordUtil
-	LogInfo      *logrus.Logger
-	LogError     *logrus.Logger
+	ValidationCodeService *service.ValidationCodeService
+	UserService           *service.UserService
+	PasswordUtil          *util.PasswordUtil
+	LogInfo               *logrus.Logger
+	LogError              *logrus.Logger
 }
 
 func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
@@ -95,6 +97,78 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		"action":    "LOG85310",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sign up user! User: " + user.Username)
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+
+}
+
+func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("X-XSS-Protection", "1; mode=block")
+	var logInUserPasswordlessDTO dto.LogInUserPasswordlessDTO
+	if err := json.NewDecoder(r.Body).Decode(&logInUserPasswordlessDTO); err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "LOG85310",
+			"timestamp": time.Now().String(),
+		}).Error("Wrong cast json to LogInUserDTO!")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	var user = handler.UserService.FindByUserName(logInUserPasswordlessDTO.Username)
+
+	//token
+	token, err := CreateToken(user.Username)
+	if err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "LOG85310",
+			"timestamp": time.Now().String(),
+		}).Error("Failed creating AWT token!")
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		return
+	}
+
+	logInResponse := dto.LogInResponseDTO{
+		ID:         user.ID,
+		Token:      token,
+		TypeOfUser: user.TypeOfUser,
+	}
+	fmt.Print("Response je ", logInResponse)
+	logInResponseJson, _ := json.Marshal(logInResponse)
+	w.Write(logInResponseJson)
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "RegisteredUserHandler",
+		"action":    "LOG85310",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully sign up user! User: " + user.Username)
+
+	var validation_code = handler.ValidationCodeService.FindByCode(uuid.MustParse(logInUserPasswordlessDTO.Code))
+	if validation_code == nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisteredUserHandler",
+			"action":    "CRREGUS032",
+			"timestamp": time.Now().String(),
+		}).Error("Validation_code is null!")
+		w.WriteHeader(http.StatusConflict) //409
+		return
+	}
+
+	if err := handler.ValidationCodeService.UpdateValidationCodeUsing(validation_code.Code); err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisteredUserHandler",
+			"action":    "CRREGUS032",
+			"timestamp": time.Now().String(),
+		}).Error("Failed changing password!")
+		w.WriteHeader(http.StatusExpectationFailed)
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 
