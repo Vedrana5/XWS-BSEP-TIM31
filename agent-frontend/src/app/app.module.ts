@@ -32,6 +32,7 @@ import { SalaryComponent } from './components/salary/salary.component';
 import { InterviewComponent } from './components/interview/interview.component';
 import { ResetPasswordComponent } from './components/comment/reset-password/reset-password.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { TfaComponent } from './components/tfa/tfa.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     InterviewComponent,
     ResetPasswordComponent,
     ChangePasswordComponent,
+    TfaComponent,
 
   ],
   imports: [

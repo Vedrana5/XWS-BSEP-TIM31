@@ -187,4 +187,14 @@ public class AuthenticationController {
        }
     }
 
+    @PutMapping(value = "/two-factor-auth")
+    public ResponseEntity<SecretDto> enable2FA(@RequestBody Change2FAStatusDto dto) {
+        String secret = userService.enable2FA(dto.email,dto.status);
+        return ResponseEntity.ok(new SecretDto(secret));
+    }
+    @GetMapping(value= "/two-factor-auth-status/{username}")
+    public ResponseEntity<Boolean> check2FAStatus(@PathVariable String email, HttpServletRequest request) {
+        boolean twoFAEnabled = userService.check2FAStatus(email);
+        return ResponseEntity.ok(twoFAEnabled);
+    }
 }
