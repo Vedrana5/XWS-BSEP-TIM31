@@ -24,6 +24,7 @@ type RegisterHandler struct {
 	LogError                 *logrus.Logger
 }
 
+//CreateUser
 func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var registeredUserDTO dto.RegisteredUserDTO
@@ -32,6 +33,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "RegisterHandler",
+			"action":    "CreateUser",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to RegisteredUserDTO!")
 		fmt.Println(time.Now().String() + " Wrong cast json to RegisteredUserDTO!")
@@ -44,6 +46,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "RegisterHandler",
+			"action":    "CreateUser",
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered username!")
 		fmt.Println(time.Now().String() + " User already exist with entered username!")
@@ -56,6 +59,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "RegisterHandler",
+			"action":    "CreateUser",
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered email!")
 		fmt.Println(time.Now().String() + " User already exist with entered email!")
@@ -83,6 +87,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "RegisterHandler",
+			"action":    "CreateUser",
 			"timestamp": time.Now().String(),
 		}).Error("Password doesn't in valid format!")
 		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
@@ -149,6 +154,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "RegisterHandler",
+			"action":    "CreateUser",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating confirmation token for user!")
 		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!")
@@ -163,6 +169,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "RegisterHandler",
+			"action":    "CreateUser",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating basic user!")
 		fmt.Println(time.Now().String() + " Failed creating basic user!")
@@ -175,6 +182,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 	w.Header().Set("Content-Type", "application/json")
 }
 
+//SendConfirmationMail
 func (handler *RegisterHandler) SendConfirmationMail(user model.User, token uuid.UUID) {
 	// Sender data.
 	from := "sammilica99@gmail.com"
@@ -206,6 +214,7 @@ func (handler *RegisterHandler) SendConfirmationMail(user model.User, token uuid
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "RegisterHandler",
+		"action":    "SendConfirmationMail",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sended email with confirmation token!")
 	fmt.Println(time.Now().String() + " Successfully sended email with confirmation token!")

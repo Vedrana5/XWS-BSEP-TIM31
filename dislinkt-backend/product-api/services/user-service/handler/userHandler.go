@@ -29,6 +29,7 @@ func UpdateUserConfirmed() {
 
 }
 
+//FindByUserName
 func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -39,6 +40,7 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "FindByUserName",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
 		fmt.Println(time.Now().String() + " User not found!")
@@ -50,6 +52,7 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UserHandler",
+		"action":    "FindByUserName",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded user by username!")
 	fmt.Println(time.Now().String() + " Successfully founded user by username!")
@@ -57,6 +60,7 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 	w.Header().Set("Content-Type", "application/json")
 }
 
+//FindById
 func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -67,6 +71,7 @@ func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "FindById",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
 		fmt.Println(time.Now().String() + " User not found!")
@@ -78,6 +83,7 @@ func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UserHandler",
+		"action":    "FindById",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded user by username!")
 	fmt.Println(time.Now().String() + " Successfully founded user by username!")
@@ -86,6 +92,7 @@ func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 }
 
+//FindTokenByCode
 func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -96,6 +103,7 @@ func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Reque
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "FindTokenByCode",
 			"timestamp": time.Now().String(),
 		}).Error("Validation token not found!")
 		fmt.Println(time.Now().String() + " Validation token not found!")
@@ -108,6 +116,7 @@ func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Reque
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UserHandler",
+		"action":    "FindTokenByCode",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded validation token by code!")
 	fmt.Println(time.Now().String() + " Successfully founded validation token by code!")
@@ -116,6 +125,7 @@ func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Reque
 	w.Header().Set("Content-Type", "application/json")
 }
 
+//FindPublicByUserName
 func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var userName string
@@ -124,6 +134,7 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "FindPublicByUserName",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to string !")
 		fmt.Println(time.Now().String() + " Wrong cast json to string!")
@@ -138,6 +149,7 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "FindPublicByUserName",
 			"timestamp": time.Now().String(),
 		}).Error("Profile is private")
 		fmt.Println(time.Now().String() + " Profile is private!")
@@ -149,6 +161,7 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "FindPublicByUserName",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
 		fmt.Println(time.Now().String() + " User not found!")
@@ -160,6 +173,7 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UserHandler",
+		"action":    "FindPublicByUserName",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded user by username!")
 	fmt.Println(time.Now().String() + " Successfully founded user by username!")
@@ -169,6 +183,7 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 
 }
 
+//ChangePassword
 func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var requestDTO dto.RequestDTO
@@ -177,6 +192,7 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ChangePassword",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to RequestDTO!")
 		fmt.Println(time.Now().String() + " Wrong cast json to RequestDTO!")
@@ -191,6 +207,7 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ChangePassword",
 			"timestamp": time.Now().String(),
 		}).Error("User is not found!")
 		fmt.Println(time.Now().String() + " User is not found!")
@@ -210,6 +227,7 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ChangePassword",
 			"timestamp": time.Now().String(),
 		}).Error("Password doesn't in valid format!")
 		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
@@ -222,6 +240,7 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ChangePassword",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
 		fmt.Println(time.Now().String() + " Failed changing password!")
@@ -233,6 +252,7 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 	w.WriteHeader(http.StatusCreated)
 }
 
+//ResetPassword
 func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var resetPasswordDTO dto.ResetPasswordDTO
@@ -240,6 +260,7 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ResetPassword",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to RequestDTO!")
 		fmt.Println(time.Now().String() + " Wrong cast json to RequestDTO!")
@@ -254,6 +275,7 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ResetPassword",
 			"timestamp": time.Now().String(),
 		}).Error("User is not found!")
 		fmt.Println(time.Now().String() + " User is not found!")
@@ -273,6 +295,7 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ResetPassword",
 			"timestamp": time.Now().String(),
 		}).Error("Password doesn't in valid format!")
 		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
@@ -285,6 +308,7 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ResetPassword",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
 		fmt.Println(time.Now().String() + " Failed changing password!")
@@ -298,6 +322,7 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ResetPassword",
 			"timestamp": time.Now().String(),
 		}).Error("Validation_code is not found!")
 		fmt.Println(time.Now().String() + " Validation_code is not found!")
@@ -310,6 +335,7 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "ResetPassword",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
 		fmt.Println(time.Now().String() + " Failed changing password!")
@@ -321,6 +347,7 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 	w.WriteHeader(http.StatusCreated)
 }
 
+//SendMailForResetPasword
 func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *http.Request) {
 
 	// Sender data.
@@ -332,6 +359,7 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "SendMailForResetPasword",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
 		fmt.Println(time.Now().String() + " User not found!")
@@ -353,6 +381,7 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "SendMailForResetPasword",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating confirmation token for user!")
 		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!!")
@@ -390,12 +419,14 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UserHandler",
+		"action":    "SendMailForResetPasword",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sended email!")
 	fmt.Println(time.Now().String() + " Successfully sended email!")
 
 }
 
+//SendMailForPasswordlessLogin
 func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, r *http.Request) {
 
 	// Sender data.
@@ -407,6 +438,7 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "SendMailForPasswordlessLogin",
 			"timestamp": time.Now().String(),
 		}).Error("User is not found!")
 		fmt.Println(time.Now().String() + " User is not found!")
@@ -428,6 +460,7 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
+			"action":    "SendMailForPasswordlessLogin",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating confirmation token for user!")
 		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!")
@@ -464,6 +497,7 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UserHandler",
+		"action":    "SendMailForPasswordlessLogin",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sended email!")
 	fmt.Println(time.Now().String() + " Successfully sended email!")

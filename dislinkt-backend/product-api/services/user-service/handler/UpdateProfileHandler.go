@@ -27,6 +27,7 @@ type UpdateProfileHandler struct {
 	LogError                 *logrus.Logger
 }
 
+//UpdateUserProfileInfo
 func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
@@ -34,6 +35,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("User is not logged in!")
 		fmt.Println(time.Now().String() + " User is not logged in!")
@@ -47,6 +49,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to UserUpdateProfileInfoDTO!")
 		fmt.Println(time.Now().String() + " Wrong cast json to UserUpdateProfileInfoDTO!")
@@ -69,6 +72,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("User is not authorized to update user information!")
 		fmt.Println(time.Now().String() + " User is not authorized to update user information!")
@@ -82,6 +86,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("Failed updating basic user profile information!")
 		fmt.Println(time.Now().String() + " Failed updating basic user profile information!")
@@ -92,6 +97,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UpdateProfileHandler",
+		"action":    "UpdateUserProfileInfo",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully updated user profile info!")
 	fmt.Println(time.Now().String() + " Successfully updated user profile info!")

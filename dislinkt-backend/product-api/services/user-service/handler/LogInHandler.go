@@ -25,6 +25,7 @@ type LogInHandler struct {
 	LogError              *logrus.Logger
 }
 
+//LogIn
 func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var logInUserDTO dto.LogInUserDTO
@@ -32,6 +33,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to LogInUserDTO!")
 		fmt.Println(time.Now().String() + " Wrong cast json to LogInUserDTO!")
@@ -46,6 +48,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Password isn't in valid format!")
 		fmt.Println(time.Now().String() + " Password isn't in valid format!")
@@ -63,6 +66,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Failed sign up!")
 		fmt.Println(time.Now().String() + " Failed sign up!")
@@ -77,6 +81,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating AWT token!")
 		fmt.Println(time.Now().String() + " Failed creating AWT token!")
@@ -96,6 +101,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "LogInHandler",
+		"action":    "LogIn",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sign in user")
 	fmt.Println(time.Now().String() + " Successfully sign in user!")
@@ -105,6 +111,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 
 }
 
+//LogInPasswordLess
 func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var logInUserPasswordlessDTO dto.LogInUserPasswordlessDTO
@@ -112,6 +119,7 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to LogInUserDTO!")
 		fmt.Println(time.Now().String() + " Wrong cast json to LogInUserDTO!")
@@ -128,6 +136,7 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating AWT token!")
 		fmt.Println(time.Now().String() + " Failed creating AWT token!")
@@ -147,6 +156,7 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "LogInHandler",
+		"action":    "LogInPasswordLess",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sign in user!")
 	fmt.Println(time.Now().String() + " Successfully sign in user!")
@@ -156,6 +166,7 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
 			"timestamp": time.Now().String(),
 		}).Error("Validation_code is null!")
 		fmt.Println(time.Now().String() + " Validation_code is null!")
@@ -168,6 +179,7 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
 		fmt.Println(time.Now().String() + " Failed changing password!")
@@ -233,12 +245,14 @@ func CreateToken(userName string) (string, error) {
 	return token, nil
 }
 
+//GetUserIDFromJWTToken
 func (handler *LogInHandler) GetUserIDFromJWTToken(w http.ResponseWriter, r *http.Request) {
 	token, err := VerifyToken(r)
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
+			"action":    "GetUserIDFromJWTToken",
 			"timestamp": time.Now().String(),
 		}).Error("Failed verified token!")
 		fmt.Println(time.Now().String() + " Failed verified token!")
