@@ -4,6 +4,7 @@ import com.example.AgentApp.dto.ChangePasswordDto;
 import com.example.AgentApp.dto.RegisterDto;
 import com.example.AgentApp.model.User;
 
+import javax.management.relation.Relation;
 import java.text.ParseException;
 
 public interface UserService {
@@ -19,8 +20,4 @@ public interface UserService {
     void resetPassword(String email, String newPassword);
 
     void changePassword(String emailFromToken, ChangePasswordDto changePasswordDto);
-
-    String enable2FA(String username, Boolean status);
-
-    boolean check2FAStatus(String username);
 }

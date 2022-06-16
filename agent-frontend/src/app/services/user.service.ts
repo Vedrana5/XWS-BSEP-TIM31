@@ -92,12 +92,4 @@ export class UserService {
     this.router.navigate(['/']);
 
   }
-
-  check2FAStatus(email: string): Observable<any> {
-    return this._http.get(`http://localhost:8082/auth/two-factor-auth-status` + email)
-  }
-
-  enable2FA(username: string): Observable<any> {
-    return this._http.put(`http://localhost:8082/auth/two-factor-auth`, username)
-  }
 }
