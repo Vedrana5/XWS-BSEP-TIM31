@@ -89,7 +89,7 @@ public class LoggerServiceImpl implements LoggerService {
 
     @Override
     public void checkCodeFailed(String email) {
-        logger.warn("Code failed. Email: " + email);
+        logger.warn("Code failed. Email: {}" + email);
 
 
     }

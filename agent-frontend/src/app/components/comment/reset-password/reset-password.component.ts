@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -41,15 +42,21 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
   verify() {
-    this.userService.checkCode(this.kodic).subscribe(
-      (res) => {
-        this.divVisible = true;
+
+
+    this.userService.checkCode(this.kodic).subscribe({
+      next: (res) => {
+
       },
-      err => {
-        this.snackBar.open(err.error, '', {
+      error: (err: HttpErrorResponse) => {
+        this.snackBar.open(err.error.message + "!", 'Dismiss', {
           duration: 3000
-        })
-      });
+        });
+      },
+      complete: () => console.info('complete')
+
+    });
+    this.divVisible = true;
   }
   onCodeInput(event: any): void { }
 
