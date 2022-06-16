@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -63,8 +64,9 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     this.createNewPassword();
-    this.userService.changePassword(this.changedPassword).subscribe(
-      (res) => {
+
+    this.userService.changePassword(this.changedPassword).subscribe({
+      next: () => {
         this.router.navigate(['/']);
         this._snackBar.open(
           'Password is changed!',
@@ -74,17 +76,21 @@ export class ChangePasswordComponent implements OnInit {
 
         this.router.navigate(['/']);
         this.dialogRef.close();
+
       },
-      (err) => {
+      error: (err: HttpErrorResponse) => {
         let parts = err.error.split(':');
         let mess = parts[parts.length - 1];
         let description = mess.substring(1, mess.length - 4);
         this._snackBar.open(description, 'Dismiss', {
           duration: 3000
         });
-      }
-    );
+      },
+      complete: () => console.info('complete')
+    });
+
     this.userService.changePassword(this.form.value).subscribe();
+
 
   }
 
