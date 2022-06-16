@@ -46,6 +46,7 @@ export class ResetPasswordComponent implements OnInit {
 
     this.userService.checkCode(this.kodic).subscribe({
       next: (res) => {
+        this.divVisible = true;
 
       },
       error: (err: HttpErrorResponse) => {
@@ -56,7 +57,7 @@ export class ResetPasswordComponent implements OnInit {
       complete: () => console.info('complete')
 
     });
-    this.divVisible = true;
+
   }
   onCodeInput(event: any): void { }
 
