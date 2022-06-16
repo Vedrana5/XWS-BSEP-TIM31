@@ -11,7 +11,7 @@
            <input v-if="showPassword" type="text" class="input-field" v-model="Password" />
            <input v-else type="password" class="input-field" v-model="Password">
            <button class="class2" @click.prevent="Show()">Show</button></div>
-            <div><button type="submit" @click="Login()">Login</button>
+            <div><button type="submit" @click.prevent="Login()">Login</button>
             <button class="class2" @click.prevent="ForgotPassword()">Forgot password?</button>
              <button class="class2" @click.prevent="PasswordlessLogin()">Passwordless login</button></div>
          </form>
@@ -21,6 +21,7 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 export default {
   name: "LoginView",
@@ -45,12 +46,22 @@ async Login() {
           localStorage.setItem("token", response.data.Token);
           localStorage.setItem("userId", response.data.ID);
           localStorage.setItem("userType", response.data.TypeOfUser);
-        
-      })
-      .catch((err) => {
-          console.log(err);
+                      new Swal({
+             title:"Uspesno",
+             type: "warning",
+             text:'Uspesno ste ulogovani!',
+           });     
+            this.$router.push({ name: "StartPageUser" });
+      })      .catch(function (error) {
+            console.log(error.response.status)
+            new Swal({
+             title:"Nije uspesno",
+             type: "warning",
+             text:'Neuspesno logovanje!',
+           }); 
+         
         });
-           this.$router.push({ name: "StartPageUser" });
+         // this.$router.go(0);
      
   },
   async ForgotPassword() {

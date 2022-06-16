@@ -16,6 +16,7 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 export default {
   name: "",
@@ -29,7 +30,15 @@ async SendLink(username) {
        this.Username= username;
       axios.post("http://localhost:8089/resetPassword/"+this.Username,{           
        })
-     
+    .catch(function (error) {
+            console.log(error.response.status)
+            new Swal({
+             title:"Nije uspesno",
+             type: "warning",
+             text:'Niste uneli username!',
+           }); 
+         
+        });
   },
     
 },

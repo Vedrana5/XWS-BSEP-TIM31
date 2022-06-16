@@ -113,6 +113,7 @@ export default {
     methods: {
       async Update() {
  if (
+  
         !this.validBiography() ||
         !this.validPhoneNumber() ||
         !this.validLastName() ||

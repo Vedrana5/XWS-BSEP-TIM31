@@ -143,7 +143,6 @@ export default {
 
 
     },
-
     async setPassword() {
         if (!this.validPassword()) {
             alert("Password isn't valid!")
