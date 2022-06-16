@@ -30,7 +30,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"status":    "failure",
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
-		}).Error(time.Now().String() + "Wrong cast json to ConfirmationAccountDTO!")
+		}).Error("Wrong cast json to ConfirmationAccountDTO!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -43,7 +43,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"status":    "failure",
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
-		}).Error(time.Now().String() + "Confirmation token isn't valid!")
+		}).Error("Confirmation token isn't valid!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -56,7 +56,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"status":    "failure",
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
-		}).Error(time.Now().String() + "Confirmation token isn't valid!")
+		}).Error("Confirmation token isn't valid!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -67,7 +67,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"status":    "failure",
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
-		}).Error(time.Now().String() + "Failed updating basic user to confirmed!")
+		}).Error("Failed updating basic user to confirmed!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -76,7 +76,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 		"status":    "success",
 		"location":  "ConfirmationTokenHandler",
 		"timestamp": time.Now().String(),
-	}).Info(time.Now().String() + "Successfully verifed account with token!")
+	}).Info("Successfully verifed account with token!")
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
