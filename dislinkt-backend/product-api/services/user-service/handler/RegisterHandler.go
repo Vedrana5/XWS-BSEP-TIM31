@@ -34,6 +34,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"location":  "RegisterHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to RegisteredUserDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to RegisteredUserDTO!")
+
 		w.WriteHeader(http.StatusBadRequest) //400
 		return
 	}
@@ -44,6 +46,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"location":  "RegisterHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered username!")
+		fmt.Println(time.Now().String() + " User already exist with entered username!")
+
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -54,6 +58,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"location":  "RegisterHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered email!")
+		fmt.Println(time.Now().String() + " User already exist with entered email!")
+
 		w.WriteHeader(http.StatusExpectationFailed) //417
 		return
 	}
@@ -79,6 +85,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"location":  "RegisterHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Password doesn't in valid format!")
+		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
+
 		w.WriteHeader(http.StatusBadRequest) //400
 		return
 	}
@@ -143,6 +151,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"location":  "RegisterHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating confirmation token for user!")
+		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -155,6 +165,8 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"location":  "RegisterHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating basic user!")
+		fmt.Println(time.Now().String() + " Failed creating basic user!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -196,5 +208,6 @@ func (handler *RegisterHandler) SendConfirmationMail(user model.User, token uuid
 		"location":  "RegisterHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sended email with confirmation token!")
+	fmt.Println(time.Now().String() + " Successfully sended email with confirmation token!")
 
 }

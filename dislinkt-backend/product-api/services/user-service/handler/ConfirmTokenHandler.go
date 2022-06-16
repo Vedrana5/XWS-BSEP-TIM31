@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
@@ -31,6 +32,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to ConfirmationAccountDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to ConfirmationAccountDTO!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -44,6 +46,8 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Confirmation token isn't valid!")
+		fmt.Println(time.Now().String() + " Confirmation token isn't valid!")
+
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -57,6 +61,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Confirmation token isn't valid!")
+		fmt.Println(time.Now().String() + " Confirmation token isn't valid!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -68,6 +73,8 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 			"location":  "ConfirmationTokenHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed updating basic user to confirmed!")
+		fmt.Println(time.Now().String() + " Failed updating basic user to confirmed!")
+
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -77,7 +84,7 @@ func (handler *ConfirmationTokenHandler) VerifyConfirmationToken(w http.Response
 		"location":  "ConfirmationTokenHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully verifed account with token!")
-
+	fmt.Println(time.Now().String() + " Successfully verifed account with token!")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }

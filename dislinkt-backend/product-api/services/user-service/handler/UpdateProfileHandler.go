@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -35,6 +36,8 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 			"location":  "UpdateProfileHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User is not logged in!")
+		fmt.Println(time.Now().String() + " User is not logged in!")
+
 		w.WriteHeader(http.StatusUnauthorized) // 401
 		return
 	}
@@ -46,6 +49,8 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 			"location":  "UpdateProfileHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to UserUpdateProfileInfoDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to UserUpdateProfileInfoDTO!")
+
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
@@ -66,6 +71,8 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 			"location":  "UpdateProfileHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User is not authorized to update user information!")
+		fmt.Println(time.Now().String() + " User is not authorized to update user information!")
+
 		w.WriteHeader(http.StatusForbidden)
 		return
 	}
@@ -77,6 +84,8 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 			"location":  "UpdateProfileHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed updating basic user profile information!")
+		fmt.Println(time.Now().String() + " Failed updating basic user profile information!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -85,6 +94,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		"location":  "UpdateProfileHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully updated user profile info!")
+	fmt.Println(time.Now().String() + " Successfully updated user profile info!")
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")

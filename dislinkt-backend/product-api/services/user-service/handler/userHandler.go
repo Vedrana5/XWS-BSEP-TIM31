@@ -41,6 +41,7 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
+		fmt.Println(time.Now().String() + " User not found!")
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -51,6 +52,7 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded user by username!")
+	fmt.Println(time.Now().String() + " Successfully founded user by username!")
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }
@@ -67,6 +69,8 @@ func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
+		fmt.Println(time.Now().String() + " User not found!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 	userJson, _ := json.Marshal(user)
@@ -76,6 +80,8 @@ func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded user by username!")
+	fmt.Println(time.Now().String() + " Successfully founded user by username!")
+
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }
@@ -92,6 +98,8 @@ func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Reque
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Validation token not found!")
+		fmt.Println(time.Now().String() + " Validation token not found!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -102,6 +110,8 @@ func (handler *UserHandler) FindTokenByCode(w http.ResponseWriter, r *http.Reque
 		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded validation token by code!")
+	fmt.Println(time.Now().String() + " Successfully founded validation token by code!")
+
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }
@@ -116,6 +126,8 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to string !")
+		fmt.Println(time.Now().String() + " Wrong cast json to string!")
+
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
@@ -128,6 +140,8 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Profile is private")
+		fmt.Println(time.Now().String() + " Profile is private!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -137,6 +151,8 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
+		fmt.Println(time.Now().String() + " User not found!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 	userJson, _ := json.Marshal(user)
@@ -146,6 +162,8 @@ func (handler *UserHandler) FindPublicByUserName(w http.ResponseWriter, r *http.
 		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully founded user by username!")
+	fmt.Println(time.Now().String() + " Successfully founded user by username!")
+
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 
@@ -161,6 +179,8 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to RequestDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to RequestDTO!")
+
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
@@ -173,6 +193,8 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User is not found!")
+		fmt.Println(time.Now().String() + " User is not found!")
+
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -190,6 +212,8 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Password doesn't in valid format!")
+		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
+
 		w.WriteHeader(http.StatusBadRequest) //400
 		return
 	}
@@ -200,6 +224,8 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
+		fmt.Println(time.Now().String() + " Failed changing password!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -210,15 +236,14 @@ func (handler *UserHandler) ChangePassword(w http.ResponseWriter, r *http.Reques
 func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var resetPasswordDTO dto.ResetPasswordDTO
-	fmt.Print("ID USERA JE" + resetPasswordDTO.ID)
-	fmt.Print("CODE JE" + resetPasswordDTO.Code)
-	fmt.Print("PASSWORD JE" + resetPasswordDTO.Password)
 	if err := json.NewDecoder(r.Body).Decode(&resetPasswordDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to RequestDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to RequestDTO!")
+
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
@@ -231,6 +256,8 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User is not found!")
+		fmt.Println(time.Now().String() + " User is not found!")
+
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -248,6 +275,8 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Password doesn't in valid format!")
+		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
+
 		w.WriteHeader(http.StatusBadRequest) //400
 		return
 	}
@@ -258,6 +287,8 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
+		fmt.Println(time.Now().String() + " Failed changing password!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -269,6 +300,8 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Validation_code is not found!")
+		fmt.Println(time.Now().String() + " Validation_code is not found!")
+
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -279,6 +312,8 @@ func (handler *UserHandler) ResetPassword(w http.ResponseWriter, r *http.Request
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
+		fmt.Println(time.Now().String() + " Failed changing password!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -299,6 +334,8 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User not found!")
+		fmt.Println(time.Now().String() + " User not found!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -318,6 +355,8 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating confirmation token for user!")
+		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -353,6 +392,7 @@ func (handler *UserHandler) SendMailForResetPassword(w http.ResponseWriter, r *h
 		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sended email!")
+	fmt.Println(time.Now().String() + " Successfully sended email!")
 
 }
 
@@ -369,6 +409,8 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("User is not found!")
+		fmt.Println(time.Now().String() + " User is not found!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
@@ -388,6 +430,7 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 			"location":  "UserHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating confirmation token for user!")
+		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!")
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -423,5 +466,6 @@ func (handler *UserHandler) SendMailForPasswordlessLogin(w http.ResponseWriter, 
 		"location":  "UserHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sended email!")
+	fmt.Println(time.Now().String() + " Successfully sended email!")
 
 }

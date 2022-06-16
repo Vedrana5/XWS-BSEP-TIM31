@@ -34,6 +34,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to LogInUserDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to LogInUserDTO!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -47,6 +48,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Password isn't in valid format!")
+		fmt.Println(time.Now().String() + " Password isn't in valid format!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	} else {
@@ -63,6 +65,8 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed sign up!")
+		fmt.Println(time.Now().String() + " Failed sign up!")
+
 		w.WriteHeader(http.StatusConflict)
 		return
 	}
@@ -75,6 +79,8 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating AWT token!")
+		fmt.Println(time.Now().String() + " Failed creating AWT token!")
+
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -92,6 +98,8 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		"location":  "LogInHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sign in user")
+	fmt.Println(time.Now().String() + " Successfully sign in user!")
+
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 
@@ -106,6 +114,8 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to LogInUserDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to LogInUserDTO!")
+
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -120,6 +130,8 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating AWT token!")
+		fmt.Println(time.Now().String() + " Failed creating AWT token!")
+
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -137,6 +149,7 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 		"location":  "LogInHandler",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully sign in user!")
+	fmt.Println(time.Now().String() + " Successfully sign in user!")
 
 	var validation_code = handler.ValidationCodeService.FindByCode(uuid.MustParse(logInUserPasswordlessDTO.Code))
 	if validation_code == nil {
@@ -145,6 +158,8 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Validation_code is null!")
+		fmt.Println(time.Now().String() + " Validation_code is null!")
+
 		w.WriteHeader(http.StatusConflict) //409
 		return
 	}
@@ -155,6 +170,8 @@ func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Re
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed changing password!")
+		fmt.Println(time.Now().String() + " Failed changing password!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 		return
 	}
@@ -224,6 +241,8 @@ func (handler *LogInHandler) GetUserIDFromJWTToken(w http.ResponseWriter, r *htt
 			"location":  "LogInHandler",
 			"timestamp": time.Now().String(),
 		}).Error("Failed verified token!")
+		fmt.Println(time.Now().String() + " Failed verified token!")
+
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -242,6 +261,7 @@ func (handler *LogInHandler) GetUserIDFromJWTToken(w http.ResponseWriter, r *htt
 		"action":    "GetUserIDFromJWTToken",
 		"timestamp": time.Now().String(),
 	}).Error("Token doesn't valid!")
+	fmt.Println(time.Now().String() + " Token doesn't valid!")
 	w.WriteHeader(http.StatusBadRequest)
 }
 
