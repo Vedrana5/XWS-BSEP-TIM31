@@ -67,6 +67,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     public void sendResetPasswordToken(User user) {
         CustomToken customToken = createResetPasswordToken(user);
         String passwordCode = customToken.getToken();
+        System.out.print("fsdsfdsfsdfds"+passwordCode);
         saveToken(customToken);
         emailSenderService.sendEmail(user.getRecoveryEmail(),"Reset password", "Following code is your new temporary " +
                 "password \nCode : " + passwordCode);
@@ -83,6 +84,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     private CustomToken createResetPasswordToken(User user) {
         CustomToken token = new CustomToken(RandomString.make(8),user,TokenType.ResetPassword);
         token.setExpiryDate(LocalDateTime.now().plusMinutes(10));
+        customTokenRepository.save(token);
         return token;
     }
 

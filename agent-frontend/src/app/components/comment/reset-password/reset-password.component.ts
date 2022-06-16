@@ -15,7 +15,7 @@ export class ResetPasswordComponent implements OnInit {
   createForm!: FormGroup;
   newPasswordDto!: string;
   divVisible: boolean = false;
-  kodic!: string;
+  kod!: string;
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private snackBar: MatSnackBar,
@@ -44,13 +44,13 @@ export class ResetPasswordComponent implements OnInit {
   verify() {
 
 
-    this.userService.checkCode(this.kodic).subscribe({
+    this.userService.checkCode(this.kod).subscribe({
       next: (res) => {
         this.divVisible = true;
 
       },
       error: (err: HttpErrorResponse) => {
-        this.snackBar.open(err.error.message + "!", 'Dismiss', {
+        this.snackBar.open("Code is not valid!", 'Dismiss', {
           duration: 3000
         });
       },
