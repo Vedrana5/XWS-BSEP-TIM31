@@ -20,4 +20,8 @@ public interface UserService {
     void resetPassword(String email, String newPassword);
 
     void changePassword(String emailFromToken, ChangePasswordDto changePasswordDto);
+
+    boolean check2FAStatus(String email);
+
+    String change2FAStatus(String email, Boolean status);
 }
