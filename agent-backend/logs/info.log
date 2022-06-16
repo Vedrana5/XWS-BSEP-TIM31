@@ -450,3 +450,4 @@
 2022-Jun-16 09:47:06.133|INFO|com.example.AgentApp.controller.AuthenticationController|Password successfully changed. Email: admin123@gmail.com
 2022-Jun-16 09:47:06.136|INFO|com.example.AgentApp.controller.AuthenticationController|Password successfully changed. Email: admin123@gmail.com
 2022-Jun-16 09:47:19.581|INFO|com.example.AgentApp.controller.AuthenticationController|Login successful. Email: admin123@gmail.com
+2022-Jun-16 09:58:36.706|INFO|com.example.AgentApp.controller.AuthenticationController|New user successfully signed up. Email: vecaaa5@gmail.com
