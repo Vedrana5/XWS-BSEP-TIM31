@@ -1057,3 +1057,480 @@
 2022-Jun-17 15:43:13.557|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
 2022-Jun-17 15:43:13.557|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
 2022-Jun-17 15:43:58.193|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:01:28.171|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.172|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:01:28.173|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.174|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:01:28.175|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.176|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:01:28.177|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.177|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:01:28.178|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.179|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:01:28.180|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.180|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:01:28.181|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.181|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:01:28.183|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.183|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:01:28.184|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.184|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:01:28.185|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.186|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:01:28.187|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.187|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:01:28.188|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.188|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:01:28.189|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.190|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:01:28.191|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.191|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:01:28.192|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.192|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:01:28.193|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.193|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:01:28.194|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.194|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:01:28.196|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:01:28.196|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:01:32.680|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.688|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.688|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.689|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.689|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.690|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.693|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.693|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:01:32.694|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:35:56.439|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.440|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:35:56.441|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.442|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:35:56.443|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.443|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:35:56.444|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.445|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:35:56.446|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.447|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:35:56.448|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.448|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:35:56.449|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.450|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:35:56.451|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.451|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:35:56.453|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.453|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:35:56.454|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.455|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:35:56.456|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.456|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:35:56.457|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.457|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:35:56.458|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.459|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:35:56.460|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.460|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:35:56.461|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.461|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:35:56.463|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.463|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:35:56.464|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.464|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:35:56.465|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:35:56.466|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:36:00.820|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.823|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.824|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.825|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.825|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.825|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.826|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.826|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:36:00.827|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:30.086|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.087|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:39:30.088|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.088|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:39:30.090|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.090|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:39:30.092|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.092|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:39:30.093|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.094|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:39:30.095|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.095|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:39:30.097|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.097|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:39:30.099|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.099|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:39:30.101|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.101|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:39:30.102|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.103|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:39:30.104|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.104|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:39:30.105|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.105|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:39:30.106|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.107|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:39:30.109|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.109|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:39:30.110|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.111|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:39:30.112|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.113|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:39:30.114|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.114|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:39:30.116|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:39:30.116|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:39:33.828|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.831|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.832|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.833|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.835|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.836|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.837|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.838|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:39:33.839|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:40:50.461|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:41:00.891|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:41:25.702|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:41:46.127|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:41:53.188|WARN|org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver|Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2022-Jun-17 16:43:17.366|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.367|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:43:17.369|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.369|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:43:17.371|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.371|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:43:17.373|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.373|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:43:17.375|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.375|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:43:17.379|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.380|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:43:17.382|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.382|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:43:17.386|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.386|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:43:17.388|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.388|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:43:17.389|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.390|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:43:17.392|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.392|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:43:17.393|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.394|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:43:17.395|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.395|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:43:17.397|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.397|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:43:17.400|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.400|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:43:17.406|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.406|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:43:17.407|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.408|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:43:17.409|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:43:17.410|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:43:23.352|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.356|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.358|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.358|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.359|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.360|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.361|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.362|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:23.363|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:43:44.903|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:43:51.465|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:44:04.144|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:44:43.096|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:44:56.132|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:46:16.533|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.534|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:46:16.535|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.535|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:46:16.536|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.537|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:46:16.538|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.538|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:46:16.539|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.540|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:46:16.541|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.541|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:46:16.542|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.543|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:46:16.544|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.544|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:46:16.545|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.546|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:46:16.547|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.548|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:46:16.549|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.549|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:46:16.550|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.551|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:46:16.552|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.552|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:46:16.553|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.554|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:46:16.555|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.555|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:46:16.556|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.556|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:46:16.557|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.558|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:46:16.559|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:46:16.560|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:46:19.865|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.868|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.869|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.870|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.871|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.872|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.872|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.873|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:46:19.873|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:48:00.727|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:49:26.596|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.596|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:49:26.598|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.598|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:49:26.600|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.600|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:49:26.602|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.602|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:49:26.604|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.604|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:49:26.605|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.606|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:49:26.607|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.608|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:49:26.609|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.609|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:49:26.610|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.611|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:49:26.612|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.613|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:49:26.614|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.614|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:49:26.615|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.616|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:49:26.617|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.617|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:49:26.618|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.619|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:49:26.620|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.620|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:49:26.621|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.622|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:49:26.623|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.623|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:49:26.624|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:49:26.625|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:49:32.109|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.111|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.112|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.113|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.113|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.114|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.115|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.115|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:49:32.116|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:50:36.756|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:52:37.828|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.828|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:52:37.829|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.830|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:52:37.831|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.832|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:52:37.833|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.834|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:52:37.835|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.835|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:52:37.836|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.837|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:52:37.838|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.838|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:52:37.840|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.840|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:52:37.842|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.842|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:52:37.843|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.843|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:52:37.844|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.844|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:52:37.845|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.846|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:52:37.847|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.847|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:52:37.848|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.849|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:52:37.850|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.850|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:52:37.851|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.852|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:52:37.853|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.853|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:52:37.854|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:52:37.855|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:52:45.324|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.328|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.338|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.338|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.339|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.340|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.341|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.347|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:52:45.348|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:53:13.117|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:19.264|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:27.361|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:49.479|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:54.883|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:55.711|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:56.071|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:56.387|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:53:56.695|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:57:46.252|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:58:20.025|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.026|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:58:20.027|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.028|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 16:58:20.029|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.030|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 16:58:20.031|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.032|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 16:58:20.034|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.034|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:58:20.036|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.036|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 16:58:20.038|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.038|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 16:58:20.039|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.040|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:58:20.041|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.041|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 16:58:20.043|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.043|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 16:58:20.044|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.045|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 16:58:20.046|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.046|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 16:58:20.047|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.048|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 16:58:20.049|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.050|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 16:58:20.051|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.051|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 16:58:20.052|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.053|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 16:58:20.054|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.054|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 16:58:20.056|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 16:58:20.056|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 16:58:23.109|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.111|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.112|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.113|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.113|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.114|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.115|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.116|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:23.116|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 16:58:59.595|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: admin123@gmail.com
+2022-Jun-17 16:59:21.373|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: vlasnik123@gmail.com
+2022-Jun-17 16:59:35.884|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: vlasnik123@gmail.com
+2022-Jun-17 16:59:58.272|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: vlasnik123@gmail.com
+2022-Jun-17 17:00:33.502|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.503|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 17:00:33.504|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.504|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 17:00:33.506|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.506|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 17:00:33.508|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.508|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 17:00:33.509|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.510|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 17:00:33.511|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.512|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 17:00:33.513|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.513|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 17:00:33.514|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.515|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 17:00:33.516|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.517|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 17:00:33.518|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.518|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 17:00:33.519|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.520|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 17:00:33.521|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.521|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 17:00:33.522|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.523|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 17:00:33.524|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.524|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 17:00:33.525|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.526|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 17:00:33.527|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.527|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 17:00:33.528|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.529|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 17:00:33.530|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 17:00:33.531|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 17:00:40.443|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.447|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.449|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.450|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.451|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.452|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.454|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.456|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 17:00:40.463|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:13:58.011|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.012|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 20:13:58.013|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.013|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "comments" does not exist, skipping
+2022-Jun-17 20:13:58.014|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.014|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "companies" does not exist, skipping
+2022-Jun-17 20:13:58.015|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.015|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "custom_token" does not exist, skipping
+2022-Jun-17 20:13:58.016|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.017|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 20:13:58.017|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.018|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "interview" does not exist, skipping
+2022-Jun-17 20:13:58.019|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.019|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "offers" does not exist, skipping
+2022-Jun-17 20:13:58.020|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.020|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 20:13:58.021|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.021|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|relation "salary" does not exist, skipping
+2022-Jun-17 20:13:58.023|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.023|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "comments" does not exist, skipping
+2022-Jun-17 20:13:58.024|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.024|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "companies" does not exist, skipping
+2022-Jun-17 20:13:58.024|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.025|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "custom_token" does not exist, skipping
+2022-Jun-17 20:13:58.025|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.026|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "interview" does not exist, skipping
+2022-Jun-17 20:13:58.027|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.027|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "offers" does not exist, skipping
+2022-Jun-17 20:13:58.027|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.028|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "permission" does not exist, skipping
+2022-Jun-17 20:13:58.028|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.028|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "salary" does not exist, skipping
+2022-Jun-17 20:13:58.029|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.029|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|table "users" does not exist, skipping
+2022-Jun-17 20:13:58.030|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|SQL Warning Code: 0, SQLState: 00000
+2022-Jun-17 20:13:58.030|WARN|org.hibernate.engine.jdbc.spi.SqlExceptionHelper|sequence "hibernate_sequence" does not exist, skipping
+2022-Jun-17 20:14:02.082|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/login', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.084|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/auth/register', POST]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.087|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.087|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/webjars/**', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.088|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.088|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='favicon.ico', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.089|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.html', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.089|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.css', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:14:02.089|WARN|org.springframework.security.config.annotation.web.builders.WebSecurity|You are asking Spring Security to ignore Ant [pattern='/**/*.js', GET]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-Jun-17 20:20:27.551|WARN|com.example.AgentApp.controller.AuthenticationController|Login failed. Email: vecaaa5@gmail.com

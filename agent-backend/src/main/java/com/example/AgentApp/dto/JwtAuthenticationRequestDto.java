@@ -8,4 +8,5 @@ import lombok.Setter;
 public class JwtAuthenticationRequestDto {
     private String email;
     private String password;
+    private String code;
 }
