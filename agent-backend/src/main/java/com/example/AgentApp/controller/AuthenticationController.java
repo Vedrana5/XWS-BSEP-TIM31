@@ -12,6 +12,9 @@ import com.example.AgentApp.service.LoggerService;
 import com.example.AgentApp.service.UserService;
 import com.example.AgentApp.service.VerificationTokenService;
 import com.example.AgentApp.service.impl.LoggerServiceImpl;
+import de.taimos.totp.TOTP;
+import org.apache.commons.codec.binary.Base32;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +86,12 @@ public class AuthenticationController {
     }
 
 
-
+    public static String getTOTPCode(String secretKey) {
+        Base32 base32 = new Base32();
+        byte[] bytes = base32.decode(secretKey);
+        String hexKey = Hex.encodeHexString(bytes);
+        return TOTP.getOTP(hexKey);
+    }
 
 
     @CrossOrigin(origins = "https://localhost:4200")
@@ -217,6 +225,17 @@ public class AuthenticationController {
         LogUserDto loggedUserDto = new LogUserDto(user.getUsername(), role.toString(), new UserTokenState(jwt, expiresIn));
         customTokenService.deleteById(token.getId());
         return ResponseEntity.ok(loggedUserDto);
+    }
+
+    @PutMapping(value = "/two-factor-auth")
+    public ResponseEntity<SecretDto> change2FAStatus(@RequestBody Change2FAStatusDto dto) {
+        String secret = userService.change2FAStatus(dto.email, dto.status);
+        return ResponseEntity.ok(new SecretDto(secret));
+    }
+    @GetMapping(value= "/two-factor-auth-status/{email}")
+    public ResponseEntity<Boolean> check2FAStatus(@PathVariable String email, HttpServletRequest request) {
+        boolean twoFAEnabled = userService.check2FAStatus(email);
+        return ResponseEntity.ok(twoFAEnabled);
     }
 
 }

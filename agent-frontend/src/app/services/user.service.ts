@@ -113,4 +113,15 @@ export class UserService {
     console.log(email)
     return this._http.post(`http://localhost:8082/auth/password-less-login/`, email)
   }
+
+  check2FAStatus(username: string): Observable<any> {
+    return this._http.get(`http://localhost:8082/auth/two-factor-auth-status/` + username)
+  }
+
+  enable2FA(username: string, status: boolean): Observable<any> {
+    return this._http.put(`http://localhost:8082/auth/two-factor-auth/`, {
+      username,
+      status
+    })
+  }
 }
