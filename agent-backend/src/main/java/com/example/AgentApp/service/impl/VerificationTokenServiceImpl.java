@@ -74,6 +74,24 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 
     }
 
+    @Override
+    public void sendMagicLink(User user) {
+      
+        CustomToken token = createTokenForMagicLink(user);
+        emailSenderService.sendEmail(user.getEmail(),"Password-less login",
+                "Click on the following link to sign in to your account "
+                        +"https://localhost:8082/auth/passwordless-login/"
+                        + token.getToken()
+        );
+    }
+
+    private CustomToken createTokenForMagicLink(User user) {
+        CustomToken token = new CustomToken(UUID.randomUUID().toString(),user, TokenType.Verification);
+        token.setExpiryDate(LocalDateTime.now().plusMinutes(5));
+        customTokenRepository.save(token);
+        return token;
+    }
+
 
     private void saveToken(CustomToken customToken) {
         String valueOfToken = customToken.getToken();

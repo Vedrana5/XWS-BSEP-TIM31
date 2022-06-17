@@ -17,4 +17,6 @@ public interface VerificationTokenService {
     boolean checkResetPasswordCode(String code, String token);
 
     void sendResetPasswordToken(User user);
+
+    void sendMagicLink(User user);
 }
