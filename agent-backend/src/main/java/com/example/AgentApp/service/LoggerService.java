@@ -67,4 +67,12 @@ public interface LoggerService {
     void createInterviewSuccess(String name, Long companyId);
 
     void createInterviewFailure(String name, Long companyId);
+
+    void sendLinkForPasswordlessFailed(String email);
+
+    void sendLinkForPasswordlessSuccess(String email);
+
+    void passwordlessLoginSuccess(String username);
+
+    void passwordlessLoginFailed(String username, String remoteAddr);
 }

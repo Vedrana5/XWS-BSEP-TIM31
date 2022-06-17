@@ -201,19 +201,22 @@ public class AuthenticationController {
     public ResponseEntity<?> sendLinkForPasswordLess(@RequestBody String email) {
         User user = userService.findByEmail(email);
         System.out.print("fdfdgdg"+user);
-        if (user == null)
-            return ResponseEntity.notFound().build();
+        if (user == null) {
+            loggerService.sendLinkForPasswordlessFailed(user.getEmail());
+            return ResponseEntity.notFound().build();}
         customTokenService.sendMagicLink(user);
+        loggerService.sendLinkForPasswordlessSuccess(user.getEmail());
         return ResponseEntity.accepted().build();
     }
 
     @GetMapping(value = "/password-less-login/{link}")
-    public ResponseEntity<?> passwordLessLogin(@PathVariable String link) {
+    public ResponseEntity<?> passwordLessLogin(@PathVariable String link,HttpServletRequest request) {
         CustomToken token  = customTokenService.findByToken(link);
         User user = token.getUser();
         if (token.getExpiryDate().isBefore(LocalDateTime.now())) {
             customTokenService.deleteById(token.getId());
             customTokenService.sendMagicLink(user);
+            loggerService.passwordlessLoginFailed(user.getUsername(),request.getRemoteAddr());
             return new ResponseEntity<>("Your magic link is expired,we sent you new one. Please check you mail box.", HttpStatus.BAD_REQUEST);
         }
         Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -224,6 +227,7 @@ public class AuthenticationController {
         int expiresIn = tokenUtils.getExpiredIn();
         LogUserDto loggedUserDto = new LogUserDto(user.getUsername(), role.toString(), new UserTokenState(jwt, expiresIn));
         customTokenService.deleteById(token.getId());
+        loggerService.passwordlessLoginSuccess(user.getUsername());
         return ResponseEntity.ok(loggedUserDto);
     }
 

@@ -21,12 +21,13 @@ public class CreateCompanyDto {
     @Pattern(regexp = "[a-zA-Z]+")
     private String name;
 
-
+    @NotBlank
     private String website;
 
     @Email
     private String email;
 
+    @NotBlank
     private String phoneNumber;
 
     @Pattern(regexp = "[a-zA-Z]+")
@@ -36,8 +37,10 @@ public class CreateCompanyDto {
     private String founder;
 
 
+    @NotBlank
     private String numberOfEmpl;
 
+    @NotBlank
     public String ownerUsername;
 
     public CreateCompanyDto(Company c) {

@@ -185,6 +185,31 @@ public class LoggerServiceImpl implements LoggerService {
 
     }
 
+    @Override
+    public void sendLinkForPasswordlessFailed(String email) {
+        logger.warn("Send passwordless code failed. Email: " + email );
+
+    }
+
+    @Override
+    public void sendLinkForPasswordlessSuccess(String email) {
+        logger.info("Send passwordless code succeed. Email: " + email);
+
+    }
+
+    @Override
+    public void passwordlessLoginSuccess(String username) {
+        logger.info("Passwordless login succeed. Username: " + username);
+
+    }
+
+    @Override
+    public void passwordlessLoginFailed(String username, String remoteAddr) {
+        logger.error("Passwordless login failed. Username: " + username + ". Ip address: " + remoteAddr);
+    }
+
+    
+
 
     @Override
     public void loginSuccess(String email) {
