@@ -1,0 +1,109 @@
+<app-user-navbar>
+</app-user-navbar>
+<router-outlet></router-outlet>
+
+<div class="container" style="align-items: center;margin-top: 100px;">
+    <div class="col-12 text-center">
+        <h2 class="h2">New company</h2>
+    </div>
+
+    <div class="container" [formGroup]="createForm" style="width: 70%">
+        <br />
+        <div class="separateMe">
+            <div style="width: 100%; display: flex">
+                <mat-form-field appearance="fill">
+                    <mat-label>Name of new company</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-error *ngIf="
+                createForm?.get('name')?.valid &&
+                createForm?.get('name')?.touched &&
+                createForm?.get('name')?.errors?.['required']
+              ">Name is required.</mat-error>
+                    <mat-error>Invalid input</mat-error>
+                </mat-form-field>
+            </div>
+
+
+            <div style="width: 100%; display: flex">
+                <mat-form-field appearance="fill">
+                    <mat-label>Website of company</mat-label>
+                    <input matInput formControlName="website" />
+                    <mat-error *ngIf="
+                !createForm?.get('website')?.valid &&
+                createForm?.get('website')?.touched &&
+                createForm?.get('website')?.errors?.['required']
+              ">Website is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div style="width: 100%; display: flex">
+                <mat-form-field appearance="fill">
+                    <mat-label>email</mat-label>
+                    <input matInput formControlName="email" />
+                    <mat-error *ngIf="
+                !createForm?.get('email')?.valid &&
+                createForm?.get('email')?.touched &&
+                createForm?.get('email')?.errors?.['required']
+              ">Email is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div style="width: 100%; display: flex">
+                <mat-form-field appearance="fill">
+                    <mat-label>Phone number</mat-label>
+                    <input matInput formControlName="phoneNumber">
+                    <mat-error *ngIf="
+                !createForm?.get('phoneNumber')?.valid &&
+                createForm?.get('phoneNumber')?.touched &&
+                createForm?.get('phoneNumber')?.errors?.['required']
+              ">Phone number is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div style="width: 100%; display: flex">
+                <mat-form-field appearance="fill">
+                    <mat-label>Country of origin</mat-label>
+                    <input matInput formControlName="countryOfOrigin" />
+                    <mat-error *ngIf="
+                !createForm?.get('countryOfOrigin')?.valid &&
+                createForm?.get('countryOfOrigin')?.touched &&
+                createForm?.get('countryOfOrigin')?.errors?.['required']
+              ">Coyntry of origin is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div style="width: 100%; display: flex">
+                <mat-form-field appearance="fill">
+                    <mat-label>Founder</mat-label>
+                    <input matInput formControlName="founder" />
+                    <mat-error *ngIf="
+                !createForm?.get('founder')?.valid &&
+                createForm?.get('founder')?.touched &&
+                createForm?.get('founder')?.errors?.['required']
+              ">Founder is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div style="width: 100%; display: flex">
+                <mat-form-field appearance="fill">
+                    <mat-label>Number of empployes</mat-label>
+                    <input matInput formControlName="numberOfEmpl" />
+                    <mat-error *ngIf="
+                !createForm?.get('numberOfEmpl')?.valid &&
+                createForm?.get('numberOfEmpl')?.touched &&
+                createForm?.get('numberOfEmpl')?.errors?.['required']
+              ">Number of employee is required</mat-error>
+
+                </mat-form-field>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<br /><br />
+<div style="align-self: left;">
+    <button mat-raised-button (click)="onSubmit()" color="primary" class="icon-display">
+        Create request
+    </button>
+</div>
+<br />

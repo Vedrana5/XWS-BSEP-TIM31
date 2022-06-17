@@ -1,0 +1,214 @@
+<div *ngIf="role=='ADMIN'">
+    <app-admin-navbar></app-admin-navbar>
+</div>
+
+
+<div *ngIf="role=='REGISTERED_USER'">
+
+    <app-user-navbar></app-user-navbar>
+
+</div>
+<div *ngIf="role=='OWNER'">
+
+    <app-owner-navbar></app-owner-navbar>
+
+</div>
+
+
+
+<router-outlet></router-outlet>
+
+
+
+<h2 color="blue" style="margin-top: 70px;margin-left:110px;color: rgb(106, 106, 251);">Information of company
+    {{this.company.name}}</h2>
+
+<hr />
+<div class="columns">
+    <form>
+        <div class="container" style="margin-bottom: 20px;">
+            <label>Name:</label>
+            <input type="text" class="form-control" placeholder="Enter  name" [(ngModel)]="this.company.name"
+                name="name" readonly />
+        </div>
+        <div class="container" style="margin-bottom: 20px;">
+            <label>Website:</label>
+            <input type="text" class="form-control" placeholder="Enter website" [(ngModel)]="this.company.website"
+                name="website" readonly />
+        </div>
+        <div class="container" style="margin-bottom: 10px;">
+            <label>Email:</label>
+            <input type="text" class="form-control" placeholder="Enter email" [(ngModel)]="this.company.email"
+                name="price" readonly />
+        </div>
+        <div class="container" style="margin-bottom: 20px;">
+            <label>Phone number:</label>
+            <input type="number" class="form-control" placeholder="Enter  phone number"
+                [(ngModel)]="this.company.phoneNumber" name="phoneNumber" readonly />
+        </div>
+
+
+
+
+        <div class="container" style="margin-bottom: 20px;">
+            <label>Founder:</label>
+            <input type="text" class="form-control" placeholder="Enter founder" [(ngModel)]="this.company.founder "
+                name="founder" readonly />
+        </div>
+    </form>
+
+
+    <form>
+        <div class="container" style="margin-bottom: 20px;">
+            <label>Country of origin:</label>
+            <input type="text" class="form-control" placeholder="Enter countryOfOrigin"
+                [(ngModel)]="this.company.countryOfOrigin" name="countryOfOrigin" readonly />
+        </div>
+
+
+        <div class="container" style="margin-bottom: 20px;">
+            <label>Number of employees</label>
+            <input type="text" class="form-control" placeholder="Enter number of empl"
+                [(ngModel)]="this.company.numberOfEmpl" name="numberOfEmpl" readonly />
+        </div>
+
+
+
+        <hr />
+
+
+
+
+
+    </form>
+
+
+</div>
+
+
+<button type="button" class="btn btn-primary ml-3 mybtn" (click)="createComment()">
+    Add comment
+</button>
+
+<button type="button" class="btn btn-primary ml-3 mybtn" (click)="createSallary()">
+    Add sallary comment
+</button>
+
+<button type="button" class="btn btn-primary ml-3 mybtn" (click)="createInterview()">
+    Add interview comment
+</button>
+
+
+
+
+<mat-card>
+    <mat-tab-group>
+
+        <mat-tab label="Job Offers">
+            <div *ngFor="let offer of jobOffers">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h2 style="color:rgb(98, 70, 255)">{{ offer.position }}</h2>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h5>Valid until: {{ offer.dueDate | date: "mediumDate" }} </h5>
+                        </mat-label>
+                        <span> {{ offer.description }} </span>
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Comments">
+            <div *ngFor="let c of comments">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h2 style="color:rgb(98, 70, 255)"> {{c.comment}}</h2>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h5>User: </h5>
+                        </mat-label>
+
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+
+        <mat-tab label="Salary">
+            <div *ngFor="let s of salary">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h2 style="color:rgb(98, 70, 255)">{{ s.position }}</h2>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h5>Salary: {{ s.salary }} </h5>
+                        </mat-label>
+                        <span> </span>
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+
+        <mat-tab label="Interview">
+            <div *ngFor="let i of interview">
+                <mat-card class="example-card m-3">
+                    <mat-label>
+                        <h2 style="color:rgb(98, 70, 255)">{{ i.comment }}</h2>
+                    </mat-label>
+
+                    <div>
+                        <mat-label>
+                            <h5>Salary: {{ i.rating }} </h5>
+                        </mat-label>
+                        <span> </span>
+                        <span> {{ i.difficulty }} </span>
+                    </div>
+                    <br>
+                    <mat-card-content class="content">
+                        <div>
+
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </mat-tab>
+
+
+
+
+
+
+
+
+
+
+
+
+    </mat-tab-group>
+</mat-card>

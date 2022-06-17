@@ -1,0 +1,30 @@
+<app-admin-navbar></app-admin-navbar>
+<router-outlet></router-outlet>
+
+<h1 style="margin-left: 120px;margin-top: 70px;color:rgb(111, 111, 243);"> Companies requests</h1>
+
+<div class="card">
+    <div class="container">
+        <div class="card" style="margin-top: 20px;" *ngFor="let item of items">
+            <ul class="list-group">
+
+                <li style="height: 60px;" class="list-group-item">Email of companies: {{item.email}} </li>
+                <li style="height: 60px;" class="list-group-item">Name of companies: {{item.name}} </li>
+                <li style="height: 60px;" class="list-group-item">Web sity of companies: {{item.website}}</li>
+                <li style="height: 60px;" class="list-group-item">Number of empployes: {{item.numberOfEmpl}}</li>
+                <li style="height: 60px;" class="list-group-item">Phone number: {{item.phoneNumber}}</li>
+                <li style="height: 60px;" class="list-group-item">Country of origin: {{item.countryOfOrigin}}</li>
+                <li style="height: 60px;" class="list-group-item">Country of origin: {{item.id}}</li>
+
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-success mybtn" (click)="approveRequest(item.id)">Approve
+                        request</button>
+                    <button type="button" class="btn btn-danger mybtn" (click)="rejectRequest(item.id)">Reject
+                        request</button>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
