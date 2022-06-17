@@ -3,11 +3,9 @@ package com.example.AgentApp.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.codec.binary.Base32;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -53,22 +51,6 @@ public class User {
 
     @Column(nullable = false)
     private UserRole role;
-
-    @Column(nullable = true)
-    private boolean isUsing2FA;
-    private String secret=generateSecretKey();
-
-    private static String generateSecretKey() {
-        SecureRandom random = new SecureRandom();
-        byte[] bytes = new byte[20];
-        random.nextBytes(bytes);
-        Base32 base32 = new Base32();
-        return base32.encodeToString(bytes);
-    }
-
-    public void setSecret() {
-        this.secret = generateSecretKey();
-    }
 
 
 
