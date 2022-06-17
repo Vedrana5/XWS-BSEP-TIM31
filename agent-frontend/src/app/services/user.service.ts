@@ -92,4 +92,25 @@ export class UserService {
     this.router.navigate(['/']);
 
   }
+
+  checkPasswordlessToken(token: string): Observable<any> {
+    return this._http.get(`http://localhost:8082/auth/password-less-login/${token}`).pipe(
+      map((response: any) => {
+        if (response && response.token) {
+          this.loginStatus.next(true);
+          localStorage.setItem('token', response.token.accessToken);
+          localStorage.setItem('currentUser', JSON.stringify(response));
+          localStorage.setItem('role', response.role)
+          localStorage.setItem('username', response.username)
+          this.currentUserSubject.next(response);
+        }
+        return this.user;
+      })
+    );
+  }
+
+  sendLink(email: string): Observable<any> {
+    console.log(email)
+    return this._http.post(`http://localhost:8082/auth/password-less-login/`, email)
+  }
 }

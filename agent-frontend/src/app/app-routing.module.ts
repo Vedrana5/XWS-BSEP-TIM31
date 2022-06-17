@@ -17,11 +17,16 @@ import { ResetPasswordComponent } from './components/comment/reset-password/rese
 import { OwnerGuard } from './AuthGuard/OwnerGuard';
 import { AdminGuard } from './AuthGuard/AdminGuard';
 import { UserGuard } from './AuthGuard/UserGuard';
+import { PasswordlessLoginComponent } from './components/passwordless-login/passwordless-login/passwordless-login.component';
 
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
-
+  {
+    path: "passwordless-login/:token",
+    component: PasswordlessLoginComponent,
+  }
+  ,
   { path: 'registration', component: RegistrationComponent },
   {
     path: 'userHome',

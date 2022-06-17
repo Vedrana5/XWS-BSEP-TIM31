@@ -102,6 +102,7 @@ public class AuthenticationController {
     @GetMapping("/confirmAccount/{token}")
     public ResponseEntity<String> confirmAccount(@PathVariable String token,HttpServletRequest request) {
         CustomToken verificationToken = customTokenService.findByToken(token);
+        System.out.print(verificationToken);
         User user = verificationToken.getUser();
         if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
             customTokenService.deleteById(verificationToken.getId());
@@ -191,19 +192,20 @@ public class AuthenticationController {
     @PostMapping(value = "/password-less-login")
     public ResponseEntity<?> sendLinkForPasswordLess(@RequestBody String email) {
         User user = userService.findByEmail(email);
+        System.out.print("fdfdgdg"+user);
         if (user == null)
             return ResponseEntity.notFound().build();
         customTokenService.sendMagicLink(user);
         return ResponseEntity.accepted().build();
     }
 
-    @PostMapping(value = "/password-less-login/{link}")
+    @GetMapping(value = "/password-less-login/{link}")
     public ResponseEntity<?> passwordLessLogin(@PathVariable String link) {
         CustomToken token  = customTokenService.findByToken(link);
         User user = token.getUser();
         if (token.getExpiryDate().isBefore(LocalDateTime.now())) {
             customTokenService.deleteById(token.getId());
-            customTokenService.sendVerificationToken(user);
+            customTokenService.sendMagicLink(user);
             return new ResponseEntity<>("Your magic link is expired,we sent you new one. Please check you mail box.", HttpStatus.BAD_REQUEST);
         }
         Authentication authentication = new UsernamePasswordAuthenticationToken(

@@ -80,4 +80,21 @@ export class LandingPageComponent implements OnInit {
 
     this.authService.login(f.value).subscribe(loginObserver);
   }
+
+  passwordless() {
+    console.log(this.emaill);
+    this.authService.sendLink(this.emaill).subscribe(
+      res => {
+        this._snackBar.open('Check your email. Click on the magic link to log in.', '', {
+          duration: 3000,
+        });
+      },
+      err => {
+        this._snackBar.open("User with this email does not exist!", "", {
+          duration: 3000
+        });
+      }
+    );
+
+  }
 }

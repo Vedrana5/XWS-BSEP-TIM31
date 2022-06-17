@@ -26,6 +26,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
+
     public void sendVerificationToken(User user) {
         String confirmationLink = "http://localhost:8082/auth/confirmAccount/" + createConfirmationToken(user).getToken();
         emailSenderService.sendEmail(user.getEmail(),"Confirm account", "Click on following link to confirm " +
@@ -78,10 +79,11 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     public void sendMagicLink(User user) {
       
         CustomToken token = createTokenForMagicLink(user);
+        System.out.print("Jebeni token"+token.getToken());
         emailSenderService.sendEmail(user.getEmail(),"Password-less login",
                 "Click on the following link to sign in to your account "
-                        +"https://localhost:8082/auth/passwordless-login/"
-                        + token.getToken()
+                        +"https://localhost:4200/passwordless-login/"
+        + token.getToken()
         );
     }
 
