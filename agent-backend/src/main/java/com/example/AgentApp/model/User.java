@@ -54,22 +54,14 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
-  /*  @Column(nullable = true)
-    private boolean isUsing2FA=false;
-*/
+
+    private boolean isUsingFa;
+
     private String secret;
 
-    private static String generateSecretKey() {
-        SecureRandom random = new SecureRandom();
-        byte[] bytes = new byte[20];
-        random.nextBytes(bytes);
-        Base32 base32 = new Base32();
-        return base32.encodeToString(bytes);
-    }
 
-    public void setSecret() {
-        this.secret = generateSecretKey();
-    }
+
+
 
 
 
