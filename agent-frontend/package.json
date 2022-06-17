@@ -6,8 +6,7 @@
     "start": "ng serve  --ssl true",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "owasp": "owasp-dependency-check --project \"agent-frontend\" -f HTML JSON"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +22,6 @@
     "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "bootstrap": "^5.1.3",
     "ngx-bootstrap": "^8.0.0",
-    "owasp-dependency-check": "^0.0.18",
     "rxjs": "~7.5.0",
     "tlib": "^1.0.0",
     "zone.js": "~0.11.4"
@@ -41,7 +39,6 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "owasp-dependency-check": "^0.0.18",
     "tslib": "^2.4.0",
     "typescript": "~4.6.2"
   }
