@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SubjectData } from 'src/app/interfaces/subject-data';
 import { UserService } from 'src/app/services/user.service';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -78,26 +79,29 @@ export class RegistrationComponent implements OnInit {
     }
 
     this.createUser();
-    this.authService.createSubject(this.newSubject).subscribe(
-      (res) => {
-        console.log(res);
+
+    this.authService.createSubject(this.newSubject).subscribe({
+      next: () => {
+
         this.router.navigate(['/']);
         this._snackBar.open(
           'Your registration request has been sumbitted. Please check your email and confirm your email adress to activate your account.',
           'Dismiss', {
           duration: 3000
         });
-
       },
-      (err) => {
+      error: (err: HttpErrorResponse) => {
         let parts = err.error.split(':');
         let mess = parts[parts.length - 1];
         let description = mess.substring(1, mess.length - 4);
         this._snackBar.open(description, 'Dismiss', {
           duration: 3000
         });
-      }
-    );
+      },
+      complete: () => console.info('complete')
+    });
+
+
   }
 
   createUser(): void {

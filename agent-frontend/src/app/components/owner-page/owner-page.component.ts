@@ -3,6 +3,9 @@ import { SubjectData } from 'src/app/interfaces/subject-data';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { TfaComponent } from 'src/app/tfa/tfa/tfa.component';
 
 @Component({
   selector: 'app-owner-page',
@@ -13,7 +16,7 @@ export class OwnerPageComponent implements OnInit {
 
   personalData!: SubjectData;
   sub!: Subscription;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, public matDialog: MatDialog) {
     this.personalData = {} as SubjectData;
   }
 
@@ -52,6 +55,23 @@ export class OwnerPageComponent implements OnInit {
 
       },
     });
+  }
+
+  openModalForChangePassword(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = 'fit-content';
+    dialogConfig.width = '500px';
+    this.matDialog.open(ChangePasswordComponent, dialogConfig);
+  }
+  opet2fa() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = 'fit-content';
+    dialogConfig.width = '800px';
+    this.matDialog.open(TfaComponent, dialogConfig);
   }
 
 }

@@ -16,17 +16,26 @@
             <div class="form__field">
 
                 <input type="text" name="email" [(ngModel)]="emaill" required #userName="ngModel" class="form__input"
-                    id="loginUsername" placeholder="Enter username" />
+                    id="loginUsername" placeholder="Enter username" (change)="check2FAStatus()" />
             </div>
             <div class="form__field">
 
                 <input type="password" name="password" ngModel required #password="ngModel" class="form__input"
-                    id="loginPassword" placeholder="Password" />
+                    id="loginPassword" placeholder="Password" (change)="check2FAStatus()" />
             </div>
+            <div *ngIf="tfaEnabled" class="form__field">
+                <input required name="code" type="text" ngModel required #code="ngModel" class="form__input"
+                    id="loginCode" placeholder="Code">
+
+            </div>
+
             <div class="form__field">
                 <input type="submit" value="Log In" />
             </div>
         </form>
+
+
+
         <p class="text--center">
             Not a member? <a routerLink="/registration">Sign up now</a>
             <svg class="icon">
@@ -34,6 +43,13 @@
             </svg>
         </p>
 
+
+        <p class="text--center">
+            Passwordless login? <button (click)="passwordless()">Log in</button>
+            <svg class="icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="assets/images/icons.svg#arrow-right"></use>
+            </svg>
+        </p>
         <p class="text--center">
             Forgot password? <button (click)="forgotPass()">Reset password</button>
             <svg class="icon">

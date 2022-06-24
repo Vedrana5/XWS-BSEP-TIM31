@@ -31,6 +31,10 @@ import { CommentComponent } from './components/comment/comment.component';
 import { SalaryComponent } from './components/salary/salary.component';
 import { InterviewComponent } from './components/interview/interview.component';
 import { ResetPasswordComponent } from './components/comment/reset-password/reset-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { PasswordlessLoginComponent } from './components/passwordless-login/passwordless-login/passwordless-login.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog/confirm-dialog.component';
+import { TfaComponent } from './tfa/tfa/tfa.component';
 
 
 @NgModule({
@@ -56,6 +60,10 @@ import { ResetPasswordComponent } from './components/comment/reset-password/rese
     SalaryComponent,
     InterviewComponent,
     ResetPasswordComponent,
+    ChangePasswordComponent,
+    PasswordlessLoginComponent,
+    ConfirmDialogComponent,
+    TfaComponent,
 
   ],
   imports: [

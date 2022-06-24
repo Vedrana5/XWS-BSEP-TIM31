@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Getter
@@ -33,11 +34,14 @@ public class RegisterDto {
     @Email
     private String recoveryEmail;
 
+    @NotBlank
     private String username;
 
-
+    @NotBlank
     private String dateOfBirth;
 
+
+    @NotBlank
     private String phoneNumber;
 
 

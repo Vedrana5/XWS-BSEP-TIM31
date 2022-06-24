@@ -1,5 +1,6 @@
 package com.example.AgentApp.service;
 
+import com.example.AgentApp.dto.ChangePasswordDto;
 import com.example.AgentApp.dto.RegisterDto;
 import com.example.AgentApp.model.User;
 
@@ -17,4 +18,10 @@ public interface UserService {
 
 
     void resetPassword(String email, String newPassword);
+
+    void changePassword(String emailFromToken, ChangePasswordDto changePasswordDto);
+
+    boolean check2FAStatus(String username);
+
+    String change2FAStatus(String email, Boolean status);
 }

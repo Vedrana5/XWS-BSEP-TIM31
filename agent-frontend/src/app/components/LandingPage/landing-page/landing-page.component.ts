@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LandingPageComponent implements OnInit {
   sub!: Subscription;
+  tfaEnabled = false;
   ngForm!: FormGroup
   constructor(
     private authService: UserService,
@@ -79,5 +80,33 @@ export class LandingPageComponent implements OnInit {
     };
 
     this.authService.login(f.value).subscribe(loginObserver);
+  }
+
+
+  check2FAStatus() {
+    this.authService.check2FAStatus(this.emaill).subscribe(
+
+      res => {
+        this.tfaEnabled = res
+        console.log(res)
+      }
+    )
+  }
+
+  passwordless() {
+    console.log(this.emaill);
+    this.authService.sendLink(this.emaill).subscribe(
+      res => {
+        this._snackBar.open('Check your email. Click on the magic link to log in.', '', {
+          duration: 3000,
+        });
+      },
+      err => {
+        this._snackBar.open("User with this email does not exist!", "", {
+          duration: 3000
+        });
+      }
+    );
+
   }
 }

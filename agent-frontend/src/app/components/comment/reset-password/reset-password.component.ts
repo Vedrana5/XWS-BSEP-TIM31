@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 @Component({
@@ -13,9 +15,10 @@ export class ResetPasswordComponent implements OnInit {
   createForm!: FormGroup;
   newPasswordDto!: string;
   divVisible: boolean = false;
-  kodic!: string;
+  kod!: string;
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
+    private snackBar: MatSnackBar,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -39,9 +42,22 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
   verify() {
-    this.userService.checkCode(this.kodic).subscribe((res) => { });
 
-    this.divVisible = true;
+
+    this.userService.checkCode(this.kod).subscribe({
+      next: (res) => {
+        this.divVisible = true;
+
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackBar.open("Code is not valid!", 'Dismiss', {
+          duration: 3000
+        });
+      },
+      complete: () => console.info('complete')
+
+    });
+
   }
   onCodeInput(event: any): void { }
 

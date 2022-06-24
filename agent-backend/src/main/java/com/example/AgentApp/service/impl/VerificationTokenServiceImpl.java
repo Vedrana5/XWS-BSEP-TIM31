@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -25,6 +26,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
+
     public void sendVerificationToken(User user) {
         String confirmationLink = "http://localhost:8082/auth/confirmAccount/" + createConfirmationToken(user).getToken();
         emailSenderService.sendEmail(user.getEmail(),"Confirm account", "Click on following link to confirm " +
@@ -62,6 +64,37 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
         return passwordEncoder.matches(code,token);
     }
 
+    @Override
+    public void sendResetPasswordToken(User user) {
+        CustomToken customToken = createResetPasswordToken(user);
+        String passwordCode = customToken.getToken();
+        System.out.print("fsdsfdsfsdfds"+passwordCode);
+        saveToken(customToken);
+        emailSenderService.sendEmail(user.getRecoveryEmail(),"Reset password", "Following code is your new temporary " +
+                "password \nCode : " + passwordCode);
+
+    }
+
+    @Override
+    public void sendMagicLink(User user) {
+      
+        CustomToken token = createTokenForMagicLink(user);
+        System.out.print("Jebeni token"+token.getToken());
+        emailSenderService.sendEmail(user.getEmail(),"Password-less login",
+                "Click on the following link to sign in to your account "
+                        +"https://localhost:4200/passwordless-login/"
+        + token.getToken()
+        );
+    }
+
+    private CustomToken createTokenForMagicLink(User user) {
+        CustomToken token = new CustomToken(UUID.randomUUID().toString(),user, TokenType.Verification);
+        token.setExpiryDate(LocalDateTime.now().plusMinutes(5));
+        customTokenRepository.save(token);
+        return token;
+    }
+
+
     private void saveToken(CustomToken customToken) {
         String valueOfToken = customToken.getToken();
         customToken.setToken(passwordEncoder.encode(valueOfToken));
@@ -70,6 +103,8 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 
     private CustomToken createResetPasswordToken(User user) {
         CustomToken token = new CustomToken(RandomString.make(8),user,TokenType.ResetPassword);
+        token.setExpiryDate(LocalDateTime.now().plusMinutes(10));
+        customTokenRepository.save(token);
         return token;
     }
 
