@@ -63,12 +63,21 @@ public class AuthenticationController {
 
     @CrossOrigin(origins = "https://localhost:4200")
     @PostMapping("/login")
-    public ResponseEntity<LogUserDto> login(@Valid
+    public ResponseEntity<Object> login(@Valid
             @RequestBody JwtAuthenticationRequestDto authenticationRequest, HttpServletRequest request) {
 
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+
+            User u = userService.findByEmail(authenticationRequest.getEmail());
+            String code = authenticationRequest.getCode();
+            if (u.isUsingFa() && (code == null || !code.equals(getTOTPCode(u.getSecret())))) {
+                loggerService.loginFailed(authenticationRequest.getEmail(),request.getRemoteAddr());
+                return ResponseEntity.badRequest().body("Code invalid");
+            }
+
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserRole role = userService.findByEmail(authenticationRequest.getEmail()).getRole();
             UserDetails user = (UserDetails) authentication.getPrincipal();

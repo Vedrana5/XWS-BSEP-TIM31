@@ -10,6 +10,7 @@ import (
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
+	"github.com/google/uuid"
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/form3tech-oss/jwt-go"
@@ -17,22 +18,25 @@ import (
 )
 
 type LogInHandler struct {
-	UserService  *service.UserService
-	PasswordUtil *util.PasswordUtil
-	LogInfo      *logrus.Logger
-	LogError     *logrus.Logger
+	ValidationCodeService *service.ValidationCodeService
+	UserService           *service.UserService
+	PasswordUtil          *util.PasswordUtil
+	LogInfo               *logrus.Logger
+	LogError              *logrus.Logger
 }
 
+//LogIn
 func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	var logInUserDTO dto.LogInUserDTO
 	if err := json.NewDecoder(r.Body).Decode(&logInUserDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to LogInUserDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to LogInUserDTO!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -43,10 +47,11 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	if !validPassword {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Password isn't in valid format!")
+		fmt.Println(time.Now().String() + " Password isn't in valid format!")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	} else {
@@ -60,39 +65,12 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, user.Password) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Failed sign up!")
-		w.WriteHeader(http.StatusConflict)
-		return
-	}
+		fmt.Println(time.Now().String() + " Failed sign up!")
 
-	if logInUserDTO.Question != user.Question {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
-			"timestamp": time.Now().String(),
-		}).Error("Wrong question for user!")
-		w.WriteHeader(http.StatusConflict)
-		return
-	}
-
-	plainAnswer := ""
-	var ab strings.Builder
-	answerSalt := user.AnswerSalt
-	ab.WriteString(logInUserDTO.Answer)
-	ab.WriteString(answerSalt)
-	plainAnswer = ab.String()
-
-	if !handler.PasswordUtil.CheckPasswordHash(plainAnswer, user.Answer) {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
-			"timestamp": time.Now().String(),
-		}).Error("Wrong answer to user question!")
 		w.WriteHeader(http.StatusConflict)
 		return
 	}
@@ -102,10 +80,12 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "LOG85310",
+			"location":  "LogInHandler",
+			"action":    "LogIn",
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating AWT token!")
+		fmt.Println(time.Now().String() + " Failed creating AWT token!")
+
 		w.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
@@ -120,10 +100,94 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 	w.Write(logInResponseJson)
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "LOG85310",
+		"location":  "LogInHandler",
+		"action":    "LogIn",
 		"timestamp": time.Now().String(),
-	}).Info("Successfully sign up user! User: " + user.Username)
+	}).Info("Successfully sign in user")
+	fmt.Println(time.Now().String() + " Successfully sign in user!")
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+
+}
+
+//LogInPasswordLess
+func (handler *LogInHandler) LogInPasswordless(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("X-XSS-Protection", "1; mode=block")
+	var logInUserPasswordlessDTO dto.LogInUserPasswordlessDTO
+	if err := json.NewDecoder(r.Body).Decode(&logInUserPasswordlessDTO); err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
+			"timestamp": time.Now().String(),
+		}).Error("Wrong cast json to LogInUserDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to LogInUserDTO!")
+
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	var user = handler.UserService.FindByUserName(logInUserPasswordlessDTO.Username)
+
+	//token
+	token, err := CreateToken(user.Username)
+	if err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
+			"timestamp": time.Now().String(),
+		}).Error("Failed creating AWT token!")
+		fmt.Println(time.Now().String() + " Failed creating AWT token!")
+
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		return
+	}
+
+	logInResponse := dto.LogInResponseDTO{
+		ID:         user.ID,
+		Token:      token,
+		TypeOfUser: user.TypeOfUser,
+	}
+	fmt.Print("Response je ", logInResponse)
+	logInResponseJson, _ := json.Marshal(logInResponse)
+	w.Write(logInResponseJson)
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "LogInHandler",
+		"action":    "LogInPasswordLess",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully sign in user!")
+	fmt.Println(time.Now().String() + " Successfully sign in user!")
+
+	var validation_code = handler.ValidationCodeService.FindByCode(uuid.MustParse(logInUserPasswordlessDTO.Code))
+	if validation_code == nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
+			"timestamp": time.Now().String(),
+		}).Error("Validation_code is null!")
+		fmt.Println(time.Now().String() + " Validation_code is null!")
+
+		w.WriteHeader(http.StatusConflict) //409
+		return
+	}
+
+	if err := handler.ValidationCodeService.UpdateValidationCodeUsing(validation_code.Code); err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "LogInHandler",
+			"action":    "LogInPasswordLess",
+			"timestamp": time.Now().String(),
+		}).Error("Failed changing password!")
+		fmt.Println(time.Now().String() + " Failed changing password!")
+
+		w.WriteHeader(http.StatusExpectationFailed)
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 
@@ -181,15 +245,18 @@ func CreateToken(userName string) (string, error) {
 	return token, nil
 }
 
+//GetUserIDFromJWTToken
 func (handler *LogInHandler) GetUserIDFromJWTToken(w http.ResponseWriter, r *http.Request) {
 	token, err := VerifyToken(r)
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
+			"location":  "LogInHandler",
 			"action":    "GetUserIDFromJWTToken",
 			"timestamp": time.Now().String(),
 		}).Error("Failed verified token!")
+		fmt.Println(time.Now().String() + " Failed verified token!")
+
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -204,10 +271,11 @@ func (handler *LogInHandler) GetUserIDFromJWTToken(w http.ResponseWriter, r *htt
 	}
 	handler.LogError.WithFields(logrus.Fields{
 		"status":    "failure",
-		"location":  "UserHandler",
+		"location":  "LogInHandler",
 		"action":    "GetUserIDFromJWTToken",
 		"timestamp": time.Now().String(),
 	}).Error("Token doesn't valid!")
+	fmt.Println(time.Now().String() + " Token doesn't valid!")
 	w.WriteHeader(http.StatusBadRequest)
 }
 

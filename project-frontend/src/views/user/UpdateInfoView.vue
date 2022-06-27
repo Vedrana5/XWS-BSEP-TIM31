@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="this.type === '1'">
      <h1 id="heading1">Update info Here</h1>
        <img src="https://www.kindpng.com/picc/m/273-2738790_login-login-logo-hd-png-download.png" style="width:200px; height:150px;">
      <div>
@@ -68,6 +68,9 @@ export default {
   name: "UpdateInfoView",
  data() {
     return {
+      id:"",
+      type:"",
+      oldUsername:"",
         Username: "",
         passwordAgain:"",
         Password:"",
@@ -110,6 +113,7 @@ export default {
     methods: {
       async Update() {
  if (
+  
         !this.validBiography() ||
         !this.validPhoneNumber() ||
         !this.validLastName() ||
@@ -118,9 +122,14 @@ export default {
       ) {
       alert("Fill in the fields in the right way!");
       } else {
+        this.id = localStorage.getItem("userId");
+        this.oldUsername = localStorage.getItem("username");
+        localStorage.setItem("username", this.newUser.Username);
         fetch("http://localhost:8089/updateProfil",{
           method:"POST",
           body: JSON.stringify({
+            ID: this.id,
+       OldUsername: this.oldUsername,     
        Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,
@@ -268,6 +277,8 @@ export default {
 async created() {    
   this.Username = localStorage.getItem("username"); 
   this.token = localStorage.getItem("token")
+  this.type = localStorage.getItem("userType")
+  console.log("type je"+ this.type);
          const headers ={
             Authorization: "Bearer " + this.token,
             'Content-Type': 'application/json;charset=UTF-8',

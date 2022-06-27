@@ -1,6 +1,7 @@
 <template>
   <div >
     <h1 class="center">{{ message }}</h1>
+    <button @click="Login()">Login</button>
   </div>
 </template>
 
@@ -17,7 +18,11 @@ export default {
     this.init();
   },
   methods: {
+    Login() {
+ this.$router.push({ name: "LoginView" });
+    },
     init() {
+      console.log(" HIIIIIIIIIIII");
       var hrefPath = window.location.href;
       var hrefPaths = [];
       hrefPaths=  hrefPath.split('/');

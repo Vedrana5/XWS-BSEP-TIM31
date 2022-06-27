@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LandingPageComponent implements OnInit {
   sub!: Subscription;
+  tfaEnabled = false;
   ngForm!: FormGroup
   constructor(
     private authService: UserService,
@@ -79,6 +80,17 @@ export class LandingPageComponent implements OnInit {
     };
 
     this.authService.login(f.value).subscribe(loginObserver);
+  }
+
+
+  check2FAStatus() {
+    this.authService.check2FAStatus(this.emaill).subscribe(
+
+      res => {
+        this.tfaEnabled = res
+        console.log(res)
+      }
+    )
   }
 
   passwordless() {

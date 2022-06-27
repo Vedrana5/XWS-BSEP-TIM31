@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -26,44 +27,38 @@ type UpdateProfileHandler struct {
 	LogError                 *logrus.Logger
 }
 
+//UpdateUserProfileInfo
 func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("X-XSS-Protection", "1; mode=block")
 	if err := TokenValid(r); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
+			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("User is not logged in!")
+		fmt.Println(time.Now().String() + " User is not logged in!")
+
 		w.WriteHeader(http.StatusUnauthorized) // 401
 		return
 	}
 
-	var userDTO dto.RegisteredUserDTO
-	if err := json.NewDecoder(r.Body).Decode(&userDTO); err != nil {
+	var EditProfileDTO dto.EditProfileDTO
+	if err := json.NewDecoder(r.Body).Decode(&EditProfileDTO); err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
+			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("Wrong cast json to UserUpdateProfileInfoDTO!")
+		fmt.Println(time.Now().String() + " Wrong cast json to UserUpdateProfileInfoDTO!")
+
 		w.WriteHeader(http.StatusBadRequest) // 400
 		return
 	}
 
-	if err := handler.Validator.Struct(&userDTO); err != nil {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
-			"timestamp": time.Now().String(),
-		}).Error("UserUpdateProfileInfoDTO fields aren't entered in valid format!")
-		w.WriteHeader(http.StatusBadRequest) // 400
-		return
-	}
-
-	var loginUser = handler.UserService.FindByID(userDTO.ID)
+	var loginUser = handler.UserService.FindByID(EditProfileDTO.ID)
 	userRole := ""
 	if loginUser.TypeOfUser == model.ADMIN {
 		userRole = "role-admin"
@@ -76,31 +71,36 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 	if !handler.Rbac.IsGranted(userRole, *handler.PermissionUpdateUserInfo, nil) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
+			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("User is not authorized to update user information!")
+		fmt.Println(time.Now().String() + " User is not authorized to update user information!")
+
 		w.WriteHeader(http.StatusForbidden)
 		return
 	}
 
-	err := handler.UserService.UpdateUserProfileInfo(&userDTO)
+	err := handler.UserService.UpdateUserProfileInfo(&EditProfileDTO)
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "UPDUSPROFINF393",
+			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
 			"timestamp": time.Now().String(),
 		}).Error("Failed updating basic user profile information!")
+		fmt.Println(time.Now().String() + " Failed updating basic user profile information!")
+
 		w.WriteHeader(http.StatusExpectationFailed)
 	}
 
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
-		"location":  "RegisteredUserHandler",
-		"action":    "UPDUSPROFINF393",
+		"location":  "UpdateProfileHandler",
+		"action":    "UpdateUserProfileInfo",
 		"timestamp": time.Now().String(),
 	}).Info("Successfully updated user profile info!")
+	fmt.Println(time.Now().String() + " Successfully updated user profile info!")
 
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")

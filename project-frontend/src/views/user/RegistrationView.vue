@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div> <button  @click="GoBack()">Go back</button></div>
      <h1 id="heading1">Registration Here</h1>
        <img src="https://www.kindpng.com/picc/m/273-2738790_login-login-logo-hd-png-download.png" style="width:200px; height:150px;">
      <div>
@@ -64,21 +65,22 @@
         <label for="interest">Interest</label>
         <input class="input-field" name="interest" placeholder="interest"  v-model="newUser.Interest" required>
       </div>
-                   <div>
+                   <!-- <div>
         <label for="question">Question</label>
         <input class="input-field" name="question" placeholder="question"  v-model="newUser.Question" required>
       </div>
                    <div>
         <label for="answer">Answer</label>
         <input class="input-field" name="answer" placeholder="answer"  v-model="newUser.Answer" required>
-      </div>
-      <div><button type="submit" @click="Register()">Registration</button></div>
+      </div> -->
+      <div><button type="submit" @click.prevent="Register()">Registration</button></div>
     </form>
      </div>
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import axios from 'axios'
 export default {
   name: "RegistrationView",
@@ -119,8 +121,8 @@ export default {
         Education:"",
         Skills:"",
         Interest:"",
-        Question:"",
-        Answer:"",
+        Question:" ",
+        Answer:" ",
       }
     };
   },
@@ -143,7 +145,7 @@ async Register() {
             'Content-Type': 'application/json;charset=UTF-8',
             Accept: 'application/json',
           }
-  axios.post("https://localhost:8089/register",{          
+  axios.post("http://localhost:8089/register",{          
        Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,
@@ -164,16 +166,33 @@ async Register() {
       headers}
     ).then((res) => {
           console.log(res);
-         alert("You have successfully verified your account! You can log in on system!")
-        this.$router.push({ name: "LoginView" });
-        this.$router.go(0);
+           new Swal({
+             title:"Uspesno",
+             type: "warning",
+             text:'Registracija je uspela!',
+           });
         })
-        .catch((err) => {
-          console.log(err);
-          alert( "Your token is invalid or expiried! Please, contact system admin!")
+        .catch((error) => {
+          console.log(error.response.status);
+          if(error.response.status == 417) {
+           new Swal({
+             title:"Nije uspesno",
+             type: "warning",
+             text:'Postoji vec korisnik sa tim email-om!',
+           });
+          }else if (error.response.status == 409) {
+           new Swal({
+             title:"Nije uspesno",
+             type: "warning",
+             text:'Postoji vec korisnik sa tim username-om!',
+           });
+          }
         });
 
-      }
+       }
+},
+async GoBack() {
+  this.$router.push({ name: "StartPageView" });
 },
  validQuestion() {
       if (this.newUser.Question.length < 1) {

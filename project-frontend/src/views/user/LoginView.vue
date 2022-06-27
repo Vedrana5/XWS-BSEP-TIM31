@@ -10,14 +10,10 @@
              <div class="class1">
            <input v-if="showPassword" type="text" class="input-field" v-model="Password" />
            <input v-else type="password" class="input-field" v-model="Password">
-           <button class="class2" @click="Show()">Show</button></div>
-                        <div class="class1">
-                 <input  placeholder="Question" name="question" class="input-field" v-model="Question" required>
-             </div>
-                          <div class="class1">
-                 <input  placeholder="Answer" name="answer" class="input-field" v-model="Answer" required>
-             </div>
-            <div><button type="submit" @click="Login()">Login</button></div>
+           <button class="class2" @click.prevent="Show()">Show</button></div>
+            <div><button type="submit" @click.prevent="Login()">Login</button>
+            <button class="class2" @click.prevent="ForgotPassword()">Forgot password?</button>
+             <button class="class2" @click.prevent="PasswordlessLogin()">Passwordless login</button></div>
          </form>
      </div>
   </div>
@@ -25,6 +21,7 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 export default {
   name: "LoginView",
@@ -42,8 +39,6 @@ async Login() {
       axios.post("http://localhost:8089/login",{           
           Username: this.Username,
           Password: this.Password,
-          Question: this.Question,
-          Answer: this.Answer,
        })
       .then (response => { 
         console.log(response.data.Token)
@@ -51,8 +46,29 @@ async Login() {
           localStorage.setItem("token", response.data.Token);
           localStorage.setItem("userId", response.data.ID);
           localStorage.setItem("userType", response.data.TypeOfUser);
-      })
-      this.$router.push({ name: "StartPageUser" });
+                      new Swal({
+             title:"Uspesno",
+             type: "warning",
+             text:'Uspesno ste ulogovani!',
+           });     
+            this.$router.push({ name: "StartPageUser" });
+      })      .catch(function (error) {
+            console.log(error.response.status)
+            new Swal({
+             title:"Nije uspesno",
+             type: "warning",
+             text:'Neuspesno logovanje!',
+           }); 
+         
+        });
+         // this.$router.go(0);
+     
+  },
+  async ForgotPassword() {
+       this.$router.push({ name: "ResetPassword" });
+  },
+  async PasswordlessLogin() {
+      this.$router.push({ name: "PasswordlessLogin" });
   },
   async Show() {
     if (this.showPassword== true) {

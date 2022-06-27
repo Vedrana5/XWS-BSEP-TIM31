@@ -38,8 +38,9 @@ func initRegisterHandler(confirmationTokenService *service.ConfirmationTokenServ
 
 }
 
-func initLoginHandler(userService *service.UserService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.LogInHandler {
+func initLoginHandler(validationCodeService *service.ValidationCodeService, userService *service.UserService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.LogInHandler {
 	return &handler.LogInHandler{
+		validationCodeService,
 		userService,
 		passwordUtil,
 		LogInfo,
@@ -78,21 +79,27 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	}
 	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
 	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
+	router.HandleFunc("/loginPasswordless", logInHandler.LogInPasswordless).Methods("POST")
 	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 	router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
 	router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
+	router.HandleFunc("/findById/{id}", userHandler.FindById).Methods("GET")
 	router.HandleFunc("/resetPassword/{username}", userHandler.SendMailForResetPassword).Methods("POST")
+	router.HandleFunc("/resettPassword", userHandler.ResetPassword).Methods("POST")
 	router.HandleFunc("/confirmRegistration", confirmationTokenHandler.VerifyConfirmationToken).Methods("POST")
 	router.HandleFunc("/changePassword", userHandler.ChangePassword).Methods("POST")
+	router.HandleFunc("/findTokenByCode/{confirmationToken}", userHandler.FindTokenByCode).Methods("GET")
+	router.HandleFunc("/linkForPasswordless/{email}", userHandler.SendMailForPasswordlessLogin).Methods("POST")
 
 	s.ListenAndServe()
 }
 
-func initUserHandler(userService *service.UserService, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.UserHandler {
+func initUserHandler(validationCodeService *service.ValidationCodeService, userService *service.UserService, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.UserHandler {
 	return &handler.UserHandler{
-		UserService: userService,
-		LogInfo:     LogInfo,
-		LogError:    LogError,
+		ValidationCodeService: validationCodeService,
+		UserService:           userService,
+		LogInfo:               LogInfo,
+		LogError:              LogError,
 	}
 }
 
@@ -116,6 +123,15 @@ func initConfirmationTokenService(repo *repository.ConfirmationTokenRepository) 
 func initConfirmationTokenRepo(database *gorm.DB) *repository.ConfirmationTokenRepository {
 	return &repository.ConfirmationTokenRepository{Database: database}
 }
+
+func initValidationCodeRepo(database *gorm.DB) *repository.ValidationCodeRepo {
+	return &repository.ValidationCodeRepo{Database: database}
+}
+
+func itValidationCodeService(repo *repository.ValidationCodeRepo) *service.ValidationCodeService {
+	return &service.ValidationCodeService{Repo: repo}
+}
+
 func initConfirmationTokenHandler(LogInfo *logrus.Logger, LogError *logrus.Logger, confirmationTokenService *service.ConfirmationTokenService, userService *service.UserService) *handler.ConfirmationTokenHandler {
 	return &handler.ConfirmationTokenHandler{
 		ConfirmationTokenService: confirmationTokenService,
@@ -124,6 +140,9 @@ func initConfirmationTokenHandler(LogInfo *logrus.Logger, LogError *logrus.Logge
 		LogError:                 LogError,
 	}
 }
+
+const LOG_INFO_FILE = "logrusInfo.log"
+const LOG_ERROR_FILE = "logrusError.log"
 
 func main() {
 	permissionFindAllUsers := gorbac.NewStdPermission("permission-find-all-users")
@@ -139,18 +158,40 @@ func main() {
 
 	db = SetupDatabase()
 	passwordUtil := initPasswordUtil()
+
 	logInfo := logrus.New()
+	logInfo.Formatter = &logrus.JSONFormatter{}
+	logInfo.SetOutput(os.Stdout)
+	file, err := os.OpenFile(LOG_INFO_FILE, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
+	if err != nil {
+		logInfo.Fatal(err)
+	}
+	defer file.Close()
+	logInfo.SetOutput(file)
+
 	logError := logrus.New()
+	logError.Formatter = &logrus.JSONFormatter{}
+	logError.SetOutput(os.Stdout)
+	file1, err1 := os.OpenFile(LOG_ERROR_FILE, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0755)
+	if err1 != nil {
+		logError.Fatal(err1)
+	}
+	defer file.Close()
+	logError.SetOutput(file1)
+
 	userRepo := initUserRepo(db)
 	userService := initUserService(userRepo)
 	confirmationTokenRepo := initConfirmationTokenRepo(db)
 	confirmationTokenService := initConfirmationTokenService(confirmationTokenRepo)
 
-	loginHandler := initLoginHandler(userService, passwordUtil, logInfo, logError)
+	validationCodeRepo := initValidationCodeRepo(db)
+	validationCodeService := itValidationCodeService(validationCodeRepo)
+
+	loginHandler := initLoginHandler(validationCodeService, userService, passwordUtil, logInfo, logError)
 	registerHandler := initRegisterHandler(confirmationTokenService, passwordUtil, logInfo, logError, userService)
 
 	validator := validator.New()
-	userHandler := initUserHandler(userService, logInfo, logError)
+	userHandler := initUserHandler(validationCodeService, userService, logInfo, logError)
 	updateProfilHandler := initUpdateProfileHandler(rbac, &permissionFindAllUsers, userService, &permissionUpdateUserInfo, passwordUtil, logInfo, logError, validator)
 
 	confirmationTokenHandler := initConfirmationTokenHandler(logInfo, logError, confirmationTokenService, userService)
@@ -178,7 +219,7 @@ func SetupDatabase() *gorm.DB {
 		fmt.Printf("Successfully connected to database")
 	}
 
-	db.AutoMigrate(&model.User{}, &model.ConfirmationToken{})
+	db.AutoMigrate(&model.User{}, &model.ConfirmationToken{}, &model.ValidationCode{})
 
 	return db
 }

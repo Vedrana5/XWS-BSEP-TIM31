@@ -7,10 +7,12 @@ import com.example.AgentApp.model.UserRole;
 import com.example.AgentApp.repository.UserRepository;
 import com.example.AgentApp.service.UserService;
 import com.example.AgentApp.service.VerificationTokenService;
+import org.apache.commons.codec.binary.Base32;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -48,9 +50,19 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userRequest.getPhoneNumber());
         user.setConfirmed(false);
         user.setRole(UserRole.REGISTERED_USER);
+        user.setUsingFa(false);
+        user.setSecret(generateSecretKey());
         userRepository.save(user);
         verificationTokenService.sendVerificationToken(user);
         return user;
+    }
+
+    private static String generateSecretKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] bytes = new byte[20];
+        random.nextBytes(bytes);
+        Base32 base32 = new Base32();
+        return base32.encodeToString(bytes);
     }
 
     @Override
@@ -84,19 +96,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean check2FAStatus(String email) {
-      /* return findByEmail(email).isUsing2FA();*/
-        return true;
+        System.out.print("sdksjsemail"+email);
+       return findByEmail(email).isUsingFa();
+
+
 
     }
 
     @Override
     public String change2FAStatus(String email, Boolean status) {
-      /* User user = findByEmail(email);
-        user.setUsing2FA(status);
-        user.setSecret();
+        System.out.print(email);
+      User user = findByEmail(email);
+        user.setUsingFa(status);
+        user.setSecret(generateSecretKey());
         userRepository.save(user);
-        return status ? user.getSecret() : "";*/
-        return null;
+        return status ? user.getSecret() : "";
+
+
+
 
     }
 }

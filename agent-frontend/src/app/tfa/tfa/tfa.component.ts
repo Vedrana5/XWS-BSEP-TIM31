@@ -19,12 +19,13 @@ export class TfaComponent implements OnInit {
   getCodeVisible = false;
   isCodeVisible = false;
   username = localStorage.getItem('username')!
+  email = localStorage.getItem('email')!
 
   constructor(private service: UserService, private dialog: MatDialog,
     private clipboard: Clipboard, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.service.check2FAStatus(this.username).subscribe((res) =>
+    this.service.check2FAStatus(this.email).subscribe((res) =>
       this.isChecked = res
     )
   }
@@ -52,8 +53,11 @@ export class TfaComponent implements OnInit {
         )
       });
     } else {
-      this.service.enable2FA(this.username, true).subscribe(
+
+
+      this.service.enable2FA(this.email, true).subscribe(
         res => {
+          console.log(res)
           this.code = res.secret
         }
       )

@@ -8,6 +8,10 @@ import UpdateInfoView from "../views/user/UpdateInfoView"
 import StartPageUser from "../views/user/StartPageUser"
 import ConfirmRegistration from "../views/user/ConfirmRegistration"
 import ConfirmResetPassword from "../views/user/ConfirmResetPassword"
+import ChangePassword from "../views/user/ChangePassword"
+import ResetPassword from "../views/user/ResetPassword"
+import ConfirmPasswordlessLogin from "../views/user/ConfirmPasswordlessLogin"
+import PasswordlessLogin from "../views/user/PasswordlessLogin"
 const routes = [
   {
     path: "/",
@@ -19,6 +23,21 @@ const routes = [
   name: "LoginView",
   component: LoginView,
   },
+  {
+    path: "/confirmPasswordlessLogin/:confirmationToken/:userId",
+    name: "ConfirmPasswordlessLogin",
+    component: ConfirmPasswordlessLogin,
+    },
+  {
+    path: "/ResetPassword",
+    name: "ResetPassword",
+    component: ResetPassword,
+    },
+    {
+      path: "/PasswordlessLogin",
+      name: "PasswordlessLogin",
+      component: PasswordlessLogin,
+      },
   {
     path: "/RegistrationView",
     name: "RegistrationView",
@@ -40,13 +59,18 @@ const routes = [
         component: StartPageUser,
       },
       {
+        path: "/ChangePassword",
+        name: "ChangePassword",
+        component: ChangePassword,
+      },
+      {
         path: '/confirmRegistration/:confirmationToken/:userId',
         name: 'ConfirmRegistration',
         component: ConfirmRegistration
       },
       
       {
-        path: '/confirmResetPassword/:id',
+        path: '/confirmResetPassword/:id/:confirmationToken',
         name: 'ConfirmResetPassword',
         component: ConfirmResetPassword        
       }
