@@ -26,7 +26,8 @@
       </div>
        <div>
         <label for="date">Date of birth</label>
-        <input type="date" class="input-field" name="date" placeholder="date"  v-model="newUser.DateOfBirth" required>
+        <input type="date" class="input-field" name="date" placeholder="date"  
+        v-model="newUser.DateOfBirth" required>
       </div>
              <div>
         <label for="biography">Biography</label>
@@ -39,9 +40,9 @@
       <div>
         <label for="gender">Gender</label>
         <select class="input-field" v-model="newUser.Gender" required>
-          <option>MALE</option>
-          <option>FEMALE</option>
-          <option>OTHER</option>
+          <option value="MALE">MALE</option>
+          <option value="FEMALE">FEMALE</option>
+          <option value="OTHER">OTHER</option>
         </select>
       </div>
                    <div>
@@ -64,6 +65,8 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2';
+import moment from 'moment';
 export default {
   name: "UpdateInfoView",
  data() {
@@ -124,16 +127,16 @@ export default {
       } else {
         this.id = localStorage.getItem("userId");
         this.oldUsername = localStorage.getItem("username");
-        localStorage.setItem("username", this.newUser.Username);
-        fetch("http://localhost:8089/updateProfil",{
-          method:"POST",
-          body: JSON.stringify({
-            ID: this.id,
+        
+
+axios.post("http://localhost:8089/updateProfil",{          
+      ID: this.id,
        OldUsername: this.oldUsername,     
        Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,
        PhoneNumber : this.newUser.PhoneNumber,
+       DateOfBirth: this.newUser.DateOfBirth,
        FirstName : this.newUser.FirstName,
        LastName : this.newUser.LastName,
        Gender : this.newUser.Gender,
@@ -143,16 +146,37 @@ export default {
        WorkExperience : this.newUser.WorkExperience,
        Education : this.newUser.Education,
        Skills : this.newUser.Skills,
-       Interest : this.newUser.Interest,
-          }),
-          headers :{
+       Interest : this.newUser.Interest,}, {
+               headers :{
             Authorization: "Bearer " +this.token,
             'Content-Type': 'application/json;charset=UTF-8',
             Accept: 'application/json',
-          }
+          }}
+    ).then((res) => {
+          console.log(res);
+           new Swal({
+             title:"Uspesno",
+             type: "warning",
+             text:'Izmena profila je uspela!',
+           });
+           localStorage.setItem("username", this.newUser.Username);
         })
-        .then((response) => response.json())
-        .then((json) => console.log(json))
+        .catch((error) => {
+          console.log(error.response.status);
+          if(error.response.status == 417) {
+           new Swal({
+             title:"Nije uspesno",
+             type: "warning",
+             text:'Postoji vec korisnik sa tim email-om!',
+           });
+          }else if (error.response.status == 409) {
+           new Swal({
+             title:"Nije uspesno",
+             type: "warning",
+             text:'Postoji vec korisnik sa tim username-om!',
+           });
+          }
+        });
       }
       },
 
@@ -298,7 +322,7 @@ async created() {
       this.newUser.PhoneNumber = response.data.phoneNumber
       this.newUser.FirstName = response.data.firstName
       this.newUser.LastName = response.data.lastName
-      if(response.data.gender == 1) {
+      if(response.data.gender == 0) {
       this.newUser.Gender = "MALE"
       }else if (response.data.gender == 2) {
         this.newUser.Gender = "FEMALE"
@@ -306,7 +330,7 @@ async created() {
         this.newUser.Gender = "OTHER"
       }
       this.newUser.TypeOfProfile = response.data.typeOfProfile
-
+      this.newUser.DateOfBirth = moment(String(response.data.dateOfBirth)).format('YYYY-MM-DD')
       this.newUser.TypeOfUser = response.data.typeOfUser
       this.newUser.Biography = response.data.biography
       this.newUser.WorkExperience = response.data.workExperience

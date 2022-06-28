@@ -2,7 +2,7 @@ package repository
 
 import (
 	"fmt"
-
+	"time"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
 
@@ -64,6 +64,30 @@ func (repo *UserRepo) FindByID(ID uuid.UUID) *model.User {
 	return user
 }
 
+
+func (repo *UserRepo) FindByUserNameAndID(ID uuid.UUID,username string)  *model.User {
+	user := &model.User{}
+	if repo.Database.First(&user, "username = ?", username).RowsAffected == 0 {
+			return nil	
+	}
+	if (user.ID ==ID) {
+		return nil
+	}
+	return user
+}
+
+func (repo *UserRepo) FindByEmailAndID(ID uuid.UUID,email string) *model.User {
+	user := &model.User{}
+	if repo.Database.First(&user, "email = ?", email).RowsAffected == 0 {
+			return nil
+	}
+	if (user.ID ==ID) {
+		return nil
+	}
+	return user
+}
+
+
 func (repo *UserRepo) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 	gender := model.OTHER
 	switch user.Gender {
@@ -71,8 +95,10 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 		gender = model.MALE
 	case "FEMALE":
 		gender = model.FEMALE
-	}
+		fmt.Println("ovdeee samm")
 
+	}
+	
 	result := repo.Database.Model(&model.User{}).Where("username = ?", user.OldUsername)
 	result.Update("username", user.Username)
 	fmt.Println(result.RowsAffected)
@@ -84,10 +110,10 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 	fmt.Println(result.RowsAffected)
 	result.Update("gender", gender)
 	fmt.Println(result.RowsAffected)
-	//layout := "2006-01-02"
-	//dateOfBirth, _ := time.Parse(layout, user.DateOfBirth)
-	//result.Update("date_of_birth", dateOfBirth)
-	// fmt.Println(result.RowsAffected)
+	layout := "2006-01-02"
+	dateOfBirth, _ := time.Parse(layout, user.DateOfBirth)
+	result.Update("date_of_birth", dateOfBirth)
+	 fmt.Println(result.RowsAffected)
 	result.Update("biography", user.Biography)
 	fmt.Println(result.RowsAffected)
 	result.Update("email", user.Email)

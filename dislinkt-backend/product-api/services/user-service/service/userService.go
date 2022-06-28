@@ -58,6 +58,16 @@ func (service *UserService) FindByID(ID uuid.UUID) *model.User {
 	return user
 }
 
+func (service *UserService) FindByUserNameAndID(ID uuid.UUID,username string) *model.User {
+	users := service.Repo.FindByUserNameAndID(ID,username)
+	return users
+}
+
+func (service *UserService) FindByEmailAndID(ID uuid.UUID,email string) *model.User {
+	users := service.Repo.FindByEmailAndID(ID,email)
+	return users
+}
+
 func (service *UserService) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 	err := service.Repo.UpdateUserProfileInfo(user)
 	if err != nil {

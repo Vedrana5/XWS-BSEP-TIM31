@@ -81,6 +81,38 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		return
 	}
 
+
+	if handler.UserService.FindByEmailAndID(EditProfileDTO.ID,EditProfileDTO.Email) !=nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisterHandler",
+			"action":    "CreateUser",
+			"timestamp": time.Now().String(),
+		}).Error("User already exist with entered email!")
+		fmt.Println(time.Now().String() + " User already exist with entered email!")
+
+		w.WriteHeader(http.StatusExpectationFailed) //417
+		return
+}
+
+fmt.Println("ID JE " + EditProfileDTO.ID.String())
+fmt.Println("USERNAME JE" + EditProfileDTO.Username)
+
+if handler.UserService.FindByUserNameAndID(EditProfileDTO.ID,EditProfileDTO.Username) != nil {
+	handler.LogError.WithFields(logrus.Fields{
+		"status":    "failure",
+		"location":  "RegisterHandler",
+		"action":    "CreateUser",
+		"timestamp": time.Now().String(),
+	}).Error("User already exist with entered username!")
+	fmt.Println(time.Now().String() + " User already exist with entered username!")
+
+	w.WriteHeader(http.StatusConflict) //409
+	return
+}
+
+
+
 	err := handler.UserService.UpdateUserProfileInfo(&EditProfileDTO)
 	if err != nil {
 		handler.LogError.WithFields(logrus.Fields{
