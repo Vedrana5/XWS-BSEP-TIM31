@@ -1,6 +1,32 @@
 <template>
   <div>
-TRAZENJE
+<button @click="GoBack()">Go back</button>
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Username"
+        v-model="username"
+      />
+      <button class="btn btn-success" type="submit" @click="Search(username)">
+        Search
+      </button>
+
+        <div class="containerInfo">
+    <div class="tab-pane container active">
+      <div class="row-boats" v-for="(user, index) in users" :key="index">
+        <div class="col-info">
+          <h4 style="width: 600px" class="text">
+            Username: {{user.username}}
+          </h4>
+          <h4 style="width: 600px" class="text">Firstname: {{user.firstName}}</h4>
+          <h4 style="width: 600px" class="text">
+            Lastname: {{user.lastName}}
+          </h4>
+          <button  class="btn btn-success">Go to profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -9,81 +35,84 @@ export default {
   name: "FindPublicUser",
   data() {
     return {
-
+      username:"",
+      users:"",
+      user: {
+        username:"",
+       firstName:"",
+        lastName:""
+      },
     };
   },
 
 
   methods: {
+    async GoBack() {
+      this.$router.push({ name: "StartPageView" });
+    },
+    async Search(username) {
+      this.username= username;
+
+      this.users = await this.FindUser(username);
+    },
+  async FindUser(username) {
+    this.username= username;
+      const res = await fetch("http://localhost:8089/findPublic/"+this.username);
+      const data = await res.json();
+      console.log(data);
+      return data;
+  }
   }
 };
 </script>
 
-<style>
-* {
-  box-sizing: border-box;
-  padding: 1px;
-  font-family: Arial, Helvetica, sans-serif;
+<style scoped>
+.row-boats {
+  display: flex;
 }
-
-#heading1{
-    text-align: center;
-    padding: 30px;
+.text {
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
-img{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
- 
+.col-info {
+  margin-left: 30px;
+  margin-top: 10px;
 }
-.myForm{
-    max-width:500px;
-   margin: auto;
-   margin-top: 10px;
-  }
-  .class1 {
-    
-    display: flex;
-    width: 100%;
-    margin-bottom: 15px;
-    
-  }
-  .icon {
-    padding: 10px;
-    background: darkseagreen;
-    color:white;
-    min-width: 50px;
-    text-align: center;
-  }
-  .input-field {
-    width: 100%;
-    padding: 10px;
-    outline: none;
-    border: none;
-    border-bottom: 3px solid darkcyan;
-  }
-  .input-field:focus {
-    border: 2px solid darkcyan;
-  }
-
-  button {
-    background-color:darkseagreen;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-  }
-  .bttn:hover {
-    opacity: 1;
-    background-color: darkcyan;
-  }  
-  a:hover{
-    color: blueviolet;
+.row {
+  width: 660%;
+  padding-left: 60px;
+  height: 10%;
+  margin-top: 100px;
+  margin-left: 5000px;
+  margin-right: 500px;
+  opacity: 1.2;
+  border-radius: 10px;
+  align-content: center;
+  background-color: rgba(255, 255, 255, 0.288);
+  box-shadow: 0 5px 4px rgb(0 0 0 / 30%), 0 1px 1px rgb(0 0 0 / 22%);
 }
-.icon:hover{
-    background-color: darkcyan;
+/* kartica u okviru stavke menija  */
+.containerInfo {
+  width: 97%;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+  opacity: 1;
+  border-radius: 10px;
+  align-content: center;
+  position: relative;
+  background-color: fff;
+  box-shadow: 0 19px 40px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
+}
+.col-with-picture {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.col-with-picture {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 </style>

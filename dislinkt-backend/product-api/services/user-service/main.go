@@ -55,9 +55,6 @@ func initUserService(repo *repository.UserRepo) *service.UserService {
 	return &service.UserService{Repo: repo}
 }
 
-func Pocetn(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "AAAAA")
-}
 
 func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogInHandler, updateProfilHandler *handler.UpdateProfileHandler, userHandler *handler.UserHandler, confirmationTokenHandler *handler.ConfirmationTokenHandler) {
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
@@ -82,6 +79,7 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
 	router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
 	router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
+	router.HandleFunc("/findPublic/{username}", userHandler.FindPublic).Methods("GET")
 	router.HandleFunc("/findById/{id}", userHandler.FindById).Methods("GET")
 	router.HandleFunc("/resetPassword/{username}", userHandler.SendMailForResetPassword).Methods("POST")
 	router.HandleFunc("/resettPassword", userHandler.ResetPassword).Methods("POST")

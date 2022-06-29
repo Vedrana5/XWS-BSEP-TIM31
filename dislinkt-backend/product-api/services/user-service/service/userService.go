@@ -5,6 +5,7 @@ import (
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/repository"
 	"github.com/google/uuid"
+	"strings"
 )
 
 type UserService struct {
@@ -39,6 +40,23 @@ func (service *UserService) FindAllUsers() []model.User {
 	users := service.Repo.FindAllUsers()
 	if users != nil {
 		return users
+	}
+	return nil
+}
+
+func (service *UserService) FindPublic(userName string) []model.User {
+	users := service.Repo.FindAllUsers()
+	var s []model.User
+	for i := 0; i < len(users); i++ {
+		if (strings.Contains(users[i].Username, userName) ) {
+		var user model.User = users[i];
+		if (user.TypeOfProfile == model.PUBLIC) {
+			s = append(s,user)
+		}
+		}
+	}
+	if s != nil {
+		return s
 	}
 	return nil
 }

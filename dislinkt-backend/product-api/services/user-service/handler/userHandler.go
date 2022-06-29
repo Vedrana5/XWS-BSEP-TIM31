@@ -60,6 +60,38 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 	w.Header().Set("Content-Type", "application/json")
 }
 
+
+
+func (handler *UserHandler) FindPublic(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	username := vars["username"]
+
+	var users = handler.UserService.FindPublic(username)
+	if users == nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "FindByUserName",
+			"timestamp": time.Now().String(),
+		}).Error("User not found!")
+		fmt.Println(time.Now().String() + " Users not found!")
+		w.WriteHeader(http.StatusExpectationFailed)
+	}
+
+	userJson, _ := json.Marshal(users)
+	w.Write(userJson)
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "UserHandler",
+		"action":    "FindByUserName",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully founded user by username!")
+	fmt.Println(time.Now().String() + " Successfully founded user by username!")
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+}
+
 //FindById
 func (handler *UserHandler) FindById(w http.ResponseWriter, r *http.Request) {
 
