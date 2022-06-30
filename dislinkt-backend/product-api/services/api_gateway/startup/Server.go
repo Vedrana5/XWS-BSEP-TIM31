@@ -36,7 +36,7 @@ func (server *Server) initHandlers() {
 			grpc.MaxCallSendMsgSize(20*1024*1024)),
 	}
 
-	userEndpoint := fmt.Sprintf("%s:%s", server.config.UserHost, server.config.UserPort)
+	userEndpoint := fmt.Sprintf("%s:%s", "user-service", "8083")
 
 	//postsEndpoint := fmt.Sprintf("%s:%s", server.config.PostsHost, server.config.PostsPort)
 

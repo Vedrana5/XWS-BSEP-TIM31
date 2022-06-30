@@ -10,10 +10,10 @@ import (
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
+	"github.com/form3tech-oss/jwt-go"
 	"github.com/google/uuid"
 
 	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
-	"github.com/form3tech-oss/jwt-go"
 	"github.com/sirupsen/logrus"
 )
 
@@ -23,6 +23,11 @@ type LogInHandler struct {
 	PasswordUtil          *util.PasswordUtil
 	LogInfo               *logrus.Logger
 	LogError              *logrus.Logger
+}
+
+func (handler *LogInHandler) mustEmbedUnimplementedUserServiceServer() {
+	//TODO implement me
+	panic("implement me")
 }
 
 //LogIn
