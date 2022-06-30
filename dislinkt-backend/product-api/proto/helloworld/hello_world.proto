@@ -5,7 +5,7 @@ option go_package = "github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product
 package helloworld;
 import  "google/api/annotations.proto";
  
-import	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model";
+import	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto";
  
 
 service Greeter {
