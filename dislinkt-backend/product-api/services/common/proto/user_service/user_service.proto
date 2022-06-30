@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option go_package = "common/module/user_service";
+
+package user_service;
+
+import "google/api/annotations.proto";
+
+service UserService{
+
+    rpc GetAll(EmptyRequest) returns(GetAllResponse) {
+        option (google.api.http) = {
+          get: "/users"
+        };
+      }
+
+  
+}
+
+message GetAllResponse {
+    repeated User users = 1;
+  }
+  message UpdateRequest{
+    string id = 1;
+    User updatedUser = 2;
+  }
+  message EmptyRequest{}
+
+  message User {
+    
+    string username = 1;
+    string password = 2;
+    string email = 3;
+    string phoneNumber = 4;
+    string firstName = 5;
+    string lastName = 6;
+    string gender = 7;
+    string role = 8;
+  }
