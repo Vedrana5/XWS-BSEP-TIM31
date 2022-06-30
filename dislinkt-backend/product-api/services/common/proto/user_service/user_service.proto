@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "common/module/user_service";
+
+package user_service;
+
+import "google/api/annotations.proto";
+
+service UserService{
+
+  
+}
+
