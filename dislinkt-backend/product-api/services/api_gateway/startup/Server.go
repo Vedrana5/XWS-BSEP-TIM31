@@ -24,7 +24,7 @@ func NewServer(config *cfg.Config) *Server {
 		mux:    runtime.NewServeMux(),
 	}
 	server.initHandlers()
-//	server.initCustomHandlers()
+	//	server.initCustomHandlers()
 	return server
 }
 
@@ -35,13 +35,18 @@ func (server *Server) initHandlers() {
 			grpc.MaxCallRecvMsgSize(20*1024*1024),
 			grpc.MaxCallSendMsgSize(20*1024*1024)),
 	}
+
 	userEndpoint := fmt.Sprintf("%s:%s", server.config.UserHost, server.config.UserPort)
+
 	//postsEndpoint := fmt.Sprintf("%s:%s", server.config.PostsHost, server.config.PostsPort)
 
 	err := userGw.RegisterUserServiceHandlerFromEndpoint(context.TODO(), server.mux, userEndpoint, opts)
 	if err != nil {
 		panic(err)
+	} else {
+		fmt.Printf("fdfddf" + userEndpoint)
 	}
+
 	/*	err = postsGw.RegisterPostServiceHandlerFromEndpoint(context.TODO(), server.mux, postsEndpoint, opts)
 		if err != nil {
 			panic(err)
@@ -56,7 +61,9 @@ func (server *Server) Start() {
 		gorilla_handlers.AllowedHeaders([]string{"Accept", "Accept-Language", "Content-Type", "Content-Language", "Origin", "Authorization", "Access-Control-Allow-*", "Access-Control-Allow-Origin", "*"}),
 		gorilla_handlers.AllowCredentials(),
 	)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", server.config.Port), cors(muxMiddleware(server))))
+
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "9090"), cors(muxMiddleware(server))))
+
 }
 
 func muxMiddleware(server *Server) http.Handler {
