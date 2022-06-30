@@ -73,20 +73,20 @@ func Handle(registerHandler *handler.RegisterHandler, logInHandler *handler.LogI
 		WriteTimeout: 10 * time.Second,  // max time to write response to the client
 		IdleTimeout:  120 * time.Second, // max time for connections using TCP Keep-Alive
 	}
-	router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
+	//router.HandleFunc("/register", registerHandler.CreateUser).Methods("POST")
 	router.HandleFunc("/login", logInHandler.LogIn).Methods("POST")
-	router.HandleFunc("/loginPasswordless", logInHandler.LogInPasswordless).Methods("POST")
-	router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
-	router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
-	router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
-	router.HandleFunc("/findPublic/{username}", userHandler.FindPublic).Methods("GET")
-	router.HandleFunc("/findById/{id}", userHandler.FindById).Methods("GET")
-	router.HandleFunc("/resetPassword/{username}", userHandler.SendMailForResetPassword).Methods("POST")
-	router.HandleFunc("/resettPassword", userHandler.ResetPassword).Methods("POST")
-	router.HandleFunc("/confirmRegistration", confirmationTokenHandler.VerifyConfirmationToken).Methods("POST")
-	router.HandleFunc("/changePassword", userHandler.ChangePassword).Methods("POST")
-	router.HandleFunc("/findTokenByCode/{confirmationToken}", userHandler.FindTokenByCode).Methods("GET")
-	router.HandleFunc("/linkForPasswordless/{email}", userHandler.SendMailForPasswordlessLogin).Methods("POST")
+	//router.HandleFunc("/loginPasswordless", logInHandler.LogInPasswordless).Methods("POST")
+	//router.HandleFunc("/updateProfil", updateProfilHandler.UpdateUserProfileInfo).Methods("POST")
+	//router.HandleFunc("/findPublicUser", userHandler.FindPublicByUserName).Methods("GET")
+	//router.HandleFunc("/findByUsername/{username}", userHandler.FindByUserName).Methods("GET")
+	//router.HandleFunc("/findPublic/{username}", userHandler.FindPublic).Methods("GET")
+	//router.HandleFunc("/findById/{id}", userHandler.FindById).Methods("GET")
+	//router.HandleFunc("/resetPassword/{username}", userHandler.SendMailForResetPassword).Methods("POST")
+	//router.HandleFunc("/resettPassword", userHandler.ResetPassword).Methods("POST")
+	//router.HandleFunc("/confirmRegistration", confirmationTokenHandler.VerifyConfirmationToken).Methods("POST")
+	//router.HandleFunc("/changePassword", userHandler.ChangePassword).Methods("POST")
+	//router.HandleFunc("/findTokenByCode/{confirmationToken}", userHandler.FindTokenByCode).Methods("GET")
+	//router.HandleFunc("/linkForPasswordless/{email}", userHandler.SendMailForPasswordlessLogin).Methods("POST")
 
 	s.ListenAndServe()
 }
