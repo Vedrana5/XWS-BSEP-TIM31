@@ -4,16 +4,16 @@ import (
 	"common/module/proto/user_service"
 	"context"
 	"fmt"
+	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 	"log"
+	"net/smtp"
+	"time"
 	"user/module/dto"
+	"user/module/mapper"
 	"user/module/model"
 	"user/module/service"
 	"user/module/util"
-
-	"github.com/google/uuid"
-	"github.com/sirupsen/logrus"
-	"net/smtp"
-	"time"
 )
 
 type RegisterHandler struct {
@@ -24,7 +24,7 @@ type RegisterHandler struct {
 	LogError                 *logrus.Logger
 }
 
-func (u RegisterHandler) mustEmbedUnimplementedUserServiceServer() {
+func (u RegisterHandler) MustEmbedUnimplementedUserServiceServer() {
 	//TODO implement me
 	panic("implement me")
 }
@@ -33,27 +33,35 @@ func NewRegisterHandler(confirmationTokenService *service.ConfirmationTokenServi
 	return &RegisterHandler{confirmationTokenService, passwordUtil, userService, LogInfo, LogError}
 }
 
-func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_service.User) (*user_service.EmptyResponse, error) {
+func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_service.CreateRequest) (*user_service.CreateResponse, error) {
 
 	var registeredUserDTO dto.RegisteredUserDTO
 	registeredUserDTO = dto.RegisteredUserDTO{
-		Username:       user.Username,
-		Password:       user.Password,
-		Email:          user.Email,
-		PhoneNumber:    user.PhoneNumber,
-		FirstName:      user.FirstName,
-		LastName:       user.LastName,
-		DateOfBirth:    user.DateOfBirth,
-		TypeOfUser:     user.TypeOfUser,
-		TypeOfProfile:  user.TypeOfProfile,
-		Gender:         user.Gender,
-		Biography:      user.Biography,
-		WorkExperience: user.WorkExperience,
-		Education:      user.Education,
-		Skills:         user.Skills,
-		Interest:       user.Interest,
-		Question:       user.Question,
-		Answer:         user.Answer,
+		Username:       user.User.Username,
+		Password:       user.User.Password,
+		Email:          user.User.Email,
+		PhoneNumber:    user.User.PhoneNumber,
+		FirstName:      user.User.FirstName,
+		LastName:       user.User.LastName,
+		DateOfBirth:    user.User.DateOfBirth,
+		TypeOfUser:     user.User.TypeOfUser,
+		TypeOfProfile:  user.User.TypeOfProfile,
+		Gender:         user.User.Gender,
+		Biography:      user.User.Biography,
+		WorkExperience: user.User.WorkExperience,
+		Education:      user.User.Education,
+		Skills:         user.User.Skills,
+		Interest:       user.User.Interest,
+		Question:       user.User.Question,
+		Answer:         user.User.Answer,
+	}
+
+	var registeredUserResponseDTO dto.RegisteredUserDTO
+	registeredUserResponseDTO = dto.RegisteredUserDTO{
+		Username:  user.User.Username,
+		Email:     user.User.Email,
+		FirstName: user.User.FirstName,
+		LastName:  user.User.LastName,
 	}
 
 	if handler.UserService.FindByUserName(registeredUserDTO.Username) != nil {
@@ -64,7 +72,7 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered username!")
 		fmt.Println(time.Now().String() + " User already exist with entered username!")
-		return nil, nil
+		return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 	}
 
 	if handler.UserService.FindByEmail(registeredUserDTO.Email) != nil {
@@ -75,7 +83,7 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered email!")
 		fmt.Println(time.Now().String() + " User already exist with entered email!")
-		return nil, nil
+		return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 	}
 
 	salt := ""
@@ -102,7 +110,7 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 		}).Error("Password doesn't in valid format!")
 		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
 
-		return nil, nil
+		return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 	}
 
 	log.Printf(registeredUserDTO.Gender)
@@ -168,7 +176,7 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 		}).Error("Failed creating confirmation token for user!")
 		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!")
 
-		return nil, nil
+		return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 	}
 
 	handler.SendConfirmationMail(registeredUser, confirmationToken.ConfirmationToken)
@@ -181,9 +189,9 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating basic user!")
 		fmt.Println(time.Now().String() + " Failed creating basic user!")
-		return nil, nil
+		return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 	}
-	return nil, nil
+	return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 }
 
 //SendConfirmationMail

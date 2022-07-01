@@ -8,16 +8,30 @@ import "google/api/annotations.proto";
 
 service UserService{
 
-  rpc CreateUser(User) returns(EmptyResponse) {
+  rpc CreateUser(CreateRequest) returns(CreateResponse) {
     option (google.api.http) = {
-      post: "/users"
+      post: "/users",
+      body: "user"
     };
   }
 
 
 }
+message CreateRequest{
+  User user=1;
+}
 
-message EmptyResponse{}
+message CreateResponse{
+  RegisterUser registerUser=1;
+}
+
+
+message RegisterUser {
+  string Username = 1;
+  string Email = 2;
+  string FirstName = 3;
+  string LastName = 4;
+}
 
 message User {
   string Username = 1;
