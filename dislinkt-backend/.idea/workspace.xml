@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/handler/PostHandler.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/repository/PostRepo.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/service/PostService.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/startup/config/Config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service_grpc.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/repository/Client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/repository/PostRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/repository/PostRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/service/PostService.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/service/PostService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/startup/config/Config.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/startup/config/Config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/user-service/startup/config/Config.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/user-service/startup/config/Config.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

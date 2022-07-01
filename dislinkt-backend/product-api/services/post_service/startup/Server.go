@@ -3,10 +3,11 @@ package startup
 import (
 	postProto "common/module/proto/post_service"
 	"fmt"
+	"go.mongodb.org/mongo-driver/mongo"
 
 	_ "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
-	"gorm.io/gorm"
+
 	"log"
 	"net"
 
@@ -30,35 +31,39 @@ const (
 	QueueGroup = "post_service"
 )
 
-func (server *Server) initPostHandler(postService *service.PostService) *handler.PostHandler {
+func (server *Server) InitMongoClient() *mongo.Client {
+	client, err := repository.GetClient(server.config.PostDBHost, server.config.PostDBPort)
+	if err != nil {
+		log.Fatalln(err)
+	} else {
+		fmt.Println("Successfully connected to mongo database!")
+	}
+
+	return client
+}
+
+func (server *Server) InitPostService(repo repository.PostRepo) *service.PostService {
+	return service.NewPostService(repo)
+}
+
+func (server *Server) InitPostHandler(postService *service.PostService) *handler.PostHandler {
 	return handler.NewPostHandler(postService)
 }
 
-func initPostService(repo *repository.PostRepo) *service.PostService {
-	return &service.PostService{Repo: repo}
-}
-
-func initUserRepo(database *gorm.DB) *repository.PostRepo {
-	return &repository.PostRepo{Database: database}
+func (server *Server) InitPostRepo(client *mongo.Client) repository.PostRepo {
+	return repository.NewPostRepository(client)
 }
 
 func (server *Server) Start() {
 
-	db = SetupDatabase()
+	mongoClient := server.InitMongoClient()
 
-	postRepo := initUserRepo(db)
-	postService := initPostService(postRepo)
-	postHandler := server.initPostHandler(postService)
+	postRepo := server.InitPostRepo(mongoClient)
+	postService := server.InitPostService(postRepo)
+	postHandler := server.InitPostHandler(postService)
 
 	server.StartGrpcServer(postHandler)
 
-}
-
-var db *gorm.DB
-var err error
-
-func SetupDatabase() *gorm.DB {
-	return nil
 }
 
 func (server *Server) StartGrpcServer(handler *handler.PostHandler) {

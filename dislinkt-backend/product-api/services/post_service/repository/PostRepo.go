@@ -1,7 +1,20 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	"go.mongodb.org/mongo-driver/mongo"
+)
+
+const (
+	DATABASE           = "posts_service"
+	CollectionPost     = "postsData"
+	CollectionJobOffer = "jobOffersData"
+)
 
 type PostRepo struct {
-	Database *gorm.DB
+	posts *mongo.Collection
+}
+
+func NewPostRepository(client *mongo.Client) PostRepo {
+	posts := client.Database(DATABASE).Collection(CollectionPost)
+	return PostRepo{posts: posts}
 }
