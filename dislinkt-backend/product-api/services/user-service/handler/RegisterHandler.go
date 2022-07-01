@@ -464,3 +464,60 @@ func (handler RegisterHandler) FindPublicByUsername(ctx context.Context, usernam
 	}
 	return response, nil
 }
+func (handler RegisterHandler) ChangePassword(ctx context.Context, changePassword *user_service.ChangePasswordRequest) (*user_service.ChangePasswordResponse, error) {
+	fmt.Printf("USLA SAM tu i id je" + changePassword.ChangePassword.ID)
+	id := uuid.MustParse(changePassword.ChangePassword.ID)
+	fmt.Printf("ISPARSIRALA SAM")
+	var requestDTO dto.RequestDTO
+	requestDTO = dto.RequestDTO{
+		ID:       id,
+		Password: changePassword.ChangePassword.Password,
+		Token:    changePassword.ChangePassword.Token,
+	}
+
+	var user = handler.UserService.FindByID(requestDTO.ID)
+
+	if user == nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "ChangePassword",
+			"timestamp": time.Now().String(),
+		}).Error("User is not found!")
+		fmt.Println(time.Now().String() + " User is not found!")
+		return &user_service.ChangePasswordResponse{User: mapper.MapFindUser(user)}, nil
+	}
+
+	salt := ""
+	password := ""
+	validPassword := handler.PasswordUtil.IsValidPassword(requestDTO.Password)
+
+	if validPassword {
+		//PASSWORD SALT
+		salt, password = handler.PasswordUtil.GeneratePasswordWithSalt(requestDTO.Password)
+	} else {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "ChangePassword",
+			"timestamp": time.Now().String(),
+		}).Error("Password doesn't in valid format!")
+		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
+
+		return &user_service.ChangePasswordResponse{User: mapper.MapFindUser(user)}, nil
+	}
+
+	if err := handler.UserService.ChangePassword(salt, password, user); err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "ChangePassword",
+			"timestamp": time.Now().String(),
+		}).Error("Failed changing password!")
+		fmt.Println(time.Now().String() + " Failed changing password!")
+
+		return &user_service.ChangePasswordResponse{User: mapper.MapFindUser(user)}, nil
+	}
+
+	return &user_service.ChangePasswordResponse{User: mapper.MapFindUser(user)}, nil
+}

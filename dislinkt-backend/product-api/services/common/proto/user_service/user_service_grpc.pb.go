@@ -26,6 +26,7 @@ type UserServiceClient interface {
 	LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	EditUser(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 	FindByUsername(ctx context.Context, in *UserNameRequest, opts ...grpc.CallOption) (*UserNameResponse, error)
+	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error)
 	FindPublicByUsername(ctx context.Context, in *PublicUserNameRequest, opts ...grpc.CallOption) (*PublicUserNameResponse, error)
 }
 
@@ -73,6 +74,15 @@ func (c *userServiceClient) FindByUsername(ctx context.Context, in *UserNameRequ
 	return out, nil
 }
 
+func (c *userServiceClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error) {
+	out := new(ChangePasswordResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/ChangePassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) FindPublicByUsername(ctx context.Context, in *PublicUserNameRequest, opts ...grpc.CallOption) (*PublicUserNameResponse, error) {
 	out := new(PublicUserNameResponse)
 	err := c.cc.Invoke(ctx, "/user_service.UserService/FindPublicByUsername", in, out, opts...)
@@ -90,6 +100,7 @@ type UserServiceServer interface {
 	LoginUser(context.Context, *LoginRequest) (*LoginResponse, error)
 	EditUser(context.Context, *EditRequest) (*EditResponse, error)
 	FindByUsername(context.Context, *UserNameRequest) (*UserNameResponse, error)
+	ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error)
 	FindPublicByUsername(context.Context, *PublicUserNameRequest) (*PublicUserNameResponse, error)
 	MustEmbedUnimplementedUserServiceServer()
 }
@@ -109,6 +120,9 @@ func (UnimplementedUserServiceServer) EditUser(context.Context, *EditRequest) (*
 }
 func (UnimplementedUserServiceServer) FindByUsername(context.Context, *UserNameRequest) (*UserNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindByUsername not implemented")
+}
+func (UnimplementedUserServiceServer) ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
 }
 func (UnimplementedUserServiceServer) FindPublicByUsername(context.Context, *PublicUserNameRequest) (*PublicUserNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindPublicByUsername not implemented")
@@ -198,6 +212,24 @@ func _UserService_FindByUsername_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ChangePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UserService/ChangePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_FindPublicByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PublicUserNameRequest)
 	if err := dec(in); err != nil {
@@ -238,6 +270,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindByUsername",
 			Handler:    _UserService_FindByUsername_Handler,
+		},
+		{
+			MethodName: "ChangePassword",
+			Handler:    _UserService_ChangePassword_Handler,
 		},
 		{
 			MethodName: "FindPublicByUsername",

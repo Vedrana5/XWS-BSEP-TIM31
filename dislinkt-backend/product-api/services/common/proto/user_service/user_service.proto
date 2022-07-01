@@ -36,6 +36,13 @@ service UserService{
     };
   }
 
+  rpc ChangePassword(ChangePasswordRequest) returns(ChangePasswordResponse) {
+    option (google.api.http) = {
+      post: "/password",
+      body: ""
+    };
+  }
+
   rpc FindPublicByUsername(PublicUserNameRequest) returns(PublicUserNameResponse) {
     option (google.api.http) = {
       get: "/publicUser/{username}",
@@ -70,8 +77,23 @@ message PublicUserNameRequest{
 message PublicUserNameResponse{
   repeated User users=1;
 }
+
+message ChangePasswordRequest{
+  ChangePassword changePassword=1;
+}
+
+message ChangePasswordResponse{
+  User user=1;
+}
+
 message EditRequest{
   EditUser editUser=1;
+}
+
+message ChangePassword {
+  string ID=1;
+  string Password=2;
+  string Token=3;
 }
 
 message EditResponse{
