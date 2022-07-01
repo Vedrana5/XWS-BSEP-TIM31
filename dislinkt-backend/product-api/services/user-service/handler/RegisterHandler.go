@@ -5,9 +5,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/google/uuid"
+	"github.com/mikespook/gorbac"
 	"github.com/sirupsen/logrus"
 	"log"
 	"net/smtp"
+	"strings"
 	"time"
 	"user/module/dto"
 	"user/module/mapper"
@@ -17,6 +19,8 @@ import (
 )
 
 type RegisterHandler struct {
+	Rbac                     *gorbac.RBAC
+	PermissionUpdateUserInfo *gorbac.Permission
 	ConfirmationTokenService *service.ConfirmationTokenService
 	PasswordUtil             *util.PasswordUtil
 	UserService              *service.UserService
@@ -29,8 +33,8 @@ func (u RegisterHandler) MustEmbedUnimplementedUserServiceServer() {
 	panic("implement me")
 }
 
-func NewRegisterHandler(confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *RegisterHandler {
-	return &RegisterHandler{confirmationTokenService, passwordUtil, userService, LogInfo, LogError}
+func NewRegisterHandler(rbac *gorbac.RBAC, PermissionUpdateUserInfo *gorbac.Permission, confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *RegisterHandler {
+	return &RegisterHandler{rbac, PermissionUpdateUserInfo, confirmationTokenService, passwordUtil, userService, LogInfo, LogError}
 }
 
 func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_service.CreateRequest) (*user_service.CreateResponse, error) {
@@ -194,6 +198,82 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 	return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 }
 
+func (handler RegisterHandler) LoginUser(ctx context.Context, loginUser *user_service.LoginRequest) (*user_service.LoginResponse, error) {
+	var logInUserDTO dto.LogInUserDTO
+	logInUserDTO = dto.LogInUserDTO{
+		Username: loginUser.LoginUser.Username,
+		Password: loginUser.LoginUser.Password,
+	}
+
+	var user = handler.UserService.FindByUserName(logInUserDTO.Username)
+
+	logInResponse1 := dto.LogInResponseDTO{
+		ID:         user.ID,
+		Token:      "",
+		TypeOfUser: user.TypeOfUser,
+	}
+	fmt.Print("TIP USERA JE je ", logInResponse1.TypeOfUser)
+	validPassword := handler.PasswordUtil.IsValidPassword(logInUserDTO.Password)
+	plainPassword := ""
+	if !validPassword {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "LogInHandler",
+			"action":    "LogIn",
+			"timestamp": time.Now().String(),
+		}).Error("Password isn't in valid format!")
+		fmt.Println(time.Now().String() + " Password isn't in valid format!")
+		return &user_service.LoginResponse{LoginUserResponse: mapper.MapLoginUser(logInResponse1)}, nil
+	} else {
+		var sb strings.Builder
+		salt := user.Salt
+		sb.WriteString(logInUserDTO.Password)
+		sb.WriteString(salt)
+		plainPassword = sb.String()
+	}
+
+	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, user.Password) {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "LogInHandler",
+			"action":    "LogIn",
+			"timestamp": time.Now().String(),
+		}).Error("Failed sign up!")
+		fmt.Println(time.Now().String() + " Failed sign up!")
+		return &user_service.LoginResponse{LoginUserResponse: mapper.MapLoginUser(logInResponse1)}, nil
+	}
+
+	//token
+	token, err := CreateToken(user.Username)
+	if err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "LogInHandler",
+			"action":    "LogIn",
+			"timestamp": time.Now().String(),
+		}).Error("Failed creating AWT token!")
+		fmt.Println(time.Now().String() + " Failed creating AWT token!")
+
+		return &user_service.LoginResponse{LoginUserResponse: mapper.MapLoginUser(logInResponse1)}, nil
+	}
+
+	logInResponse := dto.LogInResponseDTO{
+		ID:         user.ID,
+		Token:      token,
+		TypeOfUser: user.TypeOfUser,
+	}
+	fmt.Print("Response je ", logInResponse)
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "LogInHandler",
+		"action":    "LogIn",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully sign in user")
+	fmt.Println(time.Now().String() + " Successfully sign in user!")
+
+	return &user_service.LoginResponse{LoginUserResponse: mapper.MapLoginUser(logInResponse)}, nil
+}
+
 //SendConfirmationMail
 func (handler RegisterHandler) SendConfirmationMail(user model.User, token uuid.UUID) {
 	// Sender data.
@@ -231,4 +311,123 @@ func (handler RegisterHandler) SendConfirmationMail(user model.User, token uuid.
 	}).Info("Successfully sended email with confirmation token!")
 	fmt.Println(time.Now().String() + " Successfully sended email with confirmation token!")
 
+}
+
+func (handler RegisterHandler) FindByUsername(ctx context.Context, username *user_service.UserNameRequest) (*user_service.UserNameResponse, error) {
+
+	var user = handler.UserService.FindByUserName(username.Username)
+	if user == nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "FindByUserName",
+			"timestamp": time.Now().String(),
+		}).Error("User not found!")
+		fmt.Println(time.Now().String() + " User not found!")
+	}
+
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "UserHandler",
+		"action":    "FindByUserName",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully founded user by username!")
+	fmt.Println(time.Now().String() + " Successfully founded user by username!")
+
+	return &user_service.UserNameResponse{User: mapper.MapFindUser(user)}, nil
+}
+
+func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_service.EditUserRequest) (*user_service.EditUserResponse, error) {
+
+	id := uuid.MustParse(editUser.EditUser.ID)
+	var EditProfileDTO dto.EditProfileDTO
+	EditProfileDTO = dto.EditProfileDTO{
+		ID:             id,
+		OldUsername:    editUser.EditUser.OldUsername,
+		Username:       editUser.EditUser.Username,
+		Password:       editUser.EditUser.Password,
+		Email:          editUser.EditUser.Email,
+		PhoneNumber:    editUser.EditUser.PhoneNumber,
+		FirstName:      editUser.EditUser.FirstName,
+		LastName:       editUser.EditUser.LastName,
+		DateOfBirth:    editUser.EditUser.DateOfBirth,
+		TypeOfUser:     editUser.EditUser.TypeOfUser,
+		TypeOfProfile:  editUser.EditUser.TypeOfProfile,
+		WorkExperience: editUser.EditUser.WorkExperience,
+		Education:      editUser.EditUser.Education,
+		Skills:         editUser.EditUser.Skills,
+		Interest:       editUser.EditUser.Interest,
+		Question:       editUser.EditUser.Skills,
+		Answer:         editUser.EditUser.Interest,
+	}
+
+	var loginUser = handler.UserService.FindByID(EditProfileDTO.ID)
+	userRole := ""
+	if loginUser.TypeOfUser == model.ADMIN {
+		userRole = "role-admin"
+	} else if loginUser.TypeOfUser == model.REGISTERED_USER {
+		userRole = "role-registered-user"
+	} else {
+		userRole = "role-unregistered-user"
+	}
+	log.Print("ROLA JE" + userRole)
+	if !handler.Rbac.IsGranted(userRole, *handler.PermissionUpdateUserInfo, nil) {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
+			"timestamp": time.Now().String(),
+		}).Error("User is not authorized to update user information!")
+		fmt.Println(time.Now().String() + " User is not authorized to update user information!")
+
+		return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
+	}
+
+	if handler.UserService.FindByEmailAndID(EditProfileDTO.ID, EditProfileDTO.Email) != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisterHandler",
+			"action":    "CreateUser",
+			"timestamp": time.Now().String(),
+		}).Error("User already exist with entered email!")
+		fmt.Println(time.Now().String() + " User already exist with entered email!")
+
+		return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
+	}
+
+	fmt.Println("ID JE " + EditProfileDTO.ID.String())
+	fmt.Println("USERNAME JE" + EditProfileDTO.Username)
+
+	if handler.UserService.FindByUserNameAndID(EditProfileDTO.ID, EditProfileDTO.Username) != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisterHandler",
+			"action":    "CreateUser",
+			"timestamp": time.Now().String(),
+		}).Error("User already exist with entered username!")
+		fmt.Println(time.Now().String() + " User already exist with entered username!")
+
+		return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
+	}
+
+	err := handler.UserService.UpdateUserProfileInfo(&EditProfileDTO)
+	if err != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UpdateProfileHandler",
+			"action":    "UpdateUserProfileInfo",
+			"timestamp": time.Now().String(),
+		}).Error("Failed updating basic user profile information!")
+		fmt.Println(time.Now().String() + " Failed updating basic user profile information!")
+	}
+
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "UpdateProfileHandler",
+		"action":    "UpdateUserProfileInfo",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully updated user profile info!")
+	fmt.Println(time.Now().String() + " Successfully updated user profile info!")
+
+	return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
 }

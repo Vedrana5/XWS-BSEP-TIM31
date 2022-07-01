@@ -39,8 +39,8 @@ func initPasswordUtil() *util.PasswordUtil {
 	return &util.PasswordUtil{}
 }
 
-func (server *Server) initRegisterHandler(confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *handler.RegisterHandler {
-	return handler.NewRegisterHandler(confirmationTokenService, passwordUtil, LogInfo, LogError, userService)
+func (server *Server) initRegisterHandler(rbac *gorbac.RBAC, permissionUpdateUserInfo *gorbac.Permission, confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *handler.RegisterHandler {
+	return handler.NewRegisterHandler(rbac, permissionUpdateUserInfo, confirmationTokenService, passwordUtil, LogInfo, LogError, userService)
 }
 
 func initLoginHandler(validationCodeService *service.ValidationCodeService, userService *service.UserService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.LogInHandler {
@@ -152,7 +152,7 @@ func (server *Server) Start() {
 	validationCodeService := itValidationCodeService(validationCodeRepo)
 
 	loginHandler := initLoginHandler(validationCodeService, userService, passwordUtil, logInfo, logError)
-	registerHandler := server.initRegisterHandler(confirmationTokenService, passwordUtil, logInfo, logError, userService)
+	registerHandler := server.initRegisterHandler(rbac, &permissionUpdateUserInfo, confirmationTokenService, passwordUtil, logInfo, logError, userService)
 
 	validator := validator.New()
 	userHandler := initUserHandler(validationCodeService, userService, logInfo, logError)

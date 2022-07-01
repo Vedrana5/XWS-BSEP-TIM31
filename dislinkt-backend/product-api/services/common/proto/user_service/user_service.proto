@@ -15,8 +15,46 @@ service UserService{
     };
   }
 
+  rpc EditUser(EditUserRequest) returns(EditUserResponse) {
+    option (google.api.http) = {
+      post: "/Euser",
+      body: "editUser"
+    };
+  }
+
+  rpc LoginUser(LoginRequest) returns(LoginResponse) {
+    option (google.api.http) = {
+      post: "/user",
+      body: "loginUser"
+    };
+  }
+
+  rpc FindByUsername(UserNameRequest) returns(UserNameResponse) {
+    option (google.api.http) = {
+      get: "/user/{username}",
+      body: ""
+    };
+  }
+
 
 }
+
+
+
+message UserNameRequest{
+  string username=1;
+}
+message EditUserRequest{
+  EditUser editUser = 1;
+}
+
+message EditUserResponse{
+  EditUser responseUser=1;
+}
+message UserNameResponse{
+  User user=1;
+}
+
 message CreateRequest{
   User user=1;
 }
@@ -25,12 +63,30 @@ message CreateResponse{
   RegisterUser registerUser=1;
 }
 
+message LoginRequest{
+  LoginUser loginUser=1;
+}
+
+message LoginResponse{
+  LoginUserResponse loginUserResponse=1;
+}
 
 message RegisterUser {
   string Username = 1;
   string Email = 2;
   string FirstName = 3;
   string LastName = 4;
+}
+
+message LoginUser {
+  string Username = 1;
+  string Password = 2;
+}
+
+message LoginUserResponse{
+  string ID = 1;
+  string token = 2;
+  string TypeOfUser=3;
 }
 
 message User {
@@ -51,4 +107,24 @@ message User {
   string Interest = 15;
   string Question = 16;
   string Answer = 17;
+}
+
+message EditUser {
+  string ID=1;
+  string OldUsername=2;
+  string Username = 3;
+  string Password = 4;
+  string Email = 5;
+  string PhoneNumber = 6;
+  string DateOfBirth = 7;
+  string FirstName = 8;
+  string LastName = 9;
+  string Gender = 10;
+  string TypeOfUser = 11;
+  string TypeOfProfile = 12;
+  string Biography = 13;
+  string WorkExperience = 14;
+  string Education = 15;
+  string Skills = 16;
+  string Interest = 17;
 }
