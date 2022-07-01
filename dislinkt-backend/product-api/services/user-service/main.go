@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/startup"
-	cf "github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/startup/config"
+	"user/module/startup"
+	cf "user/module/startup/config"
 )
 
 func main() {

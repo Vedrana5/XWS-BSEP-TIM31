@@ -6,14 +6,14 @@ import (
 	"net/http"
 	"net/smtp"
 	"time"
+	"user/module/dto"
+	"user/module/model"
+	"user/module/service"
+	"user/module/util"
 
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
 	"github.com/sirupsen/logrus"
 )
 
@@ -59,8 +59,6 @@ func (handler *UserHandler) FindByUserName(w http.ResponseWriter, r *http.Reques
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 }
-
-
 
 func (handler *UserHandler) FindPublic(w http.ResponseWriter, r *http.Request) {
 

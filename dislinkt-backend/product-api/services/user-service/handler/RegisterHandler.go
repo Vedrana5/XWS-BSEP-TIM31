@@ -1,19 +1,19 @@
 package handler
 
 import (
-	"encoding/json"
+	userGw "common/module/proto/user_service"
+	"context"
 	"fmt"
-	"log"
-	"net/http"
-	"net/smtp"
-	"time"
+	"user/module/dto"
+	"user/module/model"
+	"user/module/service"
+	"user/module/util"
 
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
+	"log"
+	"net/smtp"
+	"time"
 )
 
 type RegisterHandler struct {
@@ -24,22 +24,27 @@ type RegisterHandler struct {
 	LogError                 *logrus.Logger
 }
 
-//CreateUser
-func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("X-XSS-Protection", "1; mode=block")
+func (handler *RegisterHandler) CreateUser(ctx context.Context, user *userGw.User) (*userGw.EmptyResponse, error) {
+
 	var registeredUserDTO dto.RegisteredUserDTO
-
-	if err := json.NewDecoder(r.Body).Decode(&registeredUserDTO); err != nil {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "RegisterHandler",
-			"action":    "CreateUser",
-			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to RegisteredUserDTO!")
-		fmt.Println(time.Now().String() + " Wrong cast json to RegisteredUserDTO!")
-
-		w.WriteHeader(http.StatusBadRequest) //400
-		return
+	registeredUserDTO = dto.RegisteredUserDTO{
+		Username:       user.Username,
+		Password:       user.Password,
+		Email:          user.Email,
+		PhoneNumber:    user.PhoneNumber,
+		FirstName:      user.FirstName,
+		LastName:       user.LastName,
+		DateOfBirth:    user.DateOfBirth,
+		TypeOfUser:     user.TypeOfUser,
+		TypeOfProfile:  user.TypeOfProfile,
+		Gender:         user.Gender,
+		Biography:      user.Biography,
+		WorkExperience: user.WorkExperience,
+		Education:      user.Education,
+		Skills:         user.Skills,
+		Interest:       user.Interest,
+		Question:       user.Question,
+		Answer:         user.Answer,
 	}
 
 	if handler.UserService.FindByUserName(registeredUserDTO.Username) != nil {
@@ -50,9 +55,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered username!")
 		fmt.Println(time.Now().String() + " User already exist with entered username!")
-
-		w.WriteHeader(http.StatusConflict) //409
-		return
+		return nil, nil
 	}
 
 	if handler.UserService.FindByEmail(registeredUserDTO.Email) != nil {
@@ -63,9 +66,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered email!")
 		fmt.Println(time.Now().String() + " User already exist with entered email!")
-
-		w.WriteHeader(http.StatusExpectationFailed) //417
-		return
+		return nil, nil
 	}
 
 	salt := ""
@@ -92,8 +93,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		}).Error("Password doesn't in valid format!")
 		fmt.Println(time.Now().String() + " Password doesn't in valid format!")
 
-		w.WriteHeader(http.StatusBadRequest) //400
-		return
+		return nil, nil
 	}
 
 	log.Printf(registeredUserDTO.Gender)
@@ -159,8 +159,7 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 		}).Error("Failed creating confirmation token for user!")
 		fmt.Println(time.Now().String() + " Failed creating confirmation token for user!")
 
-		w.WriteHeader(http.StatusExpectationFailed)
-		return
+		return nil, nil
 	}
 
 	handler.SendConfirmationMail(registeredUser, confirmationToken.ConfirmationToken)
@@ -173,13 +172,14 @@ func (handler *RegisterHandler) CreateUser(w http.ResponseWriter, r *http.Reques
 			"timestamp": time.Now().String(),
 		}).Error("Failed creating basic user!")
 		fmt.Println(time.Now().String() + " Failed creating basic user!")
-
-		w.WriteHeader(http.StatusExpectationFailed)
-		return
+		return nil, nil
 	}
+	return nil, nil
+}
 
-	w.WriteHeader(http.StatusCreated)
-	w.Header().Set("Content-Type", "application/json")
+func (handler *RegisterHandler) mustEmbedUnimplementedUserServiceServer() {
+	//TODO implement me
+	panic("implement me")
 }
 
 //SendConfirmationMail

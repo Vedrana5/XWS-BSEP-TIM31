@@ -3,15 +3,12 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
-
 	"github.com/sirupsen/logrus"
-
 	"net/http"
 	_ "strconv"
 	"time"
+	"user/module/dto"
+	"user/module/service"
 )
 
 type ConfirmationTokenHandler struct {

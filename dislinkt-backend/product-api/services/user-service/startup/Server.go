@@ -1,14 +1,8 @@
 package startup
 
 import (
+	userProto "common/module/proto/user_service"
 	"fmt"
-	userProto "github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/common/proto/user_service"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/handler"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/repository"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/startup/config"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/go-playground/validator"
 	"github.com/mikespook/gorbac"
 	"github.com/sirupsen/logrus"
@@ -16,6 +10,12 @@ import (
 	"gorm.io/driver/postgres"
 	"net"
 	"os"
+	"user/module/handler"
+	"user/module/model"
+	"user/module/repository"
+	"user/module/service"
+	"user/module/startup/config"
+	"user/module/util"
 
 	"gorm.io/gorm"
 	"log"
@@ -116,7 +116,6 @@ func initConfirmationTokenHandler(LogInfo *logrus.Logger, LogError *logrus.Logge
 }
 
 func (server *Server) Start() {
-
 	permissionFindAllUsers := gorbac.NewStdPermission("permission-find-all-users")
 	permissionUpdateUserInfo := gorbac.NewStdPermission("permission-update-user-info")
 	roleRegisteredUser := gorbac.NewStdRole("role-registered-user")
@@ -173,7 +172,8 @@ func (server *Server) Start() {
 }
 
 func (server *Server) StartGrpcServer(handler *handler.UserHandler, loginHandler *handler.LogInHandler, registerHandler *handler.RegisterHandler, profilHandler *handler.UpdateProfileHandler, tokenHandler *handler.ConfirmationTokenHandler) {
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", "8083"))
+	fmt.Printf("USLA SAM U STARTGRPC SERVER")
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", server.config.Port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -200,10 +200,10 @@ var err error
 func SetupDatabase() *gorm.DB {
 	const DIALECT = "postgres"
 	const HOST = "localhost"
-	const PG_DBPORT = "5432"
+	const PG_DBPORT = "8080"
 	const PG_USER = "postgres"
 	const XML_DB_NAME = "xws_project"
-	const PG_PASSWORD = "fakultet" //fakultet
+	const PG_PASSWORD = "postgres" //fakultet
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode= disable ", HOST, PG_DBPORT, PG_USER, PG_PASSWORD, XML_DB_NAME)
 

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/common/proto/user_service";
+option go_package = "common/module/proto/user_service";
 
 package user_service;
 

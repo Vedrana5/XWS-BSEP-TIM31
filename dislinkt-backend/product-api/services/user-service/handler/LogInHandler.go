@@ -3,18 +3,16 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/form3tech-oss/jwt-go"
+	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 	"strings"
 	"time"
-
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
-	"github.com/form3tech-oss/jwt-go"
-	"github.com/google/uuid"
-
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
-	"github.com/sirupsen/logrus"
+	"user/module/dto"
+	"user/module/service"
+	"user/module/util"
 )
 
 type LogInHandler struct {
@@ -67,7 +65,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		plainPassword = sb.String()
 	}
 
-	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, user.Password) {
+	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, _.user.Password) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",
