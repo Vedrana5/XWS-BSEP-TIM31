@@ -3,18 +3,16 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/form3tech-oss/jwt-go"
+	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 	"strings"
 	"time"
-
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
-	"github.com/google/uuid"
-
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
-	"github.com/form3tech-oss/jwt-go"
-	"github.com/sirupsen/logrus"
+	"user/module/dto"
+	"user/module/service"
+	"user/module/util"
 )
 
 type LogInHandler struct {
@@ -25,90 +23,9 @@ type LogInHandler struct {
 	LogError              *logrus.Logger
 }
 
-//LogIn
-func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("X-XSS-Protection", "1; mode=block")
-	var logInUserDTO dto.LogInUserDTO
-	if err := json.NewDecoder(r.Body).Decode(&logInUserDTO); err != nil {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "LogInHandler",
-			"action":    "LogIn",
-			"timestamp": time.Now().String(),
-		}).Error("Wrong cast json to LogInUserDTO!")
-		fmt.Println(time.Now().String() + " Wrong cast json to LogInUserDTO!")
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	var user = handler.UserService.FindByUserName(logInUserDTO.Username)
-	validPassword := handler.PasswordUtil.IsValidPassword(logInUserDTO.Password)
-	plainPassword := ""
-	if !validPassword {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "LogInHandler",
-			"action":    "LogIn",
-			"timestamp": time.Now().String(),
-		}).Error("Password isn't in valid format!")
-		fmt.Println(time.Now().String() + " Password isn't in valid format!")
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	} else {
-		var sb strings.Builder
-		salt := user.Salt
-		sb.WriteString(logInUserDTO.Password)
-		sb.WriteString(salt)
-		plainPassword = sb.String()
-	}
-
-	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, user.Password) {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "LogInHandler",
-			"action":    "LogIn",
-			"timestamp": time.Now().String(),
-		}).Error("Failed sign up!")
-		fmt.Println(time.Now().String() + " Failed sign up!")
-
-		w.WriteHeader(http.StatusConflict)
-		return
-	}
-
-	//token
-	token, err := CreateToken(user.Username)
-	if err != nil {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "LogInHandler",
-			"action":    "LogIn",
-			"timestamp": time.Now().String(),
-		}).Error("Failed creating AWT token!")
-		fmt.Println(time.Now().String() + " Failed creating AWT token!")
-
-		w.WriteHeader(http.StatusUnprocessableEntity)
-		return
-	}
-
-	logInResponse := dto.LogInResponseDTO{
-		ID:         user.ID,
-		Token:      token,
-		TypeOfUser: user.TypeOfUser,
-	}
-	fmt.Print("Response je ", logInResponse)
-	logInResponseJson, _ := json.Marshal(logInResponse)
-	w.Write(logInResponseJson)
-	handler.LogInfo.WithFields(logrus.Fields{
-		"status":    "success",
-		"location":  "LogInHandler",
-		"action":    "LogIn",
-		"timestamp": time.Now().String(),
-	}).Info("Successfully sign in user")
-	fmt.Println(time.Now().String() + " Successfully sign in user!")
-
-	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "application/json")
-
+func (handler *LogInHandler) mustEmbedUnimplementedUserServiceServer() {
+	//TODO implement me
+	panic("implement me")
 }
 
 //LogInPasswordLess

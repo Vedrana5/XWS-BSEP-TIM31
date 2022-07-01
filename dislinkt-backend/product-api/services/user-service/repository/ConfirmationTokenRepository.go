@@ -2,8 +2,8 @@ package repository
 
 import (
 	"fmt"
+	"user/module/model"
 
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )

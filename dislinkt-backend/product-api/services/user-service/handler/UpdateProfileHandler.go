@@ -6,11 +6,11 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"user/module/dto"
+	"user/module/model"
+	"user/module/service"
+	"user/module/util"
 
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/service"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/util"
 	"github.com/go-playground/validator"
 	"github.com/mikespook/gorbac"
 	"github.com/sirupsen/logrus"
@@ -81,8 +81,7 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 		return
 	}
 
-
-	if handler.UserService.FindByEmailAndID(EditProfileDTO.ID,EditProfileDTO.Email) !=nil {
+	if handler.UserService.FindByEmailAndID(EditProfileDTO.ID, EditProfileDTO.Email) != nil {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "RegisterHandler",
@@ -93,25 +92,23 @@ func (handler *UpdateProfileHandler) UpdateUserProfileInfo(w http.ResponseWriter
 
 		w.WriteHeader(http.StatusExpectationFailed) //417
 		return
-}
+	}
 
-fmt.Println("ID JE " + EditProfileDTO.ID.String())
-fmt.Println("USERNAME JE" + EditProfileDTO.Username)
+	fmt.Println("ID JE " + EditProfileDTO.ID.String())
+	fmt.Println("USERNAME JE" + EditProfileDTO.Username)
 
-if handler.UserService.FindByUserNameAndID(EditProfileDTO.ID,EditProfileDTO.Username) != nil {
-	handler.LogError.WithFields(logrus.Fields{
-		"status":    "failure",
-		"location":  "RegisterHandler",
-		"action":    "CreateUser",
-		"timestamp": time.Now().String(),
-	}).Error("User already exist with entered username!")
-	fmt.Println(time.Now().String() + " User already exist with entered username!")
+	if handler.UserService.FindByUserNameAndID(EditProfileDTO.ID, EditProfileDTO.Username) != nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "RegisterHandler",
+			"action":    "CreateUser",
+			"timestamp": time.Now().String(),
+		}).Error("User already exist with entered username!")
+		fmt.Println(time.Now().String() + " User already exist with entered username!")
 
-	w.WriteHeader(http.StatusConflict) //409
-	return
-}
-
-
+		w.WriteHeader(http.StatusConflict) //409
+		return
+	}
 
 	err := handler.UserService.UpdateUserProfileInfo(&EditProfileDTO)
 	if err != nil {

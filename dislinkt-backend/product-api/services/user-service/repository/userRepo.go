@@ -3,8 +3,8 @@ package repository
 import (
 	"fmt"
 	"time"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
+	"user/module/dto"
+	"user/module/model"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -64,29 +64,27 @@ func (repo *UserRepo) FindByID(ID uuid.UUID) *model.User {
 	return user
 }
 
-
-func (repo *UserRepo) FindByUserNameAndID(ID uuid.UUID,username string)  *model.User {
+func (repo *UserRepo) FindByUserNameAndID(ID uuid.UUID, username string) *model.User {
 	user := &model.User{}
 	if repo.Database.First(&user, "username = ?", username).RowsAffected == 0 {
-			return nil	
+		return nil
 	}
-	if (user.ID ==ID) {
+	if user.ID == ID {
 		return nil
 	}
 	return user
 }
 
-func (repo *UserRepo) FindByEmailAndID(ID uuid.UUID,email string) *model.User {
+func (repo *UserRepo) FindByEmailAndID(ID uuid.UUID, email string) *model.User {
 	user := &model.User{}
 	if repo.Database.First(&user, "email = ?", email).RowsAffected == 0 {
-			return nil
+		return nil
 	}
-	if (user.ID ==ID) {
+	if user.ID == ID {
 		return nil
 	}
 	return user
 }
-
 
 func (repo *UserRepo) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 	gender := model.OTHER
@@ -95,38 +93,38 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 		gender = model.MALE
 	case "FEMALE":
 		gender = model.FEMALE
-		fmt.Println("ovdeee samm")
 
 	}
-	
+
 	result := repo.Database.Model(&model.User{}).Where("username = ?", user.OldUsername)
+
 	result.Update("username", user.Username)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo username")
 	result.Update("phone_number", user.PhoneNumber)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo phone_number")
 	result.Update("first_name", user.FirstName)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo first_name")
 	result.Update("last_name", user.LastName)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo last_name")
 	result.Update("gender", gender)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo gender")
 	layout := "2006-01-02"
 	dateOfBirth, _ := time.Parse(layout, user.DateOfBirth)
 	result.Update("date_of_birth", dateOfBirth)
-	 fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo date_of_birth")
 	result.Update("biography", user.Biography)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo biography")
 	result.Update("email", user.Email)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo email")
 
-	result.Update("workExperience", user.WorkExperience)
-	fmt.Println(result.RowsAffected)
+	//result.Update("workExperience", user.WorkExperience)
+	//fmt.Println("updatovali smo workExperience")
 	result.Update("education", user.Education)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo education")
 	result.Update("skills", user.Skills)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo skills")
 	result.Update("interest", user.Interest)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo interest")
 
 	fmt.Println("updating profile info")
 	return nil

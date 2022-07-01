@@ -23,7 +23,9 @@ func NewServer(config *cfg.Config) *Server {
 		config: config,
 		mux:    runtime.NewServeMux(),
 	}
+
 	server.initHandlers()
+	fmt.Printf("OVDE SAM HEEH")
 	//	server.initCustomHandlers()
 	return server
 }
@@ -36,6 +38,7 @@ func (server *Server) initHandlers() {
 			grpc.MaxCallSendMsgSize(20*1024*1024)),
 	}
 
+	fmt.Printf("A ZA USERA je" + server.config.UserHost + server.config.UserPort)
 	userEndpoint := fmt.Sprintf("%s:%s", server.config.UserHost, server.config.UserPort)
 
 	//postsEndpoint := fmt.Sprintf("%s:%s", server.config.PostsHost, server.config.PostsPort)
@@ -56,13 +59,13 @@ func (server *Server) initHandlers() {
 
 func (server *Server) Start() {
 	cors := gorilla_handlers.CORS(
-		gorilla_handlers.AllowedOrigins([]string{"https://localhost:4200", "https://localhost:4200/**", "http://localhost:4200", "http://localhost:4200/**", "http://localhost:8080/**"}),
+		gorilla_handlers.AllowedOrigins([]string{"https://localhost:4200", "https://localhost:9090", "https://localhost:8082", "https://localhost:4200/**", "http://localhost:4200", "http://localhost:4200/**", "http://localhost:8080/**"}),
 		gorilla_handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
 		gorilla_handlers.AllowedHeaders([]string{"Accept", "Accept-Language", "Content-Type", "Content-Language", "Origin", "Authorization", "Access-Control-Allow-*", "Access-Control-Allow-Origin", "*"}),
 		gorilla_handlers.AllowCredentials(),
 	)
 
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", "9090"), cors(muxMiddleware(server))))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", server.config.Port), cors(muxMiddleware(server))))
 
 }
 

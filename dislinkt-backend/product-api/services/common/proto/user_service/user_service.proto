@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "common/module/user_service";
+option go_package = "common/module/proto/user_service";
 
 package user_service;
 
@@ -8,32 +8,178 @@ import "google/api/annotations.proto";
 
 service UserService{
 
-    rpc GetAll(EmptyRequest) returns(GetAllResponse) {
-        option (google.api.http) = {
-          get: "/users"
-        };
-      }
+  rpc CreateUser(CreateRequest) returns(CreateResponse) {
+    option (google.api.http) = {
+      post: "/users",
+      body: "user"
+    };
+  }
 
-  
+  rpc LoginUser(LoginRequest) returns(LoginResponse) {
+    option (google.api.http) = {
+      post: "/user",
+      body: "loginUser"
+    };
+  }
+
+  rpc EditUser(EditRequest) returns(EditResponse) {
+    option (google.api.http) = {
+      post: "/Euser",
+      body: "editUser"
+    };
+  }
+
+  rpc FindByUsername(UserNameRequest) returns(UserNameResponse) {
+    option (google.api.http) = {
+      get: "/user/{username}",
+      body: ""
+    };
+  }
+
+  rpc ChangePassword(ChangePasswordRequest) returns(ChangePasswordResponse) {
+    option (google.api.http) = {
+      post: "/password",
+      body: "changePassword"
+    };
+  }
+
+  rpc FindPublicByUsername(PublicUserNameRequest) returns(PublicUserNameResponse) {
+    option (google.api.http) = {
+      get: "/publicUser/{username}",
+      body: ""
+    };
+  }
+
+
 }
 
-message GetAllResponse {
-    repeated User users = 1;
-  }
-  message UpdateRequest{
-    string id = 1;
-    User updatedUser = 2;
-  }
-  message EmptyRequest{}
 
-  message User {
-    
-    string username = 1;
-    string password = 2;
-    string email = 3;
-    string phoneNumber = 4;
-    string firstName = 5;
-    string lastName = 6;
-    string gender = 7;
-    string role = 8;
-  }
+
+message UserNameRequest{
+  string username=1;
+}
+
+message UserNameResponse{
+  User user=1;
+}
+
+message CreateRequest{
+  User user=1;
+}
+
+message CreateResponse{
+  RegisterUser registerUser=1;
+}
+message PublicUserNameRequest{
+  string username=1;
+}
+
+message PublicUserNameResponse{
+  repeated User users=1;
+}
+
+message ChangePasswordRequest{
+  ChangePassword changePassword=1;
+}
+
+message ChangePasswordResponse{
+  User user=1;
+}
+
+message EditRequest{
+  EditUser editUser=1;
+}
+
+message ChangePassword {
+  string ID=1;
+  string Password=2;
+  string Token=3;
+}
+
+message EditResponse{
+  EditUser1 editUser1=1;
+}
+message EditUser {
+  string ID=1;
+  string OldUsername=2;
+  string Username = 3;
+  string Password = 4;
+  string Email = 5;
+  string PhoneNumber = 6;
+  string DateOfBirth = 7;
+  string FirstName = 8;
+  string LastName = 9;
+  string Gender = 10;
+  string TypeOfUser = 11;
+  string TypeOfProfile = 12;
+  string Biography = 13;
+  string WorkExperience = 14;
+  string Education = 15;
+  string Skills = 16;
+  string Interest = 17;
+}
+message EditUser1 {
+  string ID=1;
+  string OldUsername=2;
+  string Username = 3;
+  string Password = 4;
+  string Email = 5;
+  string PhoneNumber = 6;
+  string DateOfBirth = 7;
+  string FirstName = 8;
+  string LastName = 9;
+  string Gender = 10;
+  string TypeOfUser = 11;
+  string TypeOfProfile = 12;
+  string Biography = 13;
+  string WorkExperience = 14;
+  string Education = 15;
+  string Skills = 16;
+  string Interest = 17;
+}
+message LoginRequest{
+  LoginUser loginUser=1;
+}
+
+message LoginResponse{
+  LoginUserResponse loginUserResponse=1;
+}
+
+message RegisterUser {
+  string Username = 1;
+  string Email = 2;
+  string FirstName = 3;
+  string LastName = 4;
+}
+
+message LoginUser {
+  string Username = 1;
+  string Password = 2;
+}
+
+message LoginUserResponse{
+  string ID = 1;
+  string token = 2;
+  string TypeOfUser=3;
+}
+
+message User {
+  string Username = 1;
+  string Password = 2;
+  string Email = 3;
+  string PhoneNumber = 4;
+  string FirstName = 5;
+  string LastName = 6;
+  string DateOfBirth = 7;
+  string Gender = 8;
+  string TypeOfUser = 9;
+  string TypeOfProfile = 10;
+  string Biography = 11;
+  string WorkExperience = 12;
+  string Education = 13;
+  string Skills = 14;
+  string Interest = 15;
+  string Question = 16;
+  string Answer = 17;
+}
+

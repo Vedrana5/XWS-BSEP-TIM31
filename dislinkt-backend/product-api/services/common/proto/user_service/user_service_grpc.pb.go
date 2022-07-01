@@ -22,7 +22,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	GetAll(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetAllResponse, error)
+	CreateUser(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
+	LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	EditUser(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
+	FindByUsername(ctx context.Context, in *UserNameRequest, opts ...grpc.CallOption) (*UserNameResponse, error)
+	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error)
+	FindPublicByUsername(ctx context.Context, in *PublicUserNameRequest, opts ...grpc.CallOption) (*PublicUserNameResponse, error)
 }
 
 type userServiceClient struct {
@@ -33,9 +38,54 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) GetAll(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetAllResponse, error) {
-	out := new(GetAllResponse)
-	err := c.cc.Invoke(ctx, "/user_service.UserService/GetAll", in, out, opts...)
+func (c *userServiceClient) CreateUser(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+	out := new(CreateResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/CreateUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/LoginUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) EditUser(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error) {
+	out := new(EditResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/EditUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) FindByUsername(ctx context.Context, in *UserNameRequest, opts ...grpc.CallOption) (*UserNameResponse, error) {
+	out := new(UserNameResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/FindByUsername", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error) {
+	out := new(ChangePasswordResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/ChangePassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) FindPublicByUsername(ctx context.Context, in *PublicUserNameRequest, opts ...grpc.CallOption) (*PublicUserNameResponse, error) {
+	out := new(PublicUserNameResponse)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/FindPublicByUsername", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,44 +96,154 @@ func (c *userServiceClient) GetAll(ctx context.Context, in *EmptyRequest, opts .
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
-	GetAll(context.Context, *EmptyRequest) (*GetAllResponse, error)
-	mustEmbedUnimplementedUserServiceServer()
+	CreateUser(context.Context, *CreateRequest) (*CreateResponse, error)
+	LoginUser(context.Context, *LoginRequest) (*LoginResponse, error)
+	EditUser(context.Context, *EditRequest) (*EditResponse, error)
+	FindByUsername(context.Context, *UserNameRequest) (*UserNameResponse, error)
+	ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error)
+	FindPublicByUsername(context.Context, *PublicUserNameRequest) (*PublicUserNameResponse, error)
+	MustEmbedUnimplementedUserServiceServer()
 }
 
 // UnimplementedUserServiceServer must be embedded to have forward compatible implementations.
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) GetAll(context.Context, *EmptyRequest) (*GetAllResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateRequest) (*CreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
+func (UnimplementedUserServiceServer) LoginUser(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginUser not implemented")
+}
+func (UnimplementedUserServiceServer) EditUser(context.Context, *EditRequest) (*EditResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditUser not implemented")
+}
+func (UnimplementedUserServiceServer) FindByUsername(context.Context, *UserNameRequest) (*UserNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindByUsername not implemented")
+}
+func (UnimplementedUserServiceServer) ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangePassword not implemented")
+}
+func (UnimplementedUserServiceServer) FindPublicByUsername(context.Context, *PublicUserNameRequest) (*PublicUserNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindPublicByUsername not implemented")
+}
+func (UnimplementedUserServiceServer) MustEmbedUnimplementedUserServiceServer() {}
 
 // UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to UserServiceServer will
 // result in compilation errors.
 type UnsafeUserServiceServer interface {
-	mustEmbedUnimplementedUserServiceServer()
+	MustEmbedUnimplementedUserServiceServer()
 }
 
 func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmptyRequest)
+func _UserService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).GetAll(ctx, in)
+		return srv.(UserServiceServer).CreateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user_service.UserService/GetAll",
+		FullMethod: "/user_service.UserService/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetAll(ctx, req.(*EmptyRequest))
+		return srv.(UserServiceServer).CreateUser(ctx, req.(*CreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_LoginUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).LoginUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UserService/LoginUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).LoginUser(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_EditUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).EditUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UserService/EditUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).EditUser(ctx, req.(*EditRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_FindByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).FindByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UserService/FindByUsername",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).FindByUsername(ctx, req.(*UserNameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ChangePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UserService/ChangePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_FindPublicByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublicUserNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).FindPublicByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UserService/FindPublicByUsername",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).FindPublicByUsername(ctx, req.(*PublicUserNameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,8 +256,28 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetAll",
-			Handler:    _UserService_GetAll_Handler,
+			MethodName: "CreateUser",
+			Handler:    _UserService_CreateUser_Handler,
+		},
+		{
+			MethodName: "LoginUser",
+			Handler:    _UserService_LoginUser_Handler,
+		},
+		{
+			MethodName: "EditUser",
+			Handler:    _UserService_EditUser_Handler,
+		},
+		{
+			MethodName: "FindByUsername",
+			Handler:    _UserService_FindByUsername_Handler,
+		},
+		{
+			MethodName: "ChangePassword",
+			Handler:    _UserService_ChangePassword_Handler,
+		},
+		{
+			MethodName: "FindPublicByUsername",
+			Handler:    _UserService_FindPublicByUsername_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

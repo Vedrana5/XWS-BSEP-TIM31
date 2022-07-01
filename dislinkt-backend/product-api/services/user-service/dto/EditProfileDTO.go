@@ -20,6 +20,4 @@ type EditProfileDTO struct {
 	Education      string    `json:"Education" gorm:"not null"`
 	Skills         string    `json:"Skills" gorm:"not null"`
 	Interest       string    `json:"Interest" gorm:"not null"`
-	Question       string    `json:"Question"`
-	Answer         string    `json:"Answer"`
 }

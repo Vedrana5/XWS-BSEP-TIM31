@@ -1,11 +1,11 @@
 package service
 
 import (
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/dto"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/repository"
 	"github.com/google/uuid"
 	"strings"
+	"user/module/dto"
+	"user/module/model"
+	"user/module/repository"
 )
 
 type UserService struct {
@@ -48,11 +48,11 @@ func (service *UserService) FindPublic(userName string) []model.User {
 	users := service.Repo.FindAllUsers()
 	var s []model.User
 	for i := 0; i < len(users); i++ {
-		if (strings.Contains(users[i].Username, userName) ) {
-		var user model.User = users[i];
-		if (user.TypeOfProfile == model.PUBLIC) {
-			s = append(s,user)
-		}
+		if strings.Contains(users[i].Username, userName) {
+			var user model.User = users[i]
+			if user.TypeOfProfile == model.PUBLIC {
+				s = append(s, user)
+			}
 		}
 	}
 	if s != nil {
@@ -76,13 +76,13 @@ func (service *UserService) FindByID(ID uuid.UUID) *model.User {
 	return user
 }
 
-func (service *UserService) FindByUserNameAndID(ID uuid.UUID,username string) *model.User {
-	users := service.Repo.FindByUserNameAndID(ID,username)
+func (service *UserService) FindByUserNameAndID(ID uuid.UUID, username string) *model.User {
+	users := service.Repo.FindByUserNameAndID(ID, username)
 	return users
 }
 
-func (service *UserService) FindByEmailAndID(ID uuid.UUID,email string) *model.User {
-	users := service.Repo.FindByEmailAndID(ID,email)
+func (service *UserService) FindByEmailAndID(ID uuid.UUID, email string) *model.User {
+	users := service.Repo.FindByEmailAndID(ID, email)
 	return users
 }
 

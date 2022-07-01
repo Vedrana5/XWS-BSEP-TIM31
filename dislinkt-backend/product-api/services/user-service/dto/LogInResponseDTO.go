@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
 	"github.com/google/uuid"
+	"user/module/model"
 )
 
 type LogInResponseDTO struct {
