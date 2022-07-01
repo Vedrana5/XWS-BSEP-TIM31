@@ -39,7 +39,7 @@ service UserService{
   rpc ChangePassword(ChangePasswordRequest) returns(ChangePasswordResponse) {
     option (google.api.http) = {
       post: "/password",
-      body: ""
+      body: "changePassword"
     };
   }
 
