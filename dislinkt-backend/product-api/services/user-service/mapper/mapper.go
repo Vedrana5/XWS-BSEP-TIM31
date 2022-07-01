@@ -16,19 +16,21 @@ func MapUser(user dto.RegisteredUserDTO) *pb.RegisterUser {
 	return usersPb
 }
 
-func MapString(editUser dto.EditProfileDTO) *pb.EditUser {
-	message := &pb.EditUser{
+func MapString(editUser dto.EditProfileDTO) *pb.EditUser1 {
+	message := &pb.EditUser1{
 		ID:             editUser.ID.String(),
 		OldUsername:    editUser.OldUsername,
 		Username:       editUser.Username,
 		Password:       editUser.Password,
 		Email:          editUser.Email,
 		PhoneNumber:    editUser.PhoneNumber,
+		DateOfBirth:    editUser.DateOfBirth,
 		FirstName:      editUser.FirstName,
 		LastName:       editUser.LastName,
-		DateOfBirth:    editUser.DateOfBirth,
+		Gender:         editUser.Gender,
 		TypeOfUser:     editUser.TypeOfUser,
 		TypeOfProfile:  editUser.TypeOfProfile,
+		Biography:      editUser.Biography,
 		WorkExperience: editUser.WorkExperience,
 		Education:      editUser.Education,
 		Skills:         editUser.Skills,

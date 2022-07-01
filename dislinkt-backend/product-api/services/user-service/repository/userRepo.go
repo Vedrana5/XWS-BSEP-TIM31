@@ -93,38 +93,38 @@ func (repo *UserRepo) UpdateUserProfileInfo(user *dto.EditProfileDTO) error {
 		gender = model.MALE
 	case "FEMALE":
 		gender = model.FEMALE
-		fmt.Println("ovdeee samm")
 
 	}
 
 	result := repo.Database.Model(&model.User{}).Where("username = ?", user.OldUsername)
+
 	result.Update("username", user.Username)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo username")
 	result.Update("phone_number", user.PhoneNumber)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo phone_number")
 	result.Update("first_name", user.FirstName)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo first_name")
 	result.Update("last_name", user.LastName)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo last_name")
 	result.Update("gender", gender)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo gender")
 	layout := "2006-01-02"
 	dateOfBirth, _ := time.Parse(layout, user.DateOfBirth)
 	result.Update("date_of_birth", dateOfBirth)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo date_of_birth")
 	result.Update("biography", user.Biography)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo biography")
 	result.Update("email", user.Email)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo email")
 
-	result.Update("workExperience", user.WorkExperience)
-	fmt.Println(result.RowsAffected)
+	//result.Update("workExperience", user.WorkExperience)
+	//fmt.Println("updatovali smo workExperience")
 	result.Update("education", user.Education)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo education")
 	result.Update("skills", user.Skills)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo skills")
 	result.Update("interest", user.Interest)
-	fmt.Println(result.RowsAffected)
+	fmt.Println("updatovali smo interest")
 
 	fmt.Println("updating profile info")
 	return nil

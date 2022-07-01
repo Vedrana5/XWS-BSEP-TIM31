@@ -337,7 +337,7 @@ func (handler RegisterHandler) FindByUsername(ctx context.Context, username *use
 	return &user_service.UserNameResponse{User: mapper.MapFindUser(user)}, nil
 }
 
-func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_service.EditUserRequest) (*user_service.EditUserResponse, error) {
+func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_service.EditRequest) (*user_service.EditResponse, error) {
 
 	id := uuid.MustParse(editUser.EditUser.ID)
 	var EditProfileDTO dto.EditProfileDTO
@@ -348,19 +348,20 @@ func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_serv
 		Password:       editUser.EditUser.Password,
 		Email:          editUser.EditUser.Email,
 		PhoneNumber:    editUser.EditUser.PhoneNumber,
+		DateOfBirth:    editUser.EditUser.DateOfBirth,
 		FirstName:      editUser.EditUser.FirstName,
 		LastName:       editUser.EditUser.LastName,
-		DateOfBirth:    editUser.EditUser.DateOfBirth,
+		Gender:         editUser.EditUser.Gender,
 		TypeOfUser:     editUser.EditUser.TypeOfUser,
 		TypeOfProfile:  editUser.EditUser.TypeOfProfile,
+		Biography:      editUser.EditUser.Biography,
 		WorkExperience: editUser.EditUser.WorkExperience,
 		Education:      editUser.EditUser.Education,
 		Skills:         editUser.EditUser.Skills,
 		Interest:       editUser.EditUser.Interest,
-		Question:       editUser.EditUser.Skills,
-		Answer:         editUser.EditUser.Interest,
 	}
 
+	fmt.Printf("BIOGRAFIJA JE" + EditProfileDTO.Biography)
 	var loginUser = handler.UserService.FindByID(EditProfileDTO.ID)
 	userRole := ""
 	if loginUser.TypeOfUser == model.ADMIN {
@@ -380,7 +381,7 @@ func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_serv
 		}).Error("User is not authorized to update user information!")
 		fmt.Println(time.Now().String() + " User is not authorized to update user information!")
 
-		return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
+		return &user_service.EditResponse{EditUser1: mapper.MapString(EditProfileDTO)}, nil
 	}
 
 	if handler.UserService.FindByEmailAndID(EditProfileDTO.ID, EditProfileDTO.Email) != nil {
@@ -392,7 +393,7 @@ func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_serv
 		}).Error("User already exist with entered email!")
 		fmt.Println(time.Now().String() + " User already exist with entered email!")
 
-		return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
+		return &user_service.EditResponse{EditUser1: mapper.MapString(EditProfileDTO)}, nil
 	}
 
 	fmt.Println("ID JE " + EditProfileDTO.ID.String())
@@ -407,7 +408,7 @@ func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_serv
 		}).Error("User already exist with entered username!")
 		fmt.Println(time.Now().String() + " User already exist with entered username!")
 
-		return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
+		return &user_service.EditResponse{EditUser1: mapper.MapString(EditProfileDTO)}, nil
 	}
 
 	err := handler.UserService.UpdateUserProfileInfo(&EditProfileDTO)
@@ -429,5 +430,5 @@ func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_serv
 	}).Info("Successfully updated user profile info!")
 	fmt.Println(time.Now().String() + " Successfully updated user profile info!")
 
-	return &user_service.EditUserResponse{EditUser: mapper.MapString(EditProfileDTO)}, nil
+	return &user_service.EditResponse{EditUser1: mapper.MapString(EditProfileDTO)}, nil
 }
