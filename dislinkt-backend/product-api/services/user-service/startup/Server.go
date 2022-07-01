@@ -39,15 +39,8 @@ func initPasswordUtil() *util.PasswordUtil {
 	return &util.PasswordUtil{}
 }
 
-func initRegisterHandler(confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *handler.RegisterHandler {
-	return &handler.RegisterHandler{
-		confirmationTokenService,
-		passwordUtil,
-		userService,
-		LogInfo,
-		LogError,
-	}
-
+func (server *Server) initRegisterHandler(confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *handler.RegisterHandler {
+	return handler.NewRegisterHandler(confirmationTokenService, passwordUtil, LogInfo, LogError, userService)
 }
 
 func initLoginHandler(validationCodeService *service.ValidationCodeService, userService *service.UserService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger) *handler.LogInHandler {
@@ -159,7 +152,7 @@ func (server *Server) Start() {
 	validationCodeService := itValidationCodeService(validationCodeRepo)
 
 	loginHandler := initLoginHandler(validationCodeService, userService, passwordUtil, logInfo, logError)
-	registerHandler := initRegisterHandler(confirmationTokenService, passwordUtil, logInfo, logError, userService)
+	registerHandler := server.initRegisterHandler(confirmationTokenService, passwordUtil, logInfo, logError, userService)
 
 	validator := validator.New()
 	userHandler := initUserHandler(validationCodeService, userService, logInfo, logError)

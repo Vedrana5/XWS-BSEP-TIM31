@@ -65,7 +65,7 @@ func (handler *LogInHandler) LogIn(w http.ResponseWriter, r *http.Request) {
 		plainPassword = sb.String()
 	}
 
-	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, _.user.Password) {
+	if !handler.PasswordUtil.CheckPasswordHash(plainPassword, user.Password) {
 		handler.LogError.WithFields(logrus.Fields{
 			"status":    "failure",
 			"location":  "LogInHandler",

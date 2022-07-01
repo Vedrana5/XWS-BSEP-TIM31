@@ -4,6 +4,8 @@ go 1.18
 
 replace common/module => ../common
 
+require github.com/google/uuid v1.1.2
+
 require (
 	common/module v0.0.0-00010101000000-000000000000 // indirect
 	github.com/form3tech-oss/jwt-go v3.2.5+incompatible // indirect
@@ -25,6 +27,7 @@ require (
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mikespook/gorbac v2.3.0+incompatible // indirect
+	github.com/sirupsen/logrus v1.8.1 // indirect
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
 	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect

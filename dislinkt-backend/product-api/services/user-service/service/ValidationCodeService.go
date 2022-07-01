@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/model"
-	"github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service/repository"
 	"github.com/google/uuid"
+	"user/module/model"
+	"user/module/repository"
 )
 
 type ValidationCodeService struct {

@@ -1,9 +1,10 @@
 package handler
 
 import (
-	userGw "common/module/proto/user_service"
+	"common/module/proto/user_service"
 	"context"
 	"fmt"
+	"log"
 	"user/module/dto"
 	"user/module/model"
 	"user/module/service"
@@ -11,7 +12,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
-	"log"
 	"net/smtp"
 	"time"
 )
@@ -24,7 +24,16 @@ type RegisterHandler struct {
 	LogError                 *logrus.Logger
 }
 
-func (handler *RegisterHandler) CreateUser(ctx context.Context, user *userGw.User) (*userGw.EmptyResponse, error) {
+func (u RegisterHandler) mustEmbedUnimplementedUserServiceServer() {
+	//TODO implement me
+	panic("implement me")
+}
+
+func NewRegisterHandler(confirmationTokenService *service.ConfirmationTokenService, passwordUtil *util.PasswordUtil, LogInfo *logrus.Logger, LogError *logrus.Logger, userService *service.UserService) *RegisterHandler {
+	return &RegisterHandler{confirmationTokenService, passwordUtil, userService, LogInfo, LogError}
+}
+
+func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_service.User) (*user_service.EmptyResponse, error) {
 
 	var registeredUserDTO dto.RegisteredUserDTO
 	registeredUserDTO = dto.RegisteredUserDTO{
@@ -177,13 +186,8 @@ func (handler *RegisterHandler) CreateUser(ctx context.Context, user *userGw.Use
 	return nil, nil
 }
 
-func (handler *RegisterHandler) mustEmbedUnimplementedUserServiceServer() {
-	//TODO implement me
-	panic("implement me")
-}
-
 //SendConfirmationMail
-func (handler *RegisterHandler) SendConfirmationMail(user model.User, token uuid.UUID) {
+func (handler RegisterHandler) SendConfirmationMail(user model.User, token uuid.UUID) {
 	// Sender data.
 	from := "sammilica99@gmail.com"
 	password := "setmkiwpicaxhmti"
