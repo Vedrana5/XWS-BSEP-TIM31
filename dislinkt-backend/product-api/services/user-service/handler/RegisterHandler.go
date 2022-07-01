@@ -432,3 +432,35 @@ func (handler RegisterHandler) EditUser(ctx context.Context, editUser *user_serv
 
 	return &user_service.EditResponse{EditUser1: mapper.MapString(EditProfileDTO)}, nil
 }
+
+func (handler RegisterHandler) FindPublicByUsername(ctx context.Context, username *user_service.PublicUserNameRequest) (*user_service.PublicUserNameResponse, error) {
+	fmt.Printf("Ime koje trazi je" + username.Username)
+	var users = handler.UserService.FindPublic(username.Username)
+	if users == nil {
+		handler.LogError.WithFields(logrus.Fields{
+			"status":    "failure",
+			"location":  "UserHandler",
+			"action":    "FindByUserName",
+			"timestamp": time.Now().String(),
+		}).Error("User not found!")
+		fmt.Println(time.Now().String() + " Users not found!")
+	}
+
+	handler.LogInfo.WithFields(logrus.Fields{
+		"status":    "success",
+		"location":  "UserHandler",
+		"action":    "FindByUserName",
+		"timestamp": time.Now().String(),
+	}).Info("Successfully founded user by username!")
+	fmt.Println(time.Now().String() + " Successfully founded user by username!")
+
+	response := &user_service.PublicUserNameResponse{
+		Users: []*user_service.User{},
+	}
+	fmt.Printf("Pre kreiranja response-a")
+	for _, User := range users {
+		current := mapper.MapFindPublicUser(User)
+		response.Users = append(response.Users, current)
+	}
+	return response, nil
+}

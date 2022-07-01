@@ -36,6 +36,13 @@ service UserService{
     };
   }
 
+  rpc FindPublicByUsername(PublicUserNameRequest) returns(PublicUserNameResponse) {
+    option (google.api.http) = {
+      get: "/publicUser/{username}",
+      body: ""
+    };
+  }
+
 
 }
 
@@ -56,7 +63,13 @@ message CreateRequest{
 message CreateResponse{
   RegisterUser registerUser=1;
 }
+message PublicUserNameRequest{
+  string username=1;
+}
 
+message PublicUserNameResponse{
+  repeated User users=1;
+}
 message EditRequest{
   EditUser editUser=1;
 }
