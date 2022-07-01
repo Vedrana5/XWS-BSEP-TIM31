@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.type === '1'">
+  <div>
           <form class="myForm" name="myForm">
       <div>
         <label for="password">New password</label>
@@ -38,18 +38,11 @@ export default {
             console.log("Password je "+this.Password);
             this.id = localStorage.getItem("userId");
             console.log("Id je "+this.id);
-
-         const headers ={
-            Authorization: "Bearer " + this.token,
-            'Content-Type': 'application/json;charset=UTF-8',
-            Accept: 'application/json',
-          }  
-  axios.post("http://localhost:8089/changePassword",{
+  axios.post("http://localhost:9090/password",{
                 ID: this.id,
                 Password: this.Password,
                 Token: this.token
-            }, {
-      headers}
+            }
     )
         .then((res) => {
           console.log(res);

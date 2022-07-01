@@ -145,7 +145,7 @@ async Register() {
             'Content-Type': 'application/json;charset=UTF-8',
             Accept: 'application/json',
           }
-  axios.post("http://localhost:9090/users",{
+  axios.post("http://localhost:9090/users" ,{
        Username : this.newUser.Username, 
        Password : this.newUser.Password,
        Email : this.newUser.Email,

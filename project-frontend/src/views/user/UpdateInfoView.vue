@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.type === '1'">
+  <div>
      <h1 id="heading1">Update info Here</h1>
        <img src="https://www.kindpng.com/picc/m/273-2738790_login-login-logo-hd-png-download.png" style="width:200px; height:150px;">
      <div>
@@ -129,7 +129,7 @@ export default {
         this.oldUsername = localStorage.getItem("username");
         
 
-axios.post("http://localhost:8089/updateProfil",{          
+axios.post("http://localhost:9090/Euser",{          
       ID: this.id,
        OldUsername: this.oldUsername,     
        Username : this.newUser.Username, 
@@ -146,12 +146,7 @@ axios.post("http://localhost:8089/updateProfil",{
        WorkExperience : this.newUser.WorkExperience,
        Education : this.newUser.Education,
        Skills : this.newUser.Skills,
-       Interest : this.newUser.Interest,}, {
-               headers :{
-            Authorization: "Bearer " +this.token,
-            'Content-Type': 'application/json;charset=UTF-8',
-            Accept: 'application/json',
-          }}
+       Interest : this.newUser.Interest,}
     ).then((res) => {
           console.log(res);
            new Swal({
@@ -303,41 +298,27 @@ async created() {
   this.token = localStorage.getItem("token")
   this.type = localStorage.getItem("userType")
   console.log("type je"+ this.type);
-         const headers ={
-            Authorization: "Bearer " + this.token,
-            'Content-Type': 'application/json;charset=UTF-8',
-            Accept: 'application/json',
-          }
-  console.log(this.Username);
-  console.log(this.token);
-  axios.get("http://localhost:8089/findByUsername/"+this.Username, {
-      headers}
-    )
-    .then((response) => {
 
-      //console.log(this.response.FirstName)
-      console.log(response.data.gender)
-      this.newUser.Username = response.data.username
-      this.newUser.Email = response.data.email
-      this.newUser.PhoneNumber = response.data.phoneNumber
-      this.newUser.FirstName = response.data.firstName
-      this.newUser.LastName = response.data.lastName
-      if(response.data.gender == 0) {
-      this.newUser.Gender = "MALE"
-      }else if (response.data.gender == 2) {
-        this.newUser.Gender = "FEMALE"
-      }else {
-        this.newUser.Gender = "OTHER"
-      }
-      this.newUser.TypeOfProfile = response.data.typeOfProfile
-      this.newUser.DateOfBirth = moment(String(response.data.dateOfBirth)).format('YYYY-MM-DD')
-      this.newUser.TypeOfUser = response.data.typeOfUser
-      this.newUser.Biography = response.data.biography
-      this.newUser.WorkExperience = response.data.workExperience
-      this.newUser.Education = response.data.education
-      this.newUser.Skills = response.data.skills
-      this.newUser.Interest = response.data.interest
-      this.newUser.Question = response.data.question
+       console.log()
+  axios.get("http://localhost:9090/user/"+this.Username
+    )
+    .then(response => {
+      console.log("datum je "+ response.data.user.DateOfBirth.substring(0,10) );
+     this.newUser.Username = response.data.user.Username
+      this.newUser.Email = response.data.user.Email
+      this.newUser.PhoneNumber = response.data.user.PhoneNumber
+      this.newUser.FirstName = response.data.user.FirstName
+      this.newUser.LastName = response.data.user.LastName
+      this.newUser.Gender = response.data.user.Gender
+      this.newUser.TypeOfProfile = response.data.user.TypeOfProfile
+      this.newUser.DateOfBirth = moment(response.data.user.DateOfBirth.substring(0,10)).format('YYYY-MM-DD')
+      this.newUser.TypeOfUser = response.data.user.TypeOfUser
+      this.newUser.Biography = response.data.user.Biography
+      this.newUser.WorkExperience = response.data.user.WorkExperience
+      this.newUser.Education = response.data.user.Education
+      this.newUser.Skills = response.data.user.Skills
+      this.newUser.Interest = response.data.user.Interest
+      this.newUser.Question = response.data.user.Question
         })
   },
 };

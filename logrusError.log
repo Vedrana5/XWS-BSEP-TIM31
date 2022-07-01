@@ -1,0 +1,8 @@
+{"action":"LogIn","level":"error","location":"LogInHandler","msg":"Failed sign up!","status":"failure","time":"2022-07-01T22:02:59+02:00","timestamp":"2022-07-01 22:02:59.3413 +0200 CEST m=+5522.599311101"}
+{"action":"FindByUserName","level":"error","location":"UserHandler","msg":"User not found!","status":"failure","time":"2022-07-01T22:07:22+02:00","timestamp":"2022-07-01 22:07:22.9933697 +0200 CEST m=+5786.251380801"}
+{"action":"CreateUser","level":"error","location":"RegisterHandler","msg":"User already exist with entered email!","status":"failure","time":"2022-07-01T22:41:58+02:00","timestamp":"2022-07-01 22:41:58.7630305 +0200 CEST m=+1971.907948901"}
+{"action":"FindByUserName","level":"error","location":"UserHandler","msg":"User not found!","status":"failure","time":"2022-07-01T22:44:34+02:00","timestamp":"2022-07-01 22:44:34.5485131 +0200 CEST m=+2127.693431501"}
+{"action":"LogIn","level":"error","location":"LogInHandler","msg":"Failed sign up!","status":"failure","time":"2022-07-01T23:28:18+02:00","timestamp":"2022-07-01 23:28:18.2179246 +0200 CEST m=+2308.904610801"}
+{"action":"LogIn","level":"error","location":"LogInHandler","msg":"Failed sign up!","status":"failure","time":"2022-07-01T23:29:33+02:00","timestamp":"2022-07-01 23:29:33.1216938 +0200 CEST m=+2383.808380001"}
+{"action":"LogIn","level":"error","location":"LogInHandler","msg":"Failed sign up!","status":"failure","time":"2022-07-01T23:30:41+02:00","timestamp":"2022-07-01 23:30:41.4706528 +0200 CEST m=+2452.157339001"}
+{"action":"LogIn","level":"error","location":"LogInHandler","msg":"Failed sign up!","status":"failure","time":"2022-07-01T23:31:17+02:00","timestamp":"2022-07-01 23:31:17.4940454 +0200 CEST m=+2488.180731601"}

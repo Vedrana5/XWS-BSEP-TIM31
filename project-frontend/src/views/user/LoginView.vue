@@ -36,16 +36,16 @@ export default {
 
   methods: {
 async Login() {          
-      axios.post("http://localhost:8089/login",{           
+      axios.post("http://localhost:9090/user",{           
           Username: this.Username,
           Password: this.Password,
        })
       .then (response => { 
-        console.log(response.data.Token)
+        console.log("ID JE"+response.data.loginUserResponse)
           localStorage.setItem("username", this.Username);
-          localStorage.setItem("token", response.data.Token);
-          localStorage.setItem("userId", response.data.ID);
-          localStorage.setItem("userType", response.data.TypeOfUser);
+          localStorage.setItem("token", response.data.loginUserResponse.Token);
+          localStorage.setItem("userId", response.data.loginUserResponse.ID);
+          localStorage.setItem("userType", response.data.loginUserResponse.TypeOfUser);
                       new Swal({
              title:"Uspesno",
              type: "warning",
