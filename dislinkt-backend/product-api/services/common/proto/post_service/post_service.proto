@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "common/module/proto/post_service";
+
+package post_service;
+
+import "google/api/annotations.proto";
+
+service PostService{
+
+  rpc CreatePost(CreateRequest) returns(CreateResponse) {
+    option (google.api.http) = {
+      post: "/posts",
+      body: "post"
+    };
+  }
+}
+
+message CreateRequest{
+  Post post=1;
+}
+
+message CreateResponse{
+  Post1 post1=1;
+}
+
+message Post {
+
+}
+
+message Post1 {
+
+}
