@@ -47,7 +47,7 @@ func (c *postServiceClient) CreatePost(ctx context.Context, in *CreateRequest, o
 // for forward compatibility
 type PostServiceServer interface {
 	CreatePost(context.Context, *CreateRequest) (*CreateResponse, error)
-	mustEmbedUnimplementedPostServiceServer()
+	MustEmbedUnimplementedPostServiceServer()
 }
 
 // UnimplementedPostServiceServer must be embedded to have forward compatible implementations.
@@ -57,13 +57,13 @@ type UnimplementedPostServiceServer struct {
 func (UnimplementedPostServiceServer) CreatePost(context.Context, *CreateRequest) (*CreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePost not implemented")
 }
-func (UnimplementedPostServiceServer) mustEmbedUnimplementedPostServiceServer() {}
+func (UnimplementedPostServiceServer) MustEmbedUnimplementedPostServiceServer() {}
 
 // UnsafePostServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to PostServiceServer will
 // result in compilation errors.
 type UnsafePostServiceServer interface {
-	mustEmbedUnimplementedPostServiceServer()
+	MustEmbedUnimplementedPostServiceServer()
 }
 
 func RegisterPostServiceServer(s grpc.ServiceRegistrar, srv PostServiceServer) {
