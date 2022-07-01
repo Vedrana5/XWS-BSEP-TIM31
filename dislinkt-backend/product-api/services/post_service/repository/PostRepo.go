@@ -5,9 +5,8 @@ import (
 )
 
 const (
-	DATABASE           = "posts_service"
-	CollectionPost     = "postsData"
-	CollectionJobOffer = "jobOffersData"
+	DATABASE       = "posts"
+	CollectionPost = "postsData"
 )
 
 type PostRepo struct {

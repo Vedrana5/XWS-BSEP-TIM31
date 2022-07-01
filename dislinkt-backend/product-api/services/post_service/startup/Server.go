@@ -33,6 +33,7 @@ const (
 
 func (server *Server) InitMongoClient() *mongo.Client {
 	client, err := repository.GetClient(server.config.PostDBHost, server.config.PostDBPort)
+
 	if err != nil {
 		log.Fatalln(err)
 	} else {
