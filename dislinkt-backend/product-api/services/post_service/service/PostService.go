@@ -15,15 +15,15 @@ func NewPostService(repository repository.PostRepo) *PostService {
 	return &PostService{Repo: &repository}
 }
 
-func (service *PostService) GetById(id primitive.ObjectID) *model.Post {
+func (service *PostService) GetById(id primitive.ObjectID) (*model.Post, error) {
 	return service.Repo.GetById(id)
 }
 
-func (service *PostService) GetAll() []*model.Post {
+func (service *PostService) GetAll() ([]*model.Post, error) {
 	return service.Repo.GetAll()
 }
 
-func (service *PostService) GetAllByUsername(username string) []*model.Post {
+func (service *PostService) GetAllByUsername(username string) ([]*model.Post, error) {
 	return service.Repo.GetAllByUsername(username)
 }
 
