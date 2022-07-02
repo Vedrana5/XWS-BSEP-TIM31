@@ -24,11 +24,11 @@ func NewPostRepository(client *mongo.Client) PostRepo {
 }
 
 func (r PostRepo) DislikePost(post *model.Post, id uuid.UUID) error {
-
+	return nil
 }
 
 func (r PostRepo) LikePost(post *model.Post, id uuid.UUID) error {
-
+	return nil
 }
 
 func (r PostRepo) CreateComment(post *model.Post, comment *model.Comment) error {
