@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/repository/Client.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/repository/Client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" afterDir="false" />
-    </list>
+    <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +34,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultGoTemplateProperty": "Go File"
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "C:/Users/Korisnik"
   }
 }]]></component>
   <component name="RunManager" selected="Go Build.go build main.go (2)">
