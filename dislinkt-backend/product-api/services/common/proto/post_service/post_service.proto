@@ -8,26 +8,33 @@ import "google/api/annotations.proto";
 
 service PostService{
 
-  rpc CreatePost(CreateRequest) returns(CreateResponse) {
+
+  rpc get(GetRequest) returns(GetResponse) {
     option (google.api.http) = {
-      post: "/posts",
-      body: "post"
+      get: "/post/{Id}"
     };
   }
+
+
+
+}
+message GetRequest {
+  string Id = 1;
+
 }
 
-message CreateRequest{
-  Post post=1;
-}
+message GetResponse {
+  Post Post = 1;
 
-message CreateResponse{
-  Post1 post1=1;
 }
 
 message Post {
-
-}
-
-message Post1 {
-
+  string Id = 1;
+  string Username = 2;
+  string PostText = 3;
+  string ImagePaths = 4;
+  string DatePosted = 6;
+  int32 LikesNumber = 7;
+  int32 DislikesNumber = 8;
+  int32 CommentsNumber = 10;
 }
