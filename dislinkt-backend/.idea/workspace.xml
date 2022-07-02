@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="" />
+    <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/repository/Client.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/repository/Client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,12 +35,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="RunManager">
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File"
+  }
+}]]></component>
+  <component name="RunManager" selected="Go Build.go build main.go (2)">
     <configuration name="go build gateway/module" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="dislinkt-backend" />
       <working_directory value="$PROJECT_DIR$/product-api/services/api_gateway" />
@@ -62,6 +65,14 @@
       <filePath value="$PROJECT_DIR$/product-api/services/user-service/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="go build main.go (2)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="dislinkt-backend" />
+      <working_directory value="$PROJECT_DIR$/product-api/services/post_service" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/product-api/services/post_service/main.go" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="dislinkt-backend" />
       <working_directory value="$PROJECT_DIR$/product-api/services/api_gateway" />
@@ -70,6 +81,12 @@
       <filePath value="$PROJECT_DIR$/product-api/services/api_gateway/main.go" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build main.go (2)" />
+        <item itemvalue="Go Build.go build main.go" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
