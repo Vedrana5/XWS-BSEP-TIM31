@@ -3,9 +3,8 @@ package startup
 import (
 	postProto "common/module/proto/post_service"
 	"fmt"
-	"go.mongodb.org/mongo-driver/mongo"
-
 	_ "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/mongo"
 	"google.golang.org/grpc"
 
 	"log"
@@ -33,6 +32,7 @@ const (
 
 func (server *Server) InitMongoClient() *mongo.Client {
 	client, err := repository.GetClient(server.config.PostDBHost, server.config.PostDBPort)
+
 
 	if err != nil {
 		log.Fatalln(err)
