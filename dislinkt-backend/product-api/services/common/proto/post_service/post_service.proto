@@ -15,9 +15,19 @@ service PostService{
     };
   }
 
+  rpc getAllByUsername(GetRequest) returns(GetMultipleResponse) {
+    option (google.api.http) = {
+      get: "/post/user/{Id}"
+    };
+  }
+
 
 
 }
+message GetMultipleResponse {
+  repeated Post Posts = 1;
+}
+
 message GetRequest {
   string Id = 1;
 

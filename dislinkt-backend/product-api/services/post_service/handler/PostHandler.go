@@ -3,7 +3,6 @@ package handler
 import (
 	post_service "common/module/proto/post_service"
 	"context"
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"post/module/mapper"
 
@@ -33,20 +32,16 @@ func (p PostHandler) Get(ctx context.Context, request *post_service.GetRequest) 
 	return response, nil
 }
 
-func (p PostHandler) GetAllByUsername(_ context.Context, request *pb.GetRequest) (*pb.GetMultipleResponse, error) {
-	//request = p.sanitizeGetRequest(request)
+func (p PostHandler) GetAllByUsername(_ context.Context, request *post_service.GetRequest) (*post_service.GetMultipleResponse, error) {
 
-	posts, err := p.postService.GetAllByUsername(request.Id)
+	posts, err := p.PostService.GetAllByUsername(request.Id)
 	if err != nil {
-		p.logError.Logger.WithFields(logrus.Fields{
-			"userId": request.Id,
-		}).Errorf("ERR:GET ALL POSTS FOR USER FROM DB")
 		return nil, err
 	}
-	response := &pb.GetMultipleResponse{Posts: []*pb.Post{}}
+	response := &post_service.GetMultipleResponse{Posts: []*post_service.Post{}}
 
 	for _, post := range posts {
-		current := api.MapPostReply(post)
+		current := mapper.MapPostReply(post)
 		response.Posts = append(response.Posts, current)
 	}
 
