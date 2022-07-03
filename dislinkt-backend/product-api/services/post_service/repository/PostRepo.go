@@ -21,7 +21,9 @@ type PostRepo struct {
 
 func NewPostRepository(client *mongo.Client) PostRepo {
 	posts := client.Database(DATABASE).Collection(CollectionPost)
-	return PostRepo{posts: posts}
+	jobOffers := client.Database(DATABASE).Collection(CollectionJobOffer)
+
+	return PostRepo{posts: posts, jobOffers: jobOffers}
 }
 
 func (r PostRepo) DislikePost(post *model.Post, userName string) error {

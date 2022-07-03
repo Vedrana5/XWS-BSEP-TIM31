@@ -49,6 +49,18 @@ service PostService{
     };
   }
 
+  rpc createJobOffer(CreateJobOfferRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/job_offer"
+      body: "JobOffer"
+    };
+  }
+  rpc getAllJobOffers(Empty) returns(GetAllJobOffers) {
+    option (google.api.http) = {
+      get: "/job_offer"
+    };
+  }
+
   rpc likePost(ReactionRequest) returns (Empty) {
     option (google.api.http) = {
       post: "/post/{PostId}/like"
@@ -81,6 +93,14 @@ message ReactionRequest {
     string PostId = 1;
     string Username = 2;
 
+}
+
+message CreateJobOfferRequest {
+  JobOffer JobOffer = 1;
+}
+
+message GetAllJobOffers {
+  repeated JobOffer JobOffers = 1;
 }
 
 
@@ -127,6 +147,17 @@ message GetAllCommentsResponse {
 message GetResponse {
   Post Post = 1;
 
+}
+
+
+message JobOffer {
+  string Id = 1;
+  string Publisher = 2;
+  string Position = 3;
+  string JobDescription = 4;
+  repeated string Requirements = 5;
+  string DatePosted = 6;
+  string Duration = 7;
 }
 
 message Post {

@@ -39,6 +39,28 @@ func convertByteToBase64(paths []byte) string {
 
 }
 
+func MapNewJobOffer(offerPb *post_service.JobOffer) *model.JobOffer {
+
+	offer := &model.JobOffer{
+		Id:             primitive.NewObjectID(),
+		Publisher:      offerPb.Publisher,
+		Position:       offerPb.Position,
+		JobDescription: offerPb.JobDescription,
+		Requirements:   offerPb.Requirements,
+		DatePosted:     mapToDate(offerPb.DatePosted),
+		Duration:       mapToDate(offerPb.Duration),
+	}
+
+	return offer
+}
+
+func mapToDate(posted string) time.Time {
+	layout := "2006-01-02T15:04:05.000Z"
+	dateOfBirth, _ := time.Parse(layout, posted)
+	return dateOfBirth
+
+}
+
 func MapNewPost(postPb *post_service.Post) *model.Post {
 	post := &model.Post{
 		Id:         primitive.NewObjectID(),
@@ -60,6 +82,22 @@ func MapUserCommentsForPost(userName string, commentText string) *post_service.C
 	}
 
 	return commentPb
+}
+
+func MapJobOfferReply(offer *model.JobOffer) *post_service.JobOffer {
+	id := offer.Id.Hex()
+
+	offerPb := &post_service.JobOffer{
+		Id:             id,
+		Publisher:      offer.Publisher,
+		Position:       offer.Position,
+		JobDescription: offer.JobDescription,
+		Requirements:   offer.Requirements,
+		DatePosted:     offer.DatePosted.String(),
+		Duration:       offer.Duration.String(),
+	}
+
+	return offerPb
 }
 
 func MapNewComment(commentPb *post_service.Comment) *model.Comment {

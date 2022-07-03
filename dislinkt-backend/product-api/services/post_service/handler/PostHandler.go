@@ -4,7 +4,6 @@ import (
 	post_service "common/module/proto/post_service"
 	"context"
 	"github.com/microcosm-cc/bluemonday"
-
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"post/module/mapper"
 	"strings"
@@ -168,6 +167,31 @@ func (p PostHandler) GetAllReactionsForPost(_ context.Context, request *post_ser
 	response.DislikesNumber = int32(dislikesNum)
 	response.LikesNumber = int32(likesNum)
 
+	return response, nil
+}
+
+func (p PostHandler) CreateJobOffer(_ context.Context, request *post_service.CreateJobOfferRequest) (*post_service.Empty, error) {
+
+	offer := mapper.MapNewJobOffer(request.JobOffer)
+	err := p.PostService.CreateJobOffer(offer)
+	if err != nil {
+		return nil, err
+	}
+	return &post_service.Empty{}, nil
+}
+
+func (p PostHandler) GetAllJobOffers(_ context.Context, _ *post_service.Empty) (*post_service.GetAllJobOffers, error) {
+
+	offers, err := p.PostService.GetAllJobOffers()
+	if err != nil {
+
+		return nil, err
+	}
+	response := &post_service.GetAllJobOffers{JobOffers: []*post_service.JobOffer{}}
+	for _, offer := range offers {
+		current := mapper.MapJobOfferReply(offer)
+		response.JobOffers = append(response.JobOffers, current)
+	}
 	return response, nil
 }
 
