@@ -28,6 +28,42 @@ service PostService{
     };
   }
 
+
+  rpc create(CreatePostRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/post"
+      body: "Post"
+    };
+  }
+
+
+  rpc createComment(CreateCommentRequest) returns (CreateCommentResponse) {
+    option (google.api.http) = {
+      post: "/post/{PostId}/comment"
+      body: "Comment"
+    };
+  }
+}
+
+message CreateCommentRequest {
+  string PostId = 1;
+  Comment Comment = 2;
+}
+
+message CreateCommentResponse {
+  Comment Comment = 1;
+}
+
+
+
+message  CreatePostRequest {
+  Post Post = 1;
+}
+
+message  Comment {
+  string Username = 1;
+  string CommentText = 2;
+
 }
 
 message Empty {

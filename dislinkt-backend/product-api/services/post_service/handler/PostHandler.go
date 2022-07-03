@@ -62,6 +62,20 @@ func (p PostHandler) GetAll(_ context.Context, _ *post_service.Empty) (*post_ser
 	return response, nil
 }
 
+func (p PostHandler) Create(ctx context.Context, request *post_service.CreatePostRequest) (*post_service.Empty, error) {
+	post := mapper.MapNewPost(request.Post)
+	err := p.PostService.Create(post)
+	if err != nil {
+
+	}
+	return &post_service.Empty{}, nil
+}
+
+func (p PostHandler) CreateComment(ctx context.Context, request *post_service.CreateCommentRequest) (*post_service.CreateCommentResponse, error) {
+
+	return nil, nil
+}
+
 func (p PostHandler) MustEmbedUnimplementedPostServiceServer() {
 	//TODO implement me
 	panic("implement me")

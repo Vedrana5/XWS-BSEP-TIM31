@@ -25,6 +25,8 @@ type PostServiceClient interface {
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	GetAllByUsername(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetMultipleResponse, error)
 	GetAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetMultipleResponse, error)
+	Create(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*Empty, error)
+	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error)
 }
 
 type postServiceClient struct {
@@ -62,6 +64,24 @@ func (c *postServiceClient) GetAll(ctx context.Context, in *Empty, opts ...grpc.
 	return out, nil
 }
 
+func (c *postServiceClient) Create(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/post_service.PostService/create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *postServiceClient) CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error) {
+	out := new(CreateCommentResponse)
+	err := c.cc.Invoke(ctx, "/post_service.PostService/createComment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PostServiceServer is the server API for PostService service.
 // All implementations must embed UnimplementedPostServiceServer
 // for forward compatibility
@@ -69,6 +89,8 @@ type PostServiceServer interface {
 	Get(context.Context, *GetRequest) (*GetResponse, error)
 	GetAllByUsername(context.Context, *GetRequest) (*GetMultipleResponse, error)
 	GetAll(context.Context, *Empty) (*GetMultipleResponse, error)
+	Create(context.Context, *CreatePostRequest) (*Empty, error)
+	CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error)
 	MustEmbedUnimplementedPostServiceServer()
 }
 
@@ -84,6 +106,12 @@ func (UnimplementedPostServiceServer) GetAllByUsername(context.Context, *GetRequ
 }
 func (UnimplementedPostServiceServer) GetAll(context.Context, *Empty) (*GetMultipleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+}
+func (UnimplementedPostServiceServer) Create(context.Context, *CreatePostRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedPostServiceServer) CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateComment not implemented")
 }
 func (UnimplementedPostServiceServer) MustEmbedUnimplementedPostServiceServer() {}
 
@@ -152,6 +180,42 @@ func _PostService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PostService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PostServiceServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/post_service.PostService/create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PostServiceServer).Create(ctx, req.(*CreatePostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PostService_CreateComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCommentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PostServiceServer).CreateComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/post_service.PostService/createComment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PostServiceServer).CreateComment(ctx, req.(*CreateCommentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PostService_ServiceDesc is the grpc.ServiceDesc for PostService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -170,6 +234,14 @@ var PostService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getAll",
 			Handler:    _PostService_GetAll_Handler,
+		},
+		{
+			MethodName: "create",
+			Handler:    _PostService_Create_Handler,
+		},
+		{
+			MethodName: "createComment",
+			Handler:    _PostService_CreateComment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
