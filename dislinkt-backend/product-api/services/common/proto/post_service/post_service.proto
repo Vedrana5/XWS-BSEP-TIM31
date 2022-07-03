@@ -22,8 +22,18 @@ service PostService{
   }
 
 
+  rpc getAll(Empty) returns(GetMultipleResponse) {
+    option (google.api.http) = {
+      get: "/post"
+    };
+  }
 
 }
+
+message Empty {
+
+}
+
 message GetMultipleResponse {
   repeated Post Posts = 1;
 }

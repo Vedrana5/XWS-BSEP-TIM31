@@ -48,6 +48,20 @@ func (p PostHandler) GetAllByUsername(_ context.Context, request *post_service.G
 	return response, nil
 }
 
+func (p PostHandler) GetAll(_ context.Context, _ *post_service.Empty) (*post_service.GetMultipleResponse, error) {
+
+	posts, err := p.PostService.GetAll()
+	if err != nil {
+		return nil, err
+	}
+	response := &post_service.GetMultipleResponse{Posts: []*post_service.Post{}}
+	for _, post := range posts {
+		current := mapper.MapPostReply(post)
+		response.Posts = append(response.Posts, current)
+	}
+	return response, nil
+}
+
 func (p PostHandler) MustEmbedUnimplementedPostServiceServer() {
 	//TODO implement me
 	panic("implement me")
