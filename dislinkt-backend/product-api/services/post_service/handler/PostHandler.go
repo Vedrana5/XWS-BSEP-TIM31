@@ -114,6 +114,42 @@ func (p PostHandler) GetAllCommentsForPost(_ context.Context, request *post_serv
 	return response, nil
 }
 
+func (p PostHandler) LikePost(ctx context.Context, request *post_service.ReactionRequest) (*post_service.Empty, error) {
+
+	objectId, err := primitive.ObjectIDFromHex(request.PostId)
+
+	post, err := p.PostService.GetById(objectId)
+	if err != nil {
+		return nil, err
+	}
+
+	err = p.PostService.LikePost(post, request.Username)
+	if err != nil {
+		return nil, err
+	}
+
+	return &post_service.Empty{}, nil
+}
+
+func (p PostHandler) DislikePost(ctx context.Context, request *post_service.ReactionRequest) (*post_service.Empty, error) {
+
+	objectId, err := primitive.ObjectIDFromHex(request.PostId)
+
+	post, err := p.PostService.GetById(objectId)
+	if err != nil {
+
+		return nil, err
+	}
+
+	err = p.PostService.DislikePost(post, request.Username)
+	if err != nil {
+
+		return nil, err
+	}
+
+	return &post_service.Empty{}, nil
+}
+
 func (p PostHandler) MustEmbedUnimplementedPostServiceServer() {
 	//TODO implement me
 	panic("implement me")

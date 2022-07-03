@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -23,12 +22,74 @@ func NewPostRepository(client *mongo.Client) PostRepo {
 	return PostRepo{posts: posts}
 }
 
-func (r PostRepo) DislikePost(post *model.Post, id uuid.UUID) error {
+func (r PostRepo) DislikePost(post *model.Post, userName string) error {
+	var reactions []model.Reaction
+
+	reactionExists := false
+	for _, reaction := range post.Reactions {
+		if reaction.UserName != userName {
+			reactions = append(reactions, reaction)
+		} else {
+			if reaction.Reaction != model.DISLIKED {
+				reaction.Reaction = model.DISLIKED
+				reactions = append(reactions, reaction)
+			}
+			reactionExists = true
+		}
+	}
+	if !reactionExists {
+		reaction := model.Reaction{
+			UserName: userName,
+			Reaction: model.DISLIKED,
+		}
+		reactions = append(reactions, reaction)
+	}
+
+	_, err := r.posts.UpdateOne(context.TODO(), bson.M{"_id": post.Id}, bson.D{
+		{"$set", bson.D{{"reactions", reactions}}},
+	},
+	)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
-func (r PostRepo) LikePost(post *model.Post, id uuid.UUID) error {
+func (r PostRepo) LikePost(post *model.Post, userName string) error {
+	var reactions []model.Reaction
+
+	reactionExists := false
+	for _, reaction := range post.Reactions {
+		if reaction.UserName != userName {
+			reactions = append(reactions, reaction)
+		} else {
+			if reaction.Reaction != model.LIKED {
+				reaction.Reaction = model.LIKED
+				reactions = append(reactions, reaction)
+			}
+			reactionExists = true
+		}
+
+	}
+	if !reactionExists {
+		reaction := model.Reaction{
+			UserName: userName,
+			Reaction: model.LIKED,
+		}
+		reactions = append(reactions, reaction)
+	}
+
+	_, err := r.posts.UpdateOne(context.TODO(), bson.M{"_id": post.Id}, bson.D{
+		{"$set", bson.D{{"reactions", reactions}}},
+	},
+	)
+	if err != nil {
+		return err
+	}
+
 	return nil
+
 }
 
 func (r PostRepo) CreateComment(post *model.Post, comment *model.Comment) error {

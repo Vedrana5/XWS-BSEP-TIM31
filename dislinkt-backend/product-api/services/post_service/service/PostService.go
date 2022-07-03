@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"post/module/model"
 	"post/module/repository"
@@ -35,10 +34,10 @@ func (service *PostService) CreateComment(post *model.Post, comment *model.Comme
 	return service.Repo.CreateComment(post, comment)
 }
 
-func (service *PostService) LikePost(post *model.Post, userId uuid.UUID) error {
+func (service *PostService) LikePost(post *model.Post, userId string) error {
 	return service.Repo.LikePost(post, userId)
 }
 
-func (service *PostService) DislikePost(post *model.Post, userId uuid.UUID) error {
+func (service *PostService) DislikePost(post *model.Post, userId string) error {
 	return service.Repo.DislikePost(post, userId)
 }
