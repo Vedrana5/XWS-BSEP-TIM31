@@ -41,3 +41,11 @@ func (service *PostService) LikePost(post *model.Post, userId string) error {
 func (service *PostService) DislikePost(post *model.Post, userId string) error {
 	return service.Repo.DislikePost(post, userId)
 }
+
+func (service *PostService) CreateJobOffer(offer *model.JobOffer) error {
+	return service.Repo.CreateJobOffer(offer)
+}
+
+func (service *PostService) GetAllJobOffers() ([]*model.JobOffer, error) {
+	return service.Repo.GetAllJobOffers()
+}
