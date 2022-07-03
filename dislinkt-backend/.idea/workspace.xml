@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/product-api/services/post_service/model/JobOffer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service.pb.gw.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service_grpc.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/handler/PostHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/handler/PostHandler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/repository/PostRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/repository/PostRepo.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
