@@ -66,6 +66,7 @@ func (p PostHandler) Create(ctx context.Context, request *post_service.CreatePos
 	post := mapper.MapNewPost(request.Post)
 	err := p.PostService.Create(post)
 	if err != nil {
+		return nil, err
 
 	}
 	return &post_service.Empty{}, nil
@@ -73,7 +74,44 @@ func (p PostHandler) Create(ctx context.Context, request *post_service.CreatePos
 
 func (p PostHandler) CreateComment(ctx context.Context, request *post_service.CreateCommentRequest) (*post_service.CreateCommentResponse, error) {
 
-	return nil, nil
+	objectId, err := primitive.ObjectIDFromHex(request.PostId)
+
+	post, err := p.PostService.GetById(objectId)
+	if err != nil {
+		return nil, err
+	}
+	comment := mapper.MapNewComment(request.Comment)
+	err = p.PostService.CreateComment(post, comment)
+	if err != nil {
+		return nil, err
+	}
+
+	return &post_service.CreateCommentResponse{
+		Comment: request.Comment,
+	}, nil
+}
+
+func (p PostHandler) GetAllCommentsForPost(_ context.Context, request *post_service.GetRequest) (*post_service.GetAllCommentsResponse, error) {
+	//request = p.sanitizeGetRequest(request)
+	objectId, err := primitive.ObjectIDFromHex(request.Id)
+	if err != nil {
+		return nil, err
+	}
+	post, err := p.PostService.GetById(objectId)
+	if err != nil {
+		return nil, err
+	}
+
+	response := &post_service.GetAllCommentsResponse{Comments: []*post_service.Comment{}}
+	for _, comment := range post.Comments {
+		if err != nil {
+			return nil, err
+		}
+		current := mapper.MapUserCommentsForPost(comment.Username, comment.CommentText)
+		response.Comments = append(response.Comments, current)
+	}
+
+	return response, nil
 }
 
 func (p PostHandler) MustEmbedUnimplementedPostServiceServer() {

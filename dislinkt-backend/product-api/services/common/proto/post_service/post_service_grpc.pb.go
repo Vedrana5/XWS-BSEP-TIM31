@@ -26,6 +26,7 @@ type PostServiceClient interface {
 	GetAllByUsername(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetMultipleResponse, error)
 	GetAll(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetMultipleResponse, error)
 	Create(ctx context.Context, in *CreatePostRequest, opts ...grpc.CallOption) (*Empty, error)
+	GetAllCommentsForPost(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetAllCommentsResponse, error)
 	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error)
 }
 
@@ -73,6 +74,15 @@ func (c *postServiceClient) Create(ctx context.Context, in *CreatePostRequest, o
 	return out, nil
 }
 
+func (c *postServiceClient) GetAllCommentsForPost(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetAllCommentsResponse, error) {
+	out := new(GetAllCommentsResponse)
+	err := c.cc.Invoke(ctx, "/post_service.PostService/getAllCommentsForPost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *postServiceClient) CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error) {
 	out := new(CreateCommentResponse)
 	err := c.cc.Invoke(ctx, "/post_service.PostService/createComment", in, out, opts...)
@@ -90,6 +100,7 @@ type PostServiceServer interface {
 	GetAllByUsername(context.Context, *GetRequest) (*GetMultipleResponse, error)
 	GetAll(context.Context, *Empty) (*GetMultipleResponse, error)
 	Create(context.Context, *CreatePostRequest) (*Empty, error)
+	GetAllCommentsForPost(context.Context, *GetRequest) (*GetAllCommentsResponse, error)
 	CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error)
 	MustEmbedUnimplementedPostServiceServer()
 }
@@ -109,6 +120,9 @@ func (UnimplementedPostServiceServer) GetAll(context.Context, *Empty) (*GetMulti
 }
 func (UnimplementedPostServiceServer) Create(context.Context, *CreatePostRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedPostServiceServer) GetAllCommentsForPost(context.Context, *GetRequest) (*GetAllCommentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllCommentsForPost not implemented")
 }
 func (UnimplementedPostServiceServer) CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateComment not implemented")
@@ -198,6 +212,24 @@ func _PostService_Create_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PostService_GetAllCommentsForPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PostServiceServer).GetAllCommentsForPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/post_service.PostService/getAllCommentsForPost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PostServiceServer).GetAllCommentsForPost(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PostService_CreateComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateCommentRequest)
 	if err := dec(in); err != nil {
@@ -238,6 +270,10 @@ var PostService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "create",
 			Handler:    _PostService_Create_Handler,
+		},
+		{
+			MethodName: "getAllCommentsForPost",
+			Handler:    _PostService_GetAllCommentsForPost_Handler,
 		},
 		{
 			MethodName: "createComment",

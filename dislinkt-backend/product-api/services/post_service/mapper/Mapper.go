@@ -52,6 +52,16 @@ func MapNewPost(postPb *post_service.Post) *model.Post {
 	return post
 }
 
+func MapUserCommentsForPost(userName string, commentText string) *post_service.Comment {
+
+	commentPb := &post_service.Comment{
+		Username:    userName,
+		CommentText: commentText,
+	}
+
+	return commentPb
+}
+
 func MapNewComment(commentPb *post_service.Comment) *model.Comment {
 	comment := &model.Comment{
 		Id:          primitive.NewObjectID(),

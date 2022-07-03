@@ -36,6 +36,11 @@ service PostService{
     };
   }
 
+  rpc getAllCommentsForPost(GetRequest) returns(GetAllCommentsResponse) {
+    option (google.api.http) = {
+      get: "/post/{Id}/comments"
+    };
+  }
 
   rpc createComment(CreateCommentRequest) returns (CreateCommentResponse) {
     option (google.api.http) = {
@@ -77,6 +82,10 @@ message GetMultipleResponse {
 message GetRequest {
   string Id = 1;
 
+}
+
+message GetAllCommentsResponse {
+  repeated Comment Comments = 1;
 }
 
 message GetResponse {
