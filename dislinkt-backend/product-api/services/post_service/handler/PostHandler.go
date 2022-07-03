@@ -3,8 +3,11 @@ package handler
 import (
 	post_service "common/module/proto/post_service"
 	"context"
+	"github.com/microcosm-cc/bluemonday"
+
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"post/module/mapper"
+	"strings"
 
 	"post/module/service"
 )
@@ -148,6 +151,24 @@ func (p PostHandler) DislikePost(ctx context.Context, request *post_service.Reac
 	}
 
 	return &post_service.Empty{}, nil
+}
+
+func (p PostHandler) GetAllReactionsForPost(_ context.Context, request *post_service.GetRequest) (*post_service.GetReactionsResponse, error) {
+	policy := bluemonday.UGCPolicy()
+	request.Id = strings.TrimSpace(policy.Sanitize(request.Id))
+
+	objectId, err := primitive.ObjectIDFromHex(request.Id)
+
+	post, err := p.PostService.GetById(objectId)
+	if err != nil {
+		return nil, err
+	}
+	likesNum, dislikesNum := mapper.FindNumberOfReactions(post)
+	response := &post_service.GetReactionsResponse{}
+	response.DislikesNumber = int32(dislikesNum)
+	response.LikesNumber = int32(likesNum)
+
+	return response, nil
 }
 
 func (p PostHandler) MustEmbedUnimplementedPostServiceServer() {

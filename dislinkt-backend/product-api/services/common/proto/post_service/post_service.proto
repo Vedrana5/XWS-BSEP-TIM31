@@ -63,8 +63,20 @@ service PostService{
     };
   }
 
+
+  rpc getAllReactionsForPost(GetRequest) returns(GetReactionsResponse) {
+    option (google.api.http) = {
+      get: "/post/{Id}/reactions"
+    };
+  }
 }
 
+
+message GetReactionsResponse {
+  int32 LikesNumber = 1;
+  int32 DislikesNumber = 2;
+
+}
 message ReactionRequest {
     string PostId = 1;
     string Username = 2;

@@ -30,6 +30,7 @@ type PostServiceClient interface {
 	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error)
 	LikePost(ctx context.Context, in *ReactionRequest, opts ...grpc.CallOption) (*Empty, error)
 	DislikePost(ctx context.Context, in *ReactionRequest, opts ...grpc.CallOption) (*Empty, error)
+	GetAllReactionsForPost(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetReactionsResponse, error)
 }
 
 type postServiceClient struct {
@@ -112,6 +113,15 @@ func (c *postServiceClient) DislikePost(ctx context.Context, in *ReactionRequest
 	return out, nil
 }
 
+func (c *postServiceClient) GetAllReactionsForPost(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetReactionsResponse, error) {
+	out := new(GetReactionsResponse)
+	err := c.cc.Invoke(ctx, "/post_service.PostService/getAllReactionsForPost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PostServiceServer is the server API for PostService service.
 // All implementations must embed UnimplementedPostServiceServer
 // for forward compatibility
@@ -124,6 +134,7 @@ type PostServiceServer interface {
 	CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error)
 	LikePost(context.Context, *ReactionRequest) (*Empty, error)
 	DislikePost(context.Context, *ReactionRequest) (*Empty, error)
+	GetAllReactionsForPost(context.Context, *GetRequest) (*GetReactionsResponse, error)
 	MustEmbedUnimplementedPostServiceServer()
 }
 
@@ -154,6 +165,9 @@ func (UnimplementedPostServiceServer) LikePost(context.Context, *ReactionRequest
 }
 func (UnimplementedPostServiceServer) DislikePost(context.Context, *ReactionRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DislikePost not implemented")
+}
+func (UnimplementedPostServiceServer) GetAllReactionsForPost(context.Context, *GetRequest) (*GetReactionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllReactionsForPost not implemented")
 }
 func (UnimplementedPostServiceServer) MustEmbedUnimplementedPostServiceServer() {}
 
@@ -312,6 +326,24 @@ func _PostService_DislikePost_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PostService_GetAllReactionsForPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PostServiceServer).GetAllReactionsForPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/post_service.PostService/getAllReactionsForPost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PostServiceServer).GetAllReactionsForPost(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PostService_ServiceDesc is the grpc.ServiceDesc for PostService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,6 +382,10 @@ var PostService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "dislikePost",
 			Handler:    _PostService_DislikePost_Handler,
+		},
+		{
+			MethodName: "getAllReactionsForPost",
+			Handler:    _PostService_GetAllReactionsForPost_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
