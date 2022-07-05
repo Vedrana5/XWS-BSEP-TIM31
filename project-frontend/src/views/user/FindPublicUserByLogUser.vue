@@ -23,62 +23,48 @@
             Lastname: {{user.LastName}}
           </h4>
           <img src=""/>
-          <button  class="btn btn-success" @click="FindPosts(user.Username)">Go to profile</button>
+          <button  class="btn btn-success" @click="FindPosts(user.Username)">See all posts</button>
         </div>
       </div>
     </div>
-  </div>
+</div>
+        <div class="containerInfo">
+    <div class="tab-pane container active">
+      <div v-if="this.counter==1" >
+                            <div v-for="(Post, index) in posts" :key="index">
+                              <h4 style="width: 600px" class="text">
+                                Id: {{Post.Id}}
+                              </h4>
+                              <h4 style="width: 600px" class="text">
+                                Date: {{Post.DatePosted}}
+                              </h4>
+                            <h4 style="width: 600px" class="text">
+                                Text: {{Post.PostText}}
+                              </h4>
+                              <h4 style="width: 600px" class="text">Photo:</h4>
+                              <img v-bind:src="'data:image/jpeg;base64,'+Post.ImagePaths"/>
+                              <button @click="LikePost(Post.Id)">Like({{Post.LikesNumber}})</button>
+                              <button @click="DislikePost(Post.Id)">DisLike({{Post.DislikesNumber}})</button>
+                              <button @click="OpenComments(Post.Id)">Comment({{Post.CommentsNumber}})</button>
+                            </div>
 
-<div v-if="this.counter==1" >
-                      <div v-for="(Post, index) in posts" :key="index">
-                        <h4 style="width: 600px" class="text">
-                          Date: {{Post.DatePosted}}
-                        </h4>
-                       <h4 style="width: 600px" class="text">
-                          Text: {{Post.PostText}}
-                        </h4>
-                        <h4 style="width: 600px" class="text">Photo:</h4>
-                        <img v-bind:src="'data:image/jpeg;base64,'+Post.ImagePaths"/>
-                        <h4 style="width: 600px" class="text">
-                          Likes({{Post.LikesNumber}})
-                        </h4>
-                        
-                        <h4 style="width: 600px" class="text">
-                          Dislikes({{Post.DislikesNumber}})
-                        </h4>
-                        <h4 style="width: 600px" class="text">
-                          Comments({{Post.CommentsNumber}})
-                        </h4>
-                        <button @click="LikePost()">Like</button>
-                        <button @click="DislikePost()">DisLike</button>
-                        <button @click="OpenComments()">Comment</button>
-                      </div>
-
+      </div>
+      <div v-if="this.commentsCounter==1" >
+                          <div v-for="(comment, index) in comments" :key="index">
+                              <h4 style="width: 600px" class="text">
+                                {{comment.Username}} : {{comment.CommentText}}
+                              </h4>
+                          </div>
+                              <input class="input-field" placeholder="Comment" type="text" v-model="Addedcomment"/>
+                              <button @click="AddComment(Addedcomment)">Add comment</button>
+     </div>
+     </div> 
 </div>
 
 
-<div v-if="this.commentsCounter==1" >
-                      <div v-for="(Post, index) in posts" :key="index">
-                        <h4 style="width: 600px" class="text">
-                          Date: {{Post.DatePosted}}
-                        </h4>
-                       <h4 style="width: 600px" class="text">
-                          Text: {{Post.PostText}}
-                        </h4>
-                        <h4 style="width: 600px" class="text">Photo:</h4>
-                        <img v-bind:src="'data:image/jpeg;base64,'+Post.ImagePaths"/>
-                        <h4 style="width: 600px" class="text">
-                          Likes({{Post.LikesNumber}})
-                        </h4>
-                        
-                        <h4 style="width: 600px" class="text">
-                          Dislikes({{Post.DislikesNumber}})
-                        </h4>
-                        <h4 style="width: 600px" class="text">
-                          Comments({{Post.CommentsNumber}})
-                        </h4>
-                      </div>
-</div>
+
+
+
   </div>
 </template>
 
@@ -88,18 +74,23 @@ export default {
   name: "FindPublicUserByLogUser",
   data() {
     return {
+      isLiked:true,
+      isDisliked:true,
+      Addedcomment:"",
       username:"",
       commentsCounter:0,
       comments:"",
       users:"",
       posts:"",
-       Post:{id:"",PostText:"", ImagePaths:null},
+       Post:{Id:"",PostText:"", ImagePaths:null},
        counter:0,
       user: {
         username:"",
        firstName:"",
         lastName:"",
       },
+      id:"",
+      name:""
     };
   },
 
@@ -120,13 +111,45 @@ export default {
           this.users = response.data.users;
       })  
   },
-  async OpenComments() {
-    this.commentsCounter=1;
-    await this.FindComments();
+  async LikePost(id) {
+    console.log("hejjj");
+    this.isLiked=false;
+    this.id=id;
+    this.name = localStorage.getItem("username");
+    axios.post("http://localhost:9090/post/"+this.id+"/like",{
+      PostId:this.id,
+      Username: this.name,
+    })
+  },
+    async DislikePost(id) {
+    this.isDisliked=false;
+    this.id=id;
+    this.name = localStorage.getItem("username");
+    axios.post("http://localhost:9090/post/"+this.id+"/dislike",{
+      PostId:this.id,
+      Username: this.name,
+    })
 
   },
-  async FindComments() {
-axios.get("http://localhost:9090/post/"+this.Post.Id+"/comments")
+  async AddComment(comment) {
+    this.name = localStorage.getItem("username");
+    this.Addedcomment = comment;
+    axios.post("http://localhost:9090/post/"+this.id+"/comment",{
+      PostId:this.id,
+      Username: this.name,
+      CommentText: this.Addedcomment
+    })
+    this.$router.go(0);
+  },
+  async OpenComments(Id) {
+    this.id=Id;
+    this.commentsCounter=1;
+    await this.FindComments(this.id);
+  console.log("caooo!!!")
+  },
+  async FindComments(id) {
+    this.id=id;
+axios.get("http://localhost:9090/post/"+this.id+"/comments")
       .then (response => { 
           this.comments = response.data.Comments;
       })
@@ -153,6 +176,7 @@ axios.get("http://localhost:9090/post/"+this.Post.Id+"/comments")
   }
 };
 </script>
+
 
 <style scoped>
 .row-boats {

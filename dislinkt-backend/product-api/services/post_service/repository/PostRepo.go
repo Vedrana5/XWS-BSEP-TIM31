@@ -99,7 +99,7 @@ func (r PostRepo) LikePost(post *model.Post, userName string) error {
 func (r PostRepo) CreateComment(post *model.Post, comment *model.Comment) error {
 	comments := append(post.Comments, *comment)
 
-	_, err := r.posts.UpdateOne(context.TODO(), bson.M{"_id": "507f1f77bcf86cd799439010"}, bson.D{
+	_, err := r.posts.UpdateOne(context.TODO(), bson.M{"_id": post.Id}, bson.D{
 		{"$set", bson.D{{"comments", comments}}},
 	},
 	)

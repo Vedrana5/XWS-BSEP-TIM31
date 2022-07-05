@@ -3,7 +3,7 @@
         <button @click="Update()">Update profile info</button>
         <button @click="ResetPassword()">Reset Password</button>
          <button @click="CreatePost()">Create post</button>
-          <div><button @click="Find()">Find public user</button></div>
+        <button @click="Find()">Find public user</button>
   </div>
 </template>
 

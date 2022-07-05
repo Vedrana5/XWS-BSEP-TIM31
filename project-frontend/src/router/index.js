@@ -13,6 +13,7 @@ import ResetPassword from "../views/user/ResetPassword"
 import ConfirmPasswordlessLogin from "../views/user/ConfirmPasswordlessLogin"
 import PasswordlessLogin from "../views/user/PasswordlessLogin"
 import CreatePost from "../views/user/CreatePost"
+import FindPublicUserByLogUser from "../views/user/FindPublicUserByLogUser"
 const routes = [
   {
     path: "/",
@@ -24,6 +25,11 @@ const routes = [
   name: "LoginView",
   component: LoginView,
   },
+  {
+    path: "/FindPublicUserByLogUser",
+    name: "FindPublicUserByLogUser",
+    component: FindPublicUserByLogUser,
+    },
   {
     path: "/CreatePost",
     name: "CreatePost",
