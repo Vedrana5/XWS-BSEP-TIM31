@@ -16,31 +16,89 @@
       <div class="row-boats" v-for="(user, index) in users" :key="index">
         <div class="col-info">
           <h4 style="width: 600px" class="text">
-            Username: {{user.username}}
+            Username: {{user.Username}}
           </h4>
-          <h4 style="width: 600px" class="text">Firstname: {{user.firstName}}</h4>
+          <h4 style="width: 600px" class="text">Firstname: {{user.FirstName}}</h4>
           <h4 style="width: 600px" class="text">
-            Lastname: {{user.lastName}}
+            Lastname: {{user.LastName}}
           </h4>
-          <button  class="btn btn-success">Go to profile</button>
+          <img src=""/>
+          <button  class="btn btn-success" @click="FindPosts(user.Username)">Go to profile</button>
         </div>
       </div>
     </div>
   </div>
+
+<div v-if="this.counter==1" >
+                      <div v-for="(Post, index) in posts" :key="index">
+                        <h4 style="width: 600px" class="text">
+                          Date: {{Post.DatePosted}}
+                        </h4>
+                       <h4 style="width: 600px" class="text">
+                          Text: {{Post.PostText}}
+                        </h4>
+                        <h4 style="width: 600px" class="text">Photo:</h4>
+                        <img v-bind:src="'data:image/jpeg;base64,'+Post.ImagePaths"/>
+                        <h4 style="width: 600px" class="text">
+                          Likes({{Post.LikesNumber}})
+                        </h4>
+                        
+                        <h4 style="width: 600px" class="text">
+                          Dislikes({{Post.DislikesNumber}})
+                        </h4>
+                        <h4 style="width: 600px" class="text">
+                          Comments({{Post.CommentsNumber}})
+                        </h4>
+                        <button @click="LikePost()">Like</button>
+                        <button @click="DislikePost()">DisLike</button>
+                        <button @click="OpenComments()">Comment</button>
+                      </div>
+
+</div>
+
+
+<div v-if="this.commentsCounter==1" >
+                      <div v-for="(Post, index) in posts" :key="index">
+                        <h4 style="width: 600px" class="text">
+                          Date: {{Post.DatePosted}}
+                        </h4>
+                       <h4 style="width: 600px" class="text">
+                          Text: {{Post.PostText}}
+                        </h4>
+                        <h4 style="width: 600px" class="text">Photo:</h4>
+                        <img v-bind:src="'data:image/jpeg;base64,'+Post.ImagePaths"/>
+                        <h4 style="width: 600px" class="text">
+                          Likes({{Post.LikesNumber}})
+                        </h4>
+                        
+                        <h4 style="width: 600px" class="text">
+                          Dislikes({{Post.DislikesNumber}})
+                        </h4>
+                        <h4 style="width: 600px" class="text">
+                          Comments({{Post.CommentsNumber}})
+                        </h4>
+                      </div>
+</div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "FindPublicUserByLogUser",
   data() {
     return {
       username:"",
+      commentsCounter:0,
+      comments:"",
       users:"",
+      posts:"",
+       Post:{id:"",PostText:"", ImagePaths:null},
+       counter:0,
       user: {
         username:"",
        firstName:"",
-        lastName:""
+        lastName:"",
       },
     };
   },
@@ -48,19 +106,49 @@ export default {
 
   methods: {
     async GoBack() {
-      this.$router.push({ name: "StartPageUser" });
+      this.$router.push({ name: "StartPageView" });
     },
     async Search(username) {
       this.username= username;
 
-      this.users = await this.FindUser(username);
+     await this.FindUser(username);
     },
   async FindUser(username) {
     this.username= username;
-      const res = await fetch("http://localhost:8089/findPublic/"+this.username);
-      const data = await res.json();
-      console.log(data);
-      return data;
+          axios.get("http://localhost:9090/publicUser/"+this.username)
+      .then (response => { 
+          this.users = response.data.users;
+      })  
+  },
+  async OpenComments() {
+    this.commentsCounter=1;
+    await this.FindComments();
+
+  },
+  async FindComments() {
+axios.get("http://localhost:9090/post/"+this.Post.Id+"/comments")
+      .then (response => { 
+          this.comments = response.data.Comments;
+      })
+  },
+    async FindPosts(username) {
+      this.counter=1;
+        this.username= username;
+        console.log("username je"+this.username);
+          axios.get("http://localhost:9090/post/user/"+this.username)
+      .then (response => { 
+          this.posts = response.data.Posts;
+          console.log("Odgovor je"+response.data.Posts)
+      })
+  },
+  async findOneUser(username){
+        this.username= username;
+          axios.get("http://localhost:9090/publicUser/"+this.username)
+      .then (response => { 
+          this.user = response.data.users[0];
+      })  
+      await this.FindPosts(username);
+       console.log("Broj postova je"+this.posts.length)
   }
   }
 };
