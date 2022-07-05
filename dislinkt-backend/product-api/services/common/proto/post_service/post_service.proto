@@ -157,7 +157,8 @@ message JobOffer {
   string JobDescription = 4;
   repeated string Requirements = 5;
   string DatePosted = 6;
-  string Duration = 7;
+
+
 }
 
 message Post {
@@ -169,4 +170,5 @@ message Post {
   int32 LikesNumber = 7;
   int32 DislikesNumber = 8;
   int32 CommentsNumber = 10;
+  repeated string Links = 11;
 }

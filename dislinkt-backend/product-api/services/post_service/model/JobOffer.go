@@ -12,5 +12,4 @@ type JobOffer struct {
 	JobDescription string             `bson:"description"`
 	Requirements   []string           `bson:"requirements"`
 	DatePosted     time.Time          `bson:"date_posted"`
-	Duration       time.Time          `bson:"duration"`
 }

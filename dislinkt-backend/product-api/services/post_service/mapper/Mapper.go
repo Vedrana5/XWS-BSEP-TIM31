@@ -24,6 +24,7 @@ func MapPostReply(post *model.Post) *post_service.Post {
 		Username:       post.Username,
 		PostText:       post.PostText,
 		DatePosted:     post.DatePosted.String(),
+		Links:          post.Links,
 		LikesNumber:    int32(likesNum),
 		DislikesNumber: int32(dislikesNum),
 		CommentsNumber: int32(len(post.Comments)),
@@ -48,7 +49,6 @@ func MapNewJobOffer(offerPb *post_service.JobOffer) *model.JobOffer {
 		JobDescription: offerPb.JobDescription,
 		Requirements:   offerPb.Requirements,
 		DatePosted:     mapToDate(offerPb.DatePosted),
-		Duration:       mapToDate(offerPb.Duration),
 	}
 
 	return offer
@@ -66,6 +66,7 @@ func MapNewPost(postPb *post_service.Post) *model.Post {
 		Id:         primitive.NewObjectID(),
 		Username:   postPb.Username,
 		PostText:   postPb.PostText,
+		Links:      postPb.Links,
 		DatePosted: time.Now(),
 		IsDeleted:  false,
 	}
@@ -94,7 +95,6 @@ func MapJobOfferReply(offer *model.JobOffer) *post_service.JobOffer {
 		JobDescription: offer.JobDescription,
 		Requirements:   offer.Requirements,
 		DatePosted:     offer.DatePosted.String(),
-		Duration:       offer.Duration.String(),
 	}
 
 	return offerPb

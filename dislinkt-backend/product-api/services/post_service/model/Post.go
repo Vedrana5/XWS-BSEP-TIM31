@@ -14,4 +14,5 @@ type Post struct {
 	Reactions  []Reaction         `bson:"reactions"`
 	Comments   []Comment          `bson:"comments"`
 	IsDeleted  bool               `bson:"is_deleted"`
+	Links      []string           `bson:"description"`
 }
