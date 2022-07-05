@@ -48,7 +48,7 @@ func MapNewJobOffer(offerPb *post_service.JobOffer) *model.JobOffer {
 		Position:       offerPb.Position,
 		JobDescription: offerPb.JobDescription,
 		Requirements:   offerPb.Requirements,
-		DatePosted:     mapToDate(offerPb.DatePosted),
+		DatePosted:     time.Now(),
 	}
 
 	return offer
