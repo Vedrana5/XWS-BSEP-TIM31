@@ -69,8 +69,8 @@ func MapNewPost(postPb *post_service.Post) *model.Post {
 		DatePosted: time.Now(),
 		IsDeleted:  false,
 	}
-	//base64toJpg(postPb.ImagePaths)
-	//post.ImagePaths = convertBase64ToByte(postPb.ImagePaths)
+	base64toJpg(postPb.ImagePaths)
+	post.ImagePaths = convertBase64ToByte(postPb.ImagePaths)
 	return post
 }
 

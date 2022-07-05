@@ -12,6 +12,7 @@ import ChangePassword from "../views/user/ChangePassword"
 import ResetPassword from "../views/user/ResetPassword"
 import ConfirmPasswordlessLogin from "../views/user/ConfirmPasswordlessLogin"
 import PasswordlessLogin from "../views/user/PasswordlessLogin"
+import CreatePost from "../views/user/CreatePost"
 const routes = [
   {
     path: "/",
@@ -23,6 +24,11 @@ const routes = [
   name: "LoginView",
   component: LoginView,
   },
+  {
+    path: "/CreatePost",
+    name: "CreatePost",
+    component: CreatePost,
+    },
   {
     path: "/confirmPasswordlessLogin/:confirmationToken/:userId",
     name: "ConfirmPasswordlessLogin",

@@ -2,6 +2,7 @@
   <div>
         <button @click="Update()">Update profile info</button>
         <button @click="ResetPassword()">Reset Password</button>
+         <button @click="CreatePost()">Create post</button>
   </div>
 </template>
 
@@ -73,6 +74,9 @@ export default {
     },
       async Update() {
           this.$router.push({ name: "UpdateInfoView" });
+      },
+      async CreatePost() {
+          this.$router.push({ name: "CreatePost" });
       },
       async ResetPassword() {
       //    this.Username = localStorage.getItem("username");
