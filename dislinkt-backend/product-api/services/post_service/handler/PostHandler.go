@@ -3,7 +3,6 @@ package handler
 import (
 	post_service "common/module/proto/post_service"
 	"context"
-	"fmt"
 	"github.com/microcosm-cc/bluemonday"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"post/module/mapper"
@@ -13,6 +12,19 @@ import (
 
 type PostHandler struct {
 	PostService *service.PostService
+}
+
+func (p PostHandler) GetOffersByPosition(ctx context.Context, request *post_service.GetOfferRequest) (*post_service.GetMultipleOfferResponse, error) {
+	var offers = p.PostService.GetOffersByPosition(request.Position)
+	response := &post_service.GetMultipleOfferResponse{
+		JobOffer: []*post_service.JobOffer{},
+	}
+	for _, JobOffer := range offers {
+		current := mapper.MapFindOffers(JobOffer)
+		response.JobOffer = append(response.JobOffer, current)
+	}
+	return response, nil
+
 }
 
 func NewPostHandler(postService *service.PostService) *PostHandler {
@@ -193,21 +205,6 @@ func (p PostHandler) GetAllJobOffers(_ context.Context, _ *post_service.Empty) (
 		response.JobOffers = append(response.JobOffers, current)
 	}
 	return response, nil
-}
-
-func (p PostHandler) getOffersByPosition(_ context.Context, request *post_service.GetOfferRequest) (*post_service.GetMultipleOfferResponse, error) {
-
-	var offers = p.PostService.GetOffersByPosition(request.Position)
-	response := &post_service.GetMultipleOfferResponse{
-		JobOffers: []*post_service.JobOffer{},
-	}
-	fmt.Printf("Pre kreiranja response-a")
-	for _, JobOffer := range offers {
-		current := mapper.MapFindOffers(JobOffer)
-		response.Users = append(response.Users, current)
-	}
-	return response, nil
-
 }
 
 func (p PostHandler) MustEmbedUnimplementedPostServiceServer() {

@@ -100,6 +100,17 @@ func MapJobOfferReply(offer *model.JobOffer) *post_service.JobOffer {
 	return offerPb
 }
 
+func MapFindOffers(offer *model.JobOffer) *post_service.JobOffer {
+	usersPb := &post_service.JobOffer{
+		Publisher:      offer.Publisher,
+		Position:       offer.Position,
+		JobDescription: offer.JobDescription,
+		Requirements:   offer.Requirements,
+		DatePosted:     offer.DatePosted.String(),
+	}
+	return usersPb
+}
+
 func MapNewComment(commentPb *post_service.Comment) *model.Comment {
 	comment := &model.Comment{
 		Id:          primitive.NewObjectID(),

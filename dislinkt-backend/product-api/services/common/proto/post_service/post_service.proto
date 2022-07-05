@@ -116,7 +116,7 @@ message CreateJobOfferRequest {
 }
 
 message GetAllJobOffers {
-  repeated JobOffer JobOffers = 1;
+  repeated JobOffer jobOffers = 1;
 }
 
 
