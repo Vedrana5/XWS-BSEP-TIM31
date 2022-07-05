@@ -41,6 +41,12 @@
                             <h4 style="width: 600px" class="text">
                                 Text: {{Post.PostText}}
                               </h4>
+                              <h4 style="width: 600px" class="text">
+                                Links:
+                              </h4>
+                              <div v-for="(link, index) in Post.Links " :key="index">
+                              <a :href="link">{{ link}}</a>
+                              </div>
                               <h4 style="width: 600px" class="text">Photo:</h4>
                               <img v-bind:src="'data:image/jpeg;base64,'+Post.ImagePaths"/>
                               <button @click="LikePost(Post.Id)">Like({{Post.LikesNumber}})</button>
@@ -82,7 +88,8 @@ export default {
       comments:"",
       users:"",
       posts:"",
-       Post:{Id:"",PostText:"", ImagePaths:null},
+      link:"",
+       Post:{Id:"",PostText:"", ImagePaths:null,Links:[]},
        counter:0,
       user: {
         username:"",

@@ -42,7 +42,9 @@
                         <h4 style="width: 600px" class="text">
                           Likes({{Post.LikesNumber}})
                         </h4>
-                        
+                                                      <div v-for="(link, index) in Post.Links " :key="index">
+                              <a :href="link">{{ link}}</a>
+                              </div>
                         <h4 style="width: 600px" class="text">
                           Dislikes({{Post.DislikesNumber}})
                         </h4>
@@ -64,7 +66,8 @@ export default {
       username:"",
       users:"",
       posts:"",
-       Post:{PostText:"", ImagePaths:null},
+      link:"",
+       Post:{PostText:"", ImagePaths:null,Links:[]},
        counter:0,
       user: {
         username:"",

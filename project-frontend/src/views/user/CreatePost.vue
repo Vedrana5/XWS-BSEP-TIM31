@@ -14,10 +14,53 @@
                             <img :src="image" />
                         </div>
                 </div>
+                <button data-target="#addLink" data-toggle="modal">Add link</button>
+                
+                <div v-for="link in links" :key="link">
+                   <label>{{link}}</label>
+                </div>
+                  
             <div><button type="submit" @click.prevent="CreatePost()">Create post</button></div>
          </form>
      </div>
-  </div>
+      </div>
+
+            <!--Modal prijava-->
+    <div class="modal fade" id="addLink" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-body" style="padding: 15px 50px">
+            <form role="form" @submit.prevent="AddLink">
+              <div class="form-group">
+                <label
+                  ><span class="glyphicon glyphicon-eye-open"></span>
+                  Link:</label
+                >
+                <input
+                  type="text"
+                  v-model="link"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-success btn-block"
+                >
+                <span></span> Add link
+              </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              data-dismiss="modal"
+            >
+              Odustani
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -34,7 +77,9 @@ export default {
     Question: "",
     Answer: "",
     Post:{Text:"", Image:null},
-    imagesFrontend:[]
+    imagesFrontend:[],
+    links:[],
+    link:""
   }),
 
   methods: {
@@ -45,6 +90,10 @@ export default {
                 this.createBase64Image(file);
                 this.imagesFrontend.push(URL.createObjectURL(file));
                 
+            },
+            async AddLink() {
+              console.log(this.link)
+              this.links.push(this.link);
             },
             createBase64Image(file){
                 const reader= new FileReader();
@@ -58,11 +107,13 @@ export default {
                 reader.readAsDataURL(file);
             },
 async CreatePost() {  
+  console.log(this.links)
     this.username = localStorage.getItem("username");        
       axios.post("http://localhost:9090/post",{ 
           Username: this.username,          
           PostText: this.Post.Text,
           ImagePaths: this.Post.Image,
+          Links: this.links
        })
       .then (response => { 
         console.log("RESPONSE JE"+response.data)
