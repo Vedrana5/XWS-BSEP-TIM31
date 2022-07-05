@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/logrusInfo.log" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/logrusInfo.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/mapper/Mapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/mapper/Mapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/test" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project-frontend/src/views/user/CreatePost.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../project-frontend/src/views/user/CreatePost.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project-frontend/src/views/user/FindPublicUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../project-frontend/src/views/user/FindPublicUser.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project-frontend/src/views/user/StartPageUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../project-frontend/src/views/user/StartPageUser.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

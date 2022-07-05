@@ -3,6 +3,7 @@
         <button @click="Update()">Update profile info</button>
         <button @click="ResetPassword()">Reset Password</button>
          <button @click="CreatePost()">Create post</button>
+          <div><button @click="Find()">Find public user</button></div>
   </div>
 </template>
 
@@ -78,13 +79,10 @@ export default {
       async CreatePost() {
           this.$router.push({ name: "CreatePost" });
       },
-      async ResetPassword() {
-      //    this.Username = localStorage.getItem("username");
+  async Find() {
+    this.$router.push({ name: "FindPublicUserByLogUser" });
+  },
 
-      //     axios.post("http://localhost:8089/resetPassword/"+this.Username,{           
-      //  })
-        this.$router.push({name: "ChangePassword"});
-      }
   },
   async created() {
   this.Username = localStorage.getItem("username"); 

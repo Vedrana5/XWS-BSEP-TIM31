@@ -4,7 +4,7 @@
      <div>
          <form class="myForm" name="myForm">
              <div class="class1">
-                 <input  placeholder="Type text" name="utextsername" class="input-field" v-model="Text" required>
+                 <input  placeholder="Type text" name="utextsername" class="input-field" v-model="Post.Text" required>
              </div>
               <div class="upload-images">
                     <input type="file"  @change="imageAdded"/>
@@ -60,7 +60,7 @@ export default {
 async CreatePost() {  
     this.username = localStorage.getItem("username");        
       axios.post("http://localhost:9090/post",{ 
-          Username: this.Username,          
+          Username: this.username,          
           PostText: this.Post.Text,
           ImagePaths: this.Post.Image,
        })
