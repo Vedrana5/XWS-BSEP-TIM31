@@ -10,9 +10,8 @@
       <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service.pb.gw.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/post_service/post_service_grpc.pb.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/mapper/Mapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/mapper/Mapper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/model/JobOffer.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/model/JobOffer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/model/Post.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/model/Post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/handler/PostHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/handler/PostHandler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/service/PostService.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/service/PostService.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
