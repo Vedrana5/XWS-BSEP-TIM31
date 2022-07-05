@@ -15,6 +15,12 @@ service PostService{
     };
   }
 
+
+  rpc getOffersByPosition(GetOfferRequest) returns(GetMultipleOfferResponse) {
+    option (google.api.http) = {
+      get: "/job_offer/{position}"
+    };
+  }
   rpc getAllByUsername(GetRequest) returns(GetMultipleResponse) {
     option (google.api.http) = {
       get: "/post/user/{Id}"
@@ -81,6 +87,15 @@ service PostService{
       get: "/post/{Id}/reactions"
     };
   }
+}
+
+message GetOfferRequest {
+  string position=1;
+
+}
+
+message GetMultipleOfferResponse {
+  repeated JobOffer jobOffer=1;
 }
 
 

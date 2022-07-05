@@ -4,6 +4,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"post/module/model"
 	"post/module/repository"
+	"strings"
 )
 
 type PostService struct {
@@ -48,4 +49,21 @@ func (service *PostService) CreateJobOffer(offer *model.JobOffer) error {
 
 func (service *PostService) GetAllJobOffers() ([]*model.JobOffer, error) {
 	return service.Repo.GetAllJobOffers()
+}
+
+func (service *PostService) GetOffersByPosition(position string) []*model.JobOffer {
+	offers, _ := service.Repo.GetAllJobOffers()
+	var s []*model.JobOffer
+	for i := 0; i < len(offers); i++ {
+		if strings.Contains(offers[i].Position, position) {
+			var offer *model.JobOffer = offers[i]
+
+			s = append(s, offer)
+
+		}
+	}
+	if s != nil {
+		return s
+	}
+	return nil
 }

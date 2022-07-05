@@ -75,6 +75,17 @@ func MapNewPost(postPb *post_service.Post) *model.Post {
 	return post
 }
 
+func MapFindOffers(offer *model.JobOffer) *post_service.JobOffer {
+	usersPb := &post_service.JobOffer{
+		Publisher:      offer.Publisher,
+		Position:       offer.Position,
+		JobDescription: offer.JobDescription,
+		Requirements:   offer.Requirements,
+		DatePosted:     offer.DatePosted.String(),
+	}
+	return usersPb
+}
+
 func MapUserCommentsForPost(userName string, commentText string) *post_service.Comment {
 
 	commentPb := &post_service.Comment{

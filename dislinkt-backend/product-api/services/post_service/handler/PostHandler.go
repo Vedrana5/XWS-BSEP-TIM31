@@ -15,8 +15,40 @@ type PostHandler struct {
 	PostService *service.PostService
 }
 
+func (p PostHandler) GetAllJobOffers(ctx context.Context, empty *post_service.Empty) (*post_service.GetAllJobOffers, error) {
+	offers, err := p.PostService.GetAllJobOffers()
+	if err != nil {
+
+		return nil, err
+	}
+	response := &post_service.GetAllJobOffers{JobOffers: []*post_service.JobOffer{}}
+	for _, offer := range offers {
+		current := mapper.MapJobOfferReply(offer)
+		response.JobOffers = append(response.JobOffers, current)
+	}
+	return response, nil
+}
+
+func (p PostHandler) mustEmbedUnimplementedPostServiceServer() {
+	//TODO implement me
+	panic("implement me")
+}
+
 func NewPostHandler(postService *service.PostService) *PostHandler {
 	return &PostHandler{postService}
+}
+
+func (p PostHandler) GetOffersByPosition(ctx context.Context, request *post_service.GetOfferRequest) (*post_service.GetMultipleOfferResponse, error) {
+	var offers = p.PostService.GetOffersByPosition(request.Position)
+	response := &post_service.GetMultipleOfferResponse{
+		JobOffer: []*post_service.JobOffer{},
+	}
+	for _, JobOffer := range offers {
+		current := mapper.MapFindOffers(JobOffer)
+		response.JobOffer = append(response.JobOffer, current)
+	}
+	return response, nil
+
 }
 
 func (p PostHandler) Get(ctx context.Context, request *post_service.GetRequest) (*post_service.GetResponse, error) {
@@ -178,21 +210,6 @@ func (p PostHandler) CreateJobOffer(_ context.Context, request *post_service.Cre
 		return nil, err
 	}
 	return &post_service.Empty{}, nil
-}
-
-func (p PostHandler) GetAllJobOffers(_ context.Context, _ *post_service.Empty) (*post_service.GetAllJobOffers, error) {
-
-	offers, err := p.PostService.GetAllJobOffers()
-	if err != nil {
-
-		return nil, err
-	}
-	response := &post_service.GetAllJobOffers{JobOffers: []*post_service.JobOffer{}}
-	for _, offer := range offers {
-		current := mapper.MapJobOfferReply(offer)
-		response.JobOffers = append(response.JobOffers, current)
-	}
-	return response, nil
 }
 
 func (p PostHandler) MustEmbedUnimplementedPostServiceServer() {
