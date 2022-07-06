@@ -1,12 +1,13 @@
 <template>
   <div>
-        <button @click="Update()">Update profile info</button>
-        <button @click="ResetPassword()">Reset Password</button>
-         <button @click="CreatePost()">Create post</button>
-        <button @click="Find()">Find public user</button>
-        <button @click="JobOffer()">Create a job offer</button>
-        <button @click="JobOffers()">See all job offers</button>
-        <button @click="CreateConnection()">Search profile and follow</button>
+    <div>   <button @click="Update()">Update profile info</button></div>
+    <div>   <button @click="ResetPassword()">Reset Password</button></div>
+    <div>   <button @click="CreatePost()">Create post</button></div>
+    <div>   <button @click="Find()">Find public user</button></div>
+    <div>   <button @click="JobOffer()">Create a job offer</button></div>
+    <div>   <button @click="JobOffers()">See all job offers</button></div>
+    <div>   <button @click="CreateConnection()">Search profile and follow</button></div>
+    <div>   <button v-if="this.newUser.TypeOfProfile=='PRIVATE'" @click="SeeAllFollowRequests()">See all your friend requests</button></div>
   </div>
 </template>
 
@@ -29,8 +30,8 @@ export default {
         LastName:"",
         DateOfBirth:"",
         Gender:"",
-        TypeOfProfile:"PUBLIC",
-        TypeOfUser:"REGISTERED_USER",
+        TypeOfProfile:"",
+        TypeOfUser:"",
         Biography:"",
         WorkExperience:"",
         Education:"",
@@ -45,34 +46,27 @@ export default {
             'Content-Type': 'application/json;charset=UTF-8',
             Accept: 'application/json',
           }
-  axios.get("http://localhost:8089/findByUsername/"+ this.Username, {
+  axios.get("http://localhost:9090/user/"+ this.Username, {
       headers}
     )
     .then((response) => {
 
       //console.log(this.response.FirstName)
       console.log(response.data.gender)
-      this.newUser.Username = response.data.username
-      this.newUser.Email = response.data.email
-      this.newUser.PhoneNumber = response.data.phoneNumber
-      this.newUser.FirstName = response.data.firstName
-      this.newUser.LastName = response.data.lastName
-      if(response.data.gender == 1) {
-      this.newUser.Gender = "MALE"
-      }else if (response.data.gender == 2) {
-        this.newUser.Gender = "FEMALE"
-      }else {
-        this.newUser.Gender = "OTHER"
-      }
-      this.newUser.TypeOfProfile = response.data.typeOfProfile
+      this.newUser.Username = response.data.user.Username
+      this.newUser.Email = response.data.user.Email
+      this.newUser.PhoneNumber = response.data.user.PhoneNumber
+      this.newUser.FirstName = response.data.user.FirstName
+      this.newUser.LastName = response.data.user.LastName
+      this.newUser.Gender= response.data.user.Gender 
+      this.newUser.TypeOfProfile = response.data.user.TypeOfProfile
 
-      this.newUser.TypeOfUser = response.data.typeOfUser
-      this.newUser.Biography = response.data.biography
-      this.newUser.WorkExperience = response.data.workExperience
-      this.newUser.Education = response.data.education
-      this.newUser.Skills = response.data.skills
-      this.newUser.Interest = response.data.interest
-      this.newUser.Question = response.data.question
+      this.newUser.TypeOfUser = response.data.user.TypeOfUser
+      this.newUser.Biography = response.data.user.TypeOfUser
+      this.newUser.WorkExperience = response.data.user.WorkExperience
+      this.newUser.Education = response.data.user.Education
+      this.newUser.Skills = response.data.user.Skills
+      this.newUser.Interest = response.data.user.Interest
         })
 
     },
@@ -84,6 +78,9 @@ export default {
       },
       async CreatePost() {
           this.$router.push({ name: "CreatePost" });
+      },
+      async SeeAllFollowRequests() {
+          this.$router.push({ name: "FollowRequests" });
       },
   async Find() {
     this.$router.push({ name: "FindPublicUserByLogUser" });
@@ -102,7 +99,7 @@ async JobOffers() {
   console.log("token je"+ this.token);
   this.type = localStorage.getItem("userType")
   console.log("type je"+ this.type);
-  // await this.getUser(this.Username);
+   await this.getUser(this.Username);
   // console.log("TIP JE111 "+this.newUser.TypeOfUser);
   // localStorage.setItem("userType",this.newUser.TypeOfUser);
   // this.type = localStorage.getItem("userType");

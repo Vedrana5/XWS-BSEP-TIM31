@@ -17,6 +17,7 @@ import FindPublicUserByLogUser from "../views/user/FindPublicUserByLogUser"
 import CreateJobOffer from "../views/user/CreateJobOffer"
 import SeeJobOffers from "../views/user/SeeJobOffers"
 import Connections from "../views/user/Connections"
+import FollowRequests from "../views/user/FollowRequests"
 const routes = [
   {
     path: "/",
@@ -33,6 +34,11 @@ const routes = [
     name: "Connections",
     component: Connections,
     },
+    {
+      path: "/FollowRequests",
+      name: "FollowRequests",
+      component: FollowRequests,
+      },
   {
     path: "/FindPublicUserByLogUser",
     name: "FindPublicUserByLogUser",
