@@ -7,4 +7,5 @@ type Connection struct {
 	FirstUsername  string             `bson:"first_username"`
 	SecondUsername string             `bson:"second_username"`
 	IsConfirmed    bool               `bson:"is_confirmed"`
+	IsDeleted      bool               `bson:"is_deleted"`
 }

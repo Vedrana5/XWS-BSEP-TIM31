@@ -1,6 +1,7 @@
 package startup
 
 import (
+	connGw "common/module/proto/connection_service"
 	postGw "common/module/proto/post_service"
 	userGw "common/module/proto/user_service"
 	"context"
@@ -44,6 +45,8 @@ func (server *Server) initHandlers() {
 
 	postEndpoint := fmt.Sprintf("%s:%s", server.config.PostHost, server.config.PostPort)
 
+	connEndpoint := fmt.Sprintf("%s:%s", server.config.ConnectionHost, server.config.ConnectionPort)
+
 	err := userGw.RegisterUserServiceHandlerFromEndpoint(context.TODO(), server.mux, userEndpoint, opts)
 	if err != nil {
 		panic(err)
@@ -53,7 +56,14 @@ func (server *Server) initHandlers() {
 
 	err = postGw.RegisterPostServiceHandlerFromEndpoint(context.TODO(), server.mux, postEndpoint, opts)
 	if err != nil {
+		fmt.Printf("fdfddf" + postEndpoint)
+	}
+
+	err = connGw.RegisterConnectionServiceHandlerFromEndpoint(context.TODO(), server.mux, connEndpoint, opts)
+	if err != nil {
 		panic(err)
+	} else {
+		fmt.Printf("fdfddf" + connEndpoint)
 	}
 
 }

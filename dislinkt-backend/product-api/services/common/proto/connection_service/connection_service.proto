@@ -7,4 +7,28 @@ package connection_service;
 import "google/api/annotations.proto";
 
 service ConnectionService{
+
+
+  rpc create(CreateConnectionRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/connection"
+      body: "Connection"
+    };
   }
+  }
+
+    message CreateConnectionRequest {
+         Connection Connection=1;
+    }
+
+    message Empty {
+
+    }
+
+    message Connection {
+      string Id = 1;
+      string FirstUsername = 2;
+      string SecondUsername = 3;
+      bool   IsConfirmed = 4;
+
+    }

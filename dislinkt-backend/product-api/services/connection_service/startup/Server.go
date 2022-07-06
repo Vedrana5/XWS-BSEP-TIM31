@@ -1,6 +1,7 @@
 package startup
 
 import (
+	cproto "common/module/proto/connection_service"
 	"connection/module/handler"
 	"connection/module/repository"
 	"connection/module/service"
@@ -75,7 +76,7 @@ func (server *Server) StartGrpcServer(handler *handler.ConnectionHandler) {
 		interceptor := interceptor.NewAuthInterceptor(config.AccessibleRoles(), publicKey, logError)
 	*/
 	grpcServer := grpc.NewServer()
-	//cproto.RegisterPostServiceServer(grpcServer, handler)
+	cproto.RegisterConnectionServiceServer(grpcServer, handler)
 	if err := grpcServer.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
