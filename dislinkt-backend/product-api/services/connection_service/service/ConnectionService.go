@@ -3,6 +3,7 @@ package service
 import (
 	"connection/module/model"
 	"connection/module/repository"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type ConnectionService struct {
@@ -28,4 +29,8 @@ func (service *ConnectionService) GetConnection(firstUsername string, secondUser
 		return connection
 	}
 
+}
+
+func (service *ConnectionService) AcceptRequest(id primitive.ObjectID) (*model.Connection, error) {
+	return service.Repo.AcceptRequest(id)
 }
