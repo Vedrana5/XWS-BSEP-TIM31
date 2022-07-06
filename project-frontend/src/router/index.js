@@ -14,6 +14,8 @@ import ConfirmPasswordlessLogin from "../views/user/ConfirmPasswordlessLogin"
 import PasswordlessLogin from "../views/user/PasswordlessLogin"
 import CreatePost from "../views/user/CreatePost"
 import FindPublicUserByLogUser from "../views/user/FindPublicUserByLogUser"
+import CreateJobOffer from "../views/user/CreateJobOffer"
+import SeeJobOffers from "../views/user/SeeJobOffers"
 const routes = [
   {
     path: "/",
@@ -30,6 +32,16 @@ const routes = [
     name: "FindPublicUserByLogUser",
     component: FindPublicUserByLogUser,
     },
+    {
+      path: "/CreateJobOffer",
+      name: "CreateJobOffer",
+      component: CreateJobOffer,
+      },
+      {
+        path: "/SeeJobOffers",
+        name: "SeeJobOffers",
+        component: SeeJobOffers,
+        },
   {
     path: "/CreatePost",
     name: "CreatePost",

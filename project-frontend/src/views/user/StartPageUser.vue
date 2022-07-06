@@ -4,6 +4,8 @@
         <button @click="ResetPassword()">Reset Password</button>
          <button @click="CreatePost()">Create post</button>
         <button @click="Find()">Find public user</button>
+        <button @click="JobOffer()">Create a job offer</button>
+        <button @click="JobOffers()">See all job offers</button>
   </div>
 </template>
 
@@ -82,7 +84,12 @@ export default {
   async Find() {
     this.$router.push({ name: "FindPublicUserByLogUser" });
   },
-
+async JobOffer() {
+  this.$router.push({ name: "CreateJobOffer" });
+},
+async JobOffers() {
+  this.$router.push({ name: "SeeJobOffers" });
+}
   },
   async created() {
   this.Username = localStorage.getItem("username"); 

@@ -104,7 +104,7 @@ export default {
 
   methods: {
     async GoBack() {
-      this.$router.push({ name: "StartPageView" });
+      this.$router.push({ name: "StartPageUser" });
     },
     async Search(username) {
       this.username= username;
