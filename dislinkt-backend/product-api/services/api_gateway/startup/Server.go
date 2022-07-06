@@ -40,7 +40,7 @@ func (server *Server) initHandlers() {
 			grpc.MaxCallSendMsgSize(20*1024*1024)),
 	}
 
-	fmt.Printf("A ZA USERA je" + server.config.UserHost + server.config.UserPort)
+	//	fmt.Printf("A ZA USERA je" + server.config.UserHost + server.config.UserPort)
 	userEndpoint := fmt.Sprintf("%s:%s", server.config.UserHost, server.config.UserPort)
 
 	postEndpoint := fmt.Sprintf("%s:%s", server.config.PostHost, server.config.PostPort)
@@ -51,19 +51,21 @@ func (server *Server) initHandlers() {
 	if err != nil {
 		panic(err)
 	} else {
-		fmt.Printf("fdfddf" + userEndpoint)
+		fmt.Printf("Userservice:" + userEndpoint)
 	}
 
 	err = postGw.RegisterPostServiceHandlerFromEndpoint(context.TODO(), server.mux, postEndpoint, opts)
 	if err != nil {
-		fmt.Printf("fdfddf" + postEndpoint)
+		panic(err)
+	} else {
+		fmt.Printf("PostService:" + postEndpoint)
 	}
 
 	err = connGw.RegisterConnectionServiceHandlerFromEndpoint(context.TODO(), server.mux, connEndpoint, opts)
 	if err != nil {
 		panic(err)
 	} else {
-		fmt.Printf("fdfddf" + connEndpoint)
+		fmt.Printf("ConnectionService:" + connEndpoint)
 	}
 
 }
