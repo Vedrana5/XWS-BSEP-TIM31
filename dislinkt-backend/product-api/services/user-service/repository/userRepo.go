@@ -38,6 +38,12 @@ func (repo *UserRepo) FindAllUsers() []model.User {
 	return users
 }
 
+func (repo *UserRepo) FindAll() []*model.User {
+	var users []*model.User
+	repo.Database.Select("*").Find(&users)
+	return users
+}
+
 func (repo *UserRepo) FindByUserName(userName string) *model.User {
 	user := &model.User{}
 	if repo.Database.First(&user, "username = ?", userName).RowsAffected == 0 {

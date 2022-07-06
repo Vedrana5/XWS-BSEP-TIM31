@@ -62,8 +62,14 @@ func (service *UserService) FindPublic(userName string) []model.User {
 }
 
 func (service *UserService) FindByUserName(userName string) *model.User {
-	user := service.Repo.FindByUserName(userName)
-	return user
+	users := service.Repo.FindAll()
+	for i := 0; i < len(users); i++ {
+		if strings.Contains(users[i].Username, userName) {
+			var user *model.User = users[i]
+			return user
+		}
+	}
+	return nil
 }
 
 func (service *UserService) FindByEmail(email string) *model.User {

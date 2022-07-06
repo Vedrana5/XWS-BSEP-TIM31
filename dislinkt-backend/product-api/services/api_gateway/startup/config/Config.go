@@ -18,6 +18,6 @@ func NewConfig() *Config {
 		PostHost:       "localhost",
 		PostPort:       "9092",
 		ConnectionHost: "localhost",
-		ConnectionPort: "9093",
+		ConnectionPort: "9099",
 	}
 }

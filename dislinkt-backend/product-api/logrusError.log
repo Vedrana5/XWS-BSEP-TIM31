@@ -1,2 +1,4 @@
 {"action":"CreateUser","level":"error","location":"RegisterHandler","msg":"Password doesn't in valid format!","status":"failure","time":"2022-07-01T10:30:43+02:00","timestamp":"2022-07-01 10:30:43.6259755 +0200 CEST m=+10.300047501"}
 {"action":"LogIn","level":"error","location":"LogInHandler","msg":"Failed sign up!","status":"failure","time":"2022-07-05T18:48:36+02:00","timestamp":"2022-07-05 18:48:36.2343073 +0200 CEST m=+20.307492601"}
+{"action":"FindByUserName","level":"error","location":"UserHandler","msg":"User not found!","status":"failure","time":"2022-07-06T20:42:49+02:00","timestamp":"2022-07-06 20:42:49.8271304 +0200 CEST m=+2533.759672301"}
+{"action":"LogIn","level":"error","location":"LogInHandler","msg":"Password isn't in valid format!","status":"failure","time":"2022-07-06T23:05:03+02:00","timestamp":"2022-07-06 23:05:03.7037935 +0200 CEST m=+3082.088622401"}

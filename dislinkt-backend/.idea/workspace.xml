@@ -5,7 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/logrusError.log" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/logrusError.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/logrusInfo.log" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/logrusInfo.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/api_gateway/startup/config/Config.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/api_gateway/startup/config/Config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/user_service/user_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/common/proto/user_service/user_service.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/handler/ConnectionHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/handler/ConnectionHandler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/mapper/Mapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/mapper/Mapper.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/startup/config/Config.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/startup/config/Config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/test" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/user-service/handler/RegisterHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/user-service/handler/RegisterHandler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/user-service/mapper/mapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/user-service/mapper/mapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/user-service/repository/userRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/user-service/repository/userRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/user-service/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/user-service/service/userService.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +34,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../Program Files/Go" />
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -34,20 +49,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Korisnik&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "C:/Users/Lidija"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Go Build.go build main.go (3)">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="dislinkt-backend" />
@@ -110,8 +125,8 @@
       <list>
         <item itemvalue="Go Build.go build main.go (3)" />
         <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Build.go build main.go (2)" />
         <item itemvalue="Go Build.go build main.go (1)" />
+        <item itemvalue="Go Build.go build main.go (2)" />
       </list>
     </recent_temporary>
   </component>

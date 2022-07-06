@@ -16,6 +16,7 @@ import CreatePost from "../views/user/CreatePost"
 import FindPublicUserByLogUser from "../views/user/FindPublicUserByLogUser"
 import CreateJobOffer from "../views/user/CreateJobOffer"
 import SeeJobOffers from "../views/user/SeeJobOffers"
+import Connections from "../views/user/Connections"
 const routes = [
   {
     path: "/",
@@ -27,6 +28,11 @@ const routes = [
   name: "LoginView",
   component: LoginView,
   },
+  {
+    path: "/Connections",
+    name: "Connections",
+    component: Connections,
+    },
   {
     path: "/FindPublicUserByLogUser",
     name: "FindPublicUserByLogUser",

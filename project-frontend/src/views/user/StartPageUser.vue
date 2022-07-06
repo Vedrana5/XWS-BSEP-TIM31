@@ -6,6 +6,7 @@
         <button @click="Find()">Find public user</button>
         <button @click="JobOffer()">Create a job offer</button>
         <button @click="JobOffers()">See all job offers</button>
+        <button @click="CreateConnection()">Search profile and follow</button>
   </div>
 </template>
 
@@ -74,6 +75,9 @@ export default {
       this.newUser.Question = response.data.question
         })
 
+    },
+    async CreateConnection() {
+      this.$router.push({ name: "Connections" });
     },
       async Update() {
           this.$router.push({ name: "UpdateInfoView" });

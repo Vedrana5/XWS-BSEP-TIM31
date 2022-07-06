@@ -112,6 +112,50 @@ func MapFindUser(user *model.User) *pb.User {
 	return usersPb
 }
 
+func MapFindUser1(user model.User) *pb.User {
+	var typeOfUser = "ADMIN"
+	if user.TypeOfUser == 0 {
+		typeOfUser = "ADMIN"
+	}
+	if user.TypeOfUser == 1 {
+		typeOfUser = "REGISTERED_USER"
+	}
+	if user.TypeOfUser == 2 {
+		typeOfUser = "UNREGISTERED_USER"
+	}
+	var typeOfProfile = "PUBLIC"
+	if user.TypeOfProfile == 1 {
+		typeOfProfile = "PRIVATE"
+	}
+	var gender = "MALE"
+	if user.Gender == 1 {
+		gender = "FEMALE"
+	}
+	if user.Gender == 2 {
+		gender = "OTHER"
+	}
+	usersPb := &pb.User{
+		Username:       user.Username,
+		Password:       user.Password,
+		Email:          user.Email,
+		PhoneNumber:    user.PhoneNumber,
+		FirstName:      user.FirstName,
+		LastName:       user.LastName,
+		DateOfBirth:    user.DateOfBirth.String(),
+		TypeOfUser:     typeOfUser,
+		TypeOfProfile:  typeOfProfile,
+		Gender:         gender,
+		Biography:      user.Biography,
+		WorkExperience: user.WorkExperience,
+		Education:      user.Education,
+		Skills:         user.Skills,
+		Interest:       user.Interest,
+		Question:       user.Question,
+		Answer:         user.Answer,
+	}
+	return usersPb
+}
+
 /*func MapFindPublicUser(user []*model.User) []pb.User {
 	var usersPb []pb.User
 	for i := 0; i < len(user); i++ {

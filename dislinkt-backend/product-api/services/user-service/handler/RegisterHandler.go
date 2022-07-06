@@ -317,15 +317,27 @@ func (handler RegisterHandler) FindByUsername(ctx context.Context, username *use
 
 	var user = handler.UserService.FindByUserName(username.Username)
 	if user == nil {
-		handler.LogError.WithFields(logrus.Fields{
-			"status":    "failure",
-			"location":  "UserHandler",
-			"action":    "FindByUserName",
-			"timestamp": time.Now().String(),
-		}).Error("User not found!")
-		fmt.Println(time.Now().String() + " User not found!")
+		var user1 = model.User{
+			Username:       "",
+			Password:       "",
+			Email:          "",
+			PhoneNumber:    "",
+			FirstName:      "",
+			LastName:       "",
+			DateOfBirth:    time.Now(),
+			Gender:         model.MALE,
+			TypeOfUser:     model.REGISTERED_USER,
+			TypeOfProfile:  model.PUBLIC,
+			Biography:      "",
+			WorkExperience: "",
+			Education:      "",
+			Skills:         "",
+			Interest:       "",
+			Question:       "",
+			Answer:         "",
+		}
+		return &user_service.UserNameResponse{User: mapper.MapFindUser1(user1)}, nil
 	}
-
 	handler.LogInfo.WithFields(logrus.Fields{
 		"status":    "success",
 		"location":  "UserHandler",
