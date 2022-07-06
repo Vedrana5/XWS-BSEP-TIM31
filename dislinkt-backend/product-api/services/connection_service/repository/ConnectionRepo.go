@@ -25,6 +25,11 @@ func NewConnectionRepository(client *mongo.Client) ConnectionRepo {
 
 }
 
+func (r ConnectionRepo) GetById(id primitive.ObjectID) (*model.Connection, error) {
+	filter := bson.M{"_id": id}
+	return r.filterOne(filter)
+}
+
 func (r ConnectionRepo) Create(connection *model.Connection) error {
 	result, err := r.connections.InsertOne(context.TODO(), connection)
 	if err != nil {
@@ -62,10 +67,37 @@ func (r ConnectionRepo) GetConnection(username string, username2 string) (*model
 
 }
 
-func (r ConnectionRepo) filterOne(filter bson.M) (post *model.Connection, err error) {
+func (r ConnectionRepo) filterOne(filter bson.M) (connection *model.Connection, err error) {
 	result := r.connections.FindOne(context.TODO(), filter)
-	err = result.Decode(&post)
+	err = result.Decode(&connection)
 	return
+}
+
+func (r ConnectionRepo) AcceptRequest(id primitive.ObjectID) (*model.Connection, error) {
+	_, err := r.connections.UpdateOne(context.TODO(),
+		bson.M{"_id": id},
+		bson.D{
+			{"$set", bson.D{{"is_confirmed", true}}},
+		})
+	if err != nil {
+		return nil, err
+	}
+	filter := bson.M{"_id": id}
+	return r.filterOne(filter)
+
+}
+
+func (r ConnectionRepo) RejectRequest(id primitive.ObjectID) (*model.Connection, error) {
+	_, err := r.connections.UpdateOne(context.TODO(),
+		bson.M{"_id": id},
+		bson.D{
+			{"$set", bson.D{{"is_deleted", true}}},
+		})
+	if err != nil {
+		return nil, err
+	}
+	filter := bson.M{"_id": id}
+	return r.filterOne(filter)
 }
 
 func decode(cursor *mongo.Cursor) (connections []*model.Connection, err error) {
