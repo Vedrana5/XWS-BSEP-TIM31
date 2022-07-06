@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option go_package = "common/module/proto/connection_service";
+
+package connection_service;
+
+import "google/api/annotations.proto";
+
+service ConnectionService{
+  }
