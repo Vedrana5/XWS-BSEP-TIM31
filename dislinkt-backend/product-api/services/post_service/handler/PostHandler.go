@@ -126,7 +126,7 @@ func (p PostHandler) CreateComment(ctx context.Context, request *post_service.Cr
 }
 
 func (p PostHandler) GetAllCommentsForPost(_ context.Context, request *post_service.GetRequest) (*post_service.GetAllCommentsResponse, error) {
-	//request = p.sanitizeGetRequest(request)
+
 	objectId, err := primitive.ObjectIDFromHex(request.Id)
 	if err != nil {
 		return nil, err

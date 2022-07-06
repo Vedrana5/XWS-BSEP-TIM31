@@ -1,7 +1,7 @@
 package handler
 
 import (
-	cproto "common/module/proto/connection_service"
+	"common/module/proto/connection_service"
 	"connection/module/mapper"
 	"connection/module/service"
 	"context"
@@ -11,14 +11,18 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
-func (c ConnectionHandler) Create(ctx context.Context, request *cproto.CreateConnectionRequest) (*cproto.Empty, error) {
+func (c ConnectionHandler) Get(ctx context.Context, request *connection_service.GetRequest) (*connection_service.GetMultipleUsernameResponse, error) {
+	return nil, nil
+}
+
+func (c ConnectionHandler) Create(ctx context.Context, request *connection_service.CreateConnectionRequest) (*connection_service.Empty, error) {
 	connection := mapper.MapNewConnection(request.Connection)
 	err := c.ConnectionService.Create(connection)
 	if err != nil {
 		return nil, err
 
 	}
-	return &cproto.Empty{}, nil
+	return &connection_service.Empty{}, nil
 }
 
 func (c ConnectionHandler) MustEmbedUnimplementedConnectionServiceServer() {

@@ -3,6 +3,7 @@ package repository
 import (
 	"connection/module/model"
 	"context"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -32,4 +33,38 @@ func (r ConnectionRepo) Create(connection *model.Connection) error {
 	connection.Id = result.InsertedID.(primitive.ObjectID)
 
 	return nil
+}
+
+func (r ConnectionRepo) GetAllByUsername(username string) ([]*model.Connection, error) {
+	filter := bson.M{"FirstUsername": username}
+	return r.filter(filter)
+}
+
+func (r ConnectionRepo) filter(filter interface{}) ([]*model.Connection, error) {
+	cursor, err := r.connections.Find(context.TODO(), filter)
+	defer func(cursor *mongo.Cursor, ctx context.Context) {
+		err := cursor.Close(ctx)
+		if err != nil {
+
+		}
+	}(cursor, context.TODO())
+
+	if err != nil {
+		return nil, err
+	}
+
+	return decode(cursor)
+}
+
+func decode(cursor *mongo.Cursor) (connections []*model.Connection, err error) {
+	for cursor.Next(context.TODO()) {
+		var conn model.Connection
+		err = cursor.Decode(&conn)
+		if err != nil {
+			return
+		}
+		connections = append(connections, &conn)
+	}
+	err = cursor.Err()
+	return
 }

@@ -15,7 +15,25 @@ service ConnectionService{
       body: "Connection"
     };
   }
+
+  rpc get(GetRequest) returns(GetMultipleUsernameResponse) {
+    option (google.api.http) = {
+      get: "/connectUsername/{Username}"
+    };
   }
+
+
+  }
+
+  message  GetRequest {
+        string Username=1;
+  }
+
+  message GetMultipleUsernameResponse {
+        repeated string Username=1;
+  }
+
+
 
     message CreateConnectionRequest {
          Connection Connection=1;

@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/mapper/Mapper.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.pb.gw.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service_grpc.pb.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/handler/ConnectionHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/handler/ConnectionHandler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/handler/PostHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/handler/PostHandler.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +27,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../Program Files/Go" />
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../../Program Files/Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -48,19 +52,11 @@
     "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
-    "last_opened_file_path": "C:/Users/Lidija"
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "C:/Users/Korisnik"
   }
 }]]></component>
   <component name="RunManager" selected="Go Build.go build main.go (3)">
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="dislinkt-backend" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
     <configuration name="go build github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="dislinkt-backend" />
       <working_directory value="$PROJECT_DIR$/product-api" />
@@ -99,16 +95,6 @@
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/product-api/services/api_gateway/main.go" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="dislinkt-backend" />
-      <working_directory value="$PROJECT_DIR$" />
-      <go_parameters value="-i" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <method v="2" />
     </configuration>
     <recent_temporary>

@@ -16,3 +16,6 @@ func (service *ConnectionService) Create(post *model.Connection) error {
 func NewConnectionService(repository repository.ConnectionRepo) *ConnectionService {
 	return &ConnectionService{Repo: &repository}
 }
+func (service *ConnectionService) GetAllByUsername(username string) ([]*model.Connection, error) {
+	return service.Repo.GetAllByUsername(username)
+}
