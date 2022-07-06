@@ -36,6 +36,26 @@ service ConnectionService{
     };
   }
 
+  rpc AcceptRequest(EditRequest) returns(EditResponse) {
+    option (google.api.http) = {
+      post: "/acceptRequest/{Id}",
+      body: "*"
+    };
+  }
+
+}
+
+
+message EditRequest{
+  string Id=1;
+
+
+}
+
+
+
+message EditResponse{
+  Connection connecton=1;
 }
 
   message GetUsernameRequest {

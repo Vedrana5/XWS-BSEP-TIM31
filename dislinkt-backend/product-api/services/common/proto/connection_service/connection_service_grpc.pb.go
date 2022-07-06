@@ -26,6 +26,7 @@ type ConnectionServiceClient interface {
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetMultipleUsernameResponse, error)
 	GetConnect(ctx context.Context, in *GetUsernameRequest, opts ...grpc.CallOption) (*GetConnectionResponse, error)
 	FindConnectionByUsername(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetMultipleConnectionResponse, error)
+	AcceptRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 }
 
 type connectionServiceClient struct {
@@ -72,6 +73,15 @@ func (c *connectionServiceClient) FindConnectionByUsername(ctx context.Context, 
 	return out, nil
 }
 
+func (c *connectionServiceClient) AcceptRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error) {
+	out := new(EditResponse)
+	err := c.cc.Invoke(ctx, "/connection_service.ConnectionService/AcceptRequest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConnectionServiceServer is the server API for ConnectionService service.
 // All implementations must embed UnimplementedConnectionServiceServer
 // for forward compatibility
@@ -80,6 +90,7 @@ type ConnectionServiceServer interface {
 	Get(context.Context, *GetRequest) (*GetMultipleUsernameResponse, error)
 	GetConnect(context.Context, *GetUsernameRequest) (*GetConnectionResponse, error)
 	FindConnectionByUsername(context.Context, *GetRequest) (*GetMultipleConnectionResponse, error)
+	AcceptRequest(context.Context, *EditRequest) (*EditResponse, error)
 	MustEmbedUnimplementedConnectionServiceServer()
 }
 
@@ -98,6 +109,9 @@ func (UnimplementedConnectionServiceServer) GetConnect(context.Context, *GetUser
 }
 func (UnimplementedConnectionServiceServer) FindConnectionByUsername(context.Context, *GetRequest) (*GetMultipleConnectionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindConnectionByUsername not implemented")
+}
+func (UnimplementedConnectionServiceServer) AcceptRequest(context.Context, *EditRequest) (*EditResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AcceptRequest not implemented")
 }
 func (UnimplementedConnectionServiceServer) MustEmbedUnimplementedConnectionServiceServer() {}
 
@@ -184,6 +198,24 @@ func _ConnectionService_FindConnectionByUsername_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConnectionService_AcceptRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConnectionServiceServer).AcceptRequest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/connection_service.ConnectionService/AcceptRequest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConnectionServiceServer).AcceptRequest(ctx, req.(*EditRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConnectionService_ServiceDesc is the grpc.ServiceDesc for ConnectionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +238,10 @@ var ConnectionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "findConnectionByUsername",
 			Handler:    _ConnectionService_FindConnectionByUsername_Handler,
+		},
+		{
+			MethodName: "AcceptRequest",
+			Handler:    _ConnectionService_AcceptRequest_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
