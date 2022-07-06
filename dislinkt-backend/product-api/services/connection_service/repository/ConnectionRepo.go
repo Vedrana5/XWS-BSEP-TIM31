@@ -58,7 +58,12 @@ func (r ConnectionRepo) filter(filter interface{}) ([]*model.Connection, error) 
 
 func (r ConnectionRepo) GetConnection(username string, username2 string) (*model.Connection, error) {
 	filter := bson.M{"first_username": username, "second_username": username2}
-	return r.filterOne(filter)
+	usernames, err := r.filterOne(filter)
+	if usernames == nil {
+		filter1 := bson.M{"first_username": username2, "second_username": username}
+		return r.filterOne(filter1)
+	}
+	return usernames, err
 
 }
 
