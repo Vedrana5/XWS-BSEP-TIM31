@@ -56,6 +56,18 @@ func (r ConnectionRepo) filter(filter interface{}) ([]*model.Connection, error) 
 	return decode(cursor)
 }
 
+func (r ConnectionRepo) GetConnection(username string, username2 string) (*model.Connection, error) {
+	filter := bson.M{"first_username": username}
+	return r.filterOne(filter)
+
+}
+
+func (r ConnectionRepo) filterOne(filter bson.M) (post *model.Connection, err error) {
+	result := r.connections.FindOne(context.TODO(), filter)
+	err = result.Decode(&post)
+	return
+}
+
 func decode(cursor *mongo.Cursor) (connections []*model.Connection, err error) {
 	for cursor.Next(context.TODO()) {
 		var conn model.Connection

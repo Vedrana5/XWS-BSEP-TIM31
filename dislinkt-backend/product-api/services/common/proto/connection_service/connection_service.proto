@@ -22,9 +22,23 @@ service ConnectionService{
     };
   }
 
+    rpc getConnect(GetUsernameRequest) returns(GetConnectionResponse) {
+    option (google.api.http) = {
+    get: "/connect/{FirstUsername}/{SecondUsername}"
+        };
+        }
+
 
   }
 
+  message GetUsernameRequest {
+       string FirstUsername=1;
+       string SecondUsername=2;
+  }
+
+  message GetConnectionResponse {
+       Connection connection=1;
+  }
   message  GetRequest {
         string Username=1;
   }
@@ -48,5 +62,6 @@ service ConnectionService{
       string FirstUsername = 2;
       string SecondUsername = 3;
       bool   IsConfirmed = 4;
+      bool IsDeleted=5;
 
     }

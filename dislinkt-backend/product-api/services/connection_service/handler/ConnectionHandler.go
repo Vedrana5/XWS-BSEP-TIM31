@@ -11,6 +11,16 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
+func (c ConnectionHandler) GetConnect(ctx context.Context, request *connection_service.GetUsernameRequest) (*connection_service.GetConnectionResponse, error) {
+	connection, err := c.ConnectionService.GetConnection(request.FirstUsername, request.SecondUsername)
+	if err != nil {
+		return nil, err
+	}
+	connectionPb := mapper.MapConnectionReply(connection)
+	response := &connection_service.GetConnectionResponse{Connection: connectionPb}
+	return response, nil
+}
+
 func (c ConnectionHandler) Get(ctx context.Context, request *connection_service.GetRequest) (*connection_service.GetMultipleUsernameResponse, error) {
 	return nil, nil
 }

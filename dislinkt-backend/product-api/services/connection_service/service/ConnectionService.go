@@ -19,3 +19,7 @@ func NewConnectionService(repository repository.ConnectionRepo) *ConnectionServi
 func (service *ConnectionService) GetAllByUsername(username string) ([]*model.Connection, error) {
 	return service.Repo.GetAllByUsername(username)
 }
+
+func (service *ConnectionService) GetConnection(firstUsername string, secondUsername string) (*model.Connection, error) {
+	return service.Repo.GetConnection(firstUsername, secondUsername)
+}
