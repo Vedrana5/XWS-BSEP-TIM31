@@ -12,6 +12,21 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
+func (c ConnectionHandler) FindConnectionByUsername(ctx context.Context, request *connection_service.GetRequest) (*connection_service.GetMultipleConnectionResponse, error) {
+	connections, err := c.ConnectionService.GetAllByUsername(request.Username)
+	if err != nil {
+		return nil, err
+	}
+	response := &connection_service.GetMultipleConnectionResponse{Connection: []*connection_service.Connection{}}
+
+	for _, connection := range connections {
+		current := mapper.MapConnectionReply(connection)
+		response.Connection = append(response.Connection, current)
+	}
+
+	return response, nil
+}
+
 func (c ConnectionHandler) GetConnect(ctx context.Context, request *connection_service.GetUsernameRequest) (*connection_service.GetConnectionResponse, error) {
 	connection := c.ConnectionService.GetConnection(request.FirstUsername, request.SecondUsername)
 	if connection == nil {

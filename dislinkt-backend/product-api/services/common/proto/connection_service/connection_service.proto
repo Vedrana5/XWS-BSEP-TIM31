@@ -29,7 +29,14 @@ service ConnectionService{
         }
 
 
+
+  rpc findConnectionByUsername(GetRequest) returns(GetMultipleConnectionResponse) {
+    option (google.api.http) = {
+      get: "/findConnection/{Username}"
+    };
   }
+
+}
 
   message GetUsernameRequest {
        string FirstUsername=1;
@@ -48,6 +55,9 @@ service ConnectionService{
   }
 
 
+  message GetMultipleConnectionResponse {
+  repeated Connection connection=1;
+    }
 
     message CreateConnectionRequest {
          Connection Connection=1;

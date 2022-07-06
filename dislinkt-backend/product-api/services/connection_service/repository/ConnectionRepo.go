@@ -36,7 +36,7 @@ func (r ConnectionRepo) Create(connection *model.Connection) error {
 }
 
 func (r ConnectionRepo) GetAllByUsername(username string) ([]*model.Connection, error) {
-	filter := bson.M{"FirstUsername": username}
+	filter := bson.M{"second_username": username, "is_confirmed": false}
 	return r.filter(filter)
 }
 
