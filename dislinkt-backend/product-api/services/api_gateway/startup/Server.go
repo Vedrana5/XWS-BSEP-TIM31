@@ -16,7 +16,7 @@ import (
 
 type Server struct {
 	config *cfg.Config
-	mux    *runtime.ServeMux // Part of grpcGateway library
+	mux    *runtime.ServeMux
 }
 
 func NewServer(config *cfg.Config) *Server {

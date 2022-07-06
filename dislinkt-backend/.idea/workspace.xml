@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/mapper/Mapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/mapper/Mapper.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/powerproto.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/handler/ConnectionHandler.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/model/Connection.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/repository/Client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/startup/Server.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-api/services/connection_service/startup/config/Config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/startup/Server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +63,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Lidija/Desktop/XWS-BSEP-TIM31/dislinkt-backend&quot;
   }
 }</component>
-  <component name="RunManager" selected="Go Build.go build main.go (2)">
+  <component name="RunManager" selected="Go Build.go build main.go (3)">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="dislinkt-backend" />
       <working_directory value="$PROJECT_DIR$" />
@@ -58,14 +71,6 @@
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go build gateway/module" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="dislinkt-backend" />
-      <working_directory value="$PROJECT_DIR$/product-api/services/api_gateway" />
-      <kind value="PACKAGE" />
-      <package value="gateway/module" />
-      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration name="go build github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -92,6 +97,14 @@
       <filePath value="$PROJECT_DIR$/product-api/services/post_service/main.go" />
       <method v="2" />
     </configuration>
+    <configuration name="go build main.go (3)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="dislinkt-backend" />
+      <working_directory value="$PROJECT_DIR$/product-api/services/connection_service" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/product-api/services/connection_service/main.go" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="dislinkt-backend" />
       <working_directory value="$PROJECT_DIR$/product-api/services/api_gateway" />
@@ -112,6 +125,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build main.go (3)" />
         <item itemvalue="Go Build.go build main.go (2)" />
         <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Build.go build main.go (1)" />
@@ -145,16 +159,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/product-api/services/post_service/repository/PostRepo.go</url>
-          <line>2</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

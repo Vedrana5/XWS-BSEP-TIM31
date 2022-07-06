@@ -33,7 +33,6 @@ const (
 func (server *Server) InitMongoClient() *mongo.Client {
 	client, err := repository.GetClient(server.config.PostDBHost, server.config.PostDBPort)
 
-
 	if err != nil {
 		log.Fatalln(err)
 	} else {
@@ -73,13 +72,7 @@ func (server *Server) StartGrpcServer(handler *handler.PostHandler) {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	/*
-		publicKey, err := jwt.ParseRSAPublicKeyFromPEM([]byte(server.config.PublicKey))
-		if err != nil {
-			log.Fatalf("failed to parse public key: %v", err)
-		}
-		interceptor := interceptor.NewAuthInterceptor(config.AccessibleRoles(), publicKey, logError)
-	*/
+
 	grpcServer := grpc.NewServer()
 	postProto.RegisterPostServiceServer(grpcServer, handler)
 	if err := grpcServer.Serve(listener); err != nil {
