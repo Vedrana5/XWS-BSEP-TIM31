@@ -13,6 +13,18 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
+func (c ConnectionHandler) RejectRequest(ctx context.Context, request *connection_service.EditRequest) (*connection_service.EditResponse, error) {
+
+	objectId, err := primitive.ObjectIDFromHex(request.GetId())
+	if err != nil {
+		return nil, err
+	}
+	connection, err := c.ConnectionService.RejectRequest(objectId)
+	connectionPb := mapper.MapConnectionReply(connection)
+	response := &connection_service.EditResponse{Connecton: connectionPb}
+	return response, nil
+}
+
 func (c ConnectionHandler) AcceptRequest(ctx context.Context, request *connection_service.EditRequest) (*connection_service.EditResponse, error) {
 
 	objectId, err := primitive.ObjectIDFromHex(request.GetId())

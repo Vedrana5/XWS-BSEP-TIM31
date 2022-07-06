@@ -34,3 +34,7 @@ func (service *ConnectionService) GetConnection(firstUsername string, secondUser
 func (service *ConnectionService) AcceptRequest(id primitive.ObjectID) (*model.Connection, error) {
 	return service.Repo.AcceptRequest(id)
 }
+
+func (service *ConnectionService) RejectRequest(id primitive.ObjectID) (*model.Connection, error) {
+	return service.Repo.RejectRequest(id)
+}

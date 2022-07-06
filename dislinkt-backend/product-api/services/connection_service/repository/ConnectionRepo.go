@@ -87,6 +87,19 @@ func (r ConnectionRepo) AcceptRequest(id primitive.ObjectID) (*model.Connection,
 
 }
 
+func (r ConnectionRepo) RejectRequest(id primitive.ObjectID) (*model.Connection, error) {
+	_, err := r.connections.UpdateOne(context.TODO(),
+		bson.M{"_id": id},
+		bson.D{
+			{"$set", bson.D{{"is_deleted", true}}},
+		})
+	if err != nil {
+		return nil, err
+	}
+	filter := bson.M{"_id": id}
+	return r.filterOne(filter)
+}
+
 func decode(cursor *mongo.Cursor) (connections []*model.Connection, err error) {
 	for cursor.Next(context.TODO()) {
 		var conn model.Connection

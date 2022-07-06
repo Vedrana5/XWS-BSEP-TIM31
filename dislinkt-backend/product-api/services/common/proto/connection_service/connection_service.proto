@@ -43,6 +43,14 @@ service ConnectionService{
     };
   }
 
+
+  rpc RejectRequest(EditRequest) returns(EditResponse) {
+    option (google.api.http) = {
+      post: "/rejectRequest/{Id}",
+      body: "*"
+    };
+  }
+
 }
 
 
