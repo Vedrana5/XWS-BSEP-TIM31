@@ -14,6 +14,10 @@ func (service *ConnectionService) Create(post *model.Connection) error {
 	return service.Repo.Create(post)
 }
 
+func (service *ConnectionService) CreateMessage(message *model.Message) error {
+	return service.Repo.CreateMessage(message)
+}
+
 func NewConnectionService(repository repository.ConnectionRepo) *ConnectionService {
 	return &ConnectionService{Repo: &repository}
 }

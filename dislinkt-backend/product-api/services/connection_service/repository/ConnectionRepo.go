@@ -11,17 +11,20 @@ import (
 const (
 	DATABASE             = "connections"
 	CollectionConnection = "connectionsData"
+	CollectionMessage    = "messageData"
 )
 
 type ConnectionRepo struct {
 	connections *mongo.Collection
+	messages    *mongo.Collection
 }
 
 func NewConnectionRepository(client *mongo.Client) ConnectionRepo {
 
 	connections := client.Database(DATABASE).Collection(CollectionConnection)
+	messages := client.Database(DATABASE).Collection(CollectionMessage)
 
-	return ConnectionRepo{connections: connections}
+	return ConnectionRepo{connections: connections, messages: messages}
 
 }
 
@@ -36,6 +39,16 @@ func (r ConnectionRepo) Create(connection *model.Connection) error {
 		return err
 	}
 	connection.Id = result.InsertedID.(primitive.ObjectID)
+
+	return nil
+}
+
+func (r ConnectionRepo) CreateMessage(message *model.Message) error {
+	result, err := r.connections.InsertOne(context.TODO(), message)
+	if err != nil {
+		return err
+	}
+	message.Id = result.InsertedID.(primitive.ObjectID)
 
 	return nil
 }

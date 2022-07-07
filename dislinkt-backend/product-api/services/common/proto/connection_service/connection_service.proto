@@ -28,6 +28,12 @@ service ConnectionService{
         };
         }
 
+  rpc createMessage(CreateMessageRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/message"
+      body: "Message"
+    };
+  }
 
 
   rpc findConnectionByUsername(GetRequest) returns(GetMultipleConnectionResponse) {
@@ -53,6 +59,9 @@ service ConnectionService{
 
 }
 
+message CreateMessageRequest {
+  Message message=1;
+}
 
 message EditRequest{
   string Id=1;
@@ -93,6 +102,14 @@ message EditResponse{
 
     message Empty {
 
+    }
+
+    message Message {
+     string Id=1;
+     string FirstUsername=2;
+     string SecondUsername=3;
+     string IsRead=4;
+     string DateCreated=5;
     }
 
     message Connection {

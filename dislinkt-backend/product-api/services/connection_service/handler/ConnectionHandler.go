@@ -88,6 +88,16 @@ func (c ConnectionHandler) Create(ctx context.Context, request *connection_servi
 	return &connection_service.Empty{}, nil
 }
 
+func (c ConnectionHandler) CreateMessage(ctx context.Context, request *connection_service.CreateMessageRequest) (*connection_service.Empty, error) {
+	message := mapper.MapNewMessage(request.Message)
+	err := c.ConnectionService.CreateMessage(message)
+	if err != nil {
+		return nil, err
+
+	}
+	return &connection_service.Empty{}, nil
+}
+
 func (c ConnectionHandler) MustEmbedUnimplementedConnectionServiceServer() {
 	//TODO implement me
 	panic("implement me")
