@@ -45,5 +45,11 @@ func (service *ConnectionService) RejectRequest(id primitive.ObjectID) (*model.C
 }
 
 func (service *ConnectionService) GetAllMessagesByUsernames(firstUsername string, secondUsername string) ([]*model.Message, error) {
-	return service.Repo.GetAllMessagesByUsernames(firstUsername, secondUsername)
+	var collections []*model.Message
+	var messages1, _ = service.Repo.GetAllMessagesByUsernames(firstUsername, secondUsername)
+	var messages2, _ = service.Repo.GetAllMessagesByUsernames(secondUsername, firstUsername)
+
+	collections = append(collections, messages1...)
+	collections = append(collections, messages2...)
+	return collections, nil
 }
