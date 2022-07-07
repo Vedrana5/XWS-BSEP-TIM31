@@ -30,6 +30,19 @@ func MapNewMessage(messagePb *connection_service.Message) *model.Message {
 	return message
 }
 
+func MapConnectionReply1(connection model.Connection) *connection_service.Connection {
+	id := connection.Id.Hex()
+
+	connectionPb := &connection_service.Connection{
+		Id:             id,
+		FirstUsername:  connection.FirstUsername,
+		SecondUsername: connection.SecondUsername,
+		IsConfirmed:    connection.IsConfirmed,
+		IsDeleted:      connection.IsDeleted,
+	}
+
+	return connectionPb
+}
 func MapConnectionReply(connection *model.Connection) *connection_service.Connection {
 	id := connection.Id.Hex()
 
@@ -43,5 +56,3 @@ func MapConnectionReply(connection *model.Connection) *connection_service.Connec
 
 	return connectionPb
 }
-
-
