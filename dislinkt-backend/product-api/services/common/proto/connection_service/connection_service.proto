@@ -59,6 +59,12 @@ service ConnectionService{
     };
   }
 
+
+  rpc getMessages(GetUsernameRequest) returns(GetMultipleMessagesResponse) {
+    option (google.api.http) = {
+      get: "/getMessages/{FirstUsername}/{SecondUsername}"
+    };
+  }
 }
 
 message CreateMessageRequest {
@@ -69,6 +75,10 @@ message EditRequest{
   string Id=1;
 
 
+}
+
+message GetMultipleMessagesResponse {
+  repeated Message message=1;
 }
 
 
@@ -112,7 +122,7 @@ message EditResponse{
      string SecondUsername=3;
      string MessageText=4;
      string DateCreated=5;
-     string IsRead=6;
+     bool IsRead=6;
     }
 
     message Connection {

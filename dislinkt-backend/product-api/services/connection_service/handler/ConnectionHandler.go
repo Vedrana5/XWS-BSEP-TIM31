@@ -13,6 +13,22 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
+func (c ConnectionHandler) GetMessages(ctx context.Context, request *connection_service.GetUsernameRequest) (*connection_service.GetMultipleMessagesResponse, error) {
+	messages, err := c.ConnectionService.GetAllMessagesByUsernames(request.FirstUsername, request.SecondUsername)
+	if err != nil {
+		return nil, err
+	}
+	response := &connection_service.GetMultipleMessagesResponse{Message: []*connection_service.Message{}}
+
+	for _, message := range messages {
+		current := mapper.MapMessagesReply(message)
+		response.Message = append(response.Message, current)
+	}
+
+	return response, nil
+
+}
+
 func (c ConnectionHandler) RejectRequest(ctx context.Context, request *connection_service.EditRequest) (*connection_service.EditResponse, error) {
 
 	objectId, err := primitive.ObjectIDFromHex(request.GetId())

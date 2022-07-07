@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.pb.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.pb.gw.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/common/proto/connection_service/connection_service_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/handler/ConnectionHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/handler/ConnectionHandler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/mapper/Mapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/mapper/Mapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

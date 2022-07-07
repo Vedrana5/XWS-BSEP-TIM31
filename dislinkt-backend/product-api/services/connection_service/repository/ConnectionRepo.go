@@ -113,6 +113,40 @@ func (r ConnectionRepo) RejectRequest(id primitive.ObjectID) (*model.Connection,
 	return r.filterOne(filter)
 }
 
+func (r ConnectionRepo) GetAllMessagesByUsernames(firstUsername string, secondUsername string) ([]*model.Message, error) {
+	filter := bson.M{"first_username": firstUsername, "second_username": secondUsername}
+	return r.filter2(filter)
+}
+
+func (r ConnectionRepo) filter2(filter interface{}) ([]*model.Message, error) {
+	cursor, err := r.messages.Find(context.TODO(), filter)
+	defer func(cursor *mongo.Cursor, ctx context.Context) {
+		err := cursor.Close(ctx)
+		if err != nil {
+
+		}
+	}(cursor, context.TODO())
+
+	if err != nil {
+		return nil, err
+	}
+
+	return decode2(cursor)
+}
+
+func decode2(cursor *mongo.Cursor) (messages []*model.Message, err error) {
+	for cursor.Next(context.TODO()) {
+		var conn model.Message
+		err = cursor.Decode(&conn)
+		if err != nil {
+			return
+		}
+		messages = append(messages, &conn)
+	}
+	err = cursor.Err()
+	return
+}
+
 func decode(cursor *mongo.Cursor) (connections []*model.Connection, err error) {
 	for cursor.Next(context.TODO()) {
 		var conn model.Connection

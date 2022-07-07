@@ -43,3 +43,7 @@ func (service *ConnectionService) AcceptRequest(id primitive.ObjectID) (*model.C
 func (service *ConnectionService) RejectRequest(id primitive.ObjectID) (*model.Connection, error) {
 	return service.Repo.RejectRequest(id)
 }
+
+func (service *ConnectionService) GetAllMessagesByUsernames(firstUsername string, secondUsername string) ([]*model.Message, error) {
+	return service.Repo.GetAllMessagesByUsernames(firstUsername, secondUsername)
+}
