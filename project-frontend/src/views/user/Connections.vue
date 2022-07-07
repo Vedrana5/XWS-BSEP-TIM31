@@ -29,7 +29,7 @@
             Type of profile: {{user.TypeOfProfile}}
           </h4>
           <img src=""/>
-          <button  class="btn btn-success" @click="FindPosts(user.Username)">See profile</button>
+          <button  class="btn btn-success" @click="FindPosts(user.Username)">See posts</button>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
                               <button @click="DislikePost(Post.Id)">DisLike({{Post.DislikesNumber}})</button>
                               <button @click="OpenComments(Post.Id)">Comment({{Post.CommentsNumber}})</button>
                             </div>
-      <div >
+      <div v-if="(this.user.TypeOfProfile=='PUBLIC' && this.counter==1 && this.counter2==1) || (this.user.TypeOfProfile=='PRIVATE' && this.show==true && this.counter2==1)">
                           <div v-for="(comment, index) in comments" :key="index">
                               <h4 style="width: 600px" class="text">
                                 {{comment.Username}} : {{comment.CommentText}}
@@ -103,7 +103,12 @@ export default {
       usernameForPosts:"",
       first:"",
       second:"",
-      show:false
+      show:false,
+      id:0,
+      comments:"",
+      counter2:0,
+      posts:"",
+      Post:{Id:"",PostText:"", ImagePaths:null,Links:[]},
     };
   },
 
@@ -115,10 +120,24 @@ export default {
     async SearchUser(username) {
         this.username=username;
         this.firstname=localStorage.getItem("username")
-        await this.FindConnection(this.firstname,this.username);
         await this.FindThisUser(username);
-        
+        await this.FindConnection(this.firstname,this.username);
+           
     },
+  async OpenComments(Id) {
+    this.id=Id;
+    await this.FindComments(this.id);
+  },
+  async FindComments(id) {
+    this.id=id;
+axios.get("http://localhost:9090/post/"+this.id+"/comments")
+      .then (response => { 
+          this.comments = response.data.Comments;
+          if (this.comments.length>0) {
+            this.counter2==1;
+          }
+      })
+  },
     async Follow(username){
       this.first=localStorage.getItem("username")
       this.second=username;
@@ -171,6 +190,7 @@ this.$router.go(0)
             }
             if(response.data.connection.IsConfirmed==true) {
               this.show=true;
+              console.log("Aj da vidim jel usao ovde!")
             }
           }
         }) 

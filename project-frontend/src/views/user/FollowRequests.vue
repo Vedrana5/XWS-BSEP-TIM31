@@ -12,8 +12,8 @@
     <tbody>
           <tr v-for="(request, index) in requests" :key="index">
                   <td>{{request.FirstUsername}}</td>
-                  <td><button class="btn btn-success btn-block">Confirm</button></td>
-                  <td><button class="btn btn-success btn-block">Reject</button></td>
+                  <td><button class="btn btn-success btn-block" @click="ConfirmRequest(request.Id)">Confirm</button></td>
+                  <td><button class="btn btn-success btn-block" @click="RejectRequest(request.Id)">Reject</button></td>
            </tr> 
     </tbody>
 </table>
@@ -30,11 +30,24 @@ export default {
    data: () => ({
     requests:"",
     request:{Id:0,FirstUsername:"",SecondUsername:"",IsConfirmed:false,IsDeleted:false},
-    username:""
+    username:"",
+    connection:{Id:0,FirstUsername:"",SecondUsername:"",IsConfirmed:false,IsDeleted:false}
   }),
   methods: {
     async GoBack() {
         this.$router.push({ name: "StartPageUser" });
+    },
+    async ConfirmRequest(id) {
+      axios.post("http://localhost:9090/acceptRequest/"+id)
+          .then (response => { 
+          this.connection = response.data.connection;
+    }) 
+    },
+    async RejectRequest(id) {
+      axios.post("http://localhost:9090/rejectRequest/"+id)
+        .then (response => { 
+          this.connection = response.data.connection;
+    })   
     },
     async GetRequests() {
     this.username = localStorage.getItem("username");
