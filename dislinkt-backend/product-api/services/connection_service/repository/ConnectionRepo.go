@@ -44,7 +44,7 @@ func (r ConnectionRepo) Create(connection *model.Connection) error {
 }
 
 func (r ConnectionRepo) CreateMessage(message *model.Message) error {
-	result, err := r.connections.InsertOne(context.TODO(), message)
+	result, err := r.messages.InsertOne(context.TODO(), message)
 	if err != nil {
 		return err
 	}

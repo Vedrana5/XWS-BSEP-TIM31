@@ -28,12 +28,7 @@ service ConnectionService{
         };
         }
 
-  rpc createMessage(CreateMessageRequest) returns (Empty) {
-    option (google.api.http) = {
-      post: "/message"
-      body: "Message"
-    };
-  }
+
 
 
   rpc findConnectionByUsername(GetRequest) returns(GetMultipleConnectionResponse) {
@@ -54,6 +49,13 @@ service ConnectionService{
     option (google.api.http) = {
       post: "/rejectRequest/{Id}",
       body: "*"
+    };
+  }
+
+  rpc createMessage(CreateMessageRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/message"
+      body: "message"
     };
   }
 
@@ -108,8 +110,9 @@ message EditResponse{
      string Id=1;
      string FirstUsername=2;
      string SecondUsername=3;
-     string IsRead=4;
+     string MessageText=4;
      string DateCreated=5;
+     string IsRead=6;
     }
 
     message Connection {

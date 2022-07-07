@@ -28,6 +28,7 @@ type ConnectionServiceClient interface {
 	FindConnectionByUsername(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetMultipleConnectionResponse, error)
 	AcceptRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 	RejectRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
+	CreateMessage(ctx context.Context, in *CreateMessageRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type connectionServiceClient struct {
@@ -92,6 +93,15 @@ func (c *connectionServiceClient) RejectRequest(ctx context.Context, in *EditReq
 	return out, nil
 }
 
+func (c *connectionServiceClient) CreateMessage(ctx context.Context, in *CreateMessageRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/connection_service.ConnectionService/createMessage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConnectionServiceServer is the server API for ConnectionService service.
 // All implementations must embed UnimplementedConnectionServiceServer
 // for forward compatibility
@@ -102,6 +112,7 @@ type ConnectionServiceServer interface {
 	FindConnectionByUsername(context.Context, *GetRequest) (*GetMultipleConnectionResponse, error)
 	AcceptRequest(context.Context, *EditRequest) (*EditResponse, error)
 	RejectRequest(context.Context, *EditRequest) (*EditResponse, error)
+	CreateMessage(context.Context, *CreateMessageRequest) (*Empty, error)
 	MustEmbedUnimplementedConnectionServiceServer()
 }
 
@@ -126,6 +137,9 @@ func (UnimplementedConnectionServiceServer) AcceptRequest(context.Context, *Edit
 }
 func (UnimplementedConnectionServiceServer) RejectRequest(context.Context, *EditRequest) (*EditResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RejectRequest not implemented")
+}
+func (UnimplementedConnectionServiceServer) CreateMessage(context.Context, *CreateMessageRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMessage not implemented")
 }
 func (UnimplementedConnectionServiceServer) MustEmbedUnimplementedConnectionServiceServer() {}
 
@@ -248,6 +262,24 @@ func _ConnectionService_RejectRequest_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConnectionService_CreateMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMessageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConnectionServiceServer).CreateMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/connection_service.ConnectionService/createMessage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConnectionServiceServer).CreateMessage(ctx, req.(*CreateMessageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConnectionService_ServiceDesc is the grpc.ServiceDesc for ConnectionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +310,10 @@ var ConnectionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RejectRequest",
 			Handler:    _ConnectionService_RejectRequest_Handler,
+		},
+		{
+			MethodName: "createMessage",
+			Handler:    _ConnectionService_CreateMessage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
