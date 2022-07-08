@@ -193,10 +193,10 @@ var err error
 func SetupDatabase() *gorm.DB {
 	const DIALECT = "postgres"
 	const HOST = "localhost"
-	const PG_DBPORT = "8080"
+	const PG_DBPORT = "5432" //5432
 	const PG_USER = "postgres"
 	const XML_DB_NAME = "xws_project"
-	const PG_PASSWORD = "postgres" //fakultet
+	const PG_PASSWORD = "fakultet" //fakultet
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode= disable ", HOST, PG_DBPORT, PG_USER, PG_PASSWORD, XML_DB_NAME)
 

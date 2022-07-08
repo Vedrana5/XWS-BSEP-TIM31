@@ -1,25 +1,6 @@
 version: '3.7'
 services:
-  user-service:
-    image: user_service
-    container_name: user_service
-    build:
-      context: .
-      dockerfile: ./user-service/Dockerfile
-    restart: always
-    environment:
-      USER_DB_HOST: "localhost"
-      USER_DB_PORT:  "8080"
-      USER_DB_USER: "postgres"
-      USER_DB_PASS: "postgres"
-      USER_DB_NAME: "xws_project"
-      USER_SERVICE_PORT: "9091"
-    networks:
-      - servers
-    ports:
-      - '9091:9091'
-    depends_on:
-      - user_db
+
 
   api_gateway:
     image: api_gateway
@@ -36,6 +17,9 @@ services:
       USER_SERVICE_HOST: "localhost"
       POST_SERVICE_HOST: "localhost"
       POST_SERVICE_PORT: "9092"
+      CONNECTION_SERVICE_PORT: "9099"
+      CONNECTION_SERVICE_HOST: "localhost"
+
     networks:
       - servers
 
@@ -58,6 +42,25 @@ services:
     networks:
       - servers
 
+  connection_service:
+    image: connection_service
+    container_name: connection_service
+    build:
+      context: .
+      dockerfile: ./connection_service/Dockerfile
+    restart: always
+    ports:
+      - '9099:9099'
+    environment:
+      POST_DB_HOST: "connection_db"
+      POST_DB_PORT: "27017"
+      POST_SERVICE_PORT: "9092"
+
+    depends_on:
+      - connection_db
+    networks:
+      - servers
+
   post_db:
     image: mongo
     container_name: post_db
@@ -68,6 +71,16 @@ services:
       - posts-data:/data/db
     networks:
       - servers
+  connection_db:
+    image: mongo
+    container_name: connection_db
+    restart: always
+    ports:
+      - '4003:27017'
+    volumes:
+      - connections-data:/data/db
+    networks:
+      - servers
 
   user_db:
     image: postgres:14.1-alpine
@@ -76,9 +89,9 @@ services:
       - servers
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=fakultet
     ports:
-      - '8080:8080'
+      - '5432:5432'
     volumes:
       - user-data:/var/lib/postgresql/data
 
@@ -87,6 +100,8 @@ volumes:
       name: user-database
     posts-data:
       name: posts-database
+    connections-data:
+        name: connections-database
 networks:
   servers:
     name: servers
