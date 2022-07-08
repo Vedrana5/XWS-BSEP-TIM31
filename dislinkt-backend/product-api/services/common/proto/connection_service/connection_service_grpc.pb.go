@@ -29,6 +29,7 @@ type ConnectionServiceClient interface {
 	AcceptRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 	RejectRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 	CreateMessage(ctx context.Context, in *CreateMessageRequest, opts ...grpc.CallOption) (*Empty, error)
+	ReadMessage(ctx context.Context, in *GetMultipleMessagesRequest, opts ...grpc.CallOption) (*Empty, error)
 	GetMessages(ctx context.Context, in *GetUsernameRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error)
 	GetConnUsername(ctx context.Context, in *GetUsernamRequest, opts ...grpc.CallOption) (*GetMultipleConnectionResponse, error)
 	GetUnreadMessagesByUsername(ctx context.Context, in *GetUsernamRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error)
@@ -105,6 +106,15 @@ func (c *connectionServiceClient) CreateMessage(ctx context.Context, in *CreateM
 	return out, nil
 }
 
+func (c *connectionServiceClient) ReadMessage(ctx context.Context, in *GetMultipleMessagesRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/connection_service.ConnectionService/readMessage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *connectionServiceClient) GetMessages(ctx context.Context, in *GetUsernameRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error) {
 	out := new(GetMultipleMessagesResponse)
 	err := c.cc.Invoke(ctx, "/connection_service.ConnectionService/getMessages", in, out, opts...)
@@ -143,6 +153,7 @@ type ConnectionServiceServer interface {
 	AcceptRequest(context.Context, *EditRequest) (*EditResponse, error)
 	RejectRequest(context.Context, *EditRequest) (*EditResponse, error)
 	CreateMessage(context.Context, *CreateMessageRequest) (*Empty, error)
+	ReadMessage(context.Context, *GetMultipleMessagesRequest) (*Empty, error)
 	GetMessages(context.Context, *GetUsernameRequest) (*GetMultipleMessagesResponse, error)
 	GetConnUsername(context.Context, *GetUsernamRequest) (*GetMultipleConnectionResponse, error)
 	GetUnreadMessagesByUsername(context.Context, *GetUsernamRequest) (*GetMultipleMessagesResponse, error)
@@ -173,6 +184,9 @@ func (UnimplementedConnectionServiceServer) RejectRequest(context.Context, *Edit
 }
 func (UnimplementedConnectionServiceServer) CreateMessage(context.Context, *CreateMessageRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMessage not implemented")
+}
+func (UnimplementedConnectionServiceServer) ReadMessage(context.Context, *GetMultipleMessagesRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadMessage not implemented")
 }
 func (UnimplementedConnectionServiceServer) GetMessages(context.Context, *GetUsernameRequest) (*GetMultipleMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMessages not implemented")
@@ -322,6 +336,24 @@ func _ConnectionService_CreateMessage_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConnectionService_ReadMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMultipleMessagesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConnectionServiceServer).ReadMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/connection_service.ConnectionService/readMessage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConnectionServiceServer).ReadMessage(ctx, req.(*GetMultipleMessagesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ConnectionService_GetMessages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetUsernameRequest)
 	if err := dec(in); err != nil {
@@ -410,6 +442,10 @@ var ConnectionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "createMessage",
 			Handler:    _ConnectionService_CreateMessage_Handler,
+		},
+		{
+			MethodName: "readMessage",
+			Handler:    _ConnectionService_ReadMessage_Handler,
 		},
 		{
 			MethodName: "getMessages",

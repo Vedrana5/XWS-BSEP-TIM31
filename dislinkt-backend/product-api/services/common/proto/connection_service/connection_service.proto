@@ -59,6 +59,12 @@ service ConnectionService{
     };
   }
 
+  rpc readMessage(GetMultipleMessagesRequest) returns(Empty) {
+    option (google.api.http) = {
+      post: "/messager",
+      body: "*"
+    };
+  }
 
   rpc getMessages(GetUsernameRequest) returns(GetMultipleMessagesResponse) {
     option (google.api.http) = {
@@ -80,7 +86,10 @@ service ConnectionService{
 }
 
 
+message GetMultipleMessagesRequest {
+  repeated Message message=1;
 
+}
 
 message GetUsernamRequest{
   string Username=1;

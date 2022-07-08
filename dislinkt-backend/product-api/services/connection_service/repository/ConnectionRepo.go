@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"common/module/proto/connection_service"
 	"connection/module/model"
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
@@ -144,6 +145,18 @@ func (r ConnectionRepo) filter2(filter interface{}) ([]*model.Message, error) {
 func (r ConnectionRepo) GetUnreadMessages(username string) ([]*model.Message, error) {
 	filter := bson.M{"second_username": username, "is_read": false}
 	return r.filter2(filter)
+}
+
+func (r ConnectionRepo) ReadMessage(message *connection_service.Message) {
+	_, err := r.connections.UpdateOne(context.TODO(),
+		bson.M{"_id": message.Id},
+		bson.D{
+			{"$set", bson.D{{"is_read", true}}},
+		})
+	if err != nil {
+		return
+	}
+	return
 }
 
 func decode2(cursor *mongo.Cursor) (messages []*model.Message, err error) {
