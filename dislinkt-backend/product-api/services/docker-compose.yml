@@ -1,0 +1,93 @@
+version: '3.7'
+services:
+  user-service:
+    image: user_service
+    container_name: user_service
+    build:
+      context: .
+      dockerfile: ./user-service/Dockerfile
+    restart: always
+    environment:
+      USER_DB_HOST: "localhost"
+      USER_DB_PORT:  "8080"
+      USER_DB_USER: "postgres"
+      USER_DB_PASS: "postgres"
+      USER_DB_NAME: "xws_project"
+      USER_SERVICE_PORT: "9091"
+    networks:
+      - servers
+    ports:
+      - '9091:9091'
+    depends_on:
+      - user_db
+
+  api_gateway:
+    image: api_gateway
+    container_name: api_gateway
+    build:
+      context: .
+      dockerfile: ./api_gateway/Dockerfile
+    restart: always
+    ports:
+      - '9090:9090'
+    environment:
+      GATEWAY_PORT: "9090"
+      USER_SERVICE_PORT: "9091"
+      USER_SERVICE_HOST: "localhost"
+      POST_SERVICE_HOST: "localhost"
+      POST_SERVICE_PORT: "9092"
+    networks:
+      - servers
+
+  post_service:
+    image: post_service
+    container_name: post_service
+    build:
+      context: .
+      dockerfile: ./post_service/Dockerfile
+    restart: always
+    ports:
+      - '9092:9092'
+    environment:
+      POST_DB_HOST: "post_db"
+      POST_DB_PORT: "27017"
+      POST_SERVICE_PORT: "9092"
+
+    depends_on:
+      - post_db
+    networks:
+      - servers
+
+  post_db:
+    image: mongo
+    container_name: post_db
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - posts-data:/data/db
+    networks:
+      - servers
+
+  user_db:
+    image: postgres:14.1-alpine
+    restart: always
+    networks:
+      - servers
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '8080:8080'
+    volumes:
+      - user-data:/var/lib/postgresql/data
+
+volumes:
+    user-data:
+      name: user-database
+    posts-data:
+      name: posts-database
+networks:
+  servers:
+    name: servers
+    driver: bridge
