@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/api_gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/api_gateway/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/services/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-api/services/user-service/startup/Server.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/user-service/startup/Server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/post_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/post_service/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,12 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Korisnik&quot;
   }
 }</component>
-  <component name="RunManager" selected="Go Build.go build main.go (2)">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Korisnik\Documents\GitHub\XWS-BSEP-TIM31\dislinkt-backend\product-api\services" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.go build main.go (3)">
     <configuration name="go build github.com/Vedrana5/XWS-BSEP-TIM31/dislinkt-backend/product-api/services/user-service" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="dislinkt-backend" />
       <working_directory value="$PROJECT_DIR$/product-api" />
@@ -94,9 +100,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build main.go (2)" />
-        <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Build.go build main.go (3)" />
+        <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Build.go build main.go (2)" />
         <item itemvalue="Go Build.go build main.go (1)" />
       </list>
     </recent_temporary>

@@ -54,7 +54,7 @@ services:
     environment:
       POST_DB_HOST: "connection_db"
       POST_DB_PORT: "27017"
-      POST_SERVICE_PORT: "9092"
+      POST_SERVICE_PORT: "9099"
 
     depends_on:
       - connection_db
