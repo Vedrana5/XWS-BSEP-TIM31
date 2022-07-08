@@ -65,6 +65,19 @@ service ConnectionService{
       get: "/getMessages/{FirstUsername}/{SecondUsername}"
     };
   }
+
+  rpc getConnUsername(GetUsernamRequest) returns(GetMultipleConnectionResponse) {
+    option (google.api.http) = {
+      get: "/getConnUsername/{Username}"
+    };
+  }
+}
+
+
+
+
+message GetUsernamRequest{
+  string Username=1;
 }
 
 message CreateMessageRequest {

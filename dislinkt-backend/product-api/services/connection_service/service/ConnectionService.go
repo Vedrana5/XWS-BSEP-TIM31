@@ -25,6 +25,10 @@ func (service *ConnectionService) GetAllByUsername(username string) ([]*model.Co
 	return service.Repo.GetAllByUsername(username)
 }
 
+func (service *ConnectionService) GetAllConnByUsername(username string) ([]*model.Connection, error) {
+	return service.Repo.GetAllConnByUsername(username)
+}
+
 func (service *ConnectionService) GetConnection(firstUsername string, secondUsername string) *model.Connection {
 	var connection, _ = service.Repo.GetConnection(firstUsername, secondUsername)
 	var conn = connection[len(connection)-1]

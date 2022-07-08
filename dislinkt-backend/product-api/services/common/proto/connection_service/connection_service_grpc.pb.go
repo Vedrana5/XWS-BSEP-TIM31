@@ -30,6 +30,7 @@ type ConnectionServiceClient interface {
 	RejectRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 	CreateMessage(ctx context.Context, in *CreateMessageRequest, opts ...grpc.CallOption) (*Empty, error)
 	GetMessages(ctx context.Context, in *GetUsernameRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error)
+	GetConnUsername(ctx context.Context, in *GetUsernamRequest, opts ...grpc.CallOption) (*GetMultipleConnectionResponse, error)
 }
 
 type connectionServiceClient struct {
@@ -112,6 +113,15 @@ func (c *connectionServiceClient) GetMessages(ctx context.Context, in *GetUserna
 	return out, nil
 }
 
+func (c *connectionServiceClient) GetConnUsername(ctx context.Context, in *GetUsernamRequest, opts ...grpc.CallOption) (*GetMultipleConnectionResponse, error) {
+	out := new(GetMultipleConnectionResponse)
+	err := c.cc.Invoke(ctx, "/connection_service.ConnectionService/getConnUsername", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConnectionServiceServer is the server API for ConnectionService service.
 // All implementations must embed UnimplementedConnectionServiceServer
 // for forward compatibility
@@ -124,6 +134,7 @@ type ConnectionServiceServer interface {
 	RejectRequest(context.Context, *EditRequest) (*EditResponse, error)
 	CreateMessage(context.Context, *CreateMessageRequest) (*Empty, error)
 	GetMessages(context.Context, *GetUsernameRequest) (*GetMultipleMessagesResponse, error)
+	GetConnUsername(context.Context, *GetUsernamRequest) (*GetMultipleConnectionResponse, error)
 	MustEmbedUnimplementedConnectionServiceServer()
 }
 
@@ -154,6 +165,9 @@ func (UnimplementedConnectionServiceServer) CreateMessage(context.Context, *Crea
 }
 func (UnimplementedConnectionServiceServer) GetMessages(context.Context, *GetUsernameRequest) (*GetMultipleMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMessages not implemented")
+}
+func (UnimplementedConnectionServiceServer) GetConnUsername(context.Context, *GetUsernamRequest) (*GetMultipleConnectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetConnUsername not implemented")
 }
 func (UnimplementedConnectionServiceServer) MustEmbedUnimplementedConnectionServiceServer() {}
 
@@ -312,6 +326,24 @@ func _ConnectionService_GetMessages_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConnectionService_GetConnUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUsernamRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConnectionServiceServer).GetConnUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/connection_service.ConnectionService/getConnUsername",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConnectionServiceServer).GetConnUsername(ctx, req.(*GetUsernamRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConnectionService_ServiceDesc is the grpc.ServiceDesc for ConnectionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,6 +382,10 @@ var ConnectionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "getMessages",
 			Handler:    _ConnectionService_GetMessages_Handler,
+		},
+		{
+			MethodName: "getConnUsername",
+			Handler:    _ConnectionService_GetConnUsername_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

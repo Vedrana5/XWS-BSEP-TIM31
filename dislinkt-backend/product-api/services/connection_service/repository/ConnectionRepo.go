@@ -54,7 +54,14 @@ func (r ConnectionRepo) CreateMessage(message *model.Message) error {
 }
 
 func (r ConnectionRepo) GetAllByUsername(username string) ([]*model.Connection, error) {
+
 	filter := bson.M{"second_username": username, "is_confirmed": false, "is_deleted": false}
+	return r.filter(filter)
+}
+
+func (r ConnectionRepo) GetAllConnByUsername(username string) ([]*model.Connection, error) {
+	filter := bson.M{"first_username": username, "is_confirmed": true, "is_deleted": false}
+
 	return r.filter(filter)
 }
 
