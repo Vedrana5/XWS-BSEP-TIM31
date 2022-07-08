@@ -57,3 +57,7 @@ func (service *ConnectionService) GetAllMessagesByUsernames(firstUsername string
 	collections = append(collections, messages2...)
 	return collections, nil
 }
+
+func (service *ConnectionService) GetUnreadMessages(username string) ([]*model.Message, error) {
+	return service.Repo.GetUnreadMessages(username)
+}

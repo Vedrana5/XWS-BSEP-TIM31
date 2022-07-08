@@ -71,6 +71,12 @@ service ConnectionService{
       get: "/getConnUsername/{Username}"
     };
   }
+
+  rpc getUnreadMessagesByUsername(GetUsernamRequest) returns(GetMultipleMessagesResponse) {
+    option (google.api.http) = {
+      get: "/getUnreadMessages/{Username}"
+    };
+  }
 }
 
 

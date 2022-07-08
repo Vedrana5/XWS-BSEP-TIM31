@@ -141,6 +141,11 @@ func (r ConnectionRepo) filter2(filter interface{}) ([]*model.Message, error) {
 	return decode2(cursor)
 }
 
+func (r ConnectionRepo) GetUnreadMessages(username string) ([]*model.Message, error) {
+	filter := bson.M{"second_username": username, "is_read": false}
+	return r.filter2(filter)
+}
+
 func decode2(cursor *mongo.Cursor) (messages []*model.Message, err error) {
 	for cursor.Next(context.TODO()) {
 		var conn model.Message
