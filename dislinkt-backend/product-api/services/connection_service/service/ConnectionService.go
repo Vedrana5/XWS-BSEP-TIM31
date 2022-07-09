@@ -71,3 +71,7 @@ func (service *ConnectionService) ReadMessage(message []*connection_service.Mess
 	}
 	return nil
 }
+
+func (service *ConnectionService) CreateBlock(block *model.Block) error {
+	return service.Repo.CreateBlock(block)
+}

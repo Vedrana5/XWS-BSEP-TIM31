@@ -14,19 +14,22 @@ const (
 	DATABASE             = "connections"
 	CollectionConnection = "connectionsData"
 	CollectionMessage    = "messageData"
+	CollectionBlock      = "blockData"
 )
 
 type ConnectionRepo struct {
 	connections *mongo.Collection
 	messages    *mongo.Collection
+	block       *mongo.Collection
 }
 
 func NewConnectionRepository(client *mongo.Client) ConnectionRepo {
 
 	connections := client.Database(DATABASE).Collection(CollectionConnection)
 	messages := client.Database(DATABASE).Collection(CollectionMessage)
+	block := client.Database(DATABASE).Collection(CollectionBlock)
 
-	return ConnectionRepo{connections: connections, messages: messages}
+	return ConnectionRepo{connections: connections, messages: messages, block: block}
 
 }
 
@@ -160,6 +163,16 @@ func (r ConnectionRepo) ReadMessage(message *connection_service.Message) {
 		return
 	}
 	return
+}
+
+func (r ConnectionRepo) CreateBlock(block *model.Block) error {
+	result, err := r.block.InsertOne(context.TODO(), block)
+	if err != nil {
+		return err
+	}
+	block.Id = result.InsertedID.(primitive.ObjectID)
+
+	return nil
 }
 
 func decode2(cursor *mongo.Cursor) (messages []*model.Message, err error) {

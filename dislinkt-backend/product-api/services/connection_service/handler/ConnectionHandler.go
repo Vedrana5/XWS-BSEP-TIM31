@@ -13,6 +13,16 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
+func (c ConnectionHandler) CreateBlock(ctx context.Context, request *connection_service.CreateBlockRequest) (*connection_service.Empty, error) {
+	block := mapper.MapNewBlock(request.Block)
+	err := c.ConnectionService.CreateBlock(block)
+	if err != nil {
+		return nil, err
+
+	}
+	return &connection_service.Empty{}, nil
+}
+
 func (c ConnectionHandler) ReadMessage(ctx context.Context, request *connection_service.GetMultipleMessagesRequest) (*connection_service.Empty, error) {
 	err := c.ConnectionService.ReadMessage(request.Message)
 	if err != nil {

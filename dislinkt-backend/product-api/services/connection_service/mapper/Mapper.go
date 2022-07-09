@@ -29,6 +29,14 @@ func MapNewMessage(messagePb *connection_service.Message) *model.Message {
 	}
 	return message
 }
+func MapNewBlock(blockPb *connection_service.Block) *model.Block {
+	block := &model.Block{
+		Id:             primitive.NewObjectID(),
+		FirstUsername:  blockPb.FirstUsername,
+		SecondUsername: blockPb.SecondUsername,
+	}
+	return block
+}
 
 func MapMessagesReply(message *model.Message) *connection_service.Message {
 	id := message.Id.Hex()

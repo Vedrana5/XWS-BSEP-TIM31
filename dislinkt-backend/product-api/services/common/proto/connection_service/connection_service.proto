@@ -28,7 +28,12 @@ service ConnectionService{
         };
         }
 
-
+  rpc createBlock(CreateBlockRequest) returns(Empty) {
+    option (google.api.http) = {
+      post: "/blockedUser"
+      body: "Block"
+    };
+  }
 
 
   rpc findConnectionByUsername(GetRequest) returns(GetMultipleConnectionResponse) {
@@ -140,6 +145,10 @@ message EditResponse{
          Connection Connection=1;
     }
 
+    message CreateBlockRequest {
+          Block Block=1;
+    }
+
     message Empty {
 
     }
@@ -160,4 +169,10 @@ message EditResponse{
       bool   IsConfirmed = 4;
       bool IsDeleted=5;
 
+    }
+
+    message Block {
+      string Id = 1;
+      string FirstUsername = 2;
+      string SecondUsername = 3;
     }
