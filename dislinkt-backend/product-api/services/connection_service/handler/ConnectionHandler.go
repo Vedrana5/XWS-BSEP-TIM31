@@ -13,6 +13,18 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
+func (c ConnectionHandler) GetBlock(ctx context.Context, request *connection_service.GetUsernameRequest) (*connection_service.GetBlockResponse, error) {
+
+	block, err := c.ConnectionService.GetBlock(request.FirstUsername, request.SecondUsername)
+	if err != nil {
+		return nil, err
+	}
+	blockPb := mapper.MapBlockReply(block)
+	response := &connection_service.GetBlockResponse{Block: blockPb}
+	return response, nil
+
+}
+
 func (c ConnectionHandler) CreateBlock(ctx context.Context, request *connection_service.CreateBlockRequest) (*connection_service.Empty, error) {
 	block := mapper.MapNewBlock(request.Block)
 	err := c.ConnectionService.CreateBlock(block)

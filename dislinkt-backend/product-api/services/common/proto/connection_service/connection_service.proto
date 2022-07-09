@@ -34,6 +34,11 @@ service ConnectionService{
       body: "Block"
     };
   }
+  rpc getBlock(GetUsernameRequest) returns(GetBlockResponse) {
+    option (google.api.http) = {
+      get: "/blocked/{FirstUsername}/{SecondUsername}"
+    };
+  }
 
 
   rpc findConnectionByUsername(GetRequest) returns(GetMultipleConnectionResponse) {
@@ -114,6 +119,9 @@ message GetMultipleMessagesResponse {
   repeated Message message=1;
 }
 
+message GetBlockResponse {
+  Block block=1;
+}
 
 
 message EditResponse{

@@ -75,3 +75,7 @@ func (service *ConnectionService) ReadMessage(message []*connection_service.Mess
 func (service *ConnectionService) CreateBlock(block *model.Block) error {
 	return service.Repo.CreateBlock(block)
 }
+
+func (service *ConnectionService) GetBlock(username string, username2 string) (*model.Block, error) {
+	return service.Repo.GetBlock(username, username2)
+}

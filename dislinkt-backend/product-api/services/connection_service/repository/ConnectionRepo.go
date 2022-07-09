@@ -175,6 +175,16 @@ func (r ConnectionRepo) CreateBlock(block *model.Block) error {
 	return nil
 }
 
+func (r ConnectionRepo) GetBlock(username string, username2 string) (*model.Block, error) {
+	filter := bson.M{"first_username": username, "second_username": username2}
+	return r.filterOne3(filter)
+}
+
+func (r ConnectionRepo) filterOne3(filter bson.M) (block *model.Block, err error) {
+	result := r.block.FindOne(context.TODO(), filter)
+	err = result.Decode(&block)
+	return
+}
 func decode2(cursor *mongo.Cursor) (messages []*model.Message, err error) {
 	for cursor.Next(context.TODO()) {
 		var conn model.Message
