@@ -35,6 +35,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { PasswordlessLoginComponent } from './components/passwordless-login/passwordless-login/passwordless-login.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog/confirm-dialog.component';
 import { TfaComponent } from './tfa/tfa/tfa.component';
+import { PublishJobOfferComponent } from './components/publish-job-offer/publish-job-offer.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { TfaComponent } from './tfa/tfa/tfa.component';
     PasswordlessLoginComponent,
     ConfirmDialogComponent,
     TfaComponent,
+    PublishJobOfferComponent,
 
   ],
   imports: [

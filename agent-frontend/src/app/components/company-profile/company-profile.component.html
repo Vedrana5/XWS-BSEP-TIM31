@@ -93,6 +93,8 @@
                             <h5>Valid until: {{ offer.dueDate | date: "mediumDate" }} </h5>
                         </mat-label>
                         <span> {{ offer.description }} </span>
+                        <button type="button" class="btn btn-primary ml-3 mybtn"
+                            (click)="publish(offer)">Publish</button>
                     </div>
                     <br>
                     <mat-card-content class="content">

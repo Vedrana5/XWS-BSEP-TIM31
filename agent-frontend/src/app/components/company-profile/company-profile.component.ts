@@ -7,6 +7,7 @@ import { CompanyDto } from 'src/app/interfaces/company-dto';
 import { JobOffer } from 'src/app/interfaces/jobOffer';
 import { CompanyService } from 'src/app/services/company.service';
 import { JobOfferComponent } from '../job-offer/job-offer.component';
+import { PublishJobOfferComponent } from '../publish-job-offer/publish-job-offer.component';
 
 @Component({
   selector: 'app-company-profile',
@@ -22,6 +23,7 @@ export class CompanyProfileComponent implements OnInit {
   initialDetails: any
   editMode = false
   id!: any
+
   jobOffers: JobOffer[] = []
 
 
@@ -72,6 +74,16 @@ export class CompanyProfileComponent implements OnInit {
         window.location.reload()
       }
     })
+  }
+
+  publish(offer: JobOffer) {
+    console.log(offer);
+    this.matDialog.open(PublishJobOfferComponent, {
+      width: '800px',
+      height: 'fit-content',
+      disableClose: false,
+      data: offer
+    });
   }
 
 }

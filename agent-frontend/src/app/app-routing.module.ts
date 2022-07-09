@@ -18,6 +18,7 @@ import { OwnerGuard } from './AuthGuard/OwnerGuard';
 import { AdminGuard } from './AuthGuard/AdminGuard';
 import { UserGuard } from './AuthGuard/UserGuard';
 import { PasswordlessLoginComponent } from './components/passwordless-login/passwordless-login/passwordless-login.component';
+import { JobOfferComponent } from './components/job-offer/job-offer.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path: "company/:id", canActivate: [AuthGuard],
     component: CompanyProfileComponent
+  },
+  {
+    path: "companyView/:id", canActivate: [AuthGuard],
+    component: CompanyViewComponent
   },
   {
     path: "companyView/:id", canActivate: [AuthGuard],
