@@ -65,6 +65,18 @@ func MapBlockReply(block *model.Block) *connection_service.Block {
 	return blockPb
 }
 
+func MapBlockReply1(block model.Block) *connection_service.Block {
+	id := block.Id.Hex()
+
+	blockPb := &connection_service.Block{
+		Id:             id,
+		FirstUsername:  block.FirstUsername,
+		SecondUsername: block.SecondUsername,
+	}
+
+	return blockPb
+}
+
 func MapConnectionReply1(connection model.Connection) *connection_service.Connection {
 	id := connection.Id.Hex()
 

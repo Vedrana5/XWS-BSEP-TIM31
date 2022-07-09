@@ -17,7 +17,13 @@ func (c ConnectionHandler) GetBlock(ctx context.Context, request *connection_ser
 
 	block, err := c.ConnectionService.GetBlock(request.FirstUsername, request.SecondUsername)
 	if err != nil {
-		return nil, err
+		block := model.Block{
+			FirstUsername:  "",
+			SecondUsername: "",
+		}
+		blockPb := mapper.MapBlockReply1(block)
+		response := &connection_service.GetBlockResponse{Block: blockPb}
+		return response, nil
 	}
 	blockPb := mapper.MapBlockReply(block)
 	response := &connection_service.GetBlockResponse{Block: blockPb}

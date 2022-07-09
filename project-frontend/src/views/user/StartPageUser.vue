@@ -3,7 +3,6 @@
     <div>   <button @click="Update()">Update profile info</button></div>
     <div>   <button @click="ResetPassword()">Reset Password</button></div>
     <div>   <button @click="CreatePost()">Create post</button></div>
-    <div>   <button @click="Find()">Find public user</button></div>
     <div>   <button @click="JobOffer()">Create a job offer</button></div>
     <div>   <button @click="JobOffers()">See all job offers</button></div>
     <div>   <button @click="CreateConnection()">Search profile and follow</button></div>

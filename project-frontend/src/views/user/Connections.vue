@@ -18,6 +18,7 @@
         <div class="col-info">
           <button class="btn btn-success" v-if="this.showButton==true && user.TypeOfProfile=='PUBLIC'" @click="Follow(user.Username)">Follow</button>
           <button class="btn btn-success" v-if="this.showButton==true && user.TypeOfProfile=='PRIVATE'" @click="FollowRequest(user.Username)">Follow request</button>
+          <button class="btn btn-success" @click="BlockUser(user.Username)">Block</button>
           <h4 style="width: 600px" class="text">
             Username: {{user.Username}}
           </h4>
@@ -109,20 +110,74 @@ export default {
       counter2:0,
       posts:"",
       Post:{Id:"",PostText:"", ImagePaths:null,Links:[]},
+      userWhoBlock:"",
+      userwhoIsBlocked:"",
+      block:{
+        Id:0,
+        FirstUsername: "",
+        SecondUsername: ""
+      },
     };
   },
 
 
   methods: {
+    async BlockUser(username){
+      this.userWhoBlock= localStorage.getItem("username");
+      this.userwhoIsBlocked=username;
+      axios.post("http://localhost:9090/blockedUser",{ 
+        FirstUsername:this.userWhoBlock,
+        SecondUsername:this.userwhoIsBlocked,
+       })
+      .then (response => { 
+        console.log("RESPONSE JE"+response.data)
+                      new Swal({
+             title:"Uspesno",
+             type: "warning",
+             text:'Uspesno ste blokirali korisnika!',
+           });     
+            this.$router.push({ name: "StartPageUser" });
+      })      
+
+    },
     async GoBack(){
          this.$router.push({ name: "StartPageUser" });
     },
     async SearchUser(username) {
         this.username=username;
         this.firstname=localStorage.getItem("username")
-        await this.FindThisUser(username);
-        await this.FindConnection(this.firstname,this.username);
-           
+        await this.FindBlock(this.firstname,this.username);
+        console.log("qqqq je:"+this.block.FirstUsername);
+        console.log("wwww je:"+this.block.SecondUsername);
+       
+    },
+    async FindBlock(firstname,username){
+        this.username=username;
+        this.firstname=firstname;
+    axios.get("http://localhost:9090/blocked/"+this.firstname+"/"+this.username)
+      .then (response => { 
+        console.log("FIrstame je:"+response.data.block.FirstUsername)
+        console.log("SecondUsername je:"+response.data.block.SecondUsername)
+          this.block.FirstUsername = response.data.block.FirstUsername;
+          this.block.SecondUsername = response.data.block.SecondUsername;
+          if(this.block.FirstUsername=="" && this.block.SecondUsername=="") {
+              axios.get("http://localhost:9090/blocked/"+this.username+"/"+this.firstname)
+                    .then (response => { 
+                                this.block.FirstUsername = response.data.block.FirstUsername;
+                                this.block.SecondUsername = response.data.block.SecondUsername;
+                                          if(this.block.FirstUsername!="" && this.block.SecondUsername!="") {
+                                            this.FindThisUser(username);
+                                            this.FindConnection(this.firstname,this.username);
+                                            }
+                    })
+          }
+          else {
+            console.log("JA USLA hereee")
+            this.FindThisUser(username);
+            this.FindConnection(this.firstname,this.username);
+        }  
+      })    
+
     },
   async OpenComments(Id) {
     this.id=Id;
