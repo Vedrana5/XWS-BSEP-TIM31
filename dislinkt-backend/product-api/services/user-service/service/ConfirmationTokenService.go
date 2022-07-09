@@ -31,6 +31,6 @@ func (service *ConfirmationTokenService) UpdateConfirmationTokenValidity(token u
 	return nil
 }
 
-func (service *ConfirmationTokenService) CheckIfHasAccess(token string) (interface{}, error) {
-
+func (service *ConfirmationTokenService) CheckIfHasAccess(token string) (bool, error) {
+	return true, nil
 }

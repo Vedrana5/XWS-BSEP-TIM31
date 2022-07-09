@@ -806,3 +806,90 @@
 2022-Jul-09 22:33:10.230|DEBUG|com.zaxxer.hikari.pool.HikariPool|HikariPool-1 - Fill pool skipped, pool is at sufficient level.
 2022-Jul-09 22:33:40.232|DEBUG|com.zaxxer.hikari.pool.HikariPool|HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2022-Jul-09 22:33:40.232|DEBUG|com.zaxxer.hikari.pool.HikariPool|HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2022-Jul-09 22:34:10.246|DEBUG|com.zaxxer.hikari.pool.HikariPool|HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2022-Jul-09 22:34:10.247|DEBUG|com.zaxxer.hikari.pool.HikariPool|HikariPool-1 - Fill pool skipped, pool is at sufficient level.
+2022-Jul-09 22:34:24.246|DEBUG|org.springframework.boot.availability.ApplicationAvailabilityBean|Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2022-Jul-09 22:34:24.254|DEBUG|org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext|Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@11ee02f8, started on Sat Jul 09 23:14:29 CEST 2022
+2022-Jul-09 22:34:24.400|DEBUG|org.springframework.context.support.DefaultLifecycleProcessor|Stopping beans in phase 2147483647
+2022-Jul-09 22:34:24.450|DEBUG|org.springframework.context.support.DefaultLifecycleProcessor|Bean 'webServerGracefulShutdown' completed its stop procedure
+2022-Jul-09 22:34:24.451|DEBUG|org.springframework.context.support.DefaultLifecycleProcessor|Stopping beans in phase 2147483646
+2022-Jul-09 22:34:25.091|DEBUG|org.springframework.context.support.DefaultLifecycleProcessor|Bean 'webServerStartStop' completed its stop procedure
+2022-Jul-09 22:34:25.177|DEBUG|org.hibernate.internal.SessionFactoryImpl|HHH000031: Closing
+2022-Jul-09 22:34:25.205|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists comments 
+       drop constraint if exists FK5rk3exlcapww4w6xgqyqhllcx
+2022-Jul-09 22:34:25.232|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists comments 
+       drop constraint if exists FK8omq0tc18jd43bu5tjh6jvraq
+2022-Jul-09 22:34:25.235|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists companies 
+       drop constraint if exists FKikhsc7na5r394c8jghny8b6t4
+2022-Jul-09 22:34:25.237|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists custom_token 
+       drop constraint if exists FKarfwvssuksh70woswjuvkcg2i
+2022-Jul-09 22:34:25.239|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists interview 
+       drop constraint if exists FKta0v5dg8yt6vwfd0bwb4hddr5
+2022-Jul-09 22:34:25.241|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists interview 
+       drop constraint if exists FKf8b4fu9j2ampltg1rnirdy19h
+2022-Jul-09 22:34:25.242|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists offers 
+       drop constraint if exists FKpseep21h5a3wppbeooi10ghk8
+2022-Jul-09 22:34:25.243|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists salary 
+       drop constraint if exists FK42och9cy4444tqrds9g80emke
+2022-Jul-09 22:34:25.245|DEBUG|org.hibernate.SQL|
+    
+    alter table if exists salary 
+       drop constraint if exists FKas3bpxv37w9nu9pm98rxre2av
+2022-Jul-09 22:34:25.247|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists comments cascade
+2022-Jul-09 22:34:25.256|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists companies cascade
+2022-Jul-09 22:34:25.262|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists custom_token cascade
+2022-Jul-09 22:34:25.265|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists interview cascade
+2022-Jul-09 22:34:25.269|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists offers cascade
+2022-Jul-09 22:34:25.273|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists permission cascade
+2022-Jul-09 22:34:25.277|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists salary cascade
+2022-Jul-09 22:34:25.284|DEBUG|org.hibernate.SQL|
+    
+    drop table if exists users cascade
+2022-Jul-09 22:34:25.291|DEBUG|org.hibernate.SQL|
+    
+    drop sequence if exists hibernate_sequence
+2022-Jul-09 22:34:25.296|DEBUG|org.hibernate.type.spi.TypeConfiguration$Scope|Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@4d1f3f86] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@3291d9c2]
+2022-Jul-09 22:34:25.304|DEBUG|org.hibernate.service.internal.AbstractServiceRegistryImpl|Implicitly destroying ServiceRegistry on de-registration of all child ServiceRegistries
+2022-Jul-09 22:34:25.319|DEBUG|org.hibernate.boot.registry.internal.BootstrapServiceRegistryImpl|Implicitly destroying Boot-strap registry on de-registration of all child ServiceRegistries
+2022-Jul-09 22:34:25.321|DEBUG|com.zaxxer.hikari.pool.HikariPool|HikariPool-1 - Before shutdown stats (total=10, active=0, idle=10, waiting=0)
+2022-Jul-09 22:34:25.331|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@5547fbe0: (connection evicted)
+2022-Jul-09 22:34:25.333|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@5b800f38: (connection evicted)
+2022-Jul-09 22:34:25.334|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@1a906838: (connection evicted)
+2022-Jul-09 22:34:25.335|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@1457951a: (connection evicted)
+2022-Jul-09 22:34:25.335|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@275e5bfa: (connection evicted)
+2022-Jul-09 22:34:25.336|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@52a449bf: (connection evicted)
+2022-Jul-09 22:34:25.337|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@5c63ad9b: (connection evicted)
+2022-Jul-09 22:34:25.338|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@585c22cf: (connection evicted)
+2022-Jul-09 22:34:25.339|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@19e0b859: (connection evicted)
+2022-Jul-09 22:34:25.341|DEBUG|com.zaxxer.hikari.pool.PoolBase|HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@45ac67c6: (connection evicted)
+2022-Jul-09 22:34:25.342|DEBUG|com.zaxxer.hikari.pool.HikariPool|HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
