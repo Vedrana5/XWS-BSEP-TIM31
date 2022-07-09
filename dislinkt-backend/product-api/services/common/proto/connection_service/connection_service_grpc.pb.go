@@ -29,7 +29,7 @@ type ConnectionServiceClient interface {
 	AcceptRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 	RejectRequest(ctx context.Context, in *EditRequest, opts ...grpc.CallOption) (*EditResponse, error)
 	CreateMessage(ctx context.Context, in *CreateMessageRequest, opts ...grpc.CallOption) (*Empty, error)
-	ReadMessage(ctx context.Context, in *GetMultipleMessagesRequest, opts ...grpc.CallOption) (*Empty, error)
+	ReadMessage(ctx context.Context, in *GetMultipleMessagesRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error)
 	GetMessages(ctx context.Context, in *GetUsernameRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error)
 	GetConnUsername(ctx context.Context, in *GetUsernamRequest, opts ...grpc.CallOption) (*GetMultipleConnectionResponse, error)
 	GetUnreadMessagesByUsername(ctx context.Context, in *GetUsernamRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error)
@@ -106,8 +106,8 @@ func (c *connectionServiceClient) CreateMessage(ctx context.Context, in *CreateM
 	return out, nil
 }
 
-func (c *connectionServiceClient) ReadMessage(ctx context.Context, in *GetMultipleMessagesRequest, opts ...grpc.CallOption) (*Empty, error) {
-	out := new(Empty)
+func (c *connectionServiceClient) ReadMessage(ctx context.Context, in *GetMultipleMessagesRequest, opts ...grpc.CallOption) (*GetMultipleMessagesResponse, error) {
+	out := new(GetMultipleMessagesResponse)
 	err := c.cc.Invoke(ctx, "/connection_service.ConnectionService/readMessage", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -153,7 +153,7 @@ type ConnectionServiceServer interface {
 	AcceptRequest(context.Context, *EditRequest) (*EditResponse, error)
 	RejectRequest(context.Context, *EditRequest) (*EditResponse, error)
 	CreateMessage(context.Context, *CreateMessageRequest) (*Empty, error)
-	ReadMessage(context.Context, *GetMultipleMessagesRequest) (*Empty, error)
+	ReadMessage(context.Context, *GetMultipleMessagesRequest) (*GetMultipleMessagesResponse, error)
 	GetMessages(context.Context, *GetUsernameRequest) (*GetMultipleMessagesResponse, error)
 	GetConnUsername(context.Context, *GetUsernamRequest) (*GetMultipleConnectionResponse, error)
 	GetUnreadMessagesByUsername(context.Context, *GetUsernamRequest) (*GetMultipleMessagesResponse, error)
@@ -185,7 +185,7 @@ func (UnimplementedConnectionServiceServer) RejectRequest(context.Context, *Edit
 func (UnimplementedConnectionServiceServer) CreateMessage(context.Context, *CreateMessageRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMessage not implemented")
 }
-func (UnimplementedConnectionServiceServer) ReadMessage(context.Context, *GetMultipleMessagesRequest) (*Empty, error) {
+func (UnimplementedConnectionServiceServer) ReadMessage(context.Context, *GetMultipleMessagesRequest) (*GetMultipleMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadMessage not implemented")
 }
 func (UnimplementedConnectionServiceServer) GetMessages(context.Context, *GetUsernameRequest) (*GetMultipleMessagesResponse, error) {

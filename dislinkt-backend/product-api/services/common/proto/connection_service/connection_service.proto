@@ -59,7 +59,7 @@ service ConnectionService{
     };
   }
 
-  rpc readMessage(GetMultipleMessagesRequest) returns(Empty) {
+  rpc readMessage(GetMultipleMessagesRequest) returns(GetMultipleMessagesResponse) {
     option (google.api.http) = {
       post: "/messager",
       body: "*"
