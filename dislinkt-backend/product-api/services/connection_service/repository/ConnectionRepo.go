@@ -94,11 +94,6 @@ func (r ConnectionRepo) filterOne(filter bson.M) (connection *model.Connection, 
 	err = result.Decode(&connection)
 	return
 }
-func (r ConnectionRepo) filterOne2(filter bson.M) (messages *model.Message, err error) {
-	result := r.messages.FindOne(context.TODO(), filter)
-	err = result.Decode(&messages)
-	return
-}
 
 func (r ConnectionRepo) AcceptRequest(id primitive.ObjectID) (*model.Connection, error) {
 	_, err := r.connections.UpdateOne(context.TODO(),
@@ -153,8 +148,7 @@ func (r ConnectionRepo) GetUnreadMessages(username string) ([]*model.Message, er
 	return r.filter2(filter)
 }
 
-func (r ConnectionRepo) ReadMessage(message *connection_service.Message) *model.Message {
-
+func (r ConnectionRepo) ReadMessage(message *connection_service.Message) {
 	fmt.Println("ID U REPOZITORIJUMMU JE" + message.Id)
 	_, err := r.connections.UpdateOne(context.TODO(),
 		bson.M{"_id": message.Id},
@@ -163,11 +157,9 @@ func (r ConnectionRepo) ReadMessage(message *connection_service.Message) *model.
 		})
 	if err != nil {
 		fmt.Println("U ERORU SAM")
-		return nil
+		return
 	}
-	filter := bson.M{"_id": message.Id}
-	result, err := r.filterOne2(filter)
-	return result
+	return
 }
 
 func decode2(cursor *mongo.Cursor) (messages []*model.Message, err error) {

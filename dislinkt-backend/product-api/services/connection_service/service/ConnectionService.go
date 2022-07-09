@@ -64,11 +64,10 @@ func (service *ConnectionService) GetUnreadMessages(username string) ([]*model.M
 	return service.Repo.GetUnreadMessages(username)
 }
 
-func (service *ConnectionService) ReadMessage(message []*connection_service.Message) ([]*model.Message, error, error) {
-	var collections []*model.Message
+func (service *ConnectionService) ReadMessage(message []*connection_service.Message) error {
 	for i := 0; i < len(message); i++ {
 		fmt.Println("USLA U FOR i id je" + message[i].Id)
-		collections = append(collections, service.Repo.ReadMessage(message[i]))
+		service.Repo.ReadMessage(message[i])
 	}
-	return collections, nil, nil
+	return nil
 }

@@ -13,20 +13,13 @@ type ConnectionHandler struct {
 	ConnectionService *service.ConnectionService
 }
 
-func (c ConnectionHandler) ReadMessage(ctx context.Context, request *connection_service.GetMultipleMessagesRequest) (*connection_service.GetMultipleMessagesResponse, error) {
-	messages, err, _ := c.ConnectionService.ReadMessage(request.Message)
+func (c ConnectionHandler) ReadMessage(ctx context.Context, request *connection_service.GetMultipleMessagesRequest) (*connection_service.Empty, error) {
+	err := c.ConnectionService.ReadMessage(request.Message)
 	if err != nil {
 		return nil, err
+
 	}
-	response := &connection_service.GetMultipleMessagesResponse{Message: []*connection_service.Message{}}
-
-	for _, message := range messages {
-		current := mapper.MapMessagesReply(message)
-		response.Message = append(response.Message, current)
-	}
-
-	return response, nil
-
+	return &connection_service.Empty{}, nil
 }
 
 func (c ConnectionHandler) GetUnreadMessagesByUsername(ctx context.Context, request *connection_service.GetUsernamRequest) (*connection_service.GetMultipleMessagesResponse, error) {
