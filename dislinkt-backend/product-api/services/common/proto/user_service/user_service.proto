@@ -50,8 +50,36 @@ service UserService{
     };
   }
 
+  rpc ShareJobOffer(ShareJobOfferRequest) returns(Empty) {
+    option (google.api.http) = {
+      post: "/share-jobOffer"
+      body: "shareJobOffer"
+    };
+  }
+
 }
 
+message ShareJobOfferRequest{
+  ShareJobOffer shareJobOffer = 1;
+}
+message ShareJobOffer{
+  string apiToken = 1;
+  JobOffer jobOffer = 2;
+}
+
+
+message JobOffer {
+  string Id = 1;
+  string Publisher = 2;
+  string Position = 3;
+  string JobDescription = 4;
+  repeated string Requirements = 5;
+  string DatePosted = 6;
+
+}
+message Empty {
+
+}
 
 
 message UserNameRequest{

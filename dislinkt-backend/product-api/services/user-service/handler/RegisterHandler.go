@@ -1,13 +1,17 @@
 package handler
 
 import (
+	"bytes"
 	"common/module/proto/user_service"
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/mikespook/gorbac"
 	"github.com/sirupsen/logrus"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"net/smtp"
 	"strings"
 	"time"
@@ -26,6 +30,36 @@ type RegisterHandler struct {
 	UserService              *service.UserService
 	LogInfo                  *logrus.Logger
 	LogError                 *logrus.Logger
+}
+
+func (u RegisterHandler) ShareJobOffer(ctx context.Context, request *user_service.ShareJobOfferRequest) (*user_service.Empty, error) {
+	token := request.ShareJobOffer.ApiToken
+	_, er := u.ConfirmationTokenService.CheckIfHasAccess(token)
+	if er != nil {
+		return &user_service.Empty{}, er
+	}
+	postBody, _ := json.Marshal(map[string]any{
+		"Publisher":      request.ShareJobOffer.JobOffer.Publisher,
+		"Position":       request.ShareJobOffer.JobOffer.Position,
+		"JobDescription": request.ShareJobOffer.JobOffer.JobDescription,
+		"Requirements":   request.ShareJobOffer.JobOffer.Requirements,
+		"DatePosted":     request.ShareJobOffer.JobOffer.DatePosted,
+	})
+
+	responseBody := bytes.NewBuffer(postBody)
+	resp, err := http.Post("http://localhost:9090/job_offer", "application/json", responseBody)
+	if err != nil {
+
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	sb := string(body)
+	log.Printf(sb)
+
+	return &user_service.Empty{}, nil
 }
 
 func (u RegisterHandler) MustEmbedUnimplementedUserServiceServer() {

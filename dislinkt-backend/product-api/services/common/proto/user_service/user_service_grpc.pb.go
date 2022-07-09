@@ -28,6 +28,7 @@ type UserServiceClient interface {
 	FindByUsername(ctx context.Context, in *UserNameRequest, opts ...grpc.CallOption) (*UserNameResponse, error)
 	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error)
 	FindPublicByUsername(ctx context.Context, in *PublicUserNameRequest, opts ...grpc.CallOption) (*PublicUserNameResponse, error)
+	ShareJobOffer(ctx context.Context, in *ShareJobOfferRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type userServiceClient struct {
@@ -92,6 +93,15 @@ func (c *userServiceClient) FindPublicByUsername(ctx context.Context, in *Public
 	return out, nil
 }
 
+func (c *userServiceClient) ShareJobOffer(ctx context.Context, in *ShareJobOfferRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/user_service.UserService/ShareJobOffer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -102,6 +112,7 @@ type UserServiceServer interface {
 	FindByUsername(context.Context, *UserNameRequest) (*UserNameResponse, error)
 	ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error)
 	FindPublicByUsername(context.Context, *PublicUserNameRequest) (*PublicUserNameResponse, error)
+	ShareJobOffer(context.Context, *ShareJobOfferRequest) (*Empty, error)
 	MustEmbedUnimplementedUserServiceServer()
 }
 
@@ -126,6 +137,9 @@ func (UnimplementedUserServiceServer) ChangePassword(context.Context, *ChangePas
 }
 func (UnimplementedUserServiceServer) FindPublicByUsername(context.Context, *PublicUserNameRequest) (*PublicUserNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindPublicByUsername not implemented")
+}
+func (UnimplementedUserServiceServer) ShareJobOffer(context.Context, *ShareJobOfferRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ShareJobOffer not implemented")
 }
 func (UnimplementedUserServiceServer) MustEmbedUnimplementedUserServiceServer() {}
 
@@ -248,6 +262,24 @@ func _UserService_FindPublicByUsername_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_ShareJobOffer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShareJobOfferRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ShareJobOffer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user_service.UserService/ShareJobOffer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ShareJobOffer(ctx, req.(*ShareJobOfferRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +310,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindPublicByUsername",
 			Handler:    _UserService_FindPublicByUsername_Handler,
+		},
+		{
+			MethodName: "ShareJobOffer",
+			Handler:    _UserService_ShareJobOffer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
