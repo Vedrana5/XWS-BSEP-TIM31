@@ -4,6 +4,7 @@ import (
 	"common/module/proto/connection_service"
 	"connection/module/model"
 	"connection/module/repository"
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -65,6 +66,7 @@ func (service *ConnectionService) GetUnreadMessages(username string) ([]*model.M
 
 func (service *ConnectionService) ReadMessage(message []*connection_service.Message) error {
 	for i := 0; i < len(message); i++ {
+		fmt.Println("USLA U FOR i id je" + message[i].Id)
 		service.Repo.ReadMessage(message[i])
 	}
 	return nil

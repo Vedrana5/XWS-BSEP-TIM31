@@ -7,6 +7,8 @@
     <div>   <button @click="JobOffer()">Create a job offer</button></div>
     <div>   <button @click="JobOffers()">See all job offers</button></div>
     <div>   <button @click="CreateConnection()">Search profile and follow</button></div>
+    <div>   <button @click="Messages()">Messages</button></div>
+
     <div>   <button v-if="this.newUser.TypeOfProfile=='PRIVATE'" @click="SeeAllFollowRequests()">See all your friend requests</button></div>
   </div>
 </template>
@@ -14,12 +16,14 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2';
 
 export default {
   name: "StartPageUser",
    data: () => ({
     err: "" ,
     Username: "",
+    messages:"",
     type:0,
           newUser: {
         Username: "",
@@ -37,9 +41,13 @@ export default {
         Education:"",
         Skills:"",
         Interest:"",
+        message:{Id:0,FirstUsername:"",SecondUsername:"",MessageText:"",DateCreated:"",IsRead:null}
       },
   }),
   methods: {
+    async Messages(){
+      this.$router.push({ name: "Messages" });
+    },
     async getUser() {
                const headers ={
             Authorization: "Bearer " + this.token,
@@ -50,9 +58,6 @@ export default {
       headers}
     )
     .then((response) => {
-
-      //console.log(this.response.FirstName)
-      console.log(response.data.gender)
       this.newUser.Username = response.data.user.Username
       this.newUser.Email = response.data.user.Email
       this.newUser.PhoneNumber = response.data.user.PhoneNumber
@@ -72,6 +77,21 @@ export default {
     },
     async CreateConnection() {
       this.$router.push({ name: "Connections" });
+    },
+    async CheckMessages() {
+      this.Username = localStorage.getItem("username"); 
+      axios.get("http://localhost:9090/getUnreadMessages/"+this.Username)
+      .then (response => { 
+      this.messages = response.data.message;
+     if (this.messages.length>0) {
+        console.log("USLA")
+           new Swal({
+             title:"Obavestenje!",
+             type: "warning",
+             text:'Imate novu poruku!',
+           })  
+      }
+    })
     },
       async Update() {
           this.$router.push({ name: "UpdateInfoView" });
@@ -100,6 +120,7 @@ async JobOffers() {
   this.type = localStorage.getItem("userType")
   console.log("type je"+ this.type);
    await this.getUser(this.Username);
+   await this.CheckMessages();
   // console.log("TIP JE111 "+this.newUser.TypeOfUser);
   // localStorage.setItem("userType",this.newUser.TypeOfUser);
   // this.type = localStorage.getItem("userType");

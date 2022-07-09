@@ -18,6 +18,7 @@ import CreateJobOffer from "../views/user/CreateJobOffer"
 import SeeJobOffers from "../views/user/SeeJobOffers"
 import Connections from "../views/user/Connections"
 import FollowRequests from "../views/user/FollowRequests"
+import Messages from "../views/user/Messages"
 const routes = [
   {
     path: "/",
@@ -29,6 +30,11 @@ const routes = [
   name: "LoginView",
   component: LoginView,
   },
+  {
+    path: "/Messages",
+    name: "Messages",
+    component: Messages,
+    },
   {
     path: "/Connections",
     name: "Connections",

@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81fbb4b7-5953-4ae6-a015-93c79a321138" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/logrusError.log" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/logrusError.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-api/logrusInfo.log" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/logrusInfo.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/repository/ConnectionRepo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-api/services/connection_service/service/ConnectionService.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../project-frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../project-frontend/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../project-frontend/src/views/user/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../project-frontend/src/views/user/LoginView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../project-frontend/src/views/user/StartPageUser.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../project-frontend/src/views/user/StartPageUser.vue" afterDir="false" />
@@ -98,9 +99,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go (3)" />
-        <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Build.go build main.go (2)" />
         <item itemvalue="Go Build.go build main.go (1)" />
+        <item itemvalue="Go Build.go build main.go (2)" />
+        <item itemvalue="Go Build.go build main.go" />
       </list>
     </recent_temporary>
   </component>

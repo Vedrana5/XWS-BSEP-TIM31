@@ -4,6 +4,7 @@ import (
 	"common/module/proto/connection_service"
 	"connection/module/model"
 	"context"
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -148,12 +149,14 @@ func (r ConnectionRepo) GetUnreadMessages(username string) ([]*model.Message, er
 }
 
 func (r ConnectionRepo) ReadMessage(message *connection_service.Message) {
+	fmt.Println("ID U REPOZITORIJUMMU JE" + message.Id)
 	_, err := r.connections.UpdateOne(context.TODO(),
 		bson.M{"_id": message.Id},
 		bson.D{
 			{"$set", bson.D{{"is_read", true}}},
 		})
 	if err != nil {
+		fmt.Println("U ERORU SAM")
 		return
 	}
 	return

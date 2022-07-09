@@ -45,12 +45,7 @@ async Login() {
           localStorage.setItem("username", this.Username);
           localStorage.setItem("token", response.data.loginUserResponse.Token);
           localStorage.setItem("userId", response.data.loginUserResponse.ID);
-          localStorage.setItem("userType", response.data.loginUserResponse.TypeOfUser);
-                      new Swal({
-             title:"Uspesno",
-             type: "warning",
-             text:'Uspesno ste ulogovani!',
-           });     
+          localStorage.setItem("userType", response.data.loginUserResponse.TypeOfUser);   
             this.$router.push({ name: "StartPageUser" });
       })      .catch(function (error) {
             console.log(error.response.status)
