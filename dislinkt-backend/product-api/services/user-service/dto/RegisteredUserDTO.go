@@ -10,6 +10,7 @@ type RegisteredUserDTO struct {
 	PhoneNumber    string    `json:"PhoneNumber" validate:"required"`
 	FirstName      string    `json:"FirstName" validate:"required"`
 	LastName       string    `json:"LastName" validate:"required"`
+	Message        string    `json:"Message" validate:"required"`
 	DateOfBirth    string    `json:"DateOfBirth" validate:"required"`
 	TypeOfUser     string    `json:"User_type" gorm:"not null"`
 	TypeOfProfile  string    `json:"Profile_type" gorm:"not null"`

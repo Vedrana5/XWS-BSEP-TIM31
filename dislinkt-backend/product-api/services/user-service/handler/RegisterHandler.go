@@ -66,6 +66,7 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 		Email:     user.User.Email,
 		FirstName: user.User.FirstName,
 		LastName:  user.User.LastName,
+		Message:   "",
 	}
 
 	if handler.UserService.FindByUserName(registeredUserDTO.Username) != nil {
@@ -76,6 +77,7 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered username!")
 		fmt.Println(time.Now().String() + " User already exist with entered username!")
+		registeredUserResponseDTO.Message = "Postoji vec korisnik sa tim username-om!"
 		return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 	}
 
@@ -87,6 +89,7 @@ func (handler RegisterHandler) CreateUser(ctx context.Context, user *user_servic
 			"timestamp": time.Now().String(),
 		}).Error("User already exist with entered email!")
 		fmt.Println(time.Now().String() + " User already exist with entered email!")
+		registeredUserResponseDTO.Message = "Postoji vec korisnik sa tim mail-om!"
 		return &user_service.CreateResponse{RegisterUser: mapper.MapUser(registeredUserResponseDTO)}, nil
 	}
 

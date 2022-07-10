@@ -55,9 +55,10 @@
                             <label><span class="glyphicon glyphicon-eye-open"></span>Text:</label>
                             <input type="text" v-model="this.textMessage"/>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block" @click="CreateMessage(usernameForWho,textMessage)">
+                        <button type="button" class="btn btn-success btn-block" @click="FindBlock(usernameForWho,textMessage)">
                             <span></span> Send Message
                         </button>
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -70,6 +71,7 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 export default {
   name: "Messages",
@@ -86,7 +88,13 @@ export default {
         username1:"",
         messages1:"",
         messager:"",
-        messages2:[]
+        messages2:[],
+              block:{
+        Id:0,
+        FirstUsername: "",
+        SecondUsername: "",
+        mess:""
+      },
     };
   },
 
@@ -117,6 +125,31 @@ export default {
             MessageText: this.textMessage
         })
     },
+        async FindBlock1(textMessage){
+        this.textMessage=textMessage;
+    axios.get("http://localhost:9090/blocked/"+this.Username+"/"+this.username1)
+      .then (response => { 
+        console.log("FIrstame je:"+response.data.block.FirstUsername)
+        console.log("SecondUsername je:"+response.data.block.SecondUsername)
+          this.block.FirstUsername = response.data.block.FirstUsername;
+          this.block.SecondUsername = response.data.block.SecondUsername;
+          if(this.block.FirstUsername=="" && this.block.SecondUsername=="") {
+              axios.get("http://localhost:9090/blocked/"+this.username1+"/"+this.Username)
+                    .then (response => { 
+                                this.block.FirstUsername = response.data.block.FirstUsername;
+                                this.block.SecondUsername = response.data.block.SecondUsername;
+                                          if(this.block.FirstUsername=="" && this.block.SecondUsername=="") {
+                                            this.Reply(this.textMessage);
+                                            }
+                    })
+          } else {
+            console.log("HERE AM I")
+           this.mess="You can not send a message to this person!"
+          }
+      })    
+
+    },
+
     async GetUsernamesFromConn(){
    this.usernameWhoSent = localStorage.getItem("username");
     axios.get("http://localhost:9090/getConnUsername/"+this.usernameWhoSent)
@@ -143,7 +176,33 @@ export default {
             SecondUsername: this.usernameForWho,
             MessageText: this.textMessage
         })
-    }
+    },
+
+        async FindBlock(usernameForWho,textMessage){
+        this.usernameForWho=usernameForWho;
+        this.textMessage=textMessage;
+    axios.get("http://localhost:9090/blocked/"+this.usernameWhoSent+"/"+this.usernameForWho)
+      .then (response => { 
+        console.log("FIrstame je:"+response.data.block.FirstUsername)
+        console.log("SecondUsername je:"+response.data.block.SecondUsername)
+          this.block.FirstUsername = response.data.block.FirstUsername;
+          this.block.SecondUsername = response.data.block.SecondUsername;
+          if(this.block.FirstUsername=="" && this.block.SecondUsername=="") {
+              axios.get("http://localhost:9090/blocked/"+this.usernameForWho+"/"+this.usernameWhoSent)
+                    .then (response => { 
+                                this.block.FirstUsername = response.data.block.FirstUsername;
+                                this.block.SecondUsername = response.data.block.SecondUsername;
+                                          if(this.block.FirstUsername=="" && this.block.SecondUsername=="") {
+                                            this.CreateMessage(this.usernameForWho,this.textMessage);
+                                            }
+                    })
+          } else {
+            console.log("HERE AM I")
+           this.mess="You can not send a message to this person!"
+          }
+      })    
+
+    },
   },
   async created(){
     await this.GetUsernamesFromConn();

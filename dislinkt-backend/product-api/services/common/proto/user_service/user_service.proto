@@ -149,6 +149,7 @@ message RegisterUser {
   string Email = 2;
   string FirstName = 3;
   string LastName = 4;
+  string Message=5;
 }
 
 message LoginUser {

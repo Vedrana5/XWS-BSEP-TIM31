@@ -12,6 +12,7 @@ func MapUser(user dto.RegisteredUserDTO) *pb.RegisterUser {
 		Email:     user.Email,
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
+		Message:   user.Message,
 	}
 	return usersPb
 }

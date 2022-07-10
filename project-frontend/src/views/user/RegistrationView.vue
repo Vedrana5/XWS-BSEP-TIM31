@@ -165,29 +165,29 @@ async Register() {
        Answer : this.newUser.Answer,}, {
       headers}
     ).then((res) => {
-          console.log(res);
+          console.log(res.data);
+          if(res.data.registerUser.Message=="Postoji vec korisnik sa tim username-om!") {
+           new Swal({
+             title:"Warning",
+             type: "warning",
+             text:'This username already exists!',
+           });
+          }
+          else if (res.data.registerUser.Message=="Postoji vec korisnik sa tim username-om!") {
+                       new Swal({
+             title:"Warning",
+             type: "warning",
+             text:'This email already exists!',
+           });
+          }
+          else {
            new Swal({
              title:"Uspesno",
              type: "warning",
              text:'Registracija je uspela!',
-           });
+           });}
         })
-        .catch((error) => {
-          console.log(error.response.status);
-          if(error.response.status == 417) {
-           new Swal({
-             title:"Nije uspesno",
-             type: "warning",
-             text:'Postoji vec korisnik sa tim email-om!',
-           });
-          }else if (error.response.status == 409) {
-           new Swal({
-             title:"Nije uspesno",
-             type: "warning",
-             text:'Postoji vec korisnik sa tim username-om!',
-           });
-          }
-        });
+
 
        }
 },
