@@ -61,6 +61,27 @@ services:
     networks:
       - servers
 
+  user-service:
+    image: user_service
+    container_name: user_service
+    build:
+      context: .
+      dockerfile: ./user_service/Dockerfile
+    restart: always
+    environment:
+      USER_DB_HOST: "user_db"
+      USER_DB_PORT: "5432"
+      USER_DB_USER: "postgres"
+      USER_DB_PASS: "fakultet"
+      USER_DB_NAME: "postgres"
+      USER_SERVICE_PORT: "9091"
+    networks:
+      - servers
+    ports:
+      - '9091:9091'
+    depends_on:
+      - user_db
+
   post_db:
     image: mongo
     container_name: post_db
