@@ -33,10 +33,11 @@ func (service *ConnectionService) GetAllConnByUsername(username string) ([]*mode
 
 func (service *ConnectionService) GetConnection(firstUsername string, secondUsername string) *model.Connection {
 	var connection, _ = service.Repo.GetConnection(firstUsername, secondUsername)
-	var conn = connection[len(connection)-1]
+
 	if connection == nil {
 		return nil
 	} else {
+		var conn = connection[len(connection)-1]
 		return conn
 	}
 

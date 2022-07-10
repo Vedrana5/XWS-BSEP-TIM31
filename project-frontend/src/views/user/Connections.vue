@@ -146,7 +146,7 @@ export default {
     async SearchUser(username) {
         this.username=username;
         this.firstname=localStorage.getItem("username")
-        await this.FindBlock(this.firstname,this.username);
+        this.FindBlock(this.firstname,this.username);
         console.log("qqqq je:"+this.block.FirstUsername);
         console.log("wwww je:"+this.block.SecondUsername);
        
@@ -165,17 +165,12 @@ export default {
                     .then (response => { 
                                 this.block.FirstUsername = response.data.block.FirstUsername;
                                 this.block.SecondUsername = response.data.block.SecondUsername;
-                                          if(this.block.FirstUsername!="" && this.block.SecondUsername!="") {
+                                          if(this.block.FirstUsername=="" && this.block.SecondUsername=="") {
                                             this.FindThisUser(username);
                                             this.FindConnection(this.firstname,this.username);
                                             }
                     })
-          }
-          else {
-            console.log("JA USLA hereee")
-            this.FindThisUser(username);
-            this.FindConnection(this.firstname,this.username);
-        }  
+          } 
       })    
 
     },
