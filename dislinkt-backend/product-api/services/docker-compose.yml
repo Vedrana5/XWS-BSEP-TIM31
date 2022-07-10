@@ -1,0 +1,108 @@
+version: '3.7'
+services:
+
+
+  api_gateway:
+    image: api_gateway
+    container_name: api_gateway
+    build:
+      context: .
+      dockerfile: ./api_gateway/Dockerfile
+    restart: always
+    ports:
+      - '9090:9090'
+    environment:
+      GATEWAY_PORT: "9090"
+      USER_SERVICE_PORT: "9091"
+      USER_SERVICE_HOST: "localhost"
+      POST_SERVICE_HOST: "localhost"
+      POST_SERVICE_PORT: "9092"
+      CONNECTION_SERVICE_PORT: "9099"
+      CONNECTION_SERVICE_HOST: "localhost"
+
+    networks:
+      - servers
+
+  post_service:
+    image: post_service
+    container_name: post_service
+    build:
+      context: .
+      dockerfile: ./post_service/Dockerfile
+    restart: always
+    ports:
+      - '9092:9092'
+    environment:
+      POST_DB_HOST: "post_db"
+      POST_DB_PORT: "27017"
+      POST_SERVICE_PORT: "9092"
+
+    depends_on:
+      - post_db
+    networks:
+      - servers
+
+  connection_service:
+    image: connection_service
+    container_name: connection_service
+    build:
+      context: .
+      dockerfile: ./connection_service/Dockerfile
+    restart: always
+    ports:
+      - '9099:9099'
+    environment:
+      POST_DB_HOST: "connection_db"
+      POST_DB_PORT: "27017"
+      POST_SERVICE_PORT: "9099"
+
+    depends_on:
+      - connection_db
+    networks:
+      - servers
+
+  post_db:
+    image: mongo
+    container_name: post_db
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - posts-data:/data/db
+    networks:
+      - servers
+  connection_db:
+    image: mongo
+    container_name: connection_db
+    restart: always
+    ports:
+      - '4003:27017'
+    volumes:
+      - connections-data:/data/db
+    networks:
+      - servers
+
+  user_db:
+    image: postgres:14.1-alpine
+    restart: always
+    networks:
+      - servers
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=fakultet
+    ports:
+      - '5432:5432'
+    volumes:
+      - user-data:/var/lib/postgresql/data
+
+volumes:
+    user-data:
+      name: user-database
+    posts-data:
+      name: posts-database
+    connections-data:
+        name: connections-database
+networks:
+  servers:
+    name: servers
+    driver: bridge
