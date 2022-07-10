@@ -11,6 +11,6 @@ func NewConfig() *Config {
 
 		Port:       "9092",
 		PostDBPort: "27017",
-		PostDBHost: "localhost",
+		PostDBHost: "post_db",
 	}
 }

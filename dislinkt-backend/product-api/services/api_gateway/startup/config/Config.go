@@ -13,11 +13,11 @@ type Config struct {
 func NewConfig() *Config {
 	return &Config{
 		Port:           "9090",
-		UserHost:       "localhost",
+		UserHost:       "user_service",
 		UserPort:       "9091",
-		PostHost:       "localhost",
+		PostHost:       "post_service",
 		PostPort:       "9092",
-		ConnectionHost: "localhost",
+		ConnectionHost: "connection_service",
 		ConnectionPort: "9099",
 	}
 }

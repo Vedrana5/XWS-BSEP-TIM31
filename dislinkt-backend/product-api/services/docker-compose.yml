@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.8"
 services:
 
 
@@ -14,11 +14,11 @@ services:
     environment:
       GATEWAY_PORT: "9090"
       USER_SERVICE_PORT: "9091"
-      USER_SERVICE_HOST: "localhost"
-      POST_SERVICE_HOST: "localhost"
+      USER_SERVICE_HOST: "user_service"
       POST_SERVICE_PORT: "9092"
+      POST_SERVICE_HOST: "post_service"
       CONNECTION_SERVICE_PORT: "9099"
-      CONNECTION_SERVICE_HOST: "localhost"
+      CONNECTION_SERVICE_HOST: "connection_service"
 
     networks:
       - servers
@@ -52,9 +52,9 @@ services:
     ports:
       - '9099:9099'
     environment:
-      POST_DB_HOST: "connection_db"
-      POST_DB_PORT: "27017"
-      POST_SERVICE_PORT: "9099"
+      CONNECTION_DB_HOST: "connection_db"
+      CONNECTION_DB_PORT: "27017"
+      CONNECTION_SERVICE_PORT: "9099"
 
     depends_on:
       - connection_db
@@ -66,11 +66,12 @@ services:
     container_name: post_db
     restart: always
     ports:
-      - '27017:27017'
+      - '4001:27017'
     volumes:
       - posts-data:/data/db
     networks:
       - servers
+
   connection_db:
     image: mongo
     container_name: connection_db
